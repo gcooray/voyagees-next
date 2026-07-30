@@ -1,0 +1,83 @@
+.how-it-works {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+}
+
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+   /* your theme red */
+}
+
+.steps-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+.step {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgb(224 62 62 / 0.15);
+  flex: 0 0 18%;
+  min-width: 180px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+}
+
+.step:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 15px rgb(224 62 62 / 0.3);
+}
+
+.step-number {
+  display: inline-block;
+  background-color: #E03E3E; /* red */
+  color: white;
+  font-weight: 700;
+  font-size: 1.25rem;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.step h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #B22222; /* darker red */
+}
+
+.step p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #555;
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 768px) {
+  .steps-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .step {
+    flex: 1 1 100%;
+    max-width: 500px;
+    min-width: auto;
+    margin-bottom: 1.5rem;
+  }
+}

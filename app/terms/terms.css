@@ -1,0 +1,45 @@
+.terms-page {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", sans-serif;
+  line-height: 1.6;
+  color: #111; /* Default text black */
+}
+
+.terms-page h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: #b30000; /* Deep red */
+  border-bottom: 2px solid #b30000;
+  padding-bottom: 0.3rem;
+}
+
+.terms-page h2 {
+  margin-top: 2rem;
+  color: #b30000; /* Deep red */
+  font-size: 1.4rem;
+}
+
+.terms-page ul {
+  list-style: disc;
+  margin-left: 1.5rem;
+  color: #111;
+}
+
+.terms-page li {
+  margin-bottom: 0.8rem;
+}
+
+.terms-page a {
+  color: #b30000;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.terms-page a:hover {
+  color: #800000;
+}

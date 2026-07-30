@@ -1,0 +1,96 @@
+/* Contact.css */
+
+.contact-page {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 32px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffff; /* white background */
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  color: #4a4a4a; /* dark grey text */
+}
+
+.contact-page h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #cc0000; /* red */
+}
+
+.contact-page p {
+  margin-bottom: 20px;
+  color: #666666; /* medium grey */
+  line-height: 1.6;
+}
+
+.contact-form textarea {
+  width: 100%;
+  height: 160px;
+  padding: 14px;
+  border: 1px solid #cccccc; /* light grey */
+  border-radius: 8px;
+  resize: none;
+  font-size: 1rem;
+  font-family: inherit;
+  margin-bottom: 20px;
+  background-color: #f9f9f9; /* very light grey */
+  color: #333333; /* dark grey */
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.contact-form textarea::placeholder {
+  color: #999999; /* grey placeholder */
+}
+
+.contact-form textarea:focus {
+  border-color: #cc0000; /* red */
+  background-color: #ffffff; /* white */
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(204, 0, 0, 0.3);
+}
+
+.contact-form button {
+  background-color: #cc0000; /* red */
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.contact-form button:hover {
+  background-color: #990000; /* darker red */
+}
+
+.success-message {
+  color: #008000; /* green for success */
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.contact-details {
+  font-size: 0.95rem;
+  color: #666666; /* medium grey */
+  margin-top: 30px;
+  line-height: 1.5;
+}
+
+.contact-details a {
+  color: #cc0000; /* red */
+  text-decoration: none;
+  font-weight: 600;
+  transition: text-decoration 0.2s ease;
+}
+
+.contact-details a:hover {
+  text-decoration: underline;
+}
+
+.contact-details .whatsapp {
+  color: #25d366; /* WhatsApp green */
+  font-weight: 700;
+}
