@@ -1,46 +1,30 @@
-import { touristDestinations } from "@/data/touristDestinations";
-
 export default function sitemap() {
   const baseUrl = "https://www.voyagees.com";
 
-  const staticPages = [
+  return [
     {
       url: baseUrl,
-      changeFrequency: "weekly",
-      priority: 1,
+      lastModified: new Date(),
     },
     {
       url: `${baseUrl}/about`,
-      changeFrequency: "monthly",
-      priority: 0.8,
+      lastModified: new Date(),
     },
     {
       url: `${baseUrl}/contact`,
-      changeFrequency: "monthly",
-      priority: 0.7,
+      lastModified: new Date(),
     },
     {
       url: `${baseUrl}/explore-sri-lanka`,
-      changeFrequency: "weekly",
-      priority: 0.9,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/plan-trip`,
+      lastModified: new Date(),
     },
     {
       url: `${baseUrl}/terms`,
-      changeFrequency: "yearly",
-      priority: 0.3,
+      lastModified: new Date(),
     },
   ];
-
-  const destinationPages = (touristDestinations || [])
-    .filter((destination) => destination.slug)
-    .map((destination) => ({
-      url: `${baseUrl}/destinations/${destination.slug}`,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    }));
-
-  return [...staticPages, ...destinationPages].map((page) => ({
-    ...page,
-    lastModified: new Date(),
-  }));
 }
