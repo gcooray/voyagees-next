@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Explore Sri Lanka with Private Drivers and Guides | Voyagees",
+  title: "Explore Sri Lanka with Private Drivers and Guides | VoyaGees",
   description:
     "Discover Voyagees – connect with trusted local drivers and tour guides in Sri Lanka. Personalized trips, fair pricing, and authentic experiences.",
   alternates: {
