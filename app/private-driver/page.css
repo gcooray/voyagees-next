@@ -1,0 +1,693 @@
+/* =========================================================
+   VOYAGEES — PRIVATE DRIVER PAGE
+   Premium editorial travel design
+========================================================= */
+
+.private-driver-page {
+  --red: #cc0000;
+  --black: #101010;
+  --cream: #f5f2ec;
+  --white: #ffffff;
+  --gray: #686868;
+  --light-gray: #dddddd;
+
+  background: var(--cream);
+  color: var(--black);
+
+  overflow: hidden;
+}
+
+.private-driver-page * {
+  box-sizing: border-box;
+}
+
+.private-driver-page p {
+  margin-top: 0;
+}
+
+.private-driver-page strong {
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.pd-hero {
+  position: relative;
+
+  min-height: 82vh;
+
+  display: flex;
+  align-items: flex-end;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.78) 0%,
+      rgba(0, 0, 0, 0.45) 55%,
+      rgba(0, 0, 0, 0.25) 100%
+    ),
+    url("/images/home/driver.jpg");
+
+  background-size: cover;
+  background-position: center;
+
+  color: white;
+}
+
+.pd-hero-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.62),
+      rgba(0, 0, 0, 0.05) 65%
+    );
+}
+
+.pd-hero-content {
+  position: relative;
+  z-index: 2;
+
+  width: min(1200px, 90%);
+
+  margin: 0 auto;
+
+  padding: 150px 0 100px;
+}
+
+.pd-eyebrow {
+  margin: 0 0 25px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.22em;
+
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.pd-eyebrow.pd-dark {
+  color: var(--red);
+}
+
+.pd-hero h1 {
+  max-width: 1050px;
+
+  margin: 0;
+
+  font-size: clamp(55px, 8vw, 125px);
+
+  line-height: 0.88;
+
+  letter-spacing: -0.06em;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   GENERAL SECTION STRUCTURE
+========================================================= */
+
+.pd-white-section,
+.pd-cream-section,
+.pd-dark-section {
+  padding: 150px 9%;
+}
+
+.pd-white-section {
+  background: var(--white);
+}
+
+.pd-cream-section {
+  background: var(--cream);
+}
+
+.pd-dark-section {
+  background: var(--black);
+  color: white;
+}
+
+.pd-section-heading {
+  max-width: 1050px;
+
+  margin: 0 auto 90px;
+}
+
+.pd-section-heading h2 {
+  margin: 0;
+
+  max-width: 1000px;
+
+  font-size: clamp(48px, 6vw, 92px);
+
+  line-height: 0.94;
+
+  letter-spacing: -0.055em;
+}
+
+.pd-section-heading.pd-light h2 {
+  color: white;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.pd-intro-section {
+  display: grid;
+
+  grid-template-columns: 1fr 2fr;
+
+  gap: 80px;
+
+  padding: 150px 9%;
+
+  background: var(--cream);
+}
+
+.pd-section-number {
+  color: var(--red);
+
+  font-size: 14px;
+  font-weight: 700;
+
+  letter-spacing: 0.2em;
+}
+
+.pd-content {
+  max-width: 900px;
+}
+
+.pd-lead {
+  max-width: 780px;
+
+  margin: 35px 0 55px;
+
+  font-size: 26px;
+
+  line-height: 1.55;
+
+  letter-spacing: -0.015em;
+
+  color: #333;
+}
+
+.pd-driver-intro {
+  max-width: 700px;
+
+  border-top: 1px solid #d7d3cb;
+
+  padding-top: 40px;
+}
+
+.pd-driver-intro p {
+  font-size: 18px;
+
+  line-height: 1.7;
+
+  color: #555;
+}
+
+.pd-driver-intro ul {
+  margin: 25px 0 35px;
+
+  padding: 0;
+
+  list-style: none;
+}
+
+.pd-driver-intro li {
+  position: relative;
+
+  padding: 16px 0 16px 30px;
+
+  border-bottom: 1px solid #ddd;
+
+  font-size: 18px;
+
+  font-weight: 600;
+}
+
+.pd-driver-intro li::before {
+  content: "→";
+
+  position: absolute;
+
+  left: 0;
+
+  color: var(--red);
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   BENEFITS
+========================================================= */
+
+.pd-benefits-grid {
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  border-top: 1px solid var(--light-gray);
+}
+
+.pd-benefit {
+  padding: 50px 45px 55px 0;
+
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.pd-benefit:nth-child(odd) {
+  padding-right: 60px;
+
+  border-right: 1px solid var(--light-gray);
+}
+
+.pd-benefit:nth-child(even) {
+  padding-left: 60px;
+}
+
+.pd-benefit:last-child {
+  grid-column: 1 / -1;
+
+  max-width: 50%;
+
+  border-right: none;
+}
+
+.pd-benefit > span {
+  display: block;
+
+  margin-bottom: 25px;
+
+  color: var(--red);
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.15em;
+}
+
+.pd-benefit h3 {
+  margin: 0 0 20px;
+
+  font-size: clamp(27px, 3vw, 42px);
+
+  line-height: 1;
+
+  letter-spacing: -0.04em;
+}
+
+.pd-benefit p {
+  margin: 0;
+
+  max-width: 520px;
+
+  color: #666;
+
+  font-size: 16px;
+
+  line-height: 1.75;
+}
+
+
+/* =========================================================
+   TEXT CONTENT
+========================================================= */
+
+.pd-text-content {
+  max-width: 850px;
+
+  margin: 0 auto;
+}
+
+.pd-text-content > p {
+  margin-bottom: 30px;
+
+  color: #555;
+
+  font-size: 18px;
+
+  line-height: 1.8;
+}
+
+.pd-text-content > p:first-child {
+  font-size: 21px;
+
+  color: #333;
+}
+
+.pd-text-content h3 {
+  margin: 80px 0 22px;
+
+  font-size: clamp(28px, 3vw, 44px);
+
+  line-height: 1.05;
+
+  letter-spacing: -0.035em;
+}
+
+.pd-text-content h3::before {
+  content: "—";
+
+  display: block;
+
+  margin-bottom: 15px;
+
+  color: var(--red);
+
+  font-size: 20px;
+}
+
+
+/* =========================================================
+   DARK SECTION
+========================================================= */
+
+.pd-dark-section .pd-text-content > p {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.pd-dark-section .pd-text-content > p:first-child {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.pd-dark-section .pd-text-content h3 {
+  color: white;
+}
+
+.pd-dark-section .pd-text-content h3::before {
+  color: var(--red);
+}
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+.pd-faq-list {
+  max-width: 1050px;
+
+  margin: 0 auto;
+
+  border-top: 1px solid #d7d7d7;
+}
+
+.pd-faq-list details {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.pd-faq-list summary {
+  position: relative;
+
+  padding: 35px 70px 35px 0;
+
+  cursor: pointer;
+
+  list-style: none;
+
+  font-size: clamp(20px, 2.2vw, 30px);
+
+  font-weight: 600;
+
+  line-height: 1.2;
+
+  letter-spacing: -0.025em;
+}
+
+.pd-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.pd-faq-list summary::after {
+  content: "+";
+
+  position: absolute;
+
+  right: 5px;
+  top: 30px;
+
+  font-size: 30px;
+
+  font-weight: 300;
+
+  color: var(--red);
+
+  transition: transform 0.3s ease;
+}
+
+.pd-faq-list details[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.pd-faq-list details p {
+  max-width: 800px;
+
+  margin: 0;
+
+  padding: 0 70px 40px 0;
+
+  color: #666;
+
+  font-size: 17px;
+
+  line-height: 1.75;
+}
+
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.pd-final-section {
+  position: relative;
+
+  min-height: 75vh;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  color: white;
+
+  background:
+    url("/images/home/final.jpg")
+    center / cover no-repeat;
+}
+
+.pd-final-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.52);
+}
+
+.pd-final-content {
+  position: relative;
+
+  z-index: 2;
+
+  width: 90%;
+}
+
+.pd-final-content h2 {
+  margin: 0;
+
+  font-size: clamp(65px, 10vw, 150px);
+
+  line-height: 0.83;
+
+  letter-spacing: -0.065em;
+}
+
+.pd-final-content h2 span {
+  color: var(--red);
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .pd-hero {
+    min-height: 720px;
+  }
+
+  .pd-hero-content {
+    padding: 120px 0 80px;
+  }
+
+  .pd-intro-section {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+
+    padding: 100px 8%;
+  }
+
+  .pd-white-section,
+  .pd-cream-section,
+  .pd-dark-section {
+    padding: 100px 8%;
+  }
+
+  .pd-section-heading {
+    margin-bottom: 70px;
+  }
+
+  .pd-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pd-benefit,
+  .pd-benefit:nth-child(odd),
+  .pd-benefit:nth-child(even) {
+    max-width: none;
+
+    padding: 40px 0;
+
+    border-right: none;
+  }
+
+  .pd-benefit:last-child {
+    grid-column: auto;
+  }
+
+  .pd-text-content {
+    max-width: 800px;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .pd-hero {
+    min-height: 680px;
+
+    background-position: 60% center;
+  }
+
+  .pd-hero-content {
+    width: 86%;
+
+    padding: 100px 0 65px;
+  }
+
+  .pd-hero h1 {
+    font-size: clamp(48px, 14vw, 75px);
+
+    line-height: 0.9;
+  }
+
+  .pd-eyebrow {
+    font-size: 10px;
+
+    letter-spacing: 0.17em;
+
+    margin-bottom: 20px;
+  }
+
+  .pd-intro-section {
+    padding: 80px 7%;
+  }
+
+  .pd-lead {
+    font-size: 21px;
+
+    line-height: 1.55;
+  }
+
+  .pd-white-section,
+  .pd-cream-section,
+  .pd-dark-section {
+    padding: 80px 7%;
+  }
+
+  .pd-section-heading {
+    margin-bottom: 55px;
+  }
+
+  .pd-section-heading h2 {
+    font-size: 48px;
+
+    line-height: 0.95;
+  }
+
+  .pd-benefit h3 {
+    font-size: 31px;
+  }
+
+  .pd-benefit p {
+    font-size: 16px;
+
+    line-height: 1.7;
+  }
+
+  .pd-text-content > p {
+    font-size: 17px;
+
+    line-height: 1.75;
+  }
+
+  .pd-text-content > p:first-child {
+    font-size: 19px;
+  }
+
+  .pd-text-content h3 {
+    margin-top: 60px;
+
+    font-size: 30px;
+  }
+
+  .pd-faq-list summary {
+    padding: 28px 50px 28px 0;
+
+    font-size: 21px;
+  }
+
+  .pd-faq-list summary::after {
+    top: 24px;
+
+    font-size: 27px;
+  }
+
+  .pd-faq-list details p {
+    padding-bottom: 30px;
+
+    font-size: 16px;
+  }
+
+  .pd-final-section {
+    min-height: 650px;
+  }
+
+  .pd-final-content h2 {
+    font-size: 68px;
+  }
+}

@@ -28,16 +28,90 @@ import "./DriverModal.css";
 
 export default function DriverModal({
   driver,
-  pickup,
-  dropoff,
   pickupDate,
   pickupTime,
   dropoffDate,
   dropoffTime,
   itinerary,
+  locale = "en",
   onClose
 }) {
   const router = useRouter();
+
+const isFrench = locale === "fr";
+
+const t = {
+  driverDetails: isFrench ? "Détails du chauffeur" : "Driver Details",
+  name: isFrench ? "Nom" : "Name",
+  languages: isFrench ? "Langues parlées" : "Languages Spoken",
+  about: isFrench ? "À propos de moi" : "About me",
+  noDescription: isFrench
+    ? "Aucune description disponible."
+    : "No description provided.",
+
+  carDetails: isFrench ? "Détails du véhicule" : "Car Details",
+  makeYear: isFrench ? "Marque et année" : "Make & Year",
+  passengers: isFrench ? "Passagers" : "Passengers",
+  luggage: isFrench ? "Bagages" : "Luggage",
+  description: isFrench ? "Description" : "Description",
+
+  tripDetails: isFrench ? "Détails du voyage" : "Trip Details",
+  pickup: isFrench ? "Départ" : "Pickup",
+  dropoff: isFrench ? "Arrivée" : "Dropoff",
+  tripLength: isFrench ? "Durée du voyage" : "Trip Length",
+  day: isFrench ? "jour" : "day",
+  days: isFrench ? "jours" : "days",
+  dailyPrice: isFrench ? "Prix par jour" : "Daily Price",
+  totalPrice: isFrench ? "Prix total" : "Total Price",
+  includedKm: isFrench ? "Kilomètres inclus" : "Included KM",
+
+  included: isFrench ? "INCLUS" : "INCLUDED",
+  notIncluded: isFrench ? "NON INCLUS" : "NOT INCLUDED",
+
+  fuel: isFrench ? "Carburant" : "Fuel",
+  parking: isFrench ? "Stationnement" : "Parking",
+  tolls: isFrench ? "Péages" : "Toll charges",
+  accommodation: isFrench
+    ? "Hébergement du chauffeur"
+    : "Driver accommodation",
+
+  extraDistance: isFrench
+    ? "Distance au-delà de"
+    : "Distance over",
+
+  perKm: isFrench ? "par km" : "per km",
+  perDay: isFrench ? "par jour" : "per day",
+
+  afterRental: isFrench
+    ? "APRÈS LA LOCATION"
+    : "AFTER THE RENTAL",
+
+  feesMayApply: isFrench
+    ? "Des frais supplémentaires peuvent s'appliquer si votre voyage dépasse les kilomètres inclus"
+    : "Fees may apply if your tour exceeds included KM",
+
+  accommodationNotProvided: isFrench
+    ? "ou si l'hébergement du chauffeur n'a pas été prévu."
+    : "or if driver accommodation wasn’t provided.",
+
+  selectedItinerary: isFrench
+    ? "Itinéraire sélectionné"
+    : "Selected Itinerary",
+
+  noActivities: isFrench
+    ? "Aucune activité indiquée"
+    : "No activities listed",
+
+  continueBooking: isFrench
+    ? "Continuer la réservation"
+    : "Continue Booking",
+
+  loading: isFrench ? "Chargement..." : "Loading...",
+
+  failedRequest: isFrench
+    ? "Échec de l'envoi de la demande"
+    : "Failed to send request",
+};
 
   const [commissionPercent, setCommissionPercent] =
     useState(10);
@@ -117,220 +191,60 @@ export default function DriverModal({
   const accommodationIncluded =
     driver.accommodationIncluded === true;
 
-  // FULL DETAILS
-
-  const generateFullTripDetails = () => {
-    return `
-🚗 Driver: ${driver?.name || "N/A"}
-
-Languages:
-${driver?.languages?.join(", ") || "N/A"}
-
-Vehicle:
-${driver?.carMake || ""} ${driver?.carModel || ""} (${driver?.carYear || "N/A"})
-
-Passengers:
-${driver?.seats || "N/A"}
-
-Daily Price:
-LKR ${(
-      pricePerDay *
-      (1 + commissionPercent / 100)
-    ).toFixed(2)}
-
-Total Price:
-LKR ${finalTotalPrice.toFixed(2)}
-
-📅 Trip Details
-
-Pickup:
-${pickupDate || "N/A"} at ${
-      pickupTime || "N/A"
-    }
-
-Dropoff:
-${dropoffDate || "N/A"} at ${
-      dropoffTime || "N/A"
-    }
-
-Pickup Location:
-${pickup || "N/A"}
-
-Dropoff Location:
-${dropoff || "N/A"}
-
-Trip Length:
-${numberOfDays} day${
-      numberOfDays > 1 ? "s" : ""
-    }
-
-Included KM:
-${totalKm} km
-
-✅ INCLUDED
-• Fuel
-• Parking
-• Toll charges
-${
-  accommodationIncluded
-    ? "• Driver accommodation"
-    : ""
-}
-
-❌ NOT INCLUDED
-• Extra KM beyond ${totalKm} km
-${
-  !accommodationIncluded
-    ? `• Driver accommodation – LKR ${
-        driver?.dailyAccommodationPrice ||
-        "N/A"
-      } per day`
-    : ""
-}
-
-📌 AFTER THE RENTAL
-Fees may apply if extra KM used
-${
-  !accommodationIncluded
-    ? "or if driver accommodation wasn’t arranged."
-    : ""
-}
-
-🗺️ Itinerary:
-${itinerary?.name || "None selected"}
-
-${
-  itinerary?.stops
-    ?.map(
-      (stop) =>
-        `• ${stop.name}: ${
-          stop.activities?.join(", ") ||
-          "No activities listed"
-        }`
-    )
-    .join("\n") || ""
-}
-    `;
-  };
-
   // HANDLE REQUEST
 
-  const handleRequest = async () => {
-    try {
-      setLoading(true);
+const handleRequest = () => {
+  try {
+    const params = new URLSearchParams();
 
-      // SAVE SAFE VALUES ONLY
+    params.set(
+      "driverId",
+      String(driver.id)
+    );
 
-      const requestData = {
-        driverId: driver?.id || "",
+    params.set(
+      "pickupDate",
+      pickupDate || ""
+    );
 
-        driverName:
-          driver?.name || "",
+    params.set(
+      "pickupTime",
+      pickupTime || ""
+    );
 
-        driverEmail:
-          driver?.email || "",
+    params.set(
+      "dropoffDate",
+      dropoffDate || ""
+    );
 
-        pickup: pickup || "",
+    params.set(
+      "dropoffTime",
+      dropoffTime || ""
+    );
 
-        dropoff: dropoff || "",
+    params.set(
+      "commissionPercent",
+      String(commissionPercent)
+    );
 
-        pickupDate:
-          pickupDate || "",
-
-        pickupTime:
-          pickupTime || "",
-
-        dropoffDate:
-          dropoffDate || "",
-
-        dropoffTime:
-          dropoffTime || "",
-
-        itinerary:
-          itinerary || null,
-
-        totalPrice:
-          finalTotalPrice || 0,
-
-        status: "pending",
-
-        createdAt:
-          serverTimestamp(),
-
-        fullTripDetails:
-          generateFullTripDetails() || ""
-      };
-
-      // SAVE TO FIRESTORE
-
-      await addDoc(
-        collection(
-          db,
-          "bookingRequests"
-        ),
-        requestData
+    if (itinerary) {
+      params.set(
+        "itinerary",
+        JSON.stringify(itinerary)
       );
-
-      // SEND TO REQUEST PAGE
-
-      const params =
-        new URLSearchParams({
-          driver: encodeURIComponent(
-            JSON.stringify(driver)
-          ),
-
-          pickup:
-            pickup || "",
-
-          dropoff:
-            dropoff || "",
-
-          pickupDate:
-            pickupDate || "",
-
-          pickupTime:
-            pickupTime || "",
-
-          dropoffDate:
-            dropoffDate || "",
-
-          dropoffTime:
-            dropoffTime || "",
-
-          commissionPercent:
-            String(
-              commissionPercent
-            ),
-
-          fullTripDetails:
-            generateFullTripDetails(),
-
-          itinerary:
-            itinerary
-              ? encodeURIComponent(
-                  JSON.stringify(
-                    itinerary
-                  )
-                )
-              : ""
-        });
-
-      router.push(
-        `/request?${params.toString()}`
-      );
-    } catch (error) {
-      console.error(
-        "Booking request error:",
-        error
-      );
-
-      alert(
-        "Failed to send request"
-      );
-    } finally {
-      setLoading(false);
     }
-  };
+
+    router.push(
+      `/request?${params.toString()}`
+    );
+
+  } catch (error) {
+    console.error(
+      "Request page error:",
+      error
+    );
+  }
+};
 
   return (
     <div
@@ -356,19 +270,16 @@ ${
 
         <div className="modal-section">
           <h3>
-            <User size={18} /> Driver
-            Details
-          </h3>
+  <User size={18} /> {t.driverDetails}
+</h3>
 
           <p>
-            <strong>Name:</strong>{" "}
+            <strong>{t.name}:</strong>
             {driver.name}
           </p>
 
           <p>
-            <strong>
-              Languages Spoken:
-            </strong>{" "}
+            <strong>{t.languages}:</strong>
             {driver.languages?.join(
               ", "
             ) || "N/A"}
@@ -387,7 +298,7 @@ ${
           )}
 
           <p>
-            <strong>About me:</strong>{" "}
+            <strong>{t.about}:</strong>
             {driver.about ||
               "No description provided."}
           </p>
@@ -397,39 +308,30 @@ ${
 
         <div className="modal-section">
           <h3>
-            <Car size={18} /> Car
-            Details
-          </h3>
+  <Car size={18} /> {t.carDetails}
+</h3>
 
           <p>
-            <strong>
-              Make & Year:
-            </strong>{" "}
+            <strong>{t.makeYear}:</strong>
             {driver.carMake}{" "}
             {driver.carModel} -{" "}
             {driver.carYear}
           </p>
 
           <p>
-            <strong>
-              Passengers:
-            </strong>{" "}
+            <strong>{t.passengers}:</strong>
             {driver.seats}
           </p>
 
           <p>
-            <strong>
-              Luggage:
-            </strong>{" "}
+            <strong>{t.luggage}:</strong>
             {
               driver.luggageCapacity
             }
           </p>
 
           <p>
-            <strong>
-              Description:
-            </strong>{" "}
+            <strong>{t.description}:</strong>
             {driver.carDescription ||
               "No description provided."}
           </p>
@@ -455,15 +357,12 @@ ${
 
         <div className="modal-section">
           <h3>
-            <Info size={18} /> Trip
-            Details
-          </h3>
+  <Info size={18} /> {t.tripDetails}
+</h3>
 
           <p>
             <CalendarDays size={16} />{" "}
-            <strong>
-              Pickup:
-            </strong>{" "}
+            <strong>{t.pickup}:</strong>
             {pickupDate} at{" "}
             {pickupTime ||
               "N/A"}
@@ -471,18 +370,14 @@ ${
 
           <p>
             <CalendarDays size={16} />{" "}
-            <strong>
-              Dropoff:
-            </strong>{" "}
+            <strong>{t.dropoff}:</strong>
             {dropoffDate} at{" "}
             {dropoffTime ||
               "N/A"}
           </p>
 
           <p>
-            <strong>
-              Trip Length:
-            </strong>{" "}
+            <strong>{t.tripLength}:</strong>
             {numberOfDays}{" "}
             {numberOfDays > 1
               ? "days"
@@ -490,9 +385,7 @@ ${
           </p>
 
           <p>
-            <strong>
-              Daily Price:
-            </strong>{" "}
+            <strong>{t.dailyPrice}:</strong>
             LKR{" "}
             {(
               pricePerDay *
@@ -503,9 +396,7 @@ ${
           </p>
 
           <p>
-            <strong>
-              Total Price:
-            </strong>{" "}
+            <strong>{t.totalPrice}:</strong>
             LKR{" "}
             {finalTotalPrice.toFixed(
               2
@@ -513,96 +404,68 @@ ${
           </p>
 
           <p>
-            <strong>
-              Included KM:
-            </strong>{" "}
+            <strong>{t.includedKm}:</strong>
             {totalKm} km
           </p>
 
           <br />
 
           <p>
-            <CheckCircle
-              size={16}
-            />{" "}
-            <strong>
-              INCLUDED
-            </strong>
-          </p>
+  <CheckCircle size={16} />{" "}
+  <strong>{t.included}</strong>
+</p>
 
-          <ul>
-            <li>
-              {totalKm} km
-            </li>
+<ul>
+  <li>{totalKm} km</li>
 
-            <li>
-              <Fuel size={14} />{" "}
-              Fuel
-            </li>
+  <li>
+    <Fuel size={14} /> {t.fuel}
+  </li>
 
-            <li>
-              Toll charges
-            </li>
+  <li>{t.tolls}</li>
 
-            <li>Parking</li>
+  <li>{t.parking}</li>
 
-            {accommodationIncluded && (
-              <li>
-                Driver
-                accommodation
-                included
-              </li>
-            )}
-          </ul>
+  {accommodationIncluded && (
+    <li>{t.accommodation} inclus</li>
+  )}
+</ul>
 
           <br />
 
           <p>
-            <XCircle
-              size={16}
-            />{" "}
-            <strong>
-              NOT INCLUDED
-            </strong>
-          </p>
+  <XCircle size={16} />{" "}
+  <strong>{t.notIncluded}</strong>
+</p>
 
-          <ul>
-            <li>
-              Distance over{" "}
-              {totalKm} km — LKR{" "}
-              {extraKm}/km
-            </li>
+<ul>
+  <li>
+    {t.extraDistance} {totalKm} km — LKR{" "}
+    {extraKm}/{t.perKm}
+  </li>
 
-            {!accommodationIncluded && (
-              <li>
-                Driver
-                accommodation
-                not included —
-                LKR{" "}
-                {driver.dailyAccommodationPrice ||
-                  "N/A"}{" "}
-                per day
-              </li>
-            )}
-          </ul>
+  {!accommodationIncluded && (
+    <li>
+      {t.accommodation} non inclus — LKR{" "}
+      {driver.dailyAccommodationPrice || "N/A"}{" "}
+      {t.perDay}
+    </li>
+  )}
+</ul>
 
           <br />
 
           <p className="icon-info">
-            <Info />{" "}
-            <strong>
-              AFTER THE RENTAL
-            </strong>
-          </p>
+  <Info />{" "}
+  <strong>{t.afterRental}</strong>
+</p>
 
-          <p>
-            Fees may apply if
-            your tour exceeds
-            included KM
-            {!accommodationIncluded
-              ? " or if driver accommodation wasn’t provided."
-              : "."}
-          </p>
+<p>
+  {t.feesMayApply}
+  {!accommodationIncluded
+    ? ` ${t.accommodationNotProvided}`
+    : "."}
+</p>
         </div>
 
         {/* ITINERARY */}
@@ -655,9 +518,7 @@ ${
             }
             disabled={loading}
           >
-            {loading
-              ? "Loading..."
-              : "Continue Booking"}
+            {loading ? t.loading : t.continueBooking}
           </button>
         </div>
       </div>

@@ -22,12 +22,14 @@ function SearchForm({
   dropoffDate,
   pickupTime,
   dropoffTime,
+  passengers,
   setPickup,
   setDropoff,
   setPickupDate,
   setDropoffDate,
   setPickupTime,
   setDropoffTime,
+  setPassengers,
   handleSearch,
 }) {
   const timeOptions = generateTimeOptions();
@@ -44,10 +46,6 @@ function SearchForm({
     <section className="search-hero">
       <div className="search-overlay">
         <div className="form-panel">
-          <h1 className="hero-title">Private Drivers & Tours across Sri Lanka</h1>
-          <p className="hero-subtitle">
-            Travel safely and affordably with certified local drivers in clean vehicles.
-          </p>
 
           <form onSubmit={handleSearch}>
             {/* <div className="row">
@@ -65,6 +63,36 @@ function SearchForm({
     <LocationAutocomplete value={dropoff} onChange={setDropoff} />
   </div>
 </div> */}
+
+<div className="row">
+
+  <div className="form-group small">
+    <label>
+      Passengers
+    </label>
+
+    <select
+      value={passengers}
+      onChange={(e) => setPassengers(e.target.value)}
+      required
+    >
+      <option value="" disabled>
+        Select passengers
+      </option>
+
+      {Array.from({ length: 12 }, (_, index) => {
+        const number = index + 1;
+
+        return (
+          <option key={number} value={number}>
+            {number} {number === 1 ? "Passenger" : "Passengers"}
+          </option>
+        );
+      })}
+    </select>
+  </div>
+
+</div>
 
             <div className="row">
               <div className="form-group small with-icon">

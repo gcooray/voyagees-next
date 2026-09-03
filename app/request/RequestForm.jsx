@@ -1,7 +1,7 @@
 "use client";
-
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { drivers } from "@/data/drivers";
 
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -15,18 +15,23 @@ export default function RequestPage() {
   const searchParams = useSearchParams();
 
   const safeParse = (value) => {
-    try {
-      return value ? JSON.parse(decodeURIComponent(value)) : null;
-    } catch {
-      return null;
-    }
-  };
+  try {
+    return value ? JSON.parse(value) : null;
+  } catch (error) {
+    console.error("Failed to parse driver:", error);
+    return null;
+  }
+};
 
-  const driver = safeParse(searchParams.get("driver"));
+  const driverId = searchParams.get("driverId");
+
+const driver = drivers.find(
+  (d) => String(d.id) === String(driverId)
+);
   const itinerary = safeParse(searchParams.get("itinerary"));
 
-  const pickup = searchParams.get("pickup") || "";
-  const dropoff = searchParams.get("dropoff") || "";
+  const [pickup, setPickup] = useState("");
+  const [dropoff, setDropoff] = useState("");
 
   const pickupDate = searchParams.get("pickupDate") || "";
   const pickupTime = searchParams.get("pickupTime") || "";
@@ -50,13 +55,15 @@ export default function RequestPage() {
   const [requestId, setRequestId] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
 
-  useEffect(() => {
-    if (!driver || !pickupDate || !dropoffDate) {
-      router.push("/");
-    }
-  }, [driver, pickupDate, dropoffDate, router]);
 
-  if (!driver) return null;
+  if (!driver) {
+  return (
+    <div style={{ padding: "40px", textAlign: "center" }}>
+      <h2>Unable to load booking details</h2>
+      <p>Please go back and select a driver again.</p>
+    </div>
+  );
+}
 
   // ---------------- PRICE ----------------
   const tripDays = Math.max(
@@ -89,21 +96,26 @@ export default function RequestPage() {
       }`
     : "";
 
-  const tripDetails =
-    (
-      fullTripDetails ||
-      `
+  const tripDetails = `
 🚗 Driver: ${driver.name}
 
-Pickup: ${pickupDate} at ${pickupTime || "N/A"}
-Dropoff: ${dropoffDate} at ${dropoffTime || "N/A"}
+📍 Pickup:
+${pickup}
+
+📍 Drop-off:
+${dropoff}
+
+📅 Pickup:
+${pickupDate} at ${pickupTime || "N/A"}
+
+📅 Drop-off:
+${dropoffDate} at ${dropoffTime || "N/A"}
 
 Days: ${tripDays}
 Total: LKR ${totalPrice.toFixed(2)}
 
 Included KM: ${includedKm} km
-`
-    ).trim() + itineraryDetails;
+`.trim() + itineraryDetails;
 
   // ---------------- SUBMIT ----------------
   const handleSubmit = async (e) => {
@@ -267,14 +279,30 @@ Included KM: ${includedKm} km
       >
         <h2>Send Booking Request</h2>
 
-        <input
-          required
-          placeholder="Full Name"
-          value={fullName}
-          onChange={(e) =>
-            setFullName(e.target.value)
-          }
-        />
+<h3>Your Journey</h3>
+
+<input
+  required
+  placeholder="Pickup location"
+  value={pickup}
+  onChange={(e) => setPickup(e.target.value)}
+/>
+
+<input
+  required
+  placeholder="Drop-off location"
+  value={dropoff}
+  onChange={(e) => setDropoff(e.target.value)}
+/>
+
+<h3>Your Details</h3>
+
+<input
+  required
+  placeholder="Full Name"
+  value={fullName}
+  onChange={(e) => setFullName(e.target.value)}
+/>
 
         <input
           required

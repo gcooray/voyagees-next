@@ -2,10 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import "leaflet/dist/leaflet.css";
 
 import { touristDestinations } from "@/data/touristDestinations";
+import { touristDestinationsFr } from "@/data/touristDestinationsFr";
 
 // ---------------- ICON CREATION ----------------
 const createIcon = (iconUrl) => {
@@ -92,39 +93,42 @@ function SetInitialView() {
 }
 
 
-// ---------------- FILTERS ----------------
-const filters = [
-  {
-    label: "All",
-    value: "all",
-  },
-  {
-    label: "Beaches",
-    value: "coastal_city",
-  },
-  {
-    label: "Heritage",
-    value: "heritage",
-  },
-  {
-    label: "Nature",
-    value: "national_park",
-  },
-  {
-    label: "Culture",
-    value: "cultural_city",
-  },
-  {
-    label: "Cities",
-    value: "city",
-  },
-];
-
-
 // ---------------- COMPONENT ----------------
 export default function TouristMap() {
 
   const router = useRouter();
+  const pathname = usePathname();
+
+const isFrench = pathname.startsWith("/fr/");
+
+// ---------------- FILTERS ----------------
+
+const filters = [
+  {
+    label: isFrench ? "Tous" : "All",
+    value: "all",
+  },
+  {
+    label: isFrench ? "Plages" : "Beaches",
+    value: "coastal_city",
+  },
+  {
+    label: isFrench ? "Patrimoine" : "Heritage",
+    value: "heritage",
+  },
+  {
+    label: isFrench ? "Nature" : "Nature",
+    value: "national_park",
+  },
+  {
+    label: isFrench ? "Culture" : "Culture",
+    value: "cultural_city",
+  },
+  {
+    label: isFrench ? "Villes" : "Cities",
+    value: "city",
+  },
+];
 
   const [
     filter,
@@ -149,21 +153,32 @@ export default function TouristMap() {
 
 
 
-  const filteredDestinations =
-    useMemo(() => {
+  const filteredDestinations = useMemo(() => {
+  const destinations =
+    filter === "all"
+      ? touristDestinations
+      : touristDestinations.filter(
+          (d) => d.type === filter
+        );
 
-      if (filter === "all") {
-        return touristDestinations;
-      }
+  return destinations.map((destination) => {
+    if (!isFrench) {
+      return destination;
+    }
 
+    const translation =
+      touristDestinationsFr[destination.name];
 
-      return touristDestinations.filter(
-        (d) =>
-          d.type === filter
-      );
-
-
-    }, [filter]);
+    return {
+      ...destination,
+      name:
+        translation?.name || destination.name,
+      description:
+        translation?.description ||
+        destination.description,
+    };
+  });
+}, [filter, isFrench]);
 
 
 
@@ -193,16 +208,19 @@ export default function TouristMap() {
       >
 
         <h1>
-          Explore Sri Lanka 🇱🇰
-        </h1>
+        {isFrench
+          ? "Explorer le Sri Lanka 🇱🇰"
+          : "Explore Sri Lanka 🇱🇰"}
+      </h1>
 
-        <p>
-          Discover destinations based on your interests
-        </p>
+      <p>
+        {isFrench
+          ? "Découvrez des destinations selon vos envies"
+          : "Discover destinations based on your interests"}
+      </p>
 
       </div>
-
-
+      
 
       <div
         style={{
@@ -260,87 +278,36 @@ export default function TouristMap() {
       >
 
         <MapContainer
+  center={center}
+  zoom={8}
+  minZoom={7}
+  maxBounds={sriLankaBounds}
+  maxBoundsViscosity={1}
+  style={{
+    height: "100%",
+    width: "100%",
+  }}
+>
+  <TileLayer
+    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  />
 
-          center={center}
+  <SetInitialView />
 
-          zoom={8}
-
-          minZoom={7}
-
-          maxBounds={
-            sriLankaBounds
-          }
-
-          maxBoundsViscosity={1}
-
-          style={{
-            height:"100%",
-            width:"100%"
-          }}
-
-        >
-
-
-          <TileLayer
-
-            url=
-            "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-
-          />
-
-
-          <SetInitialView />
-
-
-
-          {
-            filteredDestinations.map(
-              (spot)=>(
-
-                <Marker
-
-                  key={
-                    spot.slug
-                  }
-
-
-                  position={[
-                    spot.lat,
-                    spot.lng
-                  ]}
-
-
-                  icon={
-                    icons[spot.type] ||
-                    icons.default
-                  }
-
-
-                  eventHandlers={{
-
-                    mouseover:()=> 
-                      setHovered(spot),
-
-
-                    mouseout:()=> 
-                      setHovered(null),
-
-
-                    click:()=> 
-                      handleNavigate(
-                        spot.slug
-                      )
-
-                  }}
-
-                />
-
-              )
-            )
-          }
-
-
-        </MapContainer>
+  {filteredDestinations.map((spot) => (
+    <Marker
+      key={spot.slug}
+      position={[spot.lat, spot.lng]}
+      icon={icons[spot.type] || icons.default}
+      eventHandlers={{
+        mouseover: () => setHovered(spot),
+        mouseout: () => setHovered(null),
+        click: () => handleNavigate(spot.slug),
+      }}
+    />
+  ))}
+</MapContainer>
 
       </div>
 
@@ -438,7 +405,7 @@ export default function TouristMap() {
 
               >
 
-                Explore
+                {isFrench ? "Découvrir" : "Explore"}
 
               </button>
 

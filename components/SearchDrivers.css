@@ -1,0 +1,40 @@
+.search-results-page {
+  width: 100%;
+  padding: 60px 6%;
+}
+
+.search-results-layout {
+  max-width: 1400px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 50px;
+
+  align-items: start;
+}
+
+.search-results-content {
+  min-width: 0;
+}
+
+.results-heading {
+  margin-bottom: 30px;
+}
+
+.results-heading p {
+  margin: 0;
+
+  font-size: 13px;
+  color: #666;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 900px) {
+
+  .search-results-layout {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+}

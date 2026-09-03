@@ -1,65 +1,258 @@
+/* =========================================================
+   VOYAGEES NAVBAR
+   ========================================================= */
+
+.navbar {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.97);
+  border-bottom: 1px solid #eeeeee;
+  position: relative;
+  z-index: 1000;
+}
+
 .navbar-inner {
+  max-width: 1200px;
+  min-height: 78px;
+  margin: 0 auto;
+  padding: 0 30px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* LEFT SIDE */
+/* =========================================================
+   LOGO
+   ========================================================= */
+
 .left-side {
   display: flex;
   align-items: center;
-  gap: 1rem;
 }
 
-/* LOGO */
 .navbar-logo {
-  height: 60px;
+  display: block;
+  height: 58px;
   width: auto;
+  object-fit: contain;
 }
 
-/* LINKS RIGHT */
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
 .nav-links {
-  color: brown;
   display: flex;
-  gap: 2rem;
+  align-items: center;
+  gap: 30px;
+
   list-style: none;
   margin: 0;
   padding: 0;
-  align-items: center;
 }
 
-/* MOBILE */
+.nav-links li {
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  position: relative;
+
+  color: #444;
+  text-decoration: none;
+
+  font-size: 0.92rem;
+  font-weight: 500;
+
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #cc0000;
+}
+
+/* Red underline */
+
+.nav-links a::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: -7px;
+
+  width: 0;
+  height: 2px;
+
+  background: #cc0000;
+
+  transition: width 0.2s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* =========================================================
+   LANGUAGE SWITCHER
+   ========================================================= */
+
+.language-button {
+  background: transparent;
+  border: 1px solid #dddddd;
+
+  border-radius: 7px;
+
+  padding: 6px 10px;
+
+  color: #555;
+
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.language-button:hover {
+  background: #fff5f5;
+  border-color: #cc0000;
+  color: #cc0000;
+}
+
+/* =========================================================
+   MOBILE TOGGLE
+   ========================================================= */
+
 .navbar-toggle {
   display: none;
-  font-size: 1.8rem;
-  background: none;
+
+  background: transparent;
   border: none;
+
+  padding: 5px;
+
+  color: #333;
+
+  font-size: 1.7rem;
+  line-height: 1;
+
   cursor: pointer;
 }
 
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 @media (max-width: 768px) {
+
+  .navbar-inner {
+    min-height: 70px;
+    padding: 0 18px;
+  }
+
+  .navbar-logo {
+    height: 52px;
+  }
+
+  .left-side {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .navbar-toggle {
     display: block;
-    margin-left: auto;
   }
+
+  /* Dropdown */
 
   .nav-links {
     display: none;
-    flex-direction: column;
+
     position: absolute;
-    top: 80px;
-    left: 0;
-    right: 0;
-    background: white;
-    padding: 1rem;
+
+    top: 70px;
+    left: 12px;
+    right: 12px;
+
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 0;
+
+    padding: 8px 0;
+
+    background: #ffffff;
+
+    border: 1px solid #eeeeee;
+    border-radius: 12px;
+
+    box-shadow:
+      0 8px 25px rgba(0, 0, 0, 0.08);
   }
 
   .nav-links.show {
     display: flex;
   }
-  .left-side {
-  display: flex;
-  align-items: center;
-  width: 100%;
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links a {
+    display: block;
+    width: auto;
+
+    padding: 14px 20px;
+
+    font-size: 0.95rem;
+  }
+
+  .nav-links a::after {
+    display: none;
+  }
+
+  .nav-links a:hover {
+    background: #fff5f5;
+    color: #cc0000;
+  }
+
+  /* Language button */
+
+  .language-switcher {
+    padding: 10px 20px;
+  }
+
+  .language-button {
+    width: 100%;
+    padding: 10px;
+  }
 }
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .navbar-inner {
+    padding: 0 15px;
+  }
+
+  .navbar-logo {
+    height: 48px;
+  }
+
+  .nav-links {
+    left: 10px;
+    right: 10px;
+  }
 }

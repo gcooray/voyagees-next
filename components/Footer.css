@@ -1,50 +1,117 @@
+/* =========================================================
+   VOYAGEES FOOTER
+   ========================================================= */
+
 .footer {
-  color: #ffffff;
-  background-color: #2d3748;
-  padding: 2rem 1rem;
-  margin-top: 4rem;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
+  background: #ffffff;
+  border-top: 1px solid #eeeeee;
+  margin-top: 50px;
 }
 
 .footer-container {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  text-align: center;
+  padding: 28px 30px 22px;
 }
+
+/* =========================================================
+   FOOTER LINKS
+   ========================================================= */
 
 .footer-links {
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 35px;
+
+  padding-bottom: 22px;
 }
 
 .footer-links a {
-  color: #dddddd;
+  color: #555;
   text-decoration: none;
+
+  font-size: 0.9rem;
   font-weight: 500;
-  transition: color 0.3s ease;
+
+  transition: color 0.2s ease;
 }
 
 .footer-links a:hover {
-  color: #ffffff;
-  text-decoration: underline;
+  color: #cc0000;
 }
 
+/* =========================================================
+   BOTTOM
+   ========================================================= */
+
 .footer-bottom {
-  font-size: 0.9rem;
-  color: #bbbbbb;
+  border-top: 1px solid #eeeeee;
+
+  padding-top: 18px;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  gap: 8px;
+
+  color: #888;
+
+  font-size: 0.8rem;
 }
 
-/* Sri Lanka flag emoji size */
 .footer-flag {
-  font-size: 1.2rem;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .footer {
+    margin-top: 35px;
+  }
+
+  .footer-container {
+    padding: 25px 20px 20px;
+  }
+
+  .footer-links {
+    gap: 20px;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+  }
+
+  .footer-links a {
+    font-size: 0.85rem;
+  }
+
+  .footer-bottom {
+    flex-wrap: wrap;
+    text-align: center;
+    font-size: 0.75rem;
+  }
+}
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .footer-links {
+    gap: 16px;
+  }
+
+  .footer-links a {
+    font-size: 0.82rem;
+  }
+
+  .footer-bottom {
+    line-height: 1.5;
+  }
 }

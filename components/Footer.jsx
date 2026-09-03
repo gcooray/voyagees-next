@@ -17,8 +17,8 @@ export default function Footer() {
 
         <div className="footer-bottom">
           <span>
-            © {new Date().getFullYear()} VOYAGEES. Made in Sri Lanka
-          </span>
+  © {new Date().getFullYear()} VOYAGEES · Made in Sri Lanka
+</span>
 
           <span
             role="img"

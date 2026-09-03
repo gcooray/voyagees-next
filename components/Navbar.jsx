@@ -13,6 +13,9 @@ export default function Navbar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
+  // Detect French version
+  const isFrench = pathname === "/fr" || pathname.startsWith("/fr/");
+
   const handleHowItWorksClick = (e) => {
     e.preventDefault();
 
@@ -27,8 +30,10 @@ export default function Navbar() {
       }
     };
 
-    if (pathname !== "/") {
-      router.push("/");
+    const homePath = isFrench ? "/fr" : "/";
+
+    if (pathname !== homePath) {
+      router.push(homePath);
       setTimeout(scrollToSection, 500);
     } else {
       scrollToSection();
@@ -37,6 +42,31 @@ export default function Navbar() {
     setIsOpen(false);
   };
 
+  const switchLanguage = () => {
+  const routeMap = {
+    "/": "/fr",
+    "/private-driver": "/fr/private-driver",
+    "/explore-sri-lanka": "/fr/explore-sri-lanka",
+    "/contact": "/fr/contact",
+
+    "/fr": "/",
+    "/fr/private-driver": "/private-driver",
+    "/fr/explore-sri-lanka": "/explore-sri-lanka",
+    "/fr/contact": "/contact",
+  };
+
+  const targetPath = routeMap[pathname];
+
+  if (targetPath) {
+    router.push(targetPath);
+  } else {
+    // For routes that don't have a French/English equivalent yet
+    router.push(isFrench ? "/" : "/fr");
+  }
+
+  setIsOpen(false);
+};
+
   return (
     <nav className="navbar">
       <div className="navbar-inner">
@@ -44,7 +74,10 @@ export default function Navbar() {
         {/* LEFT SIDE: LOGO + TOGGLE */}
         <div className="left-side">
 
-          <Link href="/" onClick={() => setIsOpen(false)}>
+          <Link
+            href={isFrench ? "/fr" : "/"}
+            onClick={() => setIsOpen(false)}
+          >
             <Image
               src={logo}
               alt="Voyagees Logo"
@@ -65,20 +98,54 @@ export default function Navbar() {
         {/* RIGHT SIDE: LINKS */}
         <ul className={`nav-links ${isOpen ? "show" : ""}`}>
 
-  <a href="#how-it-works" onClick={handleHowItWorksClick}>
-  How It Works
-</a>
-
           <li>
-            <Link href="/explore-sri-lanka" onClick={() => setIsOpen(false)}>
-              Explore Sri Lanka
+            <a href="#how-it-works" onClick={handleHowItWorksClick}>
+              {isFrench ? "Comment ça marche" : "How It Works"}
+            </a>
+          </li>
+
+            <li>
+          <Link
+            href={isFrench ? "/fr/private-driver" : "/private-driver"}
+            onClick={() => setIsOpen(false)}
+          >
+            {isFrench ? "Chauffeur privé" : "Private Driver"}
+          </Link>
+        </li>
+          
+          <li>
+            <Link
+              href={isFrench ? "/fr/explore-sri-lanka" : "/explore-sri-lanka"}
+              onClick={() => setIsOpen(false)}
+            >
+              {isFrench ? "Explorer le Sri Lanka" : "Explore Sri Lanka"}
             </Link>
           </li>
 
           <li>
-            <Link href="/contact" onClick={() => setIsOpen(false)}>
-              Any Questions?
+            <Link
+              href={isFrench ? "/fr/contact" : "/contact"}
+              onClick={() => setIsOpen(false)}
+            >
+              {isFrench ? "Une question ?" : "Any Questions?"}
             </Link>
+          </li>
+
+          {/* LANGUAGE SWITCHER */}
+          <li className="language-switcher">
+            <button
+  type="button"
+  onClick={switchLanguage}
+  className="language-button"
+>
+  <span className="language-flag">
+    {isFrench ? "🇬🇧" : "🇫🇷"}
+  </span>
+
+  <span>
+    {isFrench ? "EN" : "FR"}
+  </span>
+</button>
           </li>
 
         </ul>

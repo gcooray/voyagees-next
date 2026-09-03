@@ -1,147 +1,349 @@
-/* src/pages/RequestPage.css */
+/* =========================================================
+   VOYAGEES - BOOKING REQUEST PAGE
+   ========================================================= */
 
 .request-page {
-  max-width: 700px;
-  margin: 20px auto;
-  padding: 0 15px;
-  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background: #f8f8f8;
+  padding: 110px 20px 70px;
   color: #333;
 }
 
-.trip-summary {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px 20px;
-  cursor: pointer;
-  user-select: none;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  transition: background-color 0.3s ease;
+/* =========================================================
+   MAIN CONTENT WIDTH
+   ========================================================= */
+
+.request-page > * {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.trip-summary:hover {
-  background-color: #f1f1f1;
+/* =========================================================
+   BOOKING OVERVIEW
+   ========================================================= */
+
+.booking-overview {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  margin-bottom: 25px;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+
+  border-top: 4px solid #cc0000;
 }
 
-.trip-summary h2 {
-  margin-top: 0;
-  margin-bottom: 12px;
-  font-size: 1.5rem;
+.booking-overview h3 {
+  margin: 0 0 25px;
+  font-size: 1.35rem;
+  font-weight: 600;
   color: #222;
 }
 
-.trip-summary p {
-  margin: 6px 0;
+/* =========================================================
+   OVERVIEW GRID
+   ========================================================= */
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.overview-grid > div {
+  background: #f7f7f7;
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+
+.overview-grid span {
+  display: block;
+  font-size: 0.82rem;
+  color: #777;
+  margin-bottom: 7px;
+}
+
+.overview-grid strong {
+  display: block;
   font-size: 1rem;
+  color: #222;
 }
 
-.trip-details-toggle {
-  margin-top: 12px;
-  font-weight: 600;
-  color: #cc0000; /* your red */
+/* Highlight total */
+
+.overview-grid > div:nth-child(2) {
+  background: #fff5f5;
 }
 
-.full-trip-details {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin-top: 12px;
-  padding: 12px 16px;
-  font-family: monospace, monospace;
-  white-space: pre-wrap;
-  color: #555;
-  line-height: 1.4;
+.overview-grid > div:nth-child(2) strong {
+  color: #cc0000;
+  font-size: 1.1rem;
 }
+
+/* =========================================================
+   REQUEST FORM
+   ========================================================= */
 
 .trip-description-form {
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 35px;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
 }
 
 .trip-description-form h2 {
-  margin-bottom: 10px;
-  font-size: 1.4rem;
-  color: #cc0000; /* red heading */
+  margin: 0 0 30px;
+
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #222;
 }
 
-.trip-description-form p {
+/* Section headings */
+
+.trip-description-form h3 {
+  margin: 28px 0 14px;
+
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #333;
+
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.trip-description-form h3:first-of-type {
+  margin-top: 0;
+}
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.trip-description-form input,
+.trip-description-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  border: 1px solid #dddddd;
+  border-radius: 9px;
+
+  padding: 13px 15px;
+
+  font-family: inherit;
   font-size: 0.95rem;
-  margin-bottom: 10px;
-  line-height: 1.3;
-  color: #444;
+
+  background: #ffffff;
+  color: #333;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.trip-description-form input {
+  margin-bottom: 12px;
 }
 
 .trip-description-form textarea {
+  min-height: 130px;
   resize: vertical;
-  min-height: 140px;
-  font-size: 1rem;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #bbb;
-  font-family: Arial, sans-serif;
-  margin-bottom: 20px;
-  transition: border-color 0.3s ease;
 }
 
+/* Focus */
+
+.trip-description-form input:focus,
 .trip-description-form textarea:focus {
-  outline: none;
-  border-color: #cc0000; /* red focus */
-  box-shadow: 0 0 5px rgba(204, 0, 0, 0.4);
+  border-color: #cc0000;
+
+  box-shadow:
+    0 0 0 3px rgba(204, 0, 0, 0.08);
 }
+
+/* Placeholder */
+
+.trip-description-form input::placeholder,
+.trip-description-form textarea::placeholder {
+  color: #999;
+}
+
+/* =========================================================
+   SUBMIT BUTTON
+   ========================================================= */
 
 .trip-description-form button {
-  background-color: #cc0000; /* red button */
-  color: white;
-  padding: 12px 20px;
-  font-size: 1.1rem;
+  width: 100%;
+
+  margin-top: 25px;
+
+  padding: 15px 20px;
+
   border: none;
-  border-radius: 8px;
+  border-radius: 9px;
+
+  background: #cc0000;
+  color: white;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  letter-spacing: 0.4px;
+
   cursor: pointer;
-  align-self: flex-start;
-  transition: background-color 0.3s ease;
+
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
 }
 
 .trip-description-form button:hover {
-  background-color: #990000; /* darker red hover */
+  background: #a90000;
+
+  box-shadow:
+    0 5px 15px rgba(204, 0, 0, 0.2);
+
+  transform: translateY(-1px);
 }
 
-/* MOBILE STYLES */
-@media (max-width: 480px) {
+.trip-description-form button:active {
+  transform: translateY(0);
+}
+
+.trip-description-form button:disabled {
+  background: #bbb;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* =========================================================
+   SUCCESS PAGE
+   ========================================================= */
+
+.request-page.success {
+  min-height: 70vh;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+}
+
+.request-page.success h1 {
+  color: #cc0000;
+  margin-bottom: 15px;
+}
+
+.request-page.success p {
+  color: #666;
+  margin: 6px 0;
+}
+
+.request-page.success button {
+  margin-top: 25px;
+
+  padding: 13px 25px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #cc0000;
+  color: white;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
   .request-page {
-    margin: 10px 10px;
-    padding: 0 10px;
+    padding: 95px 15px 50px;
   }
 
-  .trip-summary {
-    padding: 12px 15px;
+  .booking-overview {
+    padding: 22px;
+    border-radius: 13px;
   }
 
-  .trip-summary h2 {
-    font-size: 1.3rem;
+  .booking-overview h3 {
+    font-size: 1.2rem;
+    margin-bottom: 18px;
   }
 
-  .trip-summary p {
+  .overview-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .overview-grid > div {
+    padding: 13px;
+  }
+
+  .overview-grid span {
+    font-size: 0.75rem;
+  }
+
+  .overview-grid strong {
     font-size: 0.9rem;
   }
 
+  .trip-description-form {
+    padding: 23px;
+    border-radius: 13px;
+  }
+
   .trip-description-form h2 {
-    font-size: 1.2rem;
+    font-size: 1.45rem;
+    margin-bottom: 25px;
   }
 
-  .trip-description-form p {
-    font-size: 0.85rem;
-  }
-
-  .trip-description-form textarea {
-    font-size: 0.95rem;
-    min-height: 120px;
-  }
-
-  .trip-description-form button {
-    width: 100%;
+  .trip-description-form h3 {
     font-size: 1rem;
-    padding: 12px 0;
-    border-radius: 6px;
   }
+
+  .trip-description-form input,
+  .trip-description-form textarea {
+    font-size: 16px;
+  }
+
+}
+
+/* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .request-page {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-overview {
+    padding: 20px;
+  }
+
+  .trip-description-form {
+    padding: 20px;
+  }
+
+  .trip-description-form h2 {
+    font-size: 1.35rem;
+  }
+
 }

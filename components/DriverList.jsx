@@ -3,9 +3,21 @@
 import DriverCard from "./DriverCard";
 import "./DriverList.css";
 
-export default function DriverList({ drivers, pickupDate, dropoffDate, onSelect }) {
+export default function DriverList({
+  drivers,
+  pickupDate,
+  dropoffDate,
+  locale = "en",
+  onSelect,
+}) {
   if (!drivers || drivers.length === 0) {
-    return <p style={{ textAlign: "center" }}>No drivers found.</p>;
+    return (
+      <p style={{ textAlign: "center" }}>
+        {locale === "fr"
+          ? "Aucun chauffeur trouvé."
+          : "No drivers found."}
+      </p>
+    );
   }
 
   return (
@@ -16,6 +28,7 @@ export default function DriverList({ drivers, pickupDate, dropoffDate, onSelect 
           driver={driver}
           pickupDate={pickupDate}
           dropoffDate={dropoffDate}
+          locale={locale}
           onSelect={onSelect}
         />
       ))}
