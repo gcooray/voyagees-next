@@ -1,693 +1,496 @@
 /* =========================================================
-   VOYAGEES — PRIVATE DRIVER PAGE
-   Premium editorial travel design
-========================================================= */
+   PRIVATE DRIVER PAGE
+   Long-form editorial layout using the same tokens as the
+   homepage (global.css :root) — jungle ink, spice gold,
+   lagoon teal, Fraunces + Inter — adapted for reading-heavy
+   content instead of hero imagery and card grids.
+   ========================================================= */
 
 .private-driver-page {
-  --red: #cc0000;
-  --black: #101010;
-  --cream: #f5f2ec;
-  --white: #ffffff;
-  --gray: #686868;
-  --light-gray: #dddddd;
-
-  background: var(--cream);
-  color: var(--black);
-
-  overflow: hidden;
+  font-family: var(--body);
+  color: var(--ink);
+  background: var(--paper);
 }
+.private-driver-page * { box-sizing: border-box; }
 
-.private-driver-page * {
-  box-sizing: border-box;
+.private-driver-page h1,
+.private-driver-page h2,
+.private-driver-page h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
+.private-driver-page p { line-height: 1.7; }
 
-.private-driver-page p {
-  margin-top: 0;
+/* shared eyebrow, matches homepage's small italic + gold dot */
+.pd-eyebrow {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--gold);
+  margin-bottom: 0.9rem;
 }
-
-.private-driver-page strong {
-  font-weight: 700;
+.pd-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
 }
+.pd-eyebrow.pd-dark { color: var(--teal); }
+.pd-eyebrow.pd-dark::before { background: var(--gold); }
 
-
-/* =========================================================
+/* =====================================================
    HERO
-========================================================= */
-
+===================================================== */
 .pd-hero {
   position: relative;
-
-  min-height: 82vh;
-
+  min-height: clamp(480px, 62vh, 700px);
   display: flex;
-  align-items: flex-end;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.78) 0%,
-      rgba(0, 0, 0, 0.45) 55%,
-      rgba(0, 0, 0, 0.25) 100%
-    ),
-    url("/images/home/driver.jpg");
-
-  background-size: cover;
-  background-position: center;
-
-  color: white;
+  align-items: center;
+  padding: 7rem 5vw 4rem;
+  color: var(--paper);
+  overflow: hidden;
+  background: linear-gradient(135deg, #1c3226 0%, #16241d 60%),
+    url("/images/private-driver/hero.jpg") center/cover no-repeat;
+  background-blend-mode: multiply;
 }
-
 .pd-hero-overlay {
   position: absolute;
   inset: 0;
-
-  background:
-    linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.62),
-      rgba(0, 0, 0, 0.05) 65%
-    );
+  background: linear-gradient(to top, rgba(22, 36, 29, 0.75) 0%, rgba(22, 36, 29, 0.3) 100%);
 }
 
 .pd-hero-content {
   position: relative;
   z-index: 2;
-
-  width: min(1200px, 90%);
-
+  width: 100%;
+  max-width: 1240px;
   margin: 0 auto;
-
-  padding: 150px 0 100px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
 }
 
-.pd-eyebrow {
-  margin: 0 0 25px;
-
-  font-size: 11px;
-  font-weight: 700;
-
-  letter-spacing: 0.22em;
-
-  color: rgba(255, 255, 255, 0.78);
+.pd-hero-copy { max-width: 32rem; }
+.pd-hero-copy .pd-eyebrow { color: var(--gold); }
+.pd-hero-copy h1 {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  color: var(--paper);
+}
+.pd-hero-note {
+  margin-top: 1.25rem;
+  font-size: 1.1rem;
+  color: rgba(251, 247, 239, 0.82);
 }
 
-.pd-eyebrow.pd-dark {
-  color: var(--red);
+/* card wrapper for <DriverSearch/> — renders the same SearchForm
+   component used on the homepage (.search-hero > .search-overlay >
+   .form-panel > form > .row > .form-group), so it gets the exact
+   same overrides that were needed there. */
+.pd-hero-search {
+  background: var(--paper);
+  border-radius: 22px;
+  padding: 2rem;
+  min-width: 360px;
+  max-width: 440px;
+  box-shadow: 0 30px 60px -20px rgba(22, 36, 29, 0.45);
+  border-left: 5px solid var(--gold);
+  color: var(--ink);
 }
 
-.pd-hero h1 {
-  max-width: 1050px;
+.pd-hero-search .search-hero { all: unset; display: block; width: 100%; }
+.pd-hero-search .search-overlay { all: unset; display: block; width: 100%; background: none !important; }
+.pd-hero-search .form-panel { all: unset; display: block; width: 100%; background: none !important; padding: 0 !important; box-shadow: none !important; }
 
-  margin: 0;
-
-  font-size: clamp(55px, 8vw, 125px);
-
-  line-height: 0.88;
-
-  letter-spacing: -0.06em;
-
-  font-weight: 700;
+.pd-hero-search form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  width: 100%;
 }
 
+.pd-hero-search form .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.25rem;
+  width: 100%;
+  margin-bottom: 0; /* cancels SearchForm.css's .row margin-bottom: 10px */
+}
 
-/* =========================================================
-   GENERAL SECTION STRUCTURE
-========================================================= */
+.pd-hero-search form .form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 150px;
+  min-width: 0;
+}
+.pd-hero-search form .row:first-of-type .form-group.small {
+  flex: 0 1 100%;
+}
 
+.pd-hero-search form .form-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--sage);
+  margin-bottom: 0.45rem;
+  white-space: nowrap;
+}
+.pd-hero-search form .form-group label .icon {
+  width: 15px;
+  height: 15px;
+  color: var(--gold-dark);
+  flex-shrink: 0;
+}
+
+.pd-hero-search form .form-group input,
+.pd-hero-search form .form-group select {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0.55rem 0.1rem;
+  font-family: var(--body);
+  font-size: 0.9rem;
+  color: var(--ink);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.2s ease;
+}
+.pd-hero-search form .form-group select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--sage) 50%),
+    linear-gradient(135deg, var(--sage) 50%, transparent 50%);
+  background-position: calc(100% - 4px) 60%, calc(100% - 9px) 60%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 1.1rem;
+}
+.pd-hero-search form .form-group input:focus,
+.pd-hero-search form .form-group select:focus {
+  border: none;
+  border-bottom: 2px solid var(--gold-dark);
+  box-shadow: none;
+}
+
+.pd-hero-search form .btn-submit {
+  align-self: flex-start;
+  width: auto;
+  max-width: none;
+  height: auto;
+  margin: 0.25rem 0 0 0;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: 999px;
+  box-shadow: none;
+  padding: 0.85rem 2rem;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.pd-hero-search form .btn-submit:hover {
+  background: var(--teal);
+  transform: none;
+}
+
+@media (max-width: 480px) {
+  .pd-hero-search { min-width: 0; max-width: none; padding: 1.5rem; }
+}
+
+/* mobile field layout — same approach as the homepage search card:
+   CSS Grid (not flex-wrap) for the date/time row so Pickup Date+Time
+   and Drop-off Date+Time reliably stay paired two-per-row instead of
+   flex-wrap's width math occasionally collapsing to one-per-row. */
+@media (max-width: 760px) {
+  .pd-hero-search form .row:not(:first-of-type) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem 0.85rem;
+  }
+  .pd-hero-search form .row:not(:first-of-type) .form-group {
+    flex: initial;
+    min-width: 0;
+  }
+  .pd-hero-search form .row:first-of-type .form-group.small { flex: 1 1 100%; }
+}
+
+/* =====================================================
+   INTRO (numbered section)
+===================================================== */
+.pd-intro-section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 6rem 5vw;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+.pd-section-number {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 5rem;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--gold);
+}
+.pd-lead {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: var(--ink);
+  margin-bottom: 1.75rem;
+}
+.pd-lead strong { color: var(--gold-dark); font-style: italic; }
+
+.pd-driver-intro p { color: var(--sage); margin-bottom: 1rem; max-width: 38rem; }
+.pd-driver-intro ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0 1.5rem;
+  padding: 0;
+}
+.pd-driver-intro li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--paper-dim);
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.pd-driver-intro li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* =====================================================
+   SECTION BACKGROUND BANDS
+===================================================== */
 .pd-white-section,
 .pd-cream-section,
 .pd-dark-section {
-  padding: 150px 9%;
+  padding: 6rem 5vw;
 }
-
-.pd-white-section {
-  background: var(--white);
-}
-
-.pd-cream-section {
-  background: var(--cream);
-}
-
-.pd-dark-section {
-  background: var(--black);
-  color: white;
-}
+.pd-white-section { background: var(--paper); }
+.pd-cream-section { background: var(--paper-dim); }
+.pd-dark-section { background: var(--ink); color: var(--paper); }
 
 .pd-section-heading {
-  max-width: 1050px;
-
-  margin: 0 auto 90px;
-}
-
-.pd-section-heading h2 {
-  margin: 0;
-
-  max-width: 1000px;
-
-  font-size: clamp(48px, 6vw, 92px);
-
-  line-height: 0.94;
-
-  letter-spacing: -0.055em;
-}
-
-.pd-section-heading.pd-light h2 {
-  color: white;
-}
-
-
-/* =========================================================
-   INTRO
-========================================================= */
-
-.pd-intro-section {
-  display: grid;
-
-  grid-template-columns: 1fr 2fr;
-
-  gap: 80px;
-
-  padding: 150px 9%;
-
-  background: var(--cream);
-}
-
-.pd-section-number {
-  color: var(--red);
-
-  font-size: 14px;
-  font-weight: 700;
-
-  letter-spacing: 0.2em;
-}
-
-.pd-content {
-  max-width: 900px;
-}
-
-.pd-lead {
-  max-width: 780px;
-
-  margin: 35px 0 55px;
-
-  font-size: 26px;
-
-  line-height: 1.55;
-
-  letter-spacing: -0.015em;
-
-  color: #333;
-}
-
-.pd-driver-intro {
   max-width: 700px;
-
-  border-top: 1px solid #d7d3cb;
-
-  padding-top: 40px;
+  margin: 0 auto 3rem;
+  text-align: left;
 }
-
-.pd-driver-intro p {
-  font-size: 18px;
-
-  line-height: 1.7;
-
-  color: #555;
+.pd-section-heading h2 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  color: var(--ink);
 }
+.pd-section-heading.pd-light h2 { color: var(--paper); }
+.pd-section-heading.pd-light .pd-eyebrow { color: var(--gold); }
 
-.pd-driver-intro ul {
-  margin: 25px 0 35px;
-
-  padding: 0;
-
-  list-style: none;
-}
-
-.pd-driver-intro li {
-  position: relative;
-
-  padding: 16px 0 16px 30px;
-
-  border-bottom: 1px solid #ddd;
-
-  font-size: 18px;
-
-  font-weight: 600;
-}
-
-.pd-driver-intro li::before {
-  content: "→";
-
-  position: absolute;
-
-  left: 0;
-
-  color: var(--red);
-
-  font-weight: 700;
-}
-
-
-/* =========================================================
-   BENEFITS
-========================================================= */
-
+/* =====================================================
+   BENEFITS GRID
+===================================================== */
 .pd-benefits-grid {
-  max-width: 1200px;
-
+  max-width: 1100px;
   margin: 0 auto;
-
   display: grid;
-
-  grid-template-columns: repeat(2, 1fr);
-
-  border-top: 1px solid var(--light-gray);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
 }
-
 .pd-benefit {
-  padding: 50px 45px 55px 0;
-
-  border-bottom: 1px solid var(--light-gray);
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 2rem 1.75rem;
+  overflow: hidden;
 }
-
-.pd-benefit:nth-child(odd) {
-  padding-right: 60px;
-
-  border-right: 1px solid var(--light-gray);
-}
-
-.pd-benefit:nth-child(even) {
-  padding-left: 60px;
-}
-
-.pd-benefit:last-child {
-  grid-column: 1 / -1;
-
-  max-width: 50%;
-
-  border-right: none;
-}
-
-.pd-benefit > span {
-  display: block;
-
-  margin-bottom: 25px;
-
-  color: var(--red);
-
-  font-size: 12px;
-
-  font-weight: 700;
-
-  letter-spacing: 0.15em;
-}
-
-.pd-benefit h3 {
-  margin: 0 0 20px;
-
-  font-size: clamp(27px, 3vw, 42px);
-
+.pd-benefit span {
+  position: absolute;
+  top: -0.5rem;
+  right: 0.75rem;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 3.5rem;
+  color: var(--paper-dim);
+  z-index: 0;
   line-height: 1;
-
-  letter-spacing: -0.04em;
 }
-
+.pd-benefit h3 {
+  position: relative;
+  z-index: 1;
+  font-size: 1.15rem;
+  margin-bottom: 0.65rem;
+  padding-top: 0.5rem;
+}
 .pd-benefit p {
-  margin: 0;
-
-  max-width: 520px;
-
-  color: #666;
-
-  font-size: 16px;
-
-  line-height: 1.75;
+  position: relative;
+  z-index: 1;
+  font-size: 0.92rem;
+  color: var(--sage);
 }
 
-
-/* =========================================================
-   TEXT CONTENT
-========================================================= */
-
+/* =====================================================
+   LONG-FORM TEXT CONTENT
+===================================================== */
 .pd-text-content {
-  max-width: 850px;
-
+  max-width: 700px;
   margin: 0 auto;
 }
-
 .pd-text-content > p {
-  margin-bottom: 30px;
-
-  color: #555;
-
-  font-size: 18px;
-
-  line-height: 1.8;
+  color: var(--sage);
+  margin-bottom: 1.25rem;
 }
-
-.pd-text-content > p:first-child {
-  font-size: 21px;
-
-  color: #333;
-}
+.pd-dark-section .pd-text-content > p { color: rgba(251, 247, 239, 0.78); }
+.pd-text-content strong { color: var(--ink); font-weight: 700; }
+.pd-dark-section .pd-text-content strong { color: var(--paper); }
 
 .pd-text-content h3 {
-  margin: 80px 0 22px;
-
-  font-size: clamp(28px, 3vw, 44px);
-
-  line-height: 1.05;
-
-  letter-spacing: -0.035em;
+  font-size: 1.35rem;
+  margin: 2.25rem 0 1rem;
+  color: var(--ink);
 }
-
+.pd-dark-section .pd-text-content h3 { color: var(--paper); }
 .pd-text-content h3::before {
-  content: "—";
-
-  display: block;
-
-  margin-bottom: 15px;
-
-  color: var(--red);
-
-  font-size: 20px;
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 2px;
+  background: var(--gold);
+  margin-right: 0.6rem;
+  vertical-align: middle;
 }
 
-
-/* =========================================================
-   DARK SECTION
-========================================================= */
-
-.pd-dark-section .pd-text-content > p {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.pd-dark-section .pd-text-content > p:first-child {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.pd-dark-section .pd-text-content h3 {
-  color: white;
-}
-
-.pd-dark-section .pd-text-content h3::before {
-  color: var(--red);
-}
-
-
-/* =========================================================
-   FAQ
-========================================================= */
-
+/* =====================================================
+   FAQ ACCORDION
+===================================================== */
 .pd-faq-list {
-  max-width: 1050px;
-
+  max-width: 760px;
   margin: 0 auto;
-
-  border-top: 1px solid #d7d7d7;
 }
-
 .pd-faq-list details {
-  border-bottom: 1px solid #d7d7d7;
+  border-bottom: 1px solid var(--line);
+  padding: 1.5rem 0;
 }
-
 .pd-faq-list summary {
-  position: relative;
-
-  padding: 35px 70px 35px 0;
-
+  font-family: var(--display);
+  font-size: 1.15rem;
+  color: var(--ink);
   cursor: pointer;
-
   list-style: none;
-
-  font-size: clamp(20px, 2.2vw, 30px);
-
-  font-weight: 600;
-
-  line-height: 1.2;
-
-  letter-spacing: -0.025em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
-
-.pd-faq-list summary::-webkit-details-marker {
-  display: none;
-}
-
+.pd-faq-list summary::-webkit-details-marker { display: none; }
 .pd-faq-list summary::after {
   content: "+";
-
-  position: absolute;
-
-  right: 5px;
-  top: 30px;
-
-  font-size: 30px;
-
-  font-weight: 300;
-
-  color: var(--red);
-
-  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  color: var(--gold-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: transform 0.25s ease;
 }
-
-.pd-faq-list details[open] summary::after {
-  transform: rotate(45deg);
-}
-
+.pd-faq-list details[open] summary::after { transform: rotate(45deg); }
 .pd-faq-list details p {
-  max-width: 800px;
-
-  margin: 0;
-
-  padding: 0 70px 40px 0;
-
-  color: #666;
-
-  font-size: 17px;
-
-  line-height: 1.75;
+  color: var(--sage);
+  margin-top: 1rem;
+  max-width: 42rem;
 }
+.pd-faq-list details p strong { color: var(--ink); }
 
-
-/* =========================================================
+/* =====================================================
    FINAL CTA
-========================================================= */
-
+===================================================== */
 .pd-final-section {
   position: relative;
-
-  min-height: 75vh;
-
+  min-height: 40vh;
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
   text-align: center;
-
-  color: white;
-
-  background:
-    url("/images/home/final.jpg")
-    center / cover no-repeat;
+  padding: 5rem 5vw;
+  overflow: hidden;
+  background: linear-gradient(135deg, #16241d, #0f1a14),
+    url("/images/private-driver/final.jpg") center/cover no-repeat;
+  background-blend-mode: multiply;
 }
-
 .pd-final-overlay {
   position: absolute;
-
   inset: 0;
-
-  background: rgba(0, 0, 0, 0.52);
+  background: rgba(22, 36, 29, 0.55);
 }
-
 .pd-final-content {
   position: relative;
-
   z-index: 2;
-
-  width: 90%;
+  color: var(--paper);
 }
-
+.pd-final-content .pd-eyebrow { color: var(--gold); justify-content: center; }
 .pd-final-content h2 {
-  margin: 0;
-
-  font-size: clamp(65px, 10vw, 150px);
-
-  line-height: 0.83;
-
-  letter-spacing: -0.065em;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  color: var(--paper);
 }
+.pd-final-content h2 span { font-style: italic; color: var(--gold); font-weight: 400; }
 
-.pd-final-content h2 span {
-  color: var(--red);
-}
-
-
-/* =========================================================
-   RESPONSIVE — TABLET
-========================================================= */
-
+/* =====================================================
+   RESPONSIVE
+===================================================== */
 @media (max-width: 900px) {
-
-  .pd-hero {
-    min-height: 720px;
-  }
-
-  .pd-hero-content {
-    padding: 120px 0 80px;
-  }
-
-  .pd-intro-section {
-    grid-template-columns: 1fr;
-
-    gap: 35px;
-
-    padding: 100px 8%;
-  }
-
-  .pd-white-section,
-  .pd-cream-section,
-  .pd-dark-section {
-    padding: 100px 8%;
-  }
-
-  .pd-section-heading {
-    margin-bottom: 70px;
-  }
-
-  .pd-benefits-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .pd-benefit,
-  .pd-benefit:nth-child(odd),
-  .pd-benefit:nth-child(even) {
-    max-width: none;
-
-    padding: 40px 0;
-
-    border-right: none;
-  }
-
-  .pd-benefit:last-child {
-    grid-column: auto;
-  }
-
-  .pd-text-content {
-    max-width: 800px;
-  }
-
+  .pd-intro-section { grid-template-columns: 1fr; gap: 1rem; }
+  .pd-section-number { font-size: 3.5rem; }
+  .pd-hero-content { flex-direction: column; align-items: stretch; }
+  .pd-hero-search { min-width: 0; max-width: none; width: 100%; }
 }
-
-
-/* =========================================================
-   RESPONSIVE — MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
-
-  .pd-hero {
-    min-height: 680px;
-
-    background-position: 60% center;
+@media (max-width: 640px) {
+  .pd-hero { padding: 3.5rem 6vw 2rem; min-height: 0; }
+  .pd-hero-copy h1 { font-size: clamp(1.9rem, 8vw, 2.4rem); }
+  .pd-hero-search {
+    padding: 1.4rem 1.25rem;
+    border-radius: 18px;
   }
-
-  .pd-hero-content {
-    width: 86%;
-
-    padding: 100px 0 65px;
+  .pd-hero-search form { gap: 0.85rem; }
+  .pd-hero-search form .row { gap: 0.7rem 1rem; }
+  .pd-hero-search form .btn-submit {
+    padding: 0.7rem 1.7rem;
+    font-size: 0.82rem;
   }
-
-  .pd-hero h1 {
-    font-size: clamp(48px, 14vw, 75px);
-
-    line-height: 0.9;
-  }
-
-  .pd-eyebrow {
-    font-size: 10px;
-
-    letter-spacing: 0.17em;
-
-    margin-bottom: 20px;
-  }
-
-  .pd-intro-section {
-    padding: 80px 7%;
-  }
-
-  .pd-lead {
-    font-size: 21px;
-
-    line-height: 1.55;
-  }
-
+  .pd-intro-section,
   .pd-white-section,
   .pd-cream-section,
-  .pd-dark-section {
-    padding: 80px 7%;
-  }
-
-  .pd-section-heading {
-    margin-bottom: 55px;
-  }
-
-  .pd-section-heading h2 {
-    font-size: 48px;
-
-    line-height: 0.95;
-  }
-
-  .pd-benefit h3 {
-    font-size: 31px;
-  }
-
-  .pd-benefit p {
-    font-size: 16px;
-
-    line-height: 1.7;
-  }
-
-  .pd-text-content > p {
-    font-size: 17px;
-
-    line-height: 1.75;
-  }
-
-  .pd-text-content > p:first-child {
-    font-size: 19px;
-  }
-
-  .pd-text-content h3 {
-    margin-top: 60px;
-
-    font-size: 30px;
-  }
-
-  .pd-faq-list summary {
-    padding: 28px 50px 28px 0;
-
-    font-size: 21px;
-  }
-
-  .pd-faq-list summary::after {
-    top: 24px;
-
-    font-size: 27px;
-  }
-
-  .pd-faq-list details p {
-    padding-bottom: 30px;
-
-    font-size: 16px;
-  }
-
-  .pd-final-section {
-    min-height: 650px;
-  }
-
-  .pd-final-content h2 {
-    font-size: 68px;
-  }
+  .pd-dark-section { padding: 3.5rem 6vw; }
+  .pd-benefits-grid { grid-template-columns: 1fr; }
 }

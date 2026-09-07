@@ -1,887 +1,878 @@
 /* =========================================================
-   VOYAGEES HOMEPAGE
-   Premium cinematic travel design
-========================================================= */
+   VOYAGEES — HOMEPAGE STYLES
+   A travel-marketplace look built for a Sri Lanka private-
+   driver brand: jungle ink, spice gold, lagoon teal.
+   Brand tokens (--ink, --paper, --gold, etc.) now live in
+   global.css :root so every stylesheet shares one source.
+   ========================================================= */
 
 .voyagees-home {
-  --red: #cc0000;
-  --black: #101010;
-  --cream: #f5f2ec;
-  --white: #ffffff;
-  --gray: #686868;
-
-  background: var(--cream);
-  color: var(--black);
-  overflow: hidden;
+  font-family: var(--body);
+  color: var(--ink);
+  background: var(--paper);
+  overflow-x: hidden;
 }
 
-/* =========================================================
-   GLOBAL
-========================================================= */
+.voyagees-home * { box-sizing: border-box; }
 
-.voyagees-home * {
-  box-sizing: border-box;
-}
-
-.voyagees-home a {
-  color: inherit;
-}
-
-.eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  margin: 0 0 25px;
-  color: rgba(255,255,255,0.8);
-}
-
-.eyebrow.dark {
-  color: var(--red);
-}
-
-.text-link {
-  display: inline-block;
-  margin-top: 25px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-decoration: none;
-  border-bottom: 1px solid currentColor;
-  padding-bottom: 6px;
-  transition: all 0.3s ease;
-}
-
-.text-link:hover {
-  color: var(--red);
-}
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero-section {
-  position: relative;
-  min-height: 920px;
-  background: #111;
-  color: white;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-.hero-image {
-  position: absolute;
-  inset: 0;
-
-  background-image: url("/images/home/hero.png");
-  background-size: cover;
-  background-position: center;
-  transform: scale(1.02);
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(0,0,0,0.72) 0%,
-      rgba(0,0,0,0.35) 55%,
-      rgba(0,0,0,0.15) 100%
-    );
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  width: min(1200px, 90%);
-  margin: 0 auto;
-  padding-top: 0;
-  transform: translateY(-60px);
-}
-
-.hero-content h1 {
+.voyagees-home h1,
+.voyagees-home h2,
+.voyagees-home h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
   margin: 0;
-  font-size: clamp(72px, 11vw, 170px);
-  line-height: 0.88;
-  letter-spacing: -0.055em;
-  font-weight: 700;
 }
 
-.hero-content h1 span {
-  color: #ffffff;
-}
-
-.hero-description {
-  margin-top: 28px;
-  font-size: clamp(17px, 1.6vw, 22px);
+.voyagees-home h1 span,
+.voyagees-home h2 span {
+  font-style: italic;
+  color: var(--gold-dark);
   font-weight: 400;
-  max-width: 500px;
-  line-height: 1.45;
 }
 
-.hero-scroll {
+.voyagees-home p { margin: 0; line-height: 1.6; }
+
+.voyagees-home a { text-decoration: none; color: inherit; }
+
+/* shared eyebrow — small italic serif + gold dot, not tracked all-caps */
+.market-eyebrow,
+.section-eyebrow,
+.market-search-label {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--teal);
+  margin-bottom: 0.9rem;
+}
+.market-eyebrow::before,
+.section-eyebrow::before,
+.market-search-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* generic arrow-link treatment: circle button, not a bare glyph */
+.market-text-link,
+.market-outline-link,
+.market-red-button,
+.market-final-button {
   display: inline-flex;
   align-items: center;
-  gap: 18px;
-
-  margin-top: 60px;
-
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  font-weight: 700;
-  text-decoration: none;
+  gap: 0.85rem;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.98rem;
 }
-
-.scroll-line {
-  width: 65px;
-  height: 1px;
-  background: white;
-}
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-.hero-search-wrapper {
-  position: absolute;
-  z-index: 5;
-
-  left: 45%;
-  bottom: 30px;
-
-  width: min(1150px, 92%);
-
-  transform: translateX(-50%);
-}
-
-.hero-search-wrapper .search-hero {
-  background: transparent !important;
-  min-height: auto !important;
-  padding: 0 !important;
-}
-
-.hero-search-wrapper .search-overlay {
-  background: transparent !important;
-  padding: 0 !important;
-}
-
-.hero-search-wrapper .form-panel {
-  width: 100%;
-  max-width: none;
-
-  background: rgba(255, 255, 255, 0.92);
-
-  border-radius: 14px;
-
-  padding: 28px 35px 30px;
-
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-
-.hero-search-wrapper .hero-title {
-  color: var(--black);
-  font-size: 22px;
-}
-
-.hero-search-wrapper .hero-subtitle {
-  color: #666;
-}
-
-.hero-search-wrapper .btn-submit {
-  background: var(--red);
-}
-
-/* =========================================================
-   INTRO
-========================================================= */
-
-.intro-section {
-  min-height: 90vh;
-
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-
-  padding: 150px 9%;
-
-  background: var(--cream);
-}
-
-.intro-number {
-  color: var(--red);
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-}
-
-.intro-content {
-  max-width: 900px;
-}
-
-.intro-content h2,
-.how-section h2,
-.destination-heading h2,
-.driver-content h2,
-.stories-heading h2 {
-  margin: 0;
-
-  font-size: clamp(55px, 7vw, 105px);
-  line-height: 0.92;
-
-  letter-spacing: -0.055em;
-}
-
-.intro-content h2 span,
-.how-section h2 span,
-.destination-heading h2 span,
-.driver-content h2 span,
-.stories-heading h2 span {
-  color: var(--red);
-}
-
-.intro-text {
-  max-width: 650px;
-
-  margin-top: 45px;
-
-  font-size: 19px;
-  line-height: 1.7;
-  color: #555;
-}
-
-/* =========================================================
-   IMAGE STORY
-========================================================= */
-
-.story-section {
-  position: relative;
-  min-height: 100vh;
-
-  display: flex;
+.market-text-link span,
+.market-outline-link span,
+.market-red-button span,
+.market-final-button span {
+  display: inline-flex;
   align-items: center;
-
-  color: white;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+  font-size: 1rem;
+}
+.market-text-link:hover span,
+.market-outline-link:hover span {
+  background: var(--ink);
+  color: var(--paper);
+  transform: rotate(45deg);
+}
+.market-text-link { color: var(--ink); }
+.market-outline-link {
+  color: var(--ink);
+  border: none;
 }
 
-.story-image {
+.market-red-button,
+.market-final-button {
+  background: var(--clay);
+  color: var(--paper);
+  padding: 0.4rem 0.5rem 0.4rem 1.5rem;
+  border-radius: 999px;
+  width: fit-content;
+}
+.market-red-button span,
+.market-final-button span {
+  background: rgba(251, 247, 239, 0.18);
+  border: none;
+}
+.market-red-button:hover,
+.market-final-button:hover {
+  background: var(--gold-dark);
+}
+.market-red-button:hover span,
+.market-final-button:hover span {
+  transform: rotate(45deg);
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+.market-hero {
+  position: relative;
+  min-height: clamp(460px, 68vh, 760px);
+  display: flex;
+  align-items: flex-end;
+  padding: 5rem 5vw 10rem;
+  color: var(--paper);
+  overflow: hidden;
+}
+
+.market-hero-image {
   position: absolute;
   inset: 0;
-
-  background-image: url("/images/home/story.jpg");
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(135deg, #1c3226 0%, #16241d 60%),
+    url("/images/home/hero.jpg") center/cover no-repeat;
+  background-blend-mode: multiply;
 }
 
-.story-overlay {
+.market-hero-overlay {
   position: absolute;
   inset: 0;
-
-  background: rgba(0,0,0,0.38);
+  background: linear-gradient(
+    to top,
+    rgba(22, 36, 29, 0.95) 5%,
+    rgba(22, 36, 29, 0.35) 55%,
+    rgba(22, 36, 29, 0.1) 100%
+  );
 }
 
-.story-content {
+.market-hero-content {
   position: relative;
   z-index: 2;
-
-  width: min(1200px, 90%);
-  margin: auto;
+  max-width: 640px;
 }
 
-.story-content h2 {
-  margin: 0;
+.market-hero-content .market-eyebrow { color: var(--gold); }
+.market-hero-content .market-eyebrow::before { background: var(--gold); }
 
-  font-size: clamp(65px, 9vw, 140px);
-  line-height: 0.86;
-  letter-spacing: -0.06em;
+.market-hero-content h1 {
+  font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+  color: var(--paper);
+}
+.market-hero-content h1 span { color: var(--gold); }
+
+.market-hero-description {
+  margin-top: 1.5rem;
+  max-width: 34rem;
+  font-size: 1.1rem;
+  color: rgba(251, 247, 239, 0.82);
 }
 
-.story-content h2 span {
-  color: #ffffff;
-}
-
-/* =========================================================
-   HOW IT WORKS
-========================================================= */
-
-.how-section {
-  padding: 150px 9%;
-  background: #ffffff;
-}
-
-.section-header {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 80px;
-  align-items: end;
-  margin-bottom: 120px;
-}
-
-.section-introduction {
-  color: var(--gray);
-  line-height: 1.7;
-  font-size: 17px;
-  max-width: 400px;
-}
-
-.steps-list {
-  border-top: 1px solid #ddd;
-}
-
-.step-row {
-  display: grid;
-  grid-template-columns: 100px 1.5fr 1fr;
-  gap: 40px;
-
-  padding: 45px 0;
-
-  border-bottom: 1px solid #ddd;
-
-  transition: all 0.35s ease;
-}
-
-.step-row:hover {
-  padding-left: 25px;
-}
-
-.step-number {
-  color: var(--red);
-
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-}
-
-.step-title h3 {
-  margin: 0;
-
-  font-size: clamp(28px, 3vw, 45px);
-  letter-spacing: -0.03em;
-}
-
-.step-description p {
-  margin: 0;
-
-  color: #666;
-  line-height: 1.7;
-  max-width: 450px;
-}
-
-/* =========================================================
-   DESTINATIONS
-========================================================= */
-
-.destinations-section {
-  background: var(--black);
-  color: white;
-
-  padding: 150px 5%;
-}
-
-.destination-heading {
-  width: 90%;
-  margin: 0 auto 80px;
-}
-
-.destination-heading h2 {
-  color: white;
-}
-
-.destination-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 18px;
-}
-
-.destination-card {
+/* the floating search card — anchored bottom-left, overlapping the
+   hero/section boundary, not a centered generic search bar */
+.market-search-card {
   position: relative;
-
-  height: 550px;
-
-  overflow: hidden;
-
-  text-decoration: none;
-
-  grid-column: span 4;
+  z-index: 3;
+  margin-top: -4.5rem;
+  margin-left: auto;
+  margin-right: 5vw;
+  max-width: 980px;
+  background: var(--paper);
+  border-radius: 22px;
+  padding: 2.25rem 2.5rem 2rem;
+  box-shadow: 0 30px 60px -20px rgba(22, 36, 29, 0.45);
+  border-left: 5px solid var(--gold);
 }
 
-.destination-2,
-.destination-5 {
-  transform: translateY(80px);
+.market-search-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.market-search-heading h2 {
+  font-size: 1.7rem;
+  color: var(--ink);
+}
+.market-search-step {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 2.5rem;
+  color: var(--paper-dim);
+  -webkit-text-stroke: 1.5px var(--gold);
+  color: transparent;
+  line-height: 1;
 }
 
-.destination-card img {
-  position: absolute;
-  inset: 0;
-
+/* SearchForm.jsx overrides — real structure is
+   .search-hero > .search-overlay > .form-panel > form > .row > .form-group
+   Neutralize whatever SearchForm.css supplies (it's built for a
+   full-bleed hero, not a card) and lay it out to fit the card. */
+.market-search-card .search-hero {
+  all: unset;
+  display: block;
   width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  transition: transform 0.8s ease;
+}
+.market-search-card .search-overlay {
+  all: unset;
+  display: block;
+  width: 100%;
+  background: none !important;
+}
+.market-search-card .form-panel {
+  all: unset;
+  display: block;
+  width: 100%;
+  background: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
 }
 
-.destination-card:hover img {
-  transform: scale(1.08);
+.market-search-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  width: 100%;
 }
 
-.destination-overlay {
-  position: absolute;
-  inset: 0;
+/* NOTE: every override below is anchored with the "form" type
+   selector as well as the class chain. SearchForm.css's own
+   .row / .form-group.small / .btn-submit rules sit at the exact
+   same specificity as a plain ".market-search-card .x" override,
+   which makes the winner depend on stylesheet load order — adding
+   the "form" element to the selector breaks that tie permanently
+   in our favor, regardless of import order. */
 
-  background:
-    linear-gradient(
-      to top,
-      rgba(0,0,0,0.8),
-      rgba(0,0,0,0.05) 70%
-    );
+.market-search-card form .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.25rem;
+  width: 100%;
+  margin-bottom: 0; /* cancels SearchForm.css's .row margin-bottom: 10px,
+                        which was stacking on top of the form's own gap */
 }
 
-.destination-content {
-  position: absolute;
-
-  left: 30px;
-  right: 30px;
-  bottom: 30px;
+.market-search-card form .form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 190px;
+  min-width: 0;
+}
+/* the passengers row is alone — don't let it stretch full width */
+.market-search-card form .row:first-of-type .form-group.small {
+  flex: 0 1 240px;
 }
 
-.destination-content span {
-  font-size: 11px;
-  letter-spacing: 0.2em;
+.market-search-card form .form-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--sage);
+  margin-bottom: 0.45rem;
+  white-space: nowrap;
 }
 
-.destination-content h3 {
-  margin: 8px 0;
-
-  font-size: 45px;
-  letter-spacing: -0.04em;
+.market-search-card form .form-group label .icon {
+  width: 15px;
+  height: 15px;
+  color: var(--gold-dark);
+  flex-shrink: 0;
 }
 
-.destination-content p {
-  margin: 0;
-
-  font-size: 14px;
-  line-height: 1.5;
-
-  color: rgba(255,255,255,0.8);
+.market-search-card form .form-group input,
+.market-search-card form .form-group select {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  box-sizing: border-box;
+  border: none;               /* resets all 4 sides — SearchForm.css sets a
+                                  full 1px border, we only want a bottom rule */
+  border-bottom: 2px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0.55rem 0.1rem;
+  font-family: var(--body);
+  font-size: 0.92rem;
+  color: var(--ink);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.2s ease;
+}
+/* custom chevron for selects since native ones vary by browser and
+   can overflow the narrow columns */
+.market-search-card form .form-group select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--sage) 50%),
+    linear-gradient(135deg, var(--sage) 50%, transparent 50%);
+  background-position: calc(100% - 4px) 60%, calc(100% - 9px) 60%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 1.1rem;
+}
+.market-search-card form .form-group input:focus,
+.market-search-card form .form-group select:focus {
+  border: none;
+  border-bottom: 2px solid var(--gold-dark);
+  box-shadow: none;           /* cancels SearchForm.css's red focus glow */
 }
 
-.destination-button-wrapper {
-  text-align: center;
-  margin-top: 120px;
+.market-search-card form .btn-submit {
+  align-self: flex-start;
+  width: auto;                /* SearchForm.css sets width: 100% */
+  max-width: none;            /* SearchForm.css caps this at 230px */
+  height: auto;
+  margin: 0.25rem 0 0 0;      /* SearchForm.css's "margin: 5px auto 0" centers
+                                  the button via auto side-margins, which wins
+                                  over align-self unless we zero it explicitly */
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: 999px;
+  box-shadow: none;
+  padding: 0.85rem 2rem;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.market-search-card form .btn-submit:hover {
+  background: var(--teal);
+  transform: none;
 }
 
-.outline-button {
-  display: inline-block;
-
-  padding: 18px 35px;
-
-  border: 1px solid rgba(255,255,255,0.5);
-
-  color: white;
-
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-
-  text-decoration: none;
-
-  transition: all 0.3s ease;
+/* keep the date/time fields as a 2-column grid even on small
+   phones — full single-column stacking made the card too tall */
+@media (max-width: 760px) {
+  /* Grid instead of flex-wrap here — with flex-wrap, two 50%-width
+     items plus a gap can round to just over 100% on some devices
+     and collapse to one-per-row. Grid's 1fr/1fr columns can't do that,
+     so Pickup Date+Time and Drop-off Date+Time reliably stay paired. */
+  .market-search-card form .row:not(:first-of-type) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem 0.85rem;
+  }
+  .market-search-card form .row:not(:first-of-type) .form-group {
+    flex: initial;
+    min-width: 0;
+  }
+  .market-search-card form .row:first-of-type .form-group.small { flex: 1 1 100%; }
 }
 
-.outline-button:hover {
-  background: white;
-  color: var(--black);
+@media (max-width: 400px) {
+  .market-search-card form .form-group label { font-size: 0.7rem; }
+  .market-search-card form .form-group input,
+  .market-search-card form .form-group select { font-size: 0.85rem; padding: 0.45rem 0.05rem; }
 }
 
-/* =========================================================
-   DRIVER
-========================================================= */
+/* =====================================================
+   VALUE PROPOSITION
+===================================================== */
+.value-section {
+  padding: 8rem 5vw 6rem;
+}
 
-.driver-section {
+.value-header {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
-
-  min-height: 850px;
-
-  background: var(--cream);
+  gap: 3rem;
+  align-items: end;
+  margin-bottom: 3.5rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--line);
+}
+.value-header h2 { font-size: clamp(2rem, 3.6vw, 2.9rem); }
+.value-introduction {
+  font-size: 1.15rem;
+  color: var(--sage);
+  max-width: 32rem;
 }
 
-.driver-image {
-  background-image: url("/images/home/driver.jpg");
-  background-size: cover;
-  background-position: center;
-}
-
-.driver-content {
-  padding: 120px 10%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.driver-content > p:not(.eyebrow) {
-  max-width: 500px;
-
-  font-size: 19px;
-  line-height: 1.7;
-
-  color: #555;
-
-  margin-top: 35px;
-}
-
-.red-button {
-  display: inline-block;
-
-  width: fit-content;
-
-  margin-top: 40px;
-
-  padding: 18px 35px;
-
-  background: var(--red);
-  color: white;
-
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-
-  text-decoration: none;
-
-  transition: transform 0.3s ease;
-}
-
-.red-button:hover {
-  transform: translateY(-3px);
-}
-
-/* =========================================================
-   STORIES
-========================================================= */
-
-.stories-section {
-  padding: 150px 8%;
-  background: white;
-}
-
-.stories-heading {
-  margin-bottom: 90px;
-}
-
-.stories-grid {
+.value-grid {
   display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-
-  gap: 25px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
 }
 
-.story-card {
-  padding: 45px;
+.value-card {
+  position: relative;
+  padding: 2.75rem 1.75rem;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+/* checkerboard tint instead of identical repeated cards */
+.value-card:nth-child(2),
+.value-card:nth-child(3n+1):nth-child(n+5) {
+  background: var(--ink);
+  color: var(--paper);
+}
+.value-card:nth-child(2) p,
+.value-card:nth-child(2) .value-number { color: rgba(251, 247, 239, 0.6); }
 
-  background: var(--cream);
+.value-number {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  font-family: var(--display);
+  font-size: 4.5rem;
+  font-style: italic;
+  color: var(--paper-dim);
+  z-index: 0;
+  line-height: 1;
+}
+.value-card:nth-child(2) .value-number { color: rgba(251, 247, 239, 0.08); }
 
-  min-height: 360px;
+.value-icon {
+  position: relative;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-dark);
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+.value-card:nth-child(2) .value-icon { color: var(--gold); }
 
+.value-card h3 {
+  position: relative;
+  z-index: 1;
+  font-size: 1.25rem;
+  margin-bottom: 0.6rem;
+}
+.value-card p {
+  position: relative;
+  z-index: 1;
+  font-size: 0.95rem;
+  color: var(--sage);
+}
+
+/* =====================================================
+   INTRO / PRIVATE DRIVER
+===================================================== */
+.intro-market-section {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 0;
+  align-items: stretch;
+  min-height: 34rem;
+}
+
+.intro-market-image {
+  position: relative;
+  overflow: hidden;
+}
+.intro-market-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.intro-market-content {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 5rem 4rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+.intro-market-content .section-eyebrow { color: var(--gold); }
+.intro-market-content .section-eyebrow::before { background: var(--gold); }
+.intro-market-content h2 {
+  color: var(--paper);
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  margin-bottom: 1.5rem;
+}
+.intro-market-content p {
+  color: rgba(251, 247, 239, 0.75);
+  margin-bottom: 1rem;
+  max-width: 30rem;
+}
+.intro-market-content .market-text-link {
+  color: var(--gold);
+  margin-top: 1.5rem;
+}
+
+/* =====================================================
+   DESTINATIONS — asymmetric grid, one feature + three narrow
+===================================================== */
+.market-destinations { padding: 7rem 5vw; }
+
+.market-section-top {
+  display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+  gap: 2rem;
+}
+.market-section-top h2 { font-size: clamp(2rem, 3.6vw, 2.9rem); }
+
+.market-destination-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 220px);
+  grid-auto-rows: 240px; /* card 4 (Mirissa) spans full width and lands
+                             in an implicit 3rd row — without this it
+                             defaults to "auto" and grows to match the
+                             source photo's natural height instead of
+                             matching the other cards */
+  gap: 1.25rem;
 }
 
-.story-stars {
-  color: var(--red);
-  letter-spacing: 0.15em;
-}
-
-.story-quote {
-  font-size: 20px;
-  line-height: 1.6;
-
-  color: #333;
-}
-
-.story-person {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.story-avatar {
-  width: 45px;
-  height: 45px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: var(--red);
-  color: white;
-
-  font-weight: 700;
-}
-
-.story-person strong {
-  display: block;
-}
-
-.story-person span {
-  display: block;
-
-  margin-top: 4px;
-
-  font-size: 12px;
-  color: #777;
-}
-
-.stories-link {
-  text-align: center;
-  margin-top: 60px;
-}
-
-/* =========================================================
-   FINAL CTA
-========================================================= */
-
-.final-section {
+.market-destination-card {
   position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  display: block;
+}
+.market-destination-1 { grid-column: span 2; grid-row: span 2; }
+.market-destination-2 { grid-column: 3; grid-row: 1; }
+.market-destination-3 { grid-column: 3; grid-row: 2; }
+.market-destination-4 { grid-column: span 3; grid-row: span 1; }
 
-  min-height: 90vh;
+.market-destination-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.market-destination-card:hover img { transform: scale(1.06); }
 
+.market-destination-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(22, 36, 29, 0.85) 0%, rgba(22, 36, 29, 0.05) 60%);
+}
+
+.market-destination-content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  color: var(--paper);
+}
+.market-destination-content span {
+  font-family: var(--display);
+  font-style: italic;
+  color: var(--gold);
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+.market-destination-content h3 { color: var(--paper); font-size: 1.4rem; }
+.market-destination-content p {
+  color: rgba(251, 247, 239, 0.75);
+  font-size: 0.88rem;
+  margin-top: 0.4rem;
+  max-width: 22rem;
+}
+
+/* =====================================================
+   HOW IT WORKS — connected steps, not boxed cards
+===================================================== */
+.market-how {
+  padding: 7rem 5vw;
+  background: var(--paper-dim);
+}
+
+.market-how-heading {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--line);
+}
+.market-how-heading h2 { font-size: clamp(2rem, 3.6vw, 2.9rem); }
+.market-how-heading > p {
+  align-self: end;
+  color: var(--sage);
+  font-size: 1.05rem;
+}
+
+.market-steps {
+  position: relative;
+  max-width: 46rem;
+}
+.market-steps::before {
+  content: "";
+  position: absolute;
+  left: 27px;
+  top: 10px;
+  bottom: 10px;
+  width: 1.5px;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--gold) 0 6px,
+    transparent 6px 12px
+  );
+}
+
+.market-step {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.75rem;
+  padding: 1.6rem 0;
+}
+
+.market-step-number {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--gold);
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.35rem;
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
+.market-step-body h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.35rem;
+}
+.market-step-body p {
+  color: var(--sage);
+  font-size: 0.95rem;
+  max-width: 30rem;
+}
+
+.market-step-arrow { display: none; }
+
+/* =====================================================
+   DRIVER / SUPPLY SIDE
+===================================================== */
+.market-driver {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  min-height: 32rem;
+}
+
+.market-driver-image { overflow: hidden; }
+.market-driver-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.market-driver-content {
+  padding: 5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--paper);
+}
+.market-driver-content h2 { font-size: clamp(1.9rem, 3vw, 2.6rem); margin-bottom: 1.5rem; }
+.market-driver-content p { color: var(--sage); margin-bottom: 1rem; max-width: 28rem; }
+.market-driver-content .market-red-button { margin-top: 1.5rem; }
+
+/* =====================================================
+   CUSTOMER STORIES
+===================================================== */
+.market-stories { padding: 7rem 5vw; }
+
+.market-stories-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+}
+.market-stories-heading h2 { font-size: clamp(2rem, 3.6vw, 2.9rem); }
+
+.market-stories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.market-story-card {
+  background: var(--paper-dim);
+  border-radius: 18px;
+  padding: 2.25rem;
+  position: relative;
+}
+
+.market-story-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+.market-story-stars { color: var(--gold-dark); letter-spacing: 0.15em; font-size: 0.9rem; }
+.market-story-number {
+  font-family: var(--display);
+  font-style: italic;
+  color: var(--sage);
+}
+
+.market-story-quote {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: var(--ink);
+  margin-bottom: 1.75rem;
+  min-height: 5.5rem;
+}
+
+.market-story-person {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+.market-story-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.1rem;
+}
+.market-story-person strong { display: block; font-size: 0.95rem; }
+.market-story-person span { display: block; font-size: 0.82rem; color: var(--sage); }
+
+/* =====================================================
+   FINAL CTA
+===================================================== */
+.market-final {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-
-  color: white;
+  padding: 6rem 5vw;
+  overflow: hidden;
 }
-
-.final-image {
+.market-final-image {
   position: absolute;
   inset: 0;
-
-  background-image: url("/images/home/final.jpg");
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(135deg, #16241d, #0f1a14),
+    url("/images/home/final.jpg") center/cover no-repeat;
+  background-blend-mode: multiply;
 }
-
-.final-overlay {
+.market-final-overlay {
   position: absolute;
   inset: 0;
-
-  background: rgba(0,0,0,0.48);
+  background: rgba(22, 36, 29, 0.55);
 }
-
-.final-content {
+.market-final-content {
   position: relative;
   z-index: 2;
-
-  width: 90%;
+  max-width: 42rem;
+  color: var(--paper);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.market-final-content .market-eyebrow { color: var(--gold); }
+.market-final-content h2 {
+  color: var(--paper);
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 1.25rem;
+}
+.market-final-content p {
+  color: rgba(251, 247, 239, 0.8);
+  margin-bottom: 2rem;
 }
 
-.final-content h2 {
-  margin: 0;
-
-  font-size: clamp(75px, 12vw, 180px);
-  line-height: 0.8;
-  letter-spacing: -0.065em;
-}
-
-.final-content h2 span {
-  color: var(--red);
-}
-
-.final-content > p:not(.eyebrow) {
-  margin: 40px auto;
-
-  font-size: 20px;
-}
-
-.final-button {
-  display: inline-block;
-
-  padding: 20px 45px;
-
-  background: var(--red);
-  color: white;
-
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-
-  text-decoration: none;
-
-  transition: transform 0.3s ease;
-}
-
-.final-button:hover {
-  transform: translateY(-4px);
-}
-
-/* =========================================================
+/* =====================================================
    RESPONSIVE
-========================================================= */
-
-@media (max-width: 900px) {
-
-  .hero-section {
-    min-height: 900px;
-    align-items: flex-start;
+===================================================== */
+@media (max-width: 960px) {
+  .market-hero {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    padding-bottom: 3rem;
   }
-
-  .hero-content {
-    padding-top: 150px;
+  .market-hero-content { max-width: 100%; }
+  .value-header,
+  .market-how-heading { grid-template-columns: 1fr; }
+  .value-grid { grid-template-columns: repeat(2, 1fr); }
+  .intro-market-section,
+  .market-driver { grid-template-columns: 1fr; }
+  .market-driver-image { min-height: 20rem; }
+  .market-destination-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 200px);
   }
-
-  .hero-search-wrapper {
-    width: 94%;
-  }
-
-  .intro-section {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding: 100px 8%;
-  }
-
-  .section-header {
-    grid-template-columns: 1fr;
-    gap: 35px;
-    margin-bottom: 70px;
-  }
-
-  .step-row {
-    grid-template-columns: 60px 1fr;
-  }
-
-  .step-description {
-    grid-column: 2;
-  }
-
-  .destination-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .destination-card {
-    grid-column: span 12;
-    height: 500px;
-  }
-
-  .destination-2,
-  .destination-5 {
-    transform: none;
-  }
-
-  .driver-section {
-    grid-template-columns: 1fr;
-  }
-
-  .driver-image {
-    min-height: 600px;
-  }
-
-  .stories-grid {
-    grid-template-columns: 1fr;
+  .market-destination-1 { grid-column: span 2; grid-row: span 1; }
+  .market-destination-2 { grid-column: 1; grid-row: 2; }
+  .market-destination-3 { grid-column: 2; grid-row: 2; }
+  .market-destination-4 { grid-column: span 2; grid-row: 3; }
+  .market-stories-grid { grid-template-columns: 1fr; }
+  .market-search-card {
+    margin-left: 4vw;
+    margin-right: 4vw;
+    margin-top: 2rem;
+    max-width: none;
   }
 }
 
-@media (max-width: 600px) {
-
-  .hero-section {
-    min-height: 1000px;
+@media (max-width: 640px) {
+  .market-hero { padding: 3rem 6vw 2rem; min-height: 0; }
+  .market-hero-content h1 { font-size: clamp(2rem, 9vw, 2.6rem); }
+  .market-hero-description { margin-top: 0.85rem; }
+  .market-search-card {
+    padding: 1.4rem 1.25rem;
+    border-radius: 18px;
   }
-
-  .hero-content {
-    padding-top: 110px;
+  .market-search-card form { gap: 0.85rem; }
+  .market-search-heading { margin-bottom: 0.9rem; }
+  .market-search-card .row { gap: 0.7rem 1rem; }
+  .market-search-card .btn-submit {
+    padding: 0.7rem 1.7rem;
+    font-size: 0.82rem;
+    margin-top: 0;
   }
+  .value-section,
+  .market-destinations,
+  .market-how,
+  .market-stories { padding: 4.5rem 6vw; }
+  .value-grid { grid-template-columns: 1fr; }
+  .intro-market-content,
+  .market-driver-content { padding: 3rem 6vw; }
+  .market-section-top,
+  .market-stories-heading { flex-direction: column; align-items: flex-start; gap: 1rem; }
+}
 
-  .hero-content h1 {
-    font-size: clamp(65px, 18vw, 100px);
-  }
-
-  .hero-description {
-    font-size: 17px;
-  }
-
-  .hero-search-wrapper {
-    bottom: 20px;
-  }
-
-  .hero-search-wrapper .form-panel {
-    padding: 20px;
-  }
-
-  .hero-search-wrapper .hero-title {
-    font-size: 19px;
-  }
-
-  .intro-section {
-    padding: 90px 7%;
-  }
-
-  .intro-content h2,
-  .how-section h2,
-  .destination-heading h2,
-  .driver-content h2,
-  .stories-heading h2 {
-    font-size: 55px;
-  }
-
-  .story-section {
-    min-height: 750px;
-  }
-
-  .story-content h2 {
-    font-size: 65px;
-  }
-
-  .how-section,
-  .stories-section {
-    padding: 90px 7%;
-  }
-
-  .step-row {
-    padding: 35px 0;
-    gap: 15px;
-  }
-
-  .step-title h3 {
-    font-size: 30px;
-  }
-
-  .destination-section {
-    padding: 90px 5%;
-  }
-
-  .destination-card {
-    height: 430px;
-  }
-
-  .destination-content h3 {
-    font-size: 38px;
-  }
-
-  .driver-content {
-    padding: 90px 8%;
-  }
-
-  .driver-image {
-    min-height: 450px;
-  }
-
-  .story-card {
-    padding: 30px;
-  }
-
-  .final-section {
-    min-height: 700px;
-  }
-
-  .final-content h2 {
-    font-size: 75px;
-  }
+@media (prefers-reduced-motion: reduce) {
+  .voyagees-home * { transition: none !important; animation: none !important; }
 }

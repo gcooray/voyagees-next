@@ -1,9 +1,36 @@
 /* =========================
+   BRAND TOKENS (shared site-wide)
+   Previously duplicated between page.css (.voyagees-home)
+   and Navbar.css (:root, prefixed --nav-*). Centralizing here
+   so every stylesheet reads from the same source.
+========================= */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --ink: #16241d;
+  --paper: #fbf7ef;
+  --paper-dim: #f2ead9;
+  --gold: #e2a63b;
+  --gold-dark: #b9812a;
+  --teal: #2b6e71;
+  --clay: #c15b3d;
+  --sage: #748176;
+  --line: rgba(22, 36, 29, 0.12);
+  --line-on-dark: rgba(251, 247, 239, 0.14); /* hairline borders for dark
+                                                  surfaces, e.g. the navbar */
+
+  --display: "Fraunces", Georgia, serif;
+  --body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* =========================
    RESET
 ========================= */
 * {
   margin: 0;
-  padding: 2;
+  padding: 0; /* was "padding: 2" — invalid CSS with no unit, so the
+                 browser silently ignored it and nothing was actually
+                 being reset. Fixed. */
   box-sizing: border-box;
 }
 
@@ -12,7 +39,7 @@
 ========================= */
 html, body {
   height: 100%;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family: var(--body), system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background-color: #ffffff;
   color: #222;
   scroll-behavior: smooth;

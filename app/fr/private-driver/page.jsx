@@ -15,18 +15,26 @@ export default function PrivateDriverPage() {
       {/* HERO */}
 
       <section className="pd-hero">
-        <div className="pd-hero-overlay" />
+  <div className="pd-hero-overlay" />
 
-        <div className="pd-hero-content">
-          <p className="pd-eyebrow">
-            TRANSPORT PRIVÉ · SRI LANKA
-          </p>
+  <div className="pd-hero-content">
 
-          <h1>
-            Chauffeur privé au Sri Lanka pour un voyage sûr et confortable
-          </h1>
-        </div>
-      </section>
+    <div className="pd-hero-copy">
+      <p className="pd-eyebrow">
+        TRANSPORT PRIVÉ · SRI LANKA
+      </p>
+
+      <h1>
+        Chauffeur privé au Sri Lanka pour un voyage sûr et confortable
+      </h1>
+    </div>
+
+    <div className="pd-hero-search">
+      <DriverSearch />
+    </div>
+
+  </div>
+</section>
 
 
       {/* INTRO */}
@@ -49,11 +57,7 @@ export default function PrivateDriverPage() {
             sans les contraintes des circuits de groupe ou des horaires
             fixes des transports publics.
           </p>
-
-          <div className="pd-search-wrapper">
-            <DriverSearch />
-          </div>
-
+          
           <div className="pd-driver-intro">
             <p>
               Voyagees met les voyageurs en relation avec des chauffeurs

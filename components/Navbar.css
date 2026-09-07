@@ -1,258 +1,193 @@
 /* =========================================================
-   VOYAGEES NAVBAR
+   VOYAGEES — NAVBAR
+   Matches the palette/type system from page.css. Kept as a
+   solid ink bar (sticky) rather than transparent-over-hero,
+   since the navbar renders on every page, not just the
+   homepage hero. Brand tokens now come from global.css :root.
    ========================================================= */
 
 .navbar {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.97);
-  border-bottom: 1px solid #eeeeee;
-  position: relative;
-  z-index: 1000;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--ink);
+  border-bottom: 1px solid var(--line-on-dark);
 }
 
 .navbar-inner {
-  max-width: 1200px;
-  min-height: 78px;
   margin: 0 auto;
-  padding: 0 30px;
-
+  padding: 0.75rem 5vw;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
 }
-
-/* =========================================================
-   LOGO
-   ========================================================= */
 
 .left-side {
   display: flex;
   align-items: center;
+  gap: 1.5rem;
 }
 
 .navbar-logo {
-  display: block;
-  height: 58px;
+  height: 64px;
   width: auto;
   object-fit: contain;
 }
 
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
+/* hamburger — hidden on desktop, shown under the breakpoint */
+.navbar-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line-on-dark);
+  background: transparent;
+  color: var(--paper);
+  font-size: 1.15rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.navbar-toggle:hover {
+  border-color: var(--gold);
+  background: rgba(226, 166, 59, 0.1);
+}
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 30px;
-
+  gap: 2.1rem;
   list-style: none;
   margin: 0;
   padding: 0;
+  font-family: var(--body);
 }
 
-.nav-links li {
-  margin: 0;
-  padding: 0;
-}
+.nav-links li { display: flex; align-items: center; }
 
 .nav-links a {
   position: relative;
-
-  color: #444;
+  color: rgba(251, 247, 239, 0.85);
   text-decoration: none;
-
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   font-weight: 500;
-
+  padding: 0.35rem 0;
   transition: color 0.2s ease;
 }
 
-.nav-links a:hover {
-  color: #cc0000;
-}
-
-/* Red underline */
-
+/* gold underline sweep instead of a flat color-only hover */
 .nav-links a::after {
   content: "";
-
   position: absolute;
   left: 0;
-  bottom: -7px;
-
-  width: 0;
+  right: 100%;
+  bottom: -2px;
   height: 2px;
-
-  background: #cc0000;
-
-  transition: width 0.2s ease;
+  background: var(--gold);
+  transition: right 0.25s ease;
 }
-
+.nav-links a:hover {
+  color: var(--paper);
+}
 .nav-links a:hover::after {
-  width: 100%;
+  right: 0;
 }
 
-/* =========================================================
-   LANGUAGE SWITCHER
-   ========================================================= */
+/* language switcher — small pill, flag + code */
+.language-switcher {
+  margin-left: 0.4rem;
+  padding-left: 1.7rem;
+  border-left: 1px solid var(--line-on-dark);
+}
 
 .language-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   background: transparent;
-  border: 1px solid #dddddd;
-
-  border-radius: 7px;
-
-  padding: 6px 10px;
-
-  color: #555;
-
-  font-family: inherit;
-  font-size: 0.8rem;
+  border: 1.5px solid var(--line-on-dark);
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  color: var(--paper);
+  font-family: var(--body);
+  font-size: 0.86rem;
   font-weight: 600;
-
   cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
-
 .language-button:hover {
-  background: #fff5f5;
-  border-color: #cc0000;
-  color: #cc0000;
+  border-color: var(--gold);
+  background: rgba(226, 166, 59, 0.1);
 }
-
-/* =========================================================
-   MOBILE TOGGLE
-   ========================================================= */
-
-.navbar-toggle {
-  display: none;
-
-  background: transparent;
-  border: none;
-
-  padding: 5px;
-
-  color: #333;
-
-  font-size: 1.7rem;
+.language-flag {
+  font-size: 1rem;
   line-height: 1;
-
-  cursor: pointer;
 }
 
-/* =========================================================
+/* =====================================================
    MOBILE
-   ========================================================= */
-
-@media (max-width: 768px) {
-
+===================================================== */
+@media (max-width: 880px) {
   .navbar-inner {
-    min-height: 70px;
-    padding: 0 18px;
-  }
-
-  .navbar-logo {
-    height: 52px;
-  }
-
-  .left-side {
-    width: 100%;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    position: relative;
   }
 
   .navbar-toggle {
-    display: block;
+    display: flex;
+    position: absolute;
+    right: 5vw;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
-  /* Dropdown */
-
   .nav-links {
-    display: none;
-
     position: absolute;
-
-    top: 70px;
-    left: 12px;
-    right: 12px;
-
+    top: 100%;
+    left: 0;
+    right: 0;
     flex-direction: column;
-    align-items: stretch;
-
+    align-items: flex-start;
     gap: 0;
-
-    padding: 8px 0;
-
-    background: #ffffff;
-
-    border: 1px solid #eeeeee;
-    border-radius: 12px;
-
-    box-shadow:
-      0 8px 25px rgba(0, 0, 0, 0.08);
+    background: var(--ink);
+    border-bottom: 1px solid var(--line-on-dark);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.25s ease;
   }
 
   .nav-links.show {
-    display: flex;
+    max-height: 26rem;
+    opacity: 1;
   }
 
   .nav-links li {
     width: 100%;
+    padding: 0 5vw;
   }
 
   .nav-links a {
     display: block;
-    width: auto;
-
-    padding: 14px 20px;
-
-    font-size: 0.95rem;
+    width: 100%;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line-on-dark);
   }
-
-  .nav-links a::after {
-    display: none;
-  }
-
-  .nav-links a:hover {
-    background: #fff5f5;
-    color: #cc0000;
-  }
-
-  /* Language button */
+  .nav-links a::after { display: none; }
 
   .language-switcher {
-    padding: 10px 20px;
+    margin: 0.9rem 0 1.1rem;
+    padding: 0 5vw;
+    border-left: none;
+    width: 100%;
   }
-
   .language-button {
     width: 100%;
-    padding: 10px;
+    justify-content: center;
   }
 }
 
-/* =========================================================
-   SMALL PHONES
-   ========================================================= */
-
-@media (max-width: 480px) {
-
-  .navbar-inner {
-    padding: 0 15px;
-  }
-
-  .navbar-logo {
-    height: 48px;
-  }
-
-  .nav-links {
-    left: 10px;
-    right: 10px;
-  }
+@media (prefers-reduced-motion: reduce) {
+  .navbar * { transition: none !important; }
 }
