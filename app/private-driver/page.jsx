@@ -109,7 +109,6 @@ export default function PrivateDriverPage() {
         <div className="pd-benefits-grid">
 
           <article className="pd-benefit">
-            <span>01</span>
 
             <h3>
               Flexible travel at your own pace
@@ -125,7 +124,7 @@ export default function PrivateDriverPage() {
 
 
           <article className="pd-benefit">
-            <span>02</span>
+            
 
             <h3>
               Convenient and time saving
@@ -142,7 +141,7 @@ export default function PrivateDriverPage() {
 
 
           <article className="pd-benefit">
-            <span>03</span>
+            
 
             <h3>
               Local knowledge and expertise
@@ -158,7 +157,7 @@ export default function PrivateDriverPage() {
 
 
           <article className="pd-benefit">
-            <span>04</span>
+            
 
             <h3>
               Comfortable for families and groups
@@ -174,7 +173,7 @@ export default function PrivateDriverPage() {
 
 
           <article className="pd-benefit">
-            <span>05</span>
+            
 
             <h3>
               Better communication
@@ -281,6 +280,10 @@ export default function PrivateDriverPage() {
 
       </section>
 
+<div className="pd-inline-image">
+  <img src="/images/private-driver/hill-country-road.jpg" alt="Private driver route through Sri Lanka's hill country" />
+  <p className="pd-image-caption">On the road through Kandy and the hill country</p>
+</div>
 
       {/* =====================================================
           AIRPORT TRANSFERS
@@ -352,6 +355,11 @@ export default function PrivateDriverPage() {
         </div>
 
       </section>
+
+      <div className="pd-inline-image">
+  <img src="/images/private-driver/hill-country-road.jpg" alt="Driver meeting travellers at Bandaranaike International Airport" />
+  <p className="pd-image-caption">Airport pickup at Bandaranaike International</p>
+</div>
 
 
       {/* =====================================================
@@ -504,6 +512,11 @@ export default function PrivateDriverPage() {
         </div>
 
       </section>
+
+      <div className="pd-inline-image">
+  <img src="/images/private-driver/southern-coast.jpg" alt="Private vehicle along Sri Lanka's southern coast" />
+  <p className="pd-image-caption">Southern coast route — Galle to Mirissa</p>
+</div>
 
 
       {/* =====================================================
