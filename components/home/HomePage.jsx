@@ -6,6 +6,8 @@ import Link from "next/link";
 import SearchForm from "@/components/SearchForm.jsx";
 import "@/app/page.css";
 
+const VALUE_ICONS = ["↗", "↔", "□", "✓"];
+
 const travelerStories = [
   {
     quote:
@@ -57,15 +59,13 @@ export default function HomePage({ content, locale }) {
   const privateDriverPath =
     locale === "fr" ? "/fr/private-driver" : "/private-driver";
 
-  const searchPath = locale === "fr" ? "/fr/search" : "/search";
-
   const explorePath =
     locale === "fr"
       ? "/fr/explorer-le-sri-lanka"
       : "/explore-sri-lanka";
 
-  const reviewsPath =
-    locale === "fr" ? "/fr/reviews" : "/reviews";
+  // const reviewsPath =
+  //   locale === "fr" ? "/fr/reviews" : "/reviews";
 
   return (
     <main className="voyagees-home">
@@ -103,17 +103,15 @@ export default function HomePage({ content, locale }) {
           <div className="market-search-heading">
             <div>
               <span className="market-search-label">
-                PLAN YOUR JOURNEY
+                {content.search.eyebrow}
               </span>
 
               <h2>
-                Find your private driver
+                {content.search.heading}
               </h2>
             </div>
 
-            <span className="market-search-step">
-              01
-            </span>
+            
           </div>
 
           <SearchForm
@@ -132,6 +130,7 @@ export default function HomePage({ content, locale }) {
             passengers={passengers}
             setPassengers={setPassengers}
             handleSearch={handleSearch}
+            locale={locale}
           />
 
         </div>
@@ -149,13 +148,13 @@ export default function HomePage({ content, locale }) {
 
           <div>
             <p className="section-eyebrow">
-              WHY VOYAGEES
+              {content.value.eyebrow}
             </p>
 
             <h2>
-              Travel Sri Lanka
+              {content.value.title}
               <br />
-              <span>your way.</span>
+              <span>{content.value.titleHighlight}</span>
             </h2>
           </div>
 
@@ -168,76 +167,21 @@ export default function HomePage({ content, locale }) {
 
         <div className="value-grid">
 
-          <article className="value-card">
+          {content.value.cards.map((card, index) => (
+            <article className="value-card" key={card.title}>
 
-            <span className="value-number">01</span>
+              <div className="value-icon">{VALUE_ICONS[index]}</div>
 
-            <div className="value-icon">↗</div>
+              <h3>
+                {card.title}
+              </h3>
 
-            <h3>
-              Local drivers
-            </h3>
+              <p>
+                {card.text}
+              </p>
 
-            <p>
-              Travel with people who know Sri Lanka,
-              its roads, destinations and local places.
-            </p>
-
-          </article>
-
-
-          <article className="value-card">
-
-            <span className="value-number">02</span>
-
-            <div className="value-icon">↔</div>
-
-            <h3>
-              Flexible journeys
-            </h3>
-
-            <p>
-              Arrange airport transfers, day trips
-              or multi-day journeys around your plans.
-            </p>
-
-          </article>
-
-
-          <article className="value-card">
-
-            <span className="value-number">03</span>
-
-            <div className="value-icon">□</div>
-
-            <h3>
-              The right vehicle
-            </h3>
-
-            <p>
-              Choose transportation that fits your
-              passengers, luggage and journey.
-            </p>
-
-          </article>
-
-
-          <article className="value-card">
-
-            <span className="value-number">04</span>
-
-            <div className="value-icon">✓</div>
-
-            <h3>
-              Compare your options
-            </h3>
-
-            <p>
-              See available drivers, vehicles and
-              prices before sending your request.
-            </p>
-
-          </article>
+            </article>
+          ))}
 
         </div>
 
@@ -304,7 +248,7 @@ export default function HomePage({ content, locale }) {
             </p>
 
             <h2>
-              Discover
+              {content.destinations.title}
               <br />
               <span>{content.destinations.titleHighlight}</span>
             </h2>
@@ -342,6 +286,8 @@ export default function HomePage({ content, locale }) {
 
               <div className="market-destination-overlay" />
 
+              <span className="market-destination-arrow">→</span>
+
               <div className="market-destination-content">
 
                 <span>
@@ -371,7 +317,7 @@ export default function HomePage({ content, locale }) {
           HOW IT WORKS
       ===================================================== */}
 
-      <section className="market-how">
+      <section className="market-how" id="how-it-works">
 
         <div className="market-how-heading">
 
@@ -468,7 +414,7 @@ export default function HomePage({ content, locale }) {
           </p>
 
           <Link
-            href={searchPath}
+            href={privateDriverPath}
             className="market-red-button"
           >
             {content.driver.button}
@@ -495,20 +441,22 @@ export default function HomePage({ content, locale }) {
             </p>
 
             <h2>
-              Real journeys.
+              {content.stories.title}
               <br />
-              <span>Real stories.</span>
+              <span>{content.stories.titleHighlight}</span>
             </h2>
 
           </div>
 
-          <Link
+          {/* Hidden for now — /reviews page doesn't exist yet, so this
+              link 404s. Re-enable once that page is built. */}
+          {/* <Link
             href={reviewsPath}
             className="market-text-link"
           >
             {content.stories.link}
             <span>→</span>
-          </Link>
+          </Link> */}
 
         </div>
 
@@ -592,7 +540,7 @@ export default function HomePage({ content, locale }) {
           </p>
 
           <Link
-            href={searchPath}
+            href={privateDriverPath}
             className="market-final-button"
           >
             {content.final.button}

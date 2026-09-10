@@ -6,6 +6,35 @@ const fr = {
     description: "Votre voyage. Votre rythme. Votre expérience locale.",
   },
 
+  search: {
+    eyebrow: "PLANIFIEZ VOTRE VOYAGE",
+    heading: "Trouvez votre chauffeur privé",
+  },
+
+  value: {
+    eyebrow: "POURQUOI VOYAGEES",
+    title: "Découvrez le Sri Lanka",
+    titleHighlight: "à votre façon.",
+    cards: [
+      {
+        title: "Chauffeurs locaux",
+        text: "Voyagez avec des personnes qui connaissent le Sri Lanka, ses routes, ses destinations et ses lieux locaux.",
+      },
+      {
+        title: "Voyages flexibles",
+        text: "Organisez des transferts aéroport, des excursions d'une journée ou des voyages de plusieurs jours selon vos projets.",
+      },
+      {
+        title: "Le bon véhicule",
+        text: "Choisissez un moyen de transport adapté à vos passagers, vos bagages et votre voyage.",
+      },
+      {
+        title: "Comparez vos options",
+        text: "Consultez les chauffeurs, véhicules et tarifs disponibles avant d'envoyer votre demande.",
+      },
+    ],
+  },
+
   intro: {
     eyebrow: "BIENVENUE CHEZ VOYAGEES",
     title: "Une île.",
@@ -14,7 +43,7 @@ const fr = {
       "Le Sri Lanka ne se résume pas aux lieux que vous voyez sur une carte. Ce sont les rencontres au fil de la route, les points de vue cachés, les petits restaurants et les personnes que vous découvrez en chemin.",
     text2:
       "Voyagees vous met en relation avec des chauffeurs locaux de confiance pour découvrir l'île à votre façon.",
-    link: "DÉCOUVRIR VOYAGEES →",
+    link: "EN SAVOIR PLUS →",
   },
 
   story: {

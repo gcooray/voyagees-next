@@ -15,6 +15,31 @@ function generateTimeOptions() {
   return times;
 }
 
+const STRINGS = {
+  en: {
+    passengers: "Passengers",
+    selectPassengers: "Select passengers",
+    passenger: (n) => `${n} ${n === 1 ? "Passenger" : "Passengers"}`,
+    pickupDate: "Pickup Date",
+    pickupTime: "Pickup Time",
+    dropoffDate: "Drop-off Date",
+    dropoffTime: "Drop-off Time",
+    selectTime: "Select time",
+    submit: "FIND MY DRIVER",
+  },
+  fr: {
+    passengers: "Passagers",
+    selectPassengers: "Nombre de passagers",
+    passenger: (n) => `${n} ${n === 1 ? "Passager" : "Passagers"}`,
+    pickupDate: "Date de Départ",
+    pickupTime: "Heure de Départ",
+    dropoffDate: "Date de Retour",
+    dropoffTime: "Heure de Retour",
+    selectTime: "Sélectionnez l'heure",
+    submit: "TROUVER MON CHAUFFEUR",
+  },
+};
+
 function SearchForm({
   pickup,
   dropoff,
@@ -31,7 +56,9 @@ function SearchForm({
   setDropoffTime,
   setPassengers,
   handleSearch,
+  locale = "en",
 }) {
+  const t = STRINGS[locale] || STRINGS.en;
   const timeOptions = generateTimeOptions();
 
   const today = new Date();
@@ -68,7 +95,7 @@ function SearchForm({
 
   <div className="form-group small">
     <label>
-      Passengers
+      {t.passengers}
     </label>
 
     <select
@@ -77,7 +104,7 @@ function SearchForm({
       required
     >
       <option value="" disabled>
-        Select passengers
+        {t.selectPassengers}
       </option>
 
       {Array.from({ length: 12 }, (_, index) => {
@@ -85,7 +112,7 @@ function SearchForm({
 
         return (
           <option key={number} value={number}>
-            {number} {number === 1 ? "Passenger" : "Passengers"}
+            {t.passenger(number)}
           </option>
         );
       })}
@@ -97,7 +124,7 @@ function SearchForm({
             <div className="row">
               <div className="form-group small with-icon">
                 <label>
-                  <CalendarDays className="icon" /> Pickup Date
+                  <CalendarDays className="icon" /> {t.pickupDate}
                 </label>
                 <input
                   type="date"
@@ -110,14 +137,14 @@ function SearchForm({
 
               <div className="form-group small with-icon">
                 <label>
-                  <Clock className="icon" /> Pickup Time
+                  <Clock className="icon" /> {t.pickupTime}
                 </label>
                 <select
                   value={pickupTime}
                   onChange={(e) => setPickupTime(e.target.value)}
                   required
                 >
-                  <option value="" disabled>Select time</option>
+                  <option value="" disabled>{t.selectTime}</option>
                   {timeOptions.map((time) => (
                     <option key={time} value={time}>{time}</option>
                   ))}
@@ -126,7 +153,7 @@ function SearchForm({
 
               <div className="form-group small with-icon">
                 <label>
-                  <CalendarDays className="icon" /> Drop-off Date
+                  <CalendarDays className="icon" /> {t.dropoffDate}
                 </label>
                 <input
                   type="date"
@@ -139,14 +166,14 @@ function SearchForm({
 
               <div className="form-group small with-icon">
                 <label>
-                  <Clock className="icon" /> Drop-off Time
+                  <Clock className="icon" /> {t.dropoffTime}
                 </label>
                 <select
                   value={dropoffTime}
                   onChange={(e) => setDropoffTime(e.target.value)}
                   required
                 >
-                  <option value="" disabled>Select time</option>
+                  <option value="" disabled>{t.selectTime}</option>
                   {timeOptions.map((time) => (
                     <option key={time} value={time}>{time}</option>
                   ))}
@@ -154,7 +181,7 @@ function SearchForm({
               </div>
             </div>
 
-            <button type="submit" className="btn-submit">FIND MY DRIVER</button>
+            <button type="submit" className="btn-submit">{t.submit}</button>
           </form>
         </div>
       </div>

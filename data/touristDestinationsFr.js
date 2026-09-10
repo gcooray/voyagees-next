@@ -112,4 +112,52 @@ export const touristDestinationsFr = {
     description:
       "La « petite Angleterre » du Sri Lanka, célèbre pour ses plantations de thé, son climat frais et ses paysages verdoyants.",
   },
+
+  Dambulla: {
+    name: "Dambulla",
+    description:
+      "Un site classé au patrimoine mondial de l'UNESCO abritant le célèbre temple d'or creusé à même la roche.",
+  },
+
+  Mirissa: {
+    name: "Mirissa",
+    description:
+      "Une ville balnéaire décontractée de la côte sud, réputée pour l'observation des baleines et ses plages de sable.",
+  },
+
+  Pinnawala: {
+    name: "Pinnawala",
+    description:
+      "Un refuge accueillant un grand troupeau d'éléphants secourus, avec des baignades quotidiennes dans la rivière.",
+  },
+
+  "Adam's Peak": {
+    name: "Pic d'Adam (Sri Pada)",
+    description:
+      "Une randonnée nocturne de pèlerinage jusqu'à un sommet sacré, célèbre pour ses levers de soleil.",
+  },
+
+  "Horton Plains National Park": {
+    name: "Parc national de Horton Plains",
+    description:
+      "Un plateau montagneux connu pour son point de vue vertigineux de World's End et son climat frais.",
+  },
+
+  Bentota: {
+    name: "Bentota",
+    description:
+      "Une station balnéaire de la côte sud réputée pour ses sports nautiques et sa ferme de tortues.",
+  },
+
+  Hikkaduwa: {
+    name: "Hikkaduwa",
+    description:
+      "Une ville balnéaire animée réputée pour le surf et son récif corallien accessible depuis la plage.",
+  },
+
+  Kitulgala: {
+    name: "Kitulgala",
+    description:
+      "Le principal site de rafting en eaux vives du Sri Lanka, niché au cœur de la forêt tropicale.",
+  },
 };

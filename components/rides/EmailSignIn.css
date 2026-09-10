@@ -1,0 +1,54 @@
+.email-signin-form {
+  max-width: 420px;
+}
+
+.email-signin-prompt {
+  font-size: 0.85rem;
+  color: var(--sage);
+  margin: 0 0 0.6rem;
+}
+
+.email-signin-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.email-signin-row input {
+  flex: 1;
+  min-width: 180px;
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--radius, 8px);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font-family: var(--body);
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.email-signin-row button {
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: 999px;
+  padding: 0.65rem 1.25rem;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+.email-signin-row button:hover:not(:disabled) { background: var(--teal); }
+.email-signin-row button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.email-signin-sent {
+  font-size: 0.9rem;
+  color: var(--sage);
+}
+
+.email-signin-error {
+  color: var(--clay);
+  font-size: 0.82rem;
+  margin: 0.5rem 0 0;
+}

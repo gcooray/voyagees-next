@@ -4,9 +4,10 @@
 
 .request-page {
   min-height: 100vh;
-  background: #f8f8f8;
+  background: var(--paper);
   padding: 110px 20px 70px;
-  color: #333;
+  color: var(--ink);
+  font-family: var(--body);
 }
 
 /* =========================================================
@@ -24,21 +25,18 @@
    ========================================================= */
 
 .booking-overview {
-  background: #ffffff;
+  background: var(--paper-dim);
+  border: 1px solid var(--line);
   border-radius: 16px;
   padding: 30px;
   margin-bottom: 25px;
 
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
-
-  border-top: 4px solid #cc0000;
+  border-top: 4px solid var(--clay);
 }
 
 .booking-overview h3 {
   margin: 0 0 25px;
   font-size: 1.35rem;
-  font-weight: 600;
-  color: #222;
 }
 
 /* =========================================================
@@ -52,7 +50,8 @@
 }
 
 .overview-grid > div {
-  background: #f7f7f7;
+  background: var(--paper);
+  border: 1px solid var(--line);
   border-radius: 10px;
   padding: 16px 18px;
 }
@@ -60,24 +59,25 @@
 .overview-grid span {
   display: block;
   font-size: 0.82rem;
-  color: #777;
+  color: var(--sage);
   margin-bottom: 7px;
 }
 
 .overview-grid strong {
   display: block;
   font-size: 1rem;
-  color: #222;
+  color: var(--ink);
 }
 
 /* Highlight total */
 
 .overview-grid > div:nth-child(2) {
-  background: #fff5f5;
+  background: rgba(193, 91, 61, 0.08);
+  border-color: rgba(193, 91, 61, 0.2);
 }
 
 .overview-grid > div:nth-child(2) strong {
-  color: #cc0000;
+  color: var(--clay);
   font-size: 1.1rem;
 }
 
@@ -86,19 +86,15 @@
    ========================================================= */
 
 .trip-description-form {
-  background: #ffffff;
+  background: var(--paper-dim);
+  border: 1px solid var(--line);
   border-radius: 16px;
   padding: 35px;
-
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
 }
 
 .trip-description-form h2 {
   margin: 0 0 30px;
-
   font-size: 1.7rem;
-  font-weight: 600;
-  color: #222;
 }
 
 /* Section headings */
@@ -108,10 +104,11 @@
 
   font-size: 1.05rem;
   font-weight: 600;
-  color: #333;
+  font-family: var(--body);
+  color: var(--ink);
 
   padding-bottom: 8px;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid var(--line);
 }
 
 .trip-description-form h3:first-of-type {
@@ -127,16 +124,16 @@
   width: 100%;
   box-sizing: border-box;
 
-  border: 1px solid #dddddd;
-  border-radius: 9px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 
   padding: 13px 15px;
 
-  font-family: inherit;
+  font-family: var(--body);
   font-size: 0.95rem;
 
-  background: #ffffff;
-  color: #333;
+  background: var(--paper);
+  color: var(--ink);
 
   outline: none;
 
@@ -158,17 +155,17 @@
 
 .trip-description-form input:focus,
 .trip-description-form textarea:focus {
-  border-color: #cc0000;
+  border-color: var(--gold);
 
   box-shadow:
-    0 0 0 3px rgba(204, 0, 0, 0.08);
+    0 0 0 3px rgba(226, 166, 59, 0.15);
 }
 
 /* Placeholder */
 
 .trip-description-form input::placeholder,
 .trip-description-form textarea::placeholder {
-  color: #999;
+  color: var(--sage);
 }
 
 /* =========================================================
@@ -183,13 +180,14 @@
   padding: 15px 20px;
 
   border: none;
-  border-radius: 9px;
+  border-radius: 999px;
 
-  background: #cc0000;
-  color: white;
+  background: var(--clay);
+  color: var(--paper);
 
   font-size: 0.95rem;
   font-weight: 600;
+  font-family: var(--body);
 
   letter-spacing: 0.4px;
 
@@ -202,10 +200,10 @@
 }
 
 .trip-description-form button:hover {
-  background: #a90000;
+  background: var(--gold-dark);
 
   box-shadow:
-    0 5px 15px rgba(204, 0, 0, 0.2);
+    0 5px 15px rgba(185, 129, 42, 0.25);
 
   transform: translateY(-1px);
 }
@@ -215,10 +213,18 @@
 }
 
 .trip-description-form button:disabled {
-  background: #bbb;
+  background: var(--sage);
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
+}
+
+/* Inline error message, matching the pattern used on the rides pages */
+.trip-description-form .form-error {
+  color: var(--clay);
+  font-size: 0.85rem;
+  margin-top: -4px;
+  margin-bottom: 14px;
 }
 
 /* =========================================================
@@ -238,12 +244,11 @@
 }
 
 .request-page.success h1 {
-  color: #cc0000;
   margin-bottom: 15px;
 }
 
 .request-page.success p {
-  color: #666;
+  color: var(--sage);
   margin: 6px 0;
 }
 
@@ -253,12 +258,19 @@
   padding: 13px 25px;
 
   border: none;
-  border-radius: 8px;
+  border-radius: 999px;
 
-  background: #cc0000;
-  color: white;
+  background: var(--clay);
+  color: var(--paper);
+  font-family: var(--body);
+  font-weight: 600;
 
   cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.request-page.success button:hover {
+  background: var(--gold-dark);
 }
 
 /* =========================================================

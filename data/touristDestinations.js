@@ -1214,5 +1214,247 @@ export const touristDestinations = [
     "/images/gallery/nuwara-eliya-4.jpg",
     "/images/gallery/nuwara-eliya-5.jpg"*/
   ]
+},
+{
+  // NOTE: no heroImage/galleryImages yet — no photography has been supplied
+  // for this destination. The detail page and map hover-card both fall back
+  // to a themed placeholder instead of a broken image. Add a real photo to
+  // public/images/hero/ and set heroImage below once one exists.
+  name: "Dambulla",
+  slug: "dambulla",
+  lat: 7.8567,
+  lng: 80.6494,
+  url: "/destinations/dambulla",
+  type: "heritage",
+  metaTitle: "Dambulla Cave Temple Tour – Private Driver Experiences in Sri Lanka",
+  metaDescription: "Visit the Dambulla Golden Cave Temple, a UNESCO World Heritage Site, with a private driver in Sri Lanka.",
+  h1: "Explore Dambulla – Sri Lanka's Golden Cave Temple",
+  description: "A UNESCO World Heritage cave temple complex carved into a granite rock, filled with centuries-old Buddha statues and murals.",
+  overview: `Dambulla Cave Temple, also known as the Golden Temple, is one of Sri Lanka's most significant Buddhist pilgrimage sites. Five caves set into a massive rock house over 150 Buddha statues and intricate ceiling murals dating back more than 2,000 years. It's commonly paired with a Sigiriya visit, since the two sites are close to one another.`,
+  thingsToDo: [
+    "Climb to the cave complex and explore all five shrine caves",
+    "Admire the painted ceilings and reclining Buddha statues",
+    "Visit the golden Buddha statue at the base of the rock",
+    "Combine with a same-day trip to Sigiriya Rock Fortress"
+  ],
+  travelTips: [
+    "Wear comfortable shoes — there's a climb to reach the caves",
+    "Dress modestly and remove footwear before entering the caves",
+    "Entrance fees apply for foreign visitors — check current rates locally",
+    "Visit early morning to avoid both crowds and midday heat"
+  ],
+  bestTime: "December to March (dry season)",
+  relatedLinks: [
+    { label: "Sigiriya Rock Fortress", url: "/destinations/sigiriya" },
+    { label: "Kandy Cultural City", url: "/destinations/kandy" }
+  ],
+  galleryImages: []
+},
+{
+  name: "Mirissa",
+  slug: "mirissa",
+  lat: 5.9483,
+  lng: 80.4585,
+  url: "/destinations/mirissa",
+  type: "coastal_city",
+  metaTitle: "Mirissa Beach & Whale Watching – Private Driver Tours in Sri Lanka",
+  metaDescription: "Explore Mirissa's beaches and whale watching tours with a private driver along Sri Lanka's south coast.",
+  h1: "Discover Mirissa – Sri Lanka's South Coast Beach Town",
+  description: "A laid-back south-coast beach town known for whale watching, palm-fringed sand, and easygoing beach cafes.",
+  overview: `Mirissa is one of Sri Lanka's most popular south coast beach towns, known for its crescent-shaped beach, relaxed atmosphere, and seasonal whale and dolphin watching boat tours. It's a good base for both quiet beach time and short excursions to nearby Galle and Weligama.`,
+  thingsToDo: [
+    "Take a morning whale or dolphin watching boat tour (seasonal, roughly November to April)",
+    "Walk up Coconut Tree Hill for sunset views",
+    "Relax on Mirissa Beach or try surfing at nearby Weligama",
+    "Climb Parrot Rock at the edge of the main beach"
+  ],
+  travelTips: [
+    "Whale watching is seasonal — check current tour operator schedules before booking",
+    "Choose a reputable boat operator that follows responsible wildlife-watching practices",
+    "Beach areas get busy in peak season (Dec–Mar); book accommodation ahead",
+    "Bring seasickness medication if you're prone to it before a boat tour"
+  ],
+  bestTime: "November to April (whale watching season and drier weather)",
+  relatedLinks: [
+    { label: "Galle Fort", url: "/destinations/galle" }
+  ],
+  galleryImages: []
+},
+{
+  name: "Pinnawala",
+  slug: "pinnawala",
+  lat: 7.3028,
+  lng: 80.3889,
+  url: "/destinations/pinnawala",
+  type: "national_park",
+  metaTitle: "Pinnawala Elephant Orphanage Tour – Private Driver in Sri Lanka",
+  metaDescription: "Visit the Pinnawala Elephant Orphanage with a private driver and see rescued elephants up close in Sri Lanka.",
+  h1: "Visit Pinnawala – Sri Lanka's Elephant Orphanage",
+  description: "Home to a large herd of rescued and orphaned elephants, with daily river-bathing sessions open to visitors.",
+  overview: `Pinnawala Elephant Orphanage, established in 1975, cares for orphaned, injured, and displaced elephants. Visitors can watch the herd bathe in the nearby Ma Oya river at set times during the day, and it's a popular stop between Kandy and the Cultural Triangle.`,
+  thingsToDo: [
+    "Watch the elephant herd bathe in the river (scheduled sessions daily)",
+    "Observe feeding time at the orphanage",
+    "Combine with a stop at a nearby spice garden or gem museum en route"
+  ],
+  travelTips: [
+    "Check the day's bathing and feeding times in advance, as schedules can shift",
+    "Entrance fees apply for foreign visitors — check current rates locally",
+    "Arrive slightly before a scheduled session to get a good viewing spot"
+  ],
+  bestTime: "Year-round (indoor/river activity, less weather-dependent than hikes)",
+  relatedLinks: [
+    { label: "Kandy Cultural City", url: "/destinations/kandy" }
+  ],
+  galleryImages: []
+},
+{
+  name: "Adam's Peak",
+  slug: "adams-peak",
+  lat: 6.8096,
+  lng: 80.4994,
+  url: "/destinations/adams-peak",
+  type: "hill_station",
+  metaTitle: "Adam's Peak (Sri Pada) Hike – Private Driver Tours in Sri Lanka",
+  metaDescription: "Climb Adam's Peak (Sri Pada) for a sunrise pilgrimage hike with a private driver in Sri Lanka.",
+  h1: "Climb Adam's Peak – Sri Lanka's Sacred Sunrise Summit",
+  description: "A sacred overnight pilgrimage hike up thousands of steps to a mountain summit famous for its sunrise views.",
+  overview: `Adam's Peak, known locally as Sri Pada, is one of Sri Lanka's most significant pilgrimage sites for Buddhists, Hindus, Muslims, and Christians alike, each associating the summit's sacred footprint with their own tradition. Pilgrims and visitors climb through the night to reach the top for sunrise, when the mountain famously casts a near-perfect triangular shadow over the surrounding hills.`,
+  thingsToDo: [
+    "Climb the thousands of steps overnight to reach the summit for sunrise",
+    "Visit the sacred footprint shrine at the top",
+    "Watch the peak's triangular shadow appear at sunrise",
+    "Stop at tea stalls along the route during pilgrimage season"
+  ],
+  travelTips: [
+    "Most climbers start between midnight and 2am to reach the summit by sunrise",
+    "Bring warm clothing — it's cold and windy at the top before dawn",
+    "The route is busiest and best-lit during pilgrimage season (Dec–May); it's quieter and some stalls close off-season",
+    "Wear broken-in walking shoes — it's thousands of steps each way"
+  ],
+  bestTime: "December to May (official pilgrimage season)",
+  relatedLinks: [
+    { label: "Nuwara Eliya", url: "/destinations/nuwara-eliya" },
+    { label: "Ella Hill Country", url: "/destinations/ella" }
+  ],
+  galleryImages: []
+},
+{
+  name: "Horton Plains National Park",
+  slug: "horton-plains",
+  lat: 6.8022,
+  lng: 80.7975,
+  url: "/destinations/horton-plains",
+  type: "national_park",
+  metaTitle: "Horton Plains & World's End Hike – Private Driver Tours in Sri Lanka",
+  metaDescription: "Hike to World's End viewpoint in Horton Plains National Park with a private driver in Sri Lanka.",
+  h1: "Explore Horton Plains – Home of World's End",
+  description: "A highland plateau reserve known for the dramatic cliff-edge viewpoint at World's End and cool cloud-forest scenery.",
+  overview: `Horton Plains National Park sits high in Sri Lanka's central hill country, a rolling grassland and cloud-forest plateau best known for World's End — a sheer escarpment with a drop of several hundred metres. A loop trail also passes Baker's Falls, and the cool climate and misty scenery make it a distinctly different experience from the lowlands.`,
+  thingsToDo: [
+    "Hike the loop trail to the World's End viewpoint and Baker's Falls",
+    "Spot native wildlife such as sambar deer along the trail",
+    "Photograph the plateau's grassland and cloud-forest scenery"
+  ],
+  travelTips: [
+    "Arrive by around 7am — clouds typically roll in and cover the World's End view by mid-morning",
+    "Wear warm layers; temperatures at this elevation are noticeably cooler than the lowlands",
+    "Entrance fees apply for foreign visitors — check current rates locally",
+    "The full loop trail takes a few hours — wear sturdy walking shoes"
+  ],
+  bestTime: "January to March (clearest visibility before midday clouds)",
+  relatedLinks: [
+    { label: "Nuwara Eliya", url: "/destinations/nuwara-eliya" },
+    { label: "Ella Hill Country", url: "/destinations/ella" }
+  ],
+  galleryImages: []
+},
+{
+  name: "Bentota",
+  slug: "bentota",
+  lat: 6.4260,
+  lng: 80.0038,
+  url: "/destinations/bentota",
+  type: "coastal_city",
+  metaTitle: "Bentota Beach & Watersports – Private Driver Tours in Sri Lanka",
+  metaDescription: "Explore Bentota's beaches, watersports, and turtle hatchery with a private driver in Sri Lanka.",
+  h1: "Discover Bentota – Sri Lanka's Watersports Beach Town",
+  description: "A south-coast beach resort town known for watersports, a long sandy beach, and a turtle hatchery.",
+  overview: `Bentota is one of Sri Lanka's best-established beach resort towns, sitting where the Bentota River meets the Indian Ocean. It's known for its long sandy beach, a wide range of watersports, boat trips along the river, and a turtle hatchery that supports local conservation efforts.`,
+  thingsToDo: [
+    "Try jet skiing, banana boating, or other watersports on Bentota Beach",
+    "Take a Bentota River boat safari through mangroves",
+    "Visit a local turtle hatchery",
+    "Relax on the beach or try a spa treatment at a beachfront resort"
+  ],
+  travelTips: [
+    "Agree on watersport prices with the operator before starting — rates vary",
+    "River safaris are best in the early morning or late afternoon",
+    "The sea is calmer and safer for swimming/watersports in the dry season"
+  ],
+  bestTime: "November to April (dry season, calmer seas)",
+  relatedLinks: [
+    { label: "Galle Fort", url: "/destinations/galle" }
+  ],
+  galleryImages: []
+},
+{
+  name: "Hikkaduwa",
+  slug: "hikkaduwa",
+  lat: 6.1408,
+  lng: 80.1017,
+  url: "/destinations/hikkaduwa",
+  type: "coastal_city",
+  metaTitle: "Hikkaduwa Surf & Snorkeling Beach – Private Driver Tours in Sri Lanka",
+  metaDescription: "Surf, snorkel, and relax on Hikkaduwa's beaches with a private driver in Sri Lanka.",
+  h1: "Explore Hikkaduwa – Sri Lanka's Surf & Reef Beach Town",
+  description: "A lively surf and snorkeling beach town with a coral reef close to shore.",
+  overview: `Hikkaduwa is a well-established south-coast beach town known for its coral reef sitting just off the main beach, making it one of the easiest places in Sri Lanka to snorkel among coral and reef fish. It also has reliable surf breaks for beginner and intermediate surfers, plus a lively strip of beachfront cafes and guesthouses.`,
+  thingsToDo: [
+    "Snorkel over the coral reef right off Hikkaduwa Beach",
+    "Take a surf lesson at one of the beach's surf schools",
+    "Look out for sea turtles feeding close to shore",
+    "Explore the beachfront cafes and shops in the evening"
+  ],
+  travelTips: [
+    "Rent snorkel gear locally rather than bringing your own",
+    "Surf and snorkel conditions are generally best outside the monsoon months",
+    "Reef areas can be shallow and sharp — reef-safe footwear helps"
+  ],
+  bestTime: "November to April (surf season, calmer water)",
+  relatedLinks: [
+    { label: "Galle Fort", url: "/destinations/galle" },
+    { label: "Mirissa", url: "/destinations/mirissa" }
+  ],
+  galleryImages: []
+},
+{
+  name: "Kitulgala",
+  slug: "kitulgala",
+  lat: 6.9897,
+  lng: 80.4198,
+  url: "/destinations/kitulgala",
+  type: "national_park",
+  metaTitle: "Kitulgala Whitewater Rafting – Private Driver Tours in Sri Lanka",
+  metaDescription: "Go whitewater rafting and rainforest hiking in Kitulgala with a private driver in Sri Lanka.",
+  h1: "Adventure in Kitulgala – Sri Lanka's Whitewater Rafting Hub",
+  description: "Sri Lanka's main whitewater rafting hub, set along the Kelani River in lush rainforest.",
+  overview: `Kitulgala is Sri Lanka's go-to destination for whitewater rafting, set along the Kelani River and surrounded by rainforest. It's also known as the filming location for The Bridge on the River Kwai, and the surrounding forest reserve offers hiking, birdwatching, and other river-based adventure activities.`,
+  thingsToDo: [
+    "Go whitewater rafting on the Kelani River",
+    "Hike into the surrounding rainforest with a local guide",
+    "Try canyoning or waterfall abseiling through a local operator",
+    "Go birdwatching in the nearby forest reserve"
+  ],
+  travelTips: [
+    "Book rafting through an established operator with proper safety gear and guides",
+    "Water levels — and rafting intensity — vary by season",
+    "Bring a change of clothes and waterproof storage for valuables"
+  ],
+  bestTime: "Year-round, with the fullest river levels shortly after monsoon rains",
+  relatedLinks: [
+    { label: "Kandy Cultural City", url: "/destinations/kandy" }
+  ],
+  galleryImages: []
 }
 ];

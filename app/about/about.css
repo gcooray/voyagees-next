@@ -1,42 +1,37 @@
 /* === About Us Page === */
 
 .about-us-container {
-  padding: 4rem 1.5rem;
-  background-color: #f9f9f9;
-  color: #333;
-  font-family: "Segoe UI", sans-serif;
+  padding: 4rem 1.5rem 5rem;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
   line-height: 1.6;
-  padding: 20px;
 }
 
 .about-us-content {
   max-width: 800px;
   margin: 0 auto;
-  background: #fff;
+  background: var(--paper-dim);
+  border: 1px solid var(--line);
   padding: 3rem;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+  border-radius: 18px;
 }
 
 .about-us-content h1 {
   font-size: 2.5rem;
-  color: #cc0000;
   margin-bottom: 1rem;
-  font-weight: 700;
 }
 
 .about-us-content h2 {
   font-size: 1.6rem;
-  color: #cc0000;
   margin-top: 2rem;
   margin-bottom: 0.75rem;
-  font-weight: 600;
 }
 
 .about-us-content p {
   font-size: 1rem;
   margin-bottom: 1rem;
-  color: #444;
+  color: var(--sage);
 }
 
 .about-us-content ul {
@@ -51,14 +46,18 @@
   padding-left: 1.5rem;
   margin-bottom: 0.75rem;
   position: relative;
-  color: #333;
+  color: var(--ink);
 }
 
 .about-us-content ul li::before {
-  content: "✔️";
+  content: "";
   position: absolute;
   left: 0;
-  color: #cc0000;
+  top: 0.5em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
 }
 
 /* Responsive Design */
@@ -73,5 +72,16 @@
 
   .about-us-content h2 {
     font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-us-container {
+    padding: 2.5rem 1rem 3rem;
+  }
+
+  .about-us-content {
+    padding: 1.5rem;
+    border-radius: 14px;
   }
 }

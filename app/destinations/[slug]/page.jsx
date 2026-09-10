@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { touristDestinations } from "@/data/touristDestinations";
 import TouristMap from "@/components/TouristMap";
 import "./page.css";
@@ -42,11 +43,22 @@ export default async function DestinationPage({ params }) {
 
       {/* Hero Section */}
       <header className="hero">
-        <img
-          src={destination.heroImage}
-          alt={destination.altText}
-          className="hero-image"
-        />
+        {destination.heroImage ? (
+          <div className="hero-image-wrap">
+            <Image
+              src={destination.heroImage}
+              alt={destination.altText || destination.name}
+              fill
+              sizes="(max-width: 1000px) 100vw, 1000px"
+              style={{ objectFit: "cover" }}
+              priority
+            />
+          </div>
+        ) : (
+          <div className="hero-image-wrap hero-image-fallback">
+            <span>{destination.name}</span>
+          </div>
+        )}
 
         <h1>{destination.h1}</h1>
         <p className="tagline">{destination.description}</p>
@@ -141,32 +153,39 @@ export default async function DestinationPage({ params }) {
       </section>
 
       {/* FAQ */}
-      <section className="faq">
-        <h2>Frequently Asked Questions</h2>
+      {destination.faq?.length > 0 && (
+        <section className="faq">
+          <h2>Frequently Asked Questions</h2>
 
-        {destination.faq?.map((item, idx) => (
-          <div key={idx} style={{ marginBottom: "1rem" }}>
-            <strong>{item.q}</strong>
-            <p>{item.a}</p>
-          </div>
-        ))}
-      </section>
+          {destination.faq.map((item, idx) => (
+            <div className="faq-item" key={idx}>
+              <strong>{item.q}</strong>
+              <p>{item.a}</p>
+            </div>
+          ))}
+        </section>
+      )}
 
       {/* Gallery */}
-      <section className="gallery">
-        <h2>Photo Gallery</h2>
+      {destination.galleryImages?.length > 0 && (
+        <section className="gallery">
+          <h2>Photo Gallery</h2>
 
-        <div className="gallery-grid">
-          {destination.galleryImages?.map((img, idx) => (
-            <img
-              key={idx}
-              src={img}
-              alt={`${destination.name} ${idx + 1}`}
-              className="gallery-image"
-            />
-          ))}
-        </div>
-      </section>
+          <div className="gallery-grid">
+            {destination.galleryImages.map((img, idx) => (
+              <div className="gallery-image-wrap" key={idx}>
+                <Image
+                  src={img}
+                  alt={`${destination.name} ${idx + 1}`}
+                  fill
+                  sizes="280px"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Map */}
       <section className="map-section">
@@ -179,7 +198,7 @@ export default async function DestinationPage({ params }) {
         <h2>Plan Your Trip to {destination.name}</h2>
         <p>Let us help you create a custom itinerary with a private driver.</p>
 
-        <Link href="/request" className="btn">
+        <Link href="/private-driver" className="btn">
           Request a Quote
         </Link>
       </section>

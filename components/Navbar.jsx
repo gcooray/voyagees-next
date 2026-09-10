@@ -43,16 +43,41 @@ export default function Navbar() {
   };
 
   const switchLanguage = () => {
+  // Destination pages are dynamic (/destinations/{slug}), so they can't be
+  // listed in the static routeMap below — match the pattern directly and
+  // swap languages while keeping the same slug.
+  const destinationMatch = pathname.match(/^\/(?:fr\/)?destinations\/(.+)$/);
+  if (destinationMatch) {
+    const slug = destinationMatch[1];
+    router.push(isFrench ? `/destinations/${slug}` : `/fr/destinations/${slug}`);
+    setIsOpen(false);
+    return;
+  }
+
   const routeMap = {
     "/": "/fr",
     "/private-driver": "/fr/private-driver",
     "/explore-sri-lanka": "/fr/explore-sri-lanka",
     "/contact": "/fr/contact",
+    "/search": "/fr/search",
+    "/about": "/fr/about",
+    "/map": "/fr/map",
+    "/plan-trip": "/fr/plan-trip",
+    "/request": "/fr/request",
+    "/terms": "/fr/terms",
+    "/rides": "/fr/rides",
 
     "/fr": "/",
     "/fr/private-driver": "/private-driver",
     "/fr/explore-sri-lanka": "/explore-sri-lanka",
     "/fr/contact": "/contact",
+    "/fr/search": "/search",
+    "/fr/about": "/about",
+    "/fr/map": "/map",
+    "/fr/plan-trip": "/plan-trip",
+    "/fr/request": "/request",
+    "/fr/terms": "/terms",
+    "/fr/rides": "/rides",
   };
 
   const targetPath = routeMap[pathname];
@@ -119,6 +144,15 @@ export default function Navbar() {
               onClick={() => setIsOpen(false)}
             >
               {isFrench ? "Explorer le Sri Lanka" : "Explore Sri Lanka"}
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              href={isFrench ? "/fr/rides" : "/rides"}
+              onClick={() => setIsOpen(false)}
+            >
+              {isFrench ? "Trajets Partagés" : "Shared Trips"}
             </Link>
           </li>
 

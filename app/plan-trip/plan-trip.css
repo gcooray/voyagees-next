@@ -1,0 +1,129 @@
+.plan-trip-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 5vw 4rem;
+  font-family: var(--body);
+  color: var(--ink);
+}
+
+.plan-trip-intro {
+  color: var(--sage);
+  margin-bottom: 2rem;
+}
+
+.plan-trip-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.plan-trip-panel h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.85rem;
+}
+
+.plan-trip-duration-heading {
+  margin-top: 2rem;
+}
+
+.plan-trip-interests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.plan-trip-chip {
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.plan-trip-chip:hover {
+  border-color: var(--gold);
+}
+
+.plan-trip-chip-active {
+  background: var(--clay);
+  border-color: var(--clay);
+  color: var(--paper);
+}
+
+.plan-trip-select {
+  padding: 0.65rem 0.75rem;
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 0.95rem;
+}
+
+.plan-trip-generate {
+  margin-top: 1.25rem;
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--clay);
+  color: var(--paper);
+  border: none;
+  border-radius: 999px;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.plan-trip-generate:hover {
+  background: var(--gold-dark);
+}
+
+.plan-trip-empty {
+  color: var(--sage);
+}
+
+.plan-trip-route {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.plan-trip-stop {
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper-dim);
+}
+
+.plan-trip-stop h3 {
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.plan-trip-stop-days {
+  margin: 0.35rem 0;
+  color: var(--sage);
+  font-size: 0.88rem;
+}
+
+.plan-trip-stop-desc {
+  font-size: 0.85rem;
+  color: var(--sage);
+}
+
+@media (max-width: 760px) {
+  .plan-trip-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .plan-trip-page {
+    padding: 2rem 6vw 3rem;
+  }
+}

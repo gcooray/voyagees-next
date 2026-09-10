@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import SearchForm from "./SearchForm";
 
-export default function DriverSearch() {
+export default function DriverSearch({ locale = "en" }) {
   const [pickup, setPickup] = useState("");
   const [dropoff, setDropoff] = useState("");
   const [pickupDate, setPickupDate] = useState("");
@@ -48,6 +48,7 @@ export default function DriverSearch() {
       setDropoffTime={setDropoffTime}
       setPassengers={setPassengers}
       handleSearch={handleSearch}
+      locale={locale}
     />
   );
 }

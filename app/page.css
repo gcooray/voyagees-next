@@ -259,10 +259,27 @@
                         which was stacking on top of the form's own gap */
 }
 
+/* The date/time row always has exactly 4 fields. A grid guarantees 4 equal
+   columns no matter how wide the label content is — flex-wrap decides line
+   breaks partly from content size, so longer French labels (e.g. "Heure de
+   Prise en Charge" vs "Pickup Time") pushed the 4th field onto its own row.
+   This is the same class of bug the mobile breakpoint below already works
+   around for a different reason (sub-pixel rounding), just triggered here
+   by label length instead. */
+.market-search-card form .row:not(:first-of-type) {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem 0.65rem;
+}
+
 .market-search-card form .form-group {
   display: flex;
   flex-direction: column;
   flex: 1 1 190px;
+  min-width: 0;
+}
+.market-search-card form .row:not(:first-of-type) .form-group {
+  flex: initial;
   min-width: 0;
 }
 /* the passengers row is alone — don't let it stretch full width */
@@ -272,13 +289,13 @@
 
 .market-search-card form .form-group label {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.4rem;
   font-size: 0.76rem;
   font-weight: 600;
   color: var(--sage);
   margin-bottom: 0.45rem;
-  white-space: nowrap;
+  line-height: 1.3;
 }
 
 .market-search-card form .form-group label .icon {
@@ -541,9 +558,16 @@
 
 .market-destination-card {
   position: relative;
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
   display: block;
+  box-shadow: 0 8px 20px rgba(22, 36, 29, 0.08);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.market-destination-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(22, 36, 29, 0.22);
 }
 .market-destination-1 { grid-column: span 2; grid-row: span 2; }
 .market-destination-2 { grid-column: 3; grid-row: 1; }
@@ -555,14 +579,55 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  filter: saturate(0.85);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s ease;
 }
-.market-destination-card:hover img { transform: scale(1.06); }
+.market-destination-card:hover img {
+  transform: scale(1.08);
+  filter: saturate(1.15);
+}
 
 .market-destination-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(22, 36, 29, 0.85) 0%, rgba(22, 36, 29, 0.05) 60%);
+  background: linear-gradient(
+    to top,
+    rgba(22, 36, 29, 0.88) 0%,
+    rgba(22, 36, 29, 0.25) 45%,
+    rgba(43, 110, 113, 0.1) 75%,
+    rgba(43, 110, 113, 0.05) 100%
+  );
+  transition: opacity 0.45s ease;
+}
+.market-destination-card:hover .market-destination-overlay {
+  opacity: 0.92;
+}
+
+.market-destination-arrow {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(251, 247, 239, 0.16);
+  color: var(--paper);
+  backdrop-filter: blur(6px);
+  font-size: 0.95rem;
+  opacity: 0;
+  transform: translateY(-6px) rotate(-45deg);
+  transition: opacity 0.35s ease, transform 0.35s ease, background 0.35s ease;
+}
+.market-destination-card:hover .market-destination-arrow {
+  opacity: 1;
+  transform: translateY(0) rotate(0deg);
+  background: var(--gold);
+  color: var(--ink);
 }
 
 .market-destination-content {
@@ -576,13 +641,30 @@
   color: var(--paper);
 }
 .market-destination-content span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-family: var(--display);
   font-style: italic;
   color: var(--gold);
   font-size: 0.9rem;
   margin-bottom: 0.4rem;
 }
-.market-destination-content h3 { color: var(--paper); font-size: 1.4rem; }
+.market-destination-content span::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.market-destination-content h3 {
+  color: var(--paper);
+  font-size: 1.4rem;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.market-destination-card:hover .market-destination-content h3 {
+  transform: translateY(-2px);
+}
 .market-destination-content p {
   color: rgba(251, 247, 239, 0.75);
   font-size: 0.88rem;

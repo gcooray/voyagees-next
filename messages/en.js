@@ -6,6 +6,35 @@ const en = {
     description: "Your journey. Your pace. Your local connection.",
   },
 
+  search: {
+    eyebrow: "PLAN YOUR JOURNEY",
+    heading: "Find your private driver",
+  },
+
+  value: {
+    eyebrow: "WHY VOYAGEES",
+    title: "Travel Sri Lanka",
+    titleHighlight: "your way.",
+    cards: [
+      {
+        title: "Local drivers",
+        text: "Travel with people who know Sri Lanka, its roads, destinations and local places.",
+      },
+      {
+        title: "Flexible journeys",
+        text: "Arrange airport transfers, day trips or multi-day journeys around your plans.",
+      },
+      {
+        title: "The right vehicle",
+        text: "Choose transportation that fits your passengers, luggage and journey.",
+      },
+      {
+        title: "Compare your options",
+        text: "See available drivers, vehicles and prices before sending your request.",
+      },
+    ],
+  },
+
   intro: {
     eyebrow: "WELCOME TO VOYAGEES",
     title: "One island.",
@@ -14,7 +43,7 @@ const en = {
       "Sri Lanka is more than the places you see on a map. It is the conversations along the road, the hidden viewpoints, the little restaurants and the people you meet along the way.",
     text2:
       "Voyagees connects you with trusted local drivers so you can discover the island your way.",
-    link: "DISCOVER VOYAGEES →",
+    link: "DISCOVER MORE →",
   },
 
   story: {

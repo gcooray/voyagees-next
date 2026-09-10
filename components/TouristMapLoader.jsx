@@ -1,26 +1,14 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import "./TouristMap.css";
 
-const TouristMap = dynamic(
-  () => import("./TouristMap"),
-  {
-    ssr: false,
-    loading: () => (
-      <div
-        style={{
-          height: "80vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          fontSize: "18px",
-        }}
-      >
-        Loading Sri Lanka map...
-      </div>
-    ),
-  }
-);
+const TouristMap = dynamic(() => import("./TouristMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="tourist-map-loading">Loading Sri Lanka map…</div>
+  ),
+});
 
 export default function TouristMapLoader() {
   return <TouristMap />;

@@ -4,8 +4,6 @@
    and Navbar.css (:root, prefixed --nav-*). Centralizing here
    so every stylesheet reads from the same source.
 ========================= */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Inter:wght@400;500;600;700&display=swap');
-
 :root {
   --ink: #16241d;
   --paper: #fbf7ef;
@@ -18,9 +16,11 @@
   --line: rgba(22, 36, 29, 0.12);
   --line-on-dark: rgba(251, 247, 239, 0.14); /* hairline borders for dark
                                                   surfaces, e.g. the navbar */
+  --radius: 8px;
 
-  --display: "Fraunces", Georgia, serif;
-  --body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  /* --font-fraunces/--font-inter come from next/font in app/layout.tsx */
+  --display: var(--font-fraunces), Georgia, serif;
+  --body: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* =========================
@@ -40,8 +40,8 @@
 html, body {
   height: 100%;
   font-family: var(--body), system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background-color: #ffffff;
-  color: #222;
+  background-color: var(--paper);
+  color: var(--ink);
   scroll-behavior: smooth;
 }
 
@@ -60,7 +60,7 @@ a {
 }
 
 a:hover {
-  color: #cc0000;
+  color: var(--gold-dark);
 }
 
 /* =========================
@@ -83,28 +83,38 @@ button {
 .btn {
   display: inline-block;
   padding: 0.75rem 1.2rem;
-  border-radius: 6px;
+  border-radius: var(--radius);
   border: none;
   cursor: pointer;
   font-weight: 600;
+  font-family: var(--body);
+  background: var(--clay);
+  color: var(--paper);
   transition: 0.3s ease;
 }
 
+.btn:hover {
+  background: var(--gold-dark);
+}
+
 .btn-primary {
-  background: #cc0000;
-  color: white;
+  background: var(--clay);
+  color: var(--paper);
 }
 
 .btn-primary:hover {
-  background: #a80000;
+  background: var(--gold-dark);
 }
 
 /* =========================
    HEADINGS
 ========================= */
 h1, h2, h3, h4 {
-  font-weight: 700;
+  font-family: var(--display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
   line-height: 1.2;
+  color: var(--ink);
 }
 
 h1 {

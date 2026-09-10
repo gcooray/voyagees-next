@@ -25,7 +25,7 @@ export default function AboutPage() {
         </p>
 
         <p>
-          Whether you're seeking hidden gems, cultural landmarks, or scenic adventures, VOYAGEES offers a way to discover Sri Lanka through the eyes of passionate local experts. Every journey becomes a shared experience — built on trust, transparency, and genuine local connection.
+          Whether you&apos;re seeking hidden gems, cultural landmarks, or scenic adventures, VOYAGEES offers a way to discover Sri Lanka through the eyes of passionate local experts. Every journey becomes a shared experience — built on trust, transparency, and genuine local connection.
         </p>
 
         <p>
@@ -33,7 +33,7 @@ export default function AboutPage() {
         </p>
 
         <p>
-          If you encounter any problems or have suggestions, please don't hesitate to reach out. Your feedback helps us improve and grow.
+          If you encounter any problems or have suggestions, please don&apos;t hesitate to reach out. Your feedback helps us improve and grow.
         </p>
 
         <p>

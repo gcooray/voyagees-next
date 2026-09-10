@@ -1,38 +1,29 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { MapContainer, TileLayer, Marker, useMap, useMapEvents } from "react-leaflet";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import "./TouristMap.css";
 
 import { touristDestinations } from "@/data/touristDestinations";
 import { touristDestinationsFr } from "@/data/touristDestinationsFr";
 
-// ---------------- ICON CREATION ----------------
-const createIcon = (iconUrl) => {
-  if (typeof window === "undefined") return null;
-
-  const L = require("leaflet");
-
-  return new L.Icon({
+// A plain static import of "leaflet" (which touches `window` at module scope)
+// is safe here only because TouristMapLoader/MapClient load this whole module
+// via next/dynamic with ssr:false — it never runs outside the browser.
+const createIcon = (iconUrl) =>
+  new L.Icon({
     iconUrl,
     iconSize: [32, 32],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32],
   });
-};
 
-
-const getDefaultIcon = () => {
-  if (typeof window === "undefined") return null;
-
-  const L = require("leaflet");
-
-  return new L.Icon.Default();
-};
-
-
-// ---------------- ICONS ----------------
+// Computed once at module load rather than per render — Leaflet icon
+// instances are cheap to reuse across every marker.
 const icons = {
   city: createIcon("/images/icon-city.png"),
   heritage: createIcon("/images/icon-heritage.png"),
@@ -41,385 +32,201 @@ const icons = {
   hill_station: createIcon("/images/icon-hill.png"),
   coastal_city: createIcon("/images/icon-beach.png"),
   cultural_city: createIcon("/images/icon-culture.png"),
-  default: getDefaultIcon(),
+  default: new L.Icon.Default(),
 };
 
-
-// ---------------- BOUNDS ----------------
-const sriLankaBounds = [
+const SRI_LANKA_BOUNDS = [
   [5.7, 79.5],
   [10.1, 82.0],
 ];
 
+const SRI_LANKA_CENTER = [7.8731, 80.7718];
 
-// ---------------- INITIAL VIEW ----------------
 function SetInitialView() {
   const map = useMap();
 
   useEffect(() => {
+    let resizeTimeout;
 
+    // fitBounds computes the center and zoom that best frame the whole
+    // island for the map's *actual* current size, instead of a hardcoded
+    // center + one of two fixed zoom presets — it adapts correctly to any
+    // container width/aspect ratio, not just a mobile/desktop split.
     const updateView = () => {
-
-      const isMobile =
-        window.innerWidth < 768;
-
-      map.setView(
-        [7.8731, 80.7718],
-        isMobile ? 7 : 8
-      );
-
+      map.invalidateSize();
+      map.fitBounds(SRI_LANKA_BOUNDS, { padding: [24, 24] });
     };
 
+    // Debounced — fitBounds triggers a re-render/re-tile on every call, and
+    // a window resize fires dozens of times per second while a user drags.
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(updateView, 200);
+    };
 
     updateView();
-
-    window.addEventListener(
-      "resize",
-      updateView
-    );
-
-
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener(
-        "resize",
-        updateView
-      );
+      clearTimeout(resizeTimeout);
+      window.removeEventListener("resize", handleResize);
     };
-
   }, [map]);
-
 
   return null;
 }
 
+// Scroll-wheel zoom starts disabled so scrolling the page past the map
+// scrolls the page, not the map. It only turns on once the visitor actually
+// clicks into the map, and turns back off the moment the cursor leaves it.
+function ScrollZoomOnClick() {
+  const map = useMapEvents({
+    click: () => map.scrollWheelZoom.enable(),
+    mouseout: () => map.scrollWheelZoom.disable(),
+  });
 
-// ---------------- COMPONENT ----------------
+  return null;
+}
+
 export default function TouristMap() {
-
   const router = useRouter();
   const pathname = usePathname();
+  const isFrench = pathname.startsWith("/fr/");
 
-const isFrench = pathname.startsWith("/fr/");
-
-// ---------------- FILTERS ----------------
-
-const filters = [
-  {
-    label: isFrench ? "Tous" : "All",
-    value: "all",
-  },
-  {
-    label: isFrench ? "Plages" : "Beaches",
-    value: "coastal_city",
-  },
-  {
-    label: isFrench ? "Patrimoine" : "Heritage",
-    value: "heritage",
-  },
-  {
-    label: isFrench ? "Nature" : "Nature",
-    value: "national_park",
-  },
-  {
-    label: isFrench ? "Culture" : "Culture",
-    value: "cultural_city",
-  },
-  {
-    label: isFrench ? "Villes" : "Cities",
-    value: "city",
-  },
-];
-
-  const [
-    filter,
-    setFilter
-  ] = useState("all");
-
-
-  const [
-    hovered,
-    setHovered
-  ] = useState(null);
-
-
-
-  const center = useMemo(
+  const filters = useMemo(
     () => [
-      7.8731,
-      80.7718
+      { label: isFrench ? "Tous" : "All", value: "all" },
+      { label: isFrench ? "Plages" : "Beaches", value: "coastal_city" },
+      { label: isFrench ? "Patrimoine" : "Heritage", value: "heritage" },
+      { label: isFrench ? "Nature" : "Nature", value: "national_park" },
+      { label: isFrench ? "Culture" : "Culture", value: "cultural_city" },
+      { label: isFrench ? "Villes" : "Cities", value: "city" },
     ],
-    []
+    [isFrench]
   );
 
-
+  const [filter, setFilter] = useState("all");
+  const [hovered, setHovered] = useState(null);
+  const hoverTimeout = useRef(null);
 
   const filteredDestinations = useMemo(() => {
-  const destinations =
-    filter === "all"
-      ? touristDestinations
-      : touristDestinations.filter(
-          (d) => d.type === filter
-        );
+    const destinations =
+      filter === "all"
+        ? touristDestinations
+        : touristDestinations.filter((d) => d.type === filter);
 
-  return destinations.map((destination) => {
-    if (!isFrench) {
-      return destination;
-    }
+    if (!isFrench) return destinations;
 
-    const translation =
-      touristDestinationsFr[destination.name];
+    return destinations.map((destination) => {
+      const translation = touristDestinationsFr[destination.name];
+      return {
+        ...destination,
+        name: translation?.name || destination.name,
+        description: translation?.description || destination.description,
+      };
+    });
+  }, [filter, isFrench]);
 
-    return {
-      ...destination,
-      name:
-        translation?.name || destination.name,
-      description:
-        translation?.description ||
-        destination.description,
-    };
-  });
-}, [filter, isFrench]);
+  function handleNavigate(slug) {
+    router.push(isFrench ? `/fr/destinations/${slug}` : `/destinations/${slug}`);
+  }
 
+  // A short delay before clearing the hover card avoids it flickering away
+  // when the cursor briefly crosses a gap between the marker and the card.
+  function handleMarkerLeave() {
+    hoverTimeout.current = setTimeout(() => setHovered(null), 150);
+  }
 
-
-  const handleNavigate = (slug) => {
-    router.push(
-      `/destinations/${slug}`
-    );
-  };
-
-
+  function handleMarkerEnter(spot) {
+    clearTimeout(hoverTimeout.current);
+    setHovered(spot);
+  }
 
   return (
-
-    <section
-      style={{
-        padding:"40px 20px",
-        background:"#f8fafc"
-      }}
-    >
-
-
-      <div
-        style={{
-          textAlign:"center",
-          marginBottom:"20px"
-        }}
-      >
-
-        <h1>
-        {isFrench
-          ? "Explorer le Sri Lanka 🇱🇰"
-          : "Explore Sri Lanka 🇱🇰"}
-      </h1>
-
-      <p>
-        {isFrench
-          ? "Découvrez des destinations selon vos envies"
-          : "Discover destinations based on your interests"}
-      </p>
-
-      </div>
-      
-
-      <div
-        style={{
-          textAlign:"center",
-          marginBottom:"20px"
-        }}
-      >
-
-        {
-          filters.map((f)=>(
-
-            <button
-              key={f.value}
-              onClick={() =>
-                setFilter(f.value)
-              }
-
-              style={{
-                margin:"5px",
-                padding:"8px 14px",
-                borderRadius:"20px",
-                border:"1px solid #ccc",
-                background:
-                  filter === f.value
-                  ? "#0070f3"
-                  : "white",
-
-                color:
-                  filter === f.value
-                  ? "white"
-                  : "black",
-
-                cursor:"pointer"
-              }}
-            >
-
-              {f.label}
-
-            </button>
-
-          ))
-        }
-
+    <section className="tourist-map-section">
+      <div className="tourist-map-header">
+        <h1>{isFrench ? "Explorer le Sri Lanka" : "Explore Sri Lanka"}</h1>
+        <p>
+          {isFrench
+            ? "Découvrez des destinations selon vos envies"
+            : "Discover destinations based on your interests"}
+        </p>
       </div>
 
-
-
-
-      <div
-        style={{
-          height:"80vh",
-          borderRadius:"20px",
-          overflow:"hidden"
-        }}
-      >
-
-        <MapContainer
-  center={center}
-  zoom={8}
-  minZoom={7}
-  maxBounds={sriLankaBounds}
-  maxBoundsViscosity={1}
-  style={{
-    height: "100%",
-    width: "100%",
-  }}
->
-  <TileLayer
-    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  />
-
-  <SetInitialView />
-
-  {filteredDestinations.map((spot) => (
-    <Marker
-      key={spot.slug}
-      position={[spot.lat, spot.lng]}
-      icon={icons[spot.type] || icons.default}
-      eventHandlers={{
-        mouseover: () => setHovered(spot),
-        mouseout: () => setHovered(null),
-        click: () => handleNavigate(spot.slug),
-      }}
-    />
-  ))}
-</MapContainer>
-
-      </div>
-
-
-
-
-
-      {
-        hovered && (
-
-          <div
-
-            style={{
-              position:"fixed",
-              top:100,
-              left:20,
-              width:260,
-              background:"white",
-              borderRadius:12,
-              boxShadow:
-                "0 10px 20px rgba(0,0,0,0.2)",
-              overflow:"hidden",
-              zIndex:9999
-            }}
-
+      <div className="tourist-map-filters">
+        {filters.map((f) => (
+          <button
+            key={f.value}
+            type="button"
+            className={`tourist-map-filter-chip ${filter === f.value ? "tourist-map-filter-chip-active" : ""}`}
+            onClick={() => setFilter(f.value)}
           >
+            {f.label}
+          </button>
+        ))}
+      </div>
 
-            {
-              hovered.heroImage && (
+      <div className="tourist-map-frame">
+        <MapContainer
+          center={SRI_LANKA_CENTER}
+          zoom={8}
+          minZoom={7}
+          maxBounds={SRI_LANKA_BOUNDS}
+          maxBoundsViscosity={1}
+          scrollWheelZoom={false}
+          style={{ height: "100%", width: "100%" }}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
 
-                <img
+          <SetInitialView />
+          <ScrollZoomOnClick />
 
-                  src={
-                    hovered.heroImage
-                  }
-
-
-                  alt={
-                    hovered.name
-                  }
-
-
-                  style={{
-                    width:"100%",
-                    height:140,
-                    objectFit:"cover"
-                  }}
-
-                />
-
-              )
-            }
-
-
-
-            <div
-              style={{
-                padding:12
+          {filteredDestinations.map((spot) => (
+            <Marker
+              key={spot.slug}
+              position={[spot.lat, spot.lng]}
+              icon={icons[spot.type] || icons.default}
+              eventHandlers={{
+                mouseover: () => handleMarkerEnter(spot),
+                mouseout: handleMarkerLeave,
+                click: () => handleNavigate(spot.slug),
               }}
-            >
+            />
+          ))}
+        </MapContainer>
+      </div>
 
-              <h3>
-                {hovered.name}
-              </h3>
-
-
-              <p
-                style={{
-                  fontSize:13
-                }}
-              >
-                {hovered.description}
-              </p>
-
-
-
-              <button
-
-                onClick={() =>
-                  handleNavigate(
-                    hovered.slug
-                  )
-                }
-
-
-                style={{
-                  width:"100%",
-                  padding:8,
-                  background:"#0070f3",
-                  color:"white",
-                  border:"none",
-                  borderRadius:8,
-                  cursor:"pointer"
-                }}
-
-              >
-
-                {isFrench ? "Découvrir" : "Explore"}
-
-              </button>
-
-
+      {hovered && (
+        <div
+          className="tourist-map-preview"
+          onMouseEnter={() => clearTimeout(hoverTimeout.current)}
+          onMouseLeave={handleMarkerLeave}
+        >
+          {hovered.heroImage ? (
+            <div className="tourist-map-preview-image-wrap">
+              <Image
+                src={hovered.heroImage}
+                alt={hovered.name}
+                fill
+                sizes="260px"
+                style={{ objectFit: "cover" }}
+              />
             </div>
+          ) : (
+            <div className="tourist-map-preview-image-fallback">{hovered.name}</div>
+          )}
 
-
+          <div className="tourist-map-preview-body">
+            <h3>{hovered.name}</h3>
+            <p>{hovered.description}</p>
+            <button type="button" onClick={() => handleNavigate(hovered.slug)}>
+              {isFrench ? "Découvrir" : "Explore"}
+            </button>
           </div>
-
-        )
-      }
-
-
+        </div>
+      )}
     </section>
-
   );
 }
