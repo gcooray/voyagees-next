@@ -1,17 +1,23 @@
 /* =========================================================
    VOYAGEES — NAVBAR
-   Matches the palette/type system from page.css. Kept as a
-   solid ink bar (sticky) rather than transparent-over-hero,
-   since the navbar renders on every page, not just the
-   homepage hero. Brand tokens now come from global.css :root.
+   Matches the palette/type system from page.css. Fixed (not
+   sticky/in-flow) so it stays pinned in place and never scrolls
+   with the page. Solid --ink fill — the same dark tone used in
+   the hero gradients on home/private-driver — so it reads as
+   part of the hero rather than a separate strip, without being
+   transparent. globals.css reserves --navbar-height of top
+   padding on <main> to compensate; hero sections cancel that
+   with a negative margin so their own background extends up
+   behind the nav. Brand tokens come from global.css :root.
    ========================================================= */
 
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   background: var(--ink);
-  border-bottom: 1px solid var(--line-on-dark);
 }
 
 .navbar-inner {

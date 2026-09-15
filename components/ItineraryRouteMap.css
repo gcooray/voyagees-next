@@ -1,0 +1,41 @@
+.itinerary-route-map-frame {
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.itinerary-route-map-loading {
+  height: 320px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--paper-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sage);
+  font-family: var(--body);
+  font-size: 0.9rem;
+}
+
+.itinerary-route-marker {
+  background: var(--clay);
+  color: var(--paper);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 0.72rem;
+  box-shadow: 0 2px 6px rgba(22, 36, 29, 0.35);
+}
+
+@media (max-width: 640px) {
+  .itinerary-route-map-frame,
+  .itinerary-route-map-loading {
+    height: 240px;
+  }
+}

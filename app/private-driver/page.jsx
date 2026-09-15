@@ -36,6 +36,11 @@ export default function PrivateDriverPage() {
           </div>
 
           <div className="pd-hero-search">
+            <div className="pd-search-heading">
+              <p className="pd-eyebrow pd-dark">PLAN YOUR JOURNEY</p>
+              <h2>Find your private driver</h2>
+            </div>
+
             <DriverSearch />
           </div>
 
@@ -109,6 +114,7 @@ export default function PrivateDriverPage() {
         <div className="pd-benefits-grid">
 
           <article className="pd-benefit">
+            <span>01</span>
 
             <h3>
               Flexible travel at your own pace
@@ -124,7 +130,7 @@ export default function PrivateDriverPage() {
 
 
           <article className="pd-benefit">
-            
+            <span>02</span>
 
             <h3>
               Convenient and time saving
@@ -141,7 +147,7 @@ export default function PrivateDriverPage() {
 
 
           <article className="pd-benefit">
-            
+            <span>03</span>
 
             <h3>
               Local knowledge and expertise
@@ -157,7 +163,7 @@ export default function PrivateDriverPage() {
 
 
           <article className="pd-benefit">
-            
+            <span>04</span>
 
             <h3>
               Comfortable for families and groups
@@ -173,7 +179,7 @@ export default function PrivateDriverPage() {
 
 
           <article className="pd-benefit">
-            
+            <span>05</span>
 
             <h3>
               Better communication

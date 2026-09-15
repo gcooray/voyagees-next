@@ -1,0 +1,476 @@
+/* =========================================================
+   PRIVATE TOUR PAGE
+   Long-form editorial layout using the same tokens as the
+   homepage/private-driver page (global.css :root) — jungle
+   ink, spice gold, lagoon teal, Fraunces + Inter.
+   ========================================================= */
+
+.private-tour-page {
+  font-family: var(--body);
+  color: var(--ink);
+  background: var(--paper);
+}
+.private-tour-page * { box-sizing: border-box; }
+
+.private-tour-page h1,
+.private-tour-page h2,
+.private-tour-page h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.private-tour-page p { line-height: 1.7; }
+
+/* shared eyebrow, matches the rest of the site's small italic + gold dot */
+.pt-eyebrow {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--gold);
+  margin-bottom: 0.9rem;
+}
+.pt-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.pt-eyebrow.pt-dark { color: var(--teal); }
+.pt-eyebrow.pt-dark::before { background: var(--gold); }
+
+/* generic pill CTA used throughout the page */
+.pt-cta {
+  display: inline-block;
+  background: var(--clay);
+  color: var(--paper);
+  border-radius: 999px;
+  padding: 0.9rem 2rem;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.pt-cta:hover { background: var(--gold-dark); }
+.pt-cta.pt-cta-dark { background: var(--ink); }
+.pt-cta.pt-cta-dark:hover { background: var(--teal); }
+.pt-cta-row { margin-top: 1.25rem; }
+
+/* =====================================================
+   HERO
+===================================================== */
+.pt-hero {
+  position: relative;
+  min-height: clamp(420px, 54vh, 620px);
+  display: flex;
+  align-items: center;
+  color: var(--paper);
+  overflow: hidden;
+  background: linear-gradient(135deg, #1c3226 0%, #16241d 60%, #0f1a14 100%);
+  /* cancels <main>'s --navbar-height padding so this section's own
+     background extends up behind the fixed navbar, then adds that same
+     amount back to the top padding so the copy still clears the nav. */
+  margin-top: calc(-1 * var(--navbar-height));
+  padding: calc(1.5rem + var(--navbar-height)) 5vw 2.75rem;
+}
+
+.pt-hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.pt-hero-content .pt-eyebrow { color: var(--gold); }
+
+.pt-hero-content h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--paper);
+  margin-bottom: 1.25rem;
+}
+
+.pt-hero-content p {
+  color: rgba(251, 247, 239, 0.85);
+  margin-bottom: 1rem;
+  max-width: 40rem;
+}
+
+.pt-hero-prompt {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--paper) !important;
+  margin: 1.5rem 0 1.25rem !important;
+}
+
+.pt-hero-tagline {
+  margin-top: 1.5rem !important;
+  font-size: 0.9rem !important;
+  color: rgba(251, 247, 239, 0.65) !important;
+}
+
+/* =====================================================
+   SECTION BACKGROUND BANDS
+===================================================== */
+.pt-white-section,
+.pt-cream-section,
+.pt-dark-section {
+  padding: 2.75rem 5vw;
+}
+.pt-white-section { background: var(--paper); border-top: 1px solid var(--line); }
+.pt-cream-section { background: var(--paper-dim); border-top: 1px solid var(--line); }
+.pt-dark-section { background: var(--ink); color: var(--paper); }
+
+.pt-section-heading {
+  max-width: 760px;
+  margin: 0 auto 1.25rem;
+  text-align: left;
+}
+.pt-section-heading h2 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  color: var(--ink);
+}
+.pt-section-heading.pt-light h2 { color: var(--paper); }
+.pt-section-heading.pt-light .pt-eyebrow { color: var(--gold); }
+
+.pt-section-intro {
+  max-width: 760px;
+  margin: 0 auto 1.5rem;
+  color: var(--sage);
+}
+.pt-dark-section .pt-section-intro { color: rgba(251, 247, 239, 0.78); }
+
+/* =====================================================
+   LONG-FORM TEXT CONTENT
+===================================================== */
+.pt-text-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.pt-text-content > p {
+  color: var(--sage);
+  margin-bottom: 1.25rem;
+}
+.pt-text-content strong { color: var(--ink); font-weight: 700; }
+
+/* =====================================================
+   CARD GRID
+   Reused for every "N short cards" section — benefits, what's
+   included in the journey, travel styles, cost factors. Item
+   count varies (4/5/6) so this uses auto-fit rather than a
+   fixed column count, unlike the private-driver page's grid.
+===================================================== */
+.pt-card-grid {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.25rem;
+}
+
+/* the 6-card "journey themes" section — fixed 3 columns so it always
+   lands as two even rows instead of auto-fit's uneven wrap */
+.pt-card-grid-3col { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 900px) {
+  .pt-card-grid-3col { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .pt-card-grid-3col { grid-template-columns: 1fr; }
+}
+.pt-card {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1.5rem 1.5rem;
+  overflow: hidden;
+}
+.pt-dark-section .pt-card { background: rgba(251, 247, 239, 0.05); border-color: var(--line-on-dark); }
+.pt-card span {
+  position: absolute;
+  top: -0.5rem;
+  right: 0.75rem;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 3.5rem;
+  color: var(--paper-dim);
+  z-index: 0;
+  line-height: 1;
+}
+.pt-dark-section .pt-card span { color: rgba(251, 247, 239, 0.08); }
+.pt-card h3 {
+  position: relative;
+  z-index: 1;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.65rem;
+  padding-top: 0.5rem;
+}
+.pt-dark-section .pt-card h3 { color: var(--paper); }
+.pt-card p {
+  position: relative;
+  z-index: 1;
+  font-size: 0.92rem;
+  color: var(--sage);
+}
+.pt-dark-section .pt-card p { color: rgba(251, 247, 239, 0.78); }
+
+/* =====================================================
+   LINKED IDEA CARDS ("Popular Ways to Explore")
+===================================================== */
+.pt-idea-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  /* fixed 2 columns — 4 cards, so this always lands as two even rows
+     instead of auto-fit's uneven 3-then-1 wrap at mid widths */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+@media (max-width: 640px) {
+  .pt-idea-grid { grid-template-columns: 1fr; }
+}
+.pt-idea-card {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1.75rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.pt-idea-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-3px);
+}
+.pt-idea-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+.pt-idea-card p {
+  font-size: 0.92rem;
+  color: var(--sage);
+  margin-bottom: 0.85rem;
+}
+.pt-idea-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--teal);
+}
+.pt-idea-card:hover .pt-idea-link { color: var(--gold-dark); }
+
+/* =====================================================
+   CHECKLIST ("What's Included")
+===================================================== */
+.pt-checklist {
+  max-width: 760px;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem 1.5rem;
+}
+.pt-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.96rem;
+  color: var(--ink);
+}
+.pt-checklist li::before {
+  content: "✓";
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--paper);
+  font-size: 0.72rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.1rem;
+}
+
+/* =====================================================
+   VALUE LIST ("Why Book Your Journey With Voyagees")
+===================================================== */
+.pt-value-list {
+  max-width: 700px;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pt-value-list li {
+  color: var(--sage);
+  font-size: 0.98rem;
+  padding-left: 1.4rem;
+  position: relative;
+}
+.pt-value-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.pt-value-list strong { color: var(--ink); font-weight: 700; }
+
+/* this section sits on .pt-dark-section — needs light text, not the
+   default ink/sage colors meant for a paper background */
+.pt-dark-section .pt-value-list li { color: rgba(251, 247, 239, 0.78); }
+.pt-dark-section .pt-value-list strong { color: var(--paper); }
+
+/* =====================================================
+   STEPS ("How Easy Is It to Book")
+===================================================== */
+.pt-steps-grid {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1.5rem;
+}
+.pt-step {
+  text-align: left;
+}
+.pt-step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  color: var(--gold-dark);
+  font-family: var(--display);
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+}
+.pt-step h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.pt-step p {
+  font-size: 0.92rem;
+  color: var(--sage);
+}
+
+/* =====================================================
+   FAQ ACCORDION
+===================================================== */
+.pt-faq-list {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.pt-faq-list details {
+  border-bottom: 1px solid var(--line);
+  padding: 1.5rem 0;
+}
+.pt-faq-list summary {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.pt-faq-list summary::-webkit-details-marker { display: none; }
+.pt-faq-list summary::after {
+  content: "+";
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  color: var(--gold-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: transform 0.25s ease;
+}
+.pt-faq-list details[open] summary::after { transform: rotate(45deg); }
+.pt-faq-list details p {
+  color: var(--sage);
+  margin-top: 1rem;
+  max-width: 42rem;
+}
+
+/* =====================================================
+   FINAL CTA
+===================================================== */
+.pt-final-section {
+  position: relative;
+  min-height: 28vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3.5rem 5vw;
+  overflow: hidden;
+  background: linear-gradient(135deg, #16241d, #0f1a14);
+}
+.pt-final-content {
+  position: relative;
+  z-index: 2;
+  color: var(--paper);
+  max-width: 640px;
+}
+.pt-final-content .pt-eyebrow { color: var(--gold); justify-content: center; }
+.pt-final-content h2 {
+  font-size: clamp(2rem, 4vw, 2.7rem);
+  color: var(--paper);
+  margin-bottom: 1rem;
+}
+.pt-final-content > p {
+  color: rgba(251, 247, 239, 0.82);
+  margin-bottom: 1.75rem;
+}
+.pt-final-note {
+  margin-top: 1.5rem;
+  font-size: 0.88rem;
+  color: rgba(251, 247, 239, 0.65);
+}
+.pt-final-note a {
+  color: var(--gold);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 640px) {
+  .pt-hero { padding: calc(1.25rem + var(--navbar-height)) 6vw 2.25rem; }
+  .pt-white-section,
+  .pt-cream-section,
+  .pt-dark-section { padding: 2.25rem 6vw; }
+  .pt-checklist { grid-template-columns: 1fr; }
+}

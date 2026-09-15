@@ -126,10 +126,26 @@
 ===================================================== */
 .market-hero {
   position: relative;
-  min-height: clamp(460px, 68vh, 760px);
+  /* A small, rarely-binding floor rather than a vh-based clamp. With
+     align-items: flex-end, a min-height that's actually bigger than the
+     content needs would leave slack above the text that flex-end eats
+     silently — padding stops being able to control that gap at all. Once
+     the box is content-driven instead, padding-top/bottom work exactly
+     as written. */
+  min-height: 400px;
   display: flex;
   align-items: flex-end;
-  padding: 5rem 5vw 10rem;
+  /* cancels <main>'s --navbar-height padding so this section's own
+     background extends up behind the fixed navbar, then adds a small,
+     deliberate gap back so the eyebrow/heading clear the nav instead of
+     touching it. */
+  margin-top: calc(-1 * var(--navbar-height));
+  /* Bottom padding is untouched from its previous, already-tuned value —
+     .market-search-card is a flex sibling of .market-hero-content inside
+     this same row (not a separate section below it) and relies on this
+     exact padding plus its own -6rem margin-top for its overlap position.
+     Only the top side of this hero needed fixing. */
+  padding: calc(var(--navbar-height) + 1.75rem) 5vw 10rem;
   color: var(--paper);
   overflow: hidden;
 }
@@ -180,25 +196,25 @@
 .market-search-card {
   position: relative;
   z-index: 3;
-  margin-top: -4.5rem;
+  margin-top: -6rem;
   margin-left: auto;
   margin-right: 5vw;
-  max-width: 980px;
+  max-width: 720px;
   background: var(--paper);
   border-radius: 22px;
-  padding: 2.25rem 2.5rem 2rem;
-  box-shadow: 0 30px 60px -20px rgba(22, 36, 29, 0.45);
-  border-left: 5px solid var(--gold);
+  padding: 2.5rem 2.75rem 2.25rem;
+  box-shadow: 0 38px 75px -20px rgba(22, 36, 29, 0.5);
+  border-left: 6px solid var(--gold);
 }
 
 .market-search-heading {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.6rem;
 }
 .market-search-heading h2 {
-  font-size: 1.7rem;
+  font-size: 1.8rem;
   color: var(--ink);
 }
 .market-search-step {
@@ -238,7 +254,7 @@
 .market-search-card form {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 1.2rem;
   width: 100%;
 }
 
@@ -317,9 +333,9 @@
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-  padding: 0.55rem 0.1rem;
+  padding: 0.68rem 0.1rem;
   font-family: var(--body);
-  font-size: 0.92rem;
+  font-size: 0.97rem;
   color: var(--ink);
   outline: none;
   appearance: none;
@@ -356,10 +372,10 @@
   border: none;
   border-radius: 999px;
   box-shadow: none;
-  padding: 0.85rem 2rem;
+  padding: 0.98rem 2.3rem;
   font-family: var(--body);
   font-weight: 600;
-  font-size: 0.88rem;
+  font-size: 0.93rem;
   letter-spacing: 0.04em;
   cursor: pointer;
   transition: background 0.2s ease;
@@ -929,7 +945,7 @@
 }
 
 @media (max-width: 640px) {
-  .market-hero { padding: 3rem 6vw 2rem; min-height: 0; }
+  .market-hero { padding: calc(1.25rem + var(--navbar-height)) 6vw 2rem; min-height: 0; }
   .market-hero-content h1 { font-size: clamp(2rem, 9vw, 2.6rem); }
   .market-hero-description { margin-top: 0.85rem; }
   .market-search-card {

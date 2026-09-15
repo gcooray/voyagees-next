@@ -1,0 +1,293 @@
+.itinerary-result {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.itinerary-summary-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background: var(--paper-dim);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.75rem;
+}
+
+.itinerary-summary-label {
+  font-family: var(--display);
+  font-style: italic;
+  color: var(--teal);
+  font-size: 0.88rem;
+  margin-bottom: 0.35rem;
+}
+
+.itinerary-summary-card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.3rem;
+}
+
+.itinerary-summary-dates {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold-dark);
+  margin-bottom: 0.35rem;
+}
+
+.itinerary-summary-route {
+  color: var(--sage);
+  font-size: 0.92rem;
+}
+
+.itinerary-summary-price-block {
+  text-align: right;
+  flex-shrink: 0;
+}
+.itinerary-summary-price-label {
+  font-size: 0.78rem;
+  color: var(--sage);
+  margin-bottom: 0.2rem;
+}
+.itinerary-summary-price {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.15rem;
+}
+.itinerary-summary-price-lkr {
+  font-size: 0.78rem;
+  color: var(--sage);
+  margin-bottom: 0.5rem;
+}
+.itinerary-summary-price-note {
+  font-size: 0.72rem;
+  color: var(--sage);
+  max-width: 220px;
+  margin-left: auto;
+  line-height: 1.4;
+}
+.itinerary-summary-accommodation {
+  font-size: 0.85rem;
+  color: var(--teal);
+  font-weight: 600;
+  margin: 0.6rem 0 1rem;
+}
+
+.itinerary-cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.itinerary-cta {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.7rem 1.3rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  font-family: var(--body);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.itinerary-cta-primary {
+  background: var(--clay);
+  color: var(--paper);
+}
+.itinerary-cta-primary:hover { background: var(--gold-dark); }
+.itinerary-cta-secondary {
+  background: transparent;
+  color: var(--teal);
+  border: 1px solid var(--teal);
+}
+.itinerary-cta-secondary:hover {
+  background: var(--teal);
+  color: var(--paper);
+}
+
+.itinerary-hotels-panel {
+  background: var(--paper-dim);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+}
+.itinerary-hotels-intro {
+  color: var(--sage);
+  font-size: 0.88rem;
+  margin-bottom: 0.85rem;
+}
+.itinerary-hotels-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.itinerary-hotels-form input {
+  flex: 1 1 160px;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius, 8px);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font-family: var(--body);
+  font-size: 0.88rem;
+  color: var(--ink);
+}
+.itinerary-hotels-form button {
+  background: var(--clay);
+  color: var(--paper);
+  border: none;
+  border-radius: 999px;
+  padding: 0.65rem 1.3rem;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.itinerary-hotels-form button:hover:not(:disabled) { background: var(--gold-dark); }
+.itinerary-hotels-form button:disabled { opacity: 0.6; cursor: not-allowed; }
+.itinerary-hotels-error {
+  width: 100%;
+  color: var(--clay);
+  font-size: 0.8rem;
+  margin: 0;
+}
+.itinerary-hotels-sent {
+  color: var(--teal);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.itinerary-days {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.itinerary-day-tabs {
+  display: flex;
+  overflow-x: auto;
+  background: var(--paper-dim);
+  border-bottom: 1px solid var(--line);
+}
+.itinerary-day-tab {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.85rem 1.1rem;
+  border: none;
+  background: transparent;
+  color: var(--sage);
+  font-family: var(--body);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.itinerary-day-tab:hover { color: var(--ink); }
+.itinerary-day-tab-active {
+  color: var(--ink);
+  border-bottom-color: var(--clay);
+}
+.itinerary-day-tab-label {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.itinerary-day-tab-date {
+  font-size: 0.72rem;
+}
+
+.itinerary-day-panel {
+  padding: 1.5rem 1.75rem;
+}
+.itinerary-day-panel h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.25rem;
+}
+.itinerary-day-date {
+  color: var(--sage);
+  font-size: 0.82rem;
+  margin-bottom: 1rem;
+}
+
+.itinerary-activities {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.itinerary-activities li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+.itinerary-activities li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.itinerary-stay {
+  background: var(--paper-dim);
+  border-radius: var(--radius, 8px);
+  padding: 1rem 1.15rem;
+}
+.itinerary-stay-label {
+  font-size: 0.75rem;
+  color: var(--sage);
+  margin-bottom: 0.2rem;
+}
+.itinerary-stay-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.itinerary-stay-price {
+  color: var(--sage);
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+.itinerary-stay-link {
+  color: var(--teal);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.itinerary-stay-link:hover { color: var(--gold-dark); }
+.itinerary-stay-none {
+  color: var(--sage);
+  font-size: 0.88rem;
+}
+
+.itinerary-reset {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--sage);
+  font-family: var(--body);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0;
+}
+.itinerary-reset:hover { color: var(--ink); }
+
+@media (max-width: 640px) {
+  .itinerary-summary-card { flex-direction: column; }
+  .itinerary-summary-price-block { text-align: left; }
+  .itinerary-summary-price-note { margin-left: 0; max-width: none; }
+  .itinerary-cta-group { align-items: stretch; }
+  .itinerary-cta { text-align: center; }
+  .itinerary-day-panel { padding: 1.25rem; }
+}

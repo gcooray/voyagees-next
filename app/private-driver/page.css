@@ -51,10 +51,19 @@
 ===================================================== */
 .pd-hero {
   position: relative;
-  min-height: clamp(400px, 50vh, 560px);
+  /* A small, rarely-binding floor rather than a vh-based clamp — the
+     search card's own content (padding + form rows) is what actually
+     determines this section's height on desktop, so padding below
+     reliably controls the gap under the nav instead of getting absorbed
+     by leftover space from an oversized min-height. */
+  min-height: 380px;
   display: flex;
   align-items: center;
-  padding: 4.5rem 5vw 2.5rem;
+  /* cancels <main>'s --navbar-height padding so this section's own
+     background extends up behind the fixed navbar, then adds a small,
+     deliberate gap back so the copy clears the nav instead of touching it. */
+  margin-top: calc(-1 * var(--navbar-height));
+  padding: calc(var(--navbar-height) + 1.75rem) 5vw 2.5rem;
   color: var(--paper);
   overflow: hidden;
   background: linear-gradient(135deg, #1c3226 0%, #16241d 60%),
@@ -99,12 +108,28 @@
 .pd-hero-search {
   background: var(--paper);
   border-radius: 22px;
-  padding: 1.6rem 1.75rem;
-  min-width: 360px;
-  max-width: 440px;
-  box-shadow: 0 30px 60px -20px rgba(22, 36, 29, 0.45);
-  border-left: 5px solid var(--gold);
+  padding: 2.5rem 2.75rem 2.25rem;
+  /* .pd-hero-content is capped at 1240px and .pd-hero-copy at 32rem (512px)
+     with a 3rem (48px) gap between them, and both shrink further on
+     laptop-width viewports where the hero's 5vw side padding eats more
+     of the available space. Kept narrow enough to reliably stay beside
+     the title down to the 1100px breakpoint below, instead of wrapping
+     underneath it. */
+  max-width: 480px;
+  box-shadow: 0 38px 75px -20px rgba(22, 36, 29, 0.5);
+  border-left: 6px solid var(--gold);
   color: var(--ink);
+}
+
+.pd-search-heading { margin-bottom: 1.6rem; }
+.pd-search-heading h2 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.8rem;
+  color: var(--ink);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0;
 }
 
 .pd-hero-search .search-hero { all: unset; display: block; width: 100%; }
@@ -114,7 +139,7 @@
 .pd-hero-search form {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 1.2rem;
   width: 100%;
 }
 
@@ -164,9 +189,9 @@
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-  padding: 0.55rem 0.1rem;
+  padding: 0.68rem 0.1rem;
   font-family: var(--body);
-  font-size: 0.9rem;
+  font-size: 0.97rem;
   color: var(--ink);
   outline: none;
   appearance: none;
@@ -199,10 +224,10 @@
   border: none;
   border-radius: 999px;
   box-shadow: none;
-  padding: 0.85rem 2rem;
+  padding: 0.98rem 2.3rem;
   font-family: var(--body);
   font-weight: 600;
-  font-size: 0.88rem;
+  font-size: 0.93rem;
   letter-spacing: 0.04em;
   cursor: pointer;
   transition: background 0.2s ease;
@@ -508,11 +533,17 @@
 /* =====================================================
    RESPONSIVE
 ===================================================== */
+/* Stack the hero copy and search card earlier than the general 900px
+   breakpoint below — between ~900-1100px viewport width there's not
+   enough room left beside a 32rem copy block for a usable card, so it
+   would otherwise wrap awkwardly instead of cleanly stacking. */
+@media (max-width: 1100px) {
+  .pd-hero-content { flex-direction: column; align-items: stretch; }
+  .pd-hero-search { max-width: none; width: 100%; }
+}
 @media (max-width: 900px) {
   .pd-intro-section { grid-template-columns: 1fr; gap: 1rem; }
   .pd-section-number { font-size: 3.5rem; }
-  .pd-hero-content { flex-direction: column; align-items: stretch; }
-  .pd-hero-search { min-width: 0; max-width: none; width: 100%; }
 
   /* 5 columns don't fit below ~900px — step to 2 columns instead of
      auto-fit, which left a ragged 3-then-2 row. With 5 items in 2
@@ -526,7 +557,7 @@
   }
 }
 @media (max-width: 640px) {
-  .pd-hero { padding: 3.5rem 6vw 2rem; min-height: 0; }
+  .pd-hero { padding: calc(var(--navbar-height) + 1.25rem) 6vw 2rem; min-height: 0; }
   .pd-hero-copy h1 { font-size: clamp(1.9rem, 8vw, 2.4rem); }
   .pd-hero-search {
     padding: 1.4rem 1.25rem;

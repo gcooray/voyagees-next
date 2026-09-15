@@ -2,7 +2,9 @@
   background: #f5f2ec;
   padding: 35px;
   position: sticky;
-  top: 30px;
+  /* clears the fixed navbar — otherwise this sticks at 30px from the
+     viewport top and scrolls in underneath the opaque nav. */
+  top: calc(var(--navbar-height) + 30px);
 }
 
 .filter-header {

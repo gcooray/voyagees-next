@@ -1,0 +1,124 @@
+.plan-trip-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2.5rem 5vw 4rem;
+  font-family: var(--body);
+  color: var(--ink);
+}
+
+.plan-trip-intro {
+  color: var(--sage);
+  margin-bottom: 2rem;
+}
+
+.plan-trip-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  background: var(--paper-dim);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.75rem;
+}
+
+.plan-trip-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: var(--sage);
+  flex: 1;
+}
+
+.plan-trip-form input,
+.plan-trip-form select,
+.plan-trip-form textarea {
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--radius, 8px);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font-family: var(--body);
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+
+.plan-trip-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.plan-trip-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.plan-trip-field-label {
+  font-size: 0.82rem;
+  color: var(--sage);
+}
+
+.plan-trip-interests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.plan-trip-chip {
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.plan-trip-chip:hover { border-color: var(--gold); }
+.plan-trip-chip-active {
+  background: var(--clay);
+  border-color: var(--clay);
+  color: var(--paper);
+}
+
+.plan-trip-child-ages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.plan-trip-child-ages input {
+  width: 5.5rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--radius, 8px);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font-family: var(--body);
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+
+.plan-trip-error {
+  color: var(--clay);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.plan-trip-submit {
+  padding: 0.85rem;
+  background: var(--clay);
+  color: var(--paper);
+  border: none;
+  border-radius: 999px;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.plan-trip-submit:hover:not(:disabled) { background: var(--gold-dark); }
+.plan-trip-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+@media (max-width: 640px) {
+  .plan-trip-page { padding: 1.75rem 6vw 3rem; }
+  .plan-trip-row { flex-direction: column; }
+  .plan-trip-form { padding: 1.25rem; }
+}

@@ -17,6 +17,13 @@
   --line-on-dark: rgba(251, 247, 239, 0.14); /* hairline borders for dark
                                                   surfaces, e.g. the navbar */
   --radius: 8px;
+  --navbar-height: 88px; /* logo (64px) + navbar-inner's 0.75rem top/bottom
+                             padding — the navbar is fixed now, so every page
+                             needs this reserved at the top; hero sections
+                             cancel it via negative margin so their own
+                             background bleeds up behind the nav. Also used
+                             by any other fixed/sticky element (e.g. the
+                             search filters sidebar) that needs to clear it. */
 
   /* --font-fraunces/--font-inter come from next/font in app/layout.tsx */
   --display: var(--font-fraunces), Georgia, serif;
@@ -137,6 +144,8 @@ section {
 ========================= */
 main {
   flex: 1;
+  padding-top: var(--navbar-height); /* compensates for the now-fixed navbar;
+                                         hero sections cancel this themselves */
 }
 
 /* =========================
