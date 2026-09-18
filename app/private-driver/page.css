@@ -63,7 +63,7 @@
      background extends up behind the fixed navbar, then adds a small,
      deliberate gap back so the copy clears the nav instead of touching it. */
   margin-top: calc(-1 * var(--navbar-height));
-  padding: calc(var(--navbar-height) + 1.75rem) 5vw 2.5rem;
+  padding: calc(var(--navbar-height) + 0.5rem) 5vw 2.5rem;
   color: var(--paper);
   overflow: hidden;
   background: linear-gradient(135deg, #1c3226 0%, #16241d 60%),
@@ -84,7 +84,10 @@
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  /* flex-start, not center — the search card is much taller than the
+     heading/copy beside it, so centering pushed the heading down to
+     align with the card's midpoint instead of sitting near the top. */
+  align-items: flex-start;
   justify-content: space-between;
   gap: 3rem;
 }
@@ -109,13 +112,12 @@
   background: var(--paper);
   border-radius: 22px;
   padding: 2.5rem 2.75rem 2.25rem;
-  /* .pd-hero-content is capped at 1240px and .pd-hero-copy at 32rem (512px)
-     with a 3rem (48px) gap between them, and both shrink further on
-     laptop-width viewports where the hero's 5vw side padding eats more
-     of the available space. Kept narrow enough to reliably stay beside
-     the title down to the 1100px breakpoint below, instead of wrapping
-     underneath it. */
-  max-width: 480px;
+  /* As close to the homepage's 720px card as this layout allows. .pd-hero-copy
+     is 32rem (512px) + a 3rem (48px) gap, so matching 720px exactly would need
+     ~1420px of viewport width to stay beside the title at all — it'd stack on
+     most laptops. 600px is the compromise: noticeably closer to the homepage's
+     size while still fitting inline down to the raised 1300px breakpoint below. */
+  max-width: 600px;
   box-shadow: 0 38px 75px -20px rgba(22, 36, 29, 0.5);
   border-left: 6px solid var(--gold);
   color: var(--ink);
@@ -534,10 +536,12 @@
    RESPONSIVE
 ===================================================== */
 /* Stack the hero copy and search card earlier than the general 900px
-   breakpoint below — between ~900-1100px viewport width there's not
-   enough room left beside a 32rem copy block for a usable card, so it
-   would otherwise wrap awkwardly instead of cleanly stacking. */
-@media (max-width: 1100px) {
+   breakpoint below. Raised from 1100px to 1300px when the card grew to
+   600px — a 512px copy block + 48px gap + 600px card needs ~1160px of
+   content width, which only exists above ~1289px of viewport width once
+   the hero's 5vw side padding is accounted for. Below that, stack instead
+   of letting the row awkwardly wrap. */
+@media (max-width: 1300px) {
   .pd-hero-content { flex-direction: column; align-items: stretch; }
   .pd-hero-search { max-width: none; width: 100%; }
 }
@@ -557,7 +561,7 @@
   }
 }
 @media (max-width: 640px) {
-  .pd-hero { padding: calc(var(--navbar-height) + 1.25rem) 6vw 2rem; min-height: 0; }
+  .pd-hero { padding: calc(var(--navbar-height) + 0.5rem) 6vw 2rem; min-height: 0; }
   .pd-hero-copy h1 { font-size: clamp(1.9rem, 8vw, 2.4rem); }
   .pd-hero-search {
     padding: 1.4rem 1.25rem;

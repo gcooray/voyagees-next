@@ -107,53 +107,41 @@ export default function DriverCard({
       </div>
 
       <div className="driver-info">
-        <h3>{driver.name}</h3>
-
-        <p>
-          {driver.carMake} - {driver.carYear}
-        </p>
-
-        <p>
-          {driver.vehicleType}
-        </p>
-
-        <p>{driver.seats} seats</p>
-
-        <p>
-          {locale === "fr" ? "Durée du voyage" : "Trip length"}:{" "}
-          {tripDays}{" "}
-          {tripDays > 1
-            ? locale === "fr"
-              ? "jours"
-              : "days"
-            : locale === "fr"
-              ? "jour"
-              : "day"}
-        </p>
-
-        <p>
-          <strong>
-            {locale === "fr" ? "Prix total" : "Total Price"}:
-          </strong>{" "}
-          {formattedConvertedPrice || "Loading..."}
-        </p>
-
-        {convertedPrice !== null && (
-          <p className="lkr-price">
-            ≈ LKR {formattedLKR}
+        <div className="driver-info-main">
+          <h3>
+            {driver.carMake} ({driver.carYear})
+          </h3>
+          <p className="driver-vehicle-meta">
+            {driver.vehicleType} · {driver.seats} {locale === "fr" ? "places" : "seats"}
           </p>
-        )}
+          <p className="driver-price">
+            {formattedConvertedPrice || "Loading..."}
+          </p>
+          {convertedPrice !== null && (
+            <p className="lkr-price">≈ LKR {formattedLKR}</p>
+          )}
+          <p className="driver-trip-length">
+            {locale === "fr" ? "Pour" : "For"} {tripDays}{" "}
+            {tripDays > 1
+              ? locale === "fr"
+                ? "jours"
+                : "days"
+              : locale === "fr"
+                ? "jour"
+                : "day"}
+          </p>
+        </div>
 
-        <p>
-          <strong>
-            {locale === "fr" ? "Langues" : "Languages"}:
-          </strong>{" "}
-          {driver.languages?.map((lang) => (
-            <span key={lang} title={lang}>
-              {languageFlags[lang] || lang}{" "}
-            </span>
-          ))}
-        </p>
+        <div className="driver-info-side">
+          <p className="driver-name">{driver.name}</p>
+          <div className="driver-languages">
+            {driver.languages?.map((lang) => (
+              <span key={lang} title={lang}>
+                {languageFlags[lang] || lang}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

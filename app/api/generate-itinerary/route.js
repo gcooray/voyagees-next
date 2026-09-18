@@ -1,5 +1,73 @@
+import { createHash } from "node:crypto";
 import { touristDestinations } from "@/data/touristDestinations";
-import { accommodationPriceRanges, activityPrices } from "@/lib/destinationContent";
+import { accommodationPriceRanges, activityPrices, hotelsByDestination } from "@/lib/destinationContent";
+
+// Cost control: response caching + per-IP rate limiting, both backed by a
+// plain in-memory Map at module scope rather than Firestore or Redis.
+// Deliberate choice, not an oversight — this project has no firebase-admin
+// (server-trusted) setup, and firestore.rules isn't even in this repo to
+// check whether the client SDK could write here from a server route without
+// auth. Standing up Admin SDK credentials or a Redis add-on is a bigger,
+// separate decision. This in-memory approach needs zero new credentials and
+// meaningfully blocks the realistic cost risks (double-submits, a client
+// retry loop, moderate repeated hits landing on the same warm instance) —
+// but it resets on cold start and isn't shared across concurrent serverless
+// instances, so it's a first line of defense, not an airtight distributed
+// limiter. Upgrade to Firestore Admin SDK or Redis if that gap ever matters.
+const responseCache = new Map(); // key -> { result, expiresAt }
+const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour — short, since a longer TTL
+// risks serving stale prices to a duplicate request after a knowledge-base
+// update, and the main goal here is catching near-immediate repeats
+// (double-submits, retries), not long-term result reuse.
+
+const rateLimitMap = new Map(); // ip -> { count, windowStart }
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const RATE_LIMIT_MAX_REQUESTS = 8; // generous for genuine trip-planning iteration
+
+function pruneExpired(map, isExpired) {
+  for (const [key, value] of map) {
+    if (isExpired(value)) map.delete(key);
+  }
+}
+
+function getCacheKey(preferences) {
+  const canonical = JSON.stringify(preferences, Object.keys(preferences).sort());
+  return createHash("sha256").update(canonical).digest("hex");
+}
+
+function getCachedResult(key) {
+  pruneExpired(responseCache, (v) => v.expiresAt < Date.now());
+  const entry = responseCache.get(key);
+  return entry ? entry.result : null;
+}
+
+function setCachedResult(key, result) {
+  responseCache.set(key, { result, expiresAt: Date.now() + CACHE_TTL_MS });
+}
+
+function getClientIp(request) {
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  if (forwardedFor) return forwardedFor.split(",")[0].trim();
+  return request.headers.get("x-real-ip") || "unknown";
+}
+
+// Returns true if the request is allowed, false if the caller is over the
+// limit. Only gates the expensive path (an actual Bedrock call) — cache
+// hits never reach this check, since they cost nothing to serve.
+function checkRateLimit(ip) {
+  pruneExpired(rateLimitMap, (v) => Date.now() - v.windowStart > RATE_LIMIT_WINDOW_MS);
+
+  const entry = rateLimitMap.get(ip);
+  if (!entry || Date.now() - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
+    rateLimitMap.set(ip, { count: 1, windowStart: Date.now() });
+    return true;
+  }
+
+  if (entry.count >= RATE_LIMIT_MAX_REQUESTS) return false;
+
+  entry.count += 1;
+  return true;
+}
 
 // Generates the day-by-day content for a Sri Lanka itinerary using Claude
 // Opus 4.5 via AWS Bedrock's Converse API (not Anthropic's direct API —
@@ -191,6 +259,26 @@ function resolveDestinationCoordinates(destinationName) {
   return { name: destinationName, lat: 6.9271, lng: 79.8612, resolved: false };
 }
 
+// Same fuzzy-match principle as resolveDestinationCoordinates, applied to
+// hotelsByDestination: if the model's destinationName matches one of our
+// researched destinations, use the real hotel name for that budget tier
+// instead of the model's generic stayStyle description. No match just
+// falls through to the existing generic behavior — an untracked
+// destination stays as descriptive text, never a guessed hotel name.
+function resolveHotelName(destinationName, budget) {
+  const needle = destinationName.trim().toLowerCase();
+
+  const destinationId = Object.keys(hotelsByDestination)
+    .filter((key) => key !== "lastVerified")
+    .find((id) => needle.includes(id.replace("-", " ")) || needle.includes(id));
+
+  if (!destinationId) return null;
+
+  const tiers = hotelsByDestination[destinationId];
+  const hotel = tiers[budget] || tiers["mid-range"];
+  return hotel ? `${hotel.name} (${hotel.area})` : null;
+}
+
 // Appends the verified entry fee to any activity line that names one of
 // our tracked attractions. Everything else passes through unchanged —
 // an untracked attraction just stays priceless rather than guessed at.
@@ -228,6 +316,22 @@ export async function POST(request) {
 
   if (!pickupDate || !dropoffDate) {
     return Response.json({ error: "pickupDate and dropoffDate are required." }, { status: 400 });
+  }
+
+  // Cache check happens before rate limiting — a cache hit costs nothing,
+  // so it shouldn't count against the caller's Bedrock-call budget.
+  const cacheKey = getCacheKey(preferences);
+  const cached = getCachedResult(cacheKey);
+  if (cached) {
+    return Response.json(cached);
+  }
+
+  const ip = getClientIp(request);
+  if (!checkRateLimit(ip)) {
+    return Response.json(
+      { error: "Too many itinerary requests. Please try again in a while." },
+      { status: 429 }
+    );
   }
 
   const start = new Date(`${pickupDate}T00:00:00`);
@@ -293,7 +397,10 @@ export async function POST(request) {
       location: { name: destination.name, lat: destination.lat, lng: destination.lng },
       stay: day.hasOvernightStay
         ? {
-          name: day.stayStyle || "Recommended local accommodation",
+          name:
+            resolveHotelName(day.destinationName || "", budget) ||
+            day.stayStyle ||
+            "Recommended local accommodation",
           price: `$${tierRange.min}-${tierRange.max}/night`,
           affiliateUrl: "https://example.com/affiliate/hotel-placeholder",
         }
@@ -301,7 +408,7 @@ export async function POST(request) {
     };
   });
 
-  return Response.json({
+  const result = {
     title: aiItinerary.title,
     routeSummary: aiItinerary.routeSummary,
     accommodationEstimate: {
@@ -309,5 +416,8 @@ export async function POST(request) {
       max: tierRange.max * nightsWithStay,
     },
     days,
-  });
+  };
+
+  setCachedResult(cacheKey, result);
+  return Response.json(result);
 }

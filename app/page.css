@@ -173,6 +173,18 @@
   position: relative;
   z-index: 2;
   max-width: 640px;
+  /* .market-hero's row is bottom-aligned so .market-search-card can
+     overlap down into the next section — but that pushed this heading
+     down too, since it's a flex sibling of the card in the same row.
+     align-self alone wasn't enough: .market-search-card also has its own
+     margin-top: -6rem pulling IT up above the shared flex-start line, so
+     without a matching offset here the card still ends up higher than
+     the heading. Verified via real computed positions (getBoundingClientRect):
+     content sat 96px below the card's actual top — exactly the card's
+     own -6rem — so mirroring that offset here aligns both to the same
+     visual top edge. */
+  align-self: flex-start;
+  margin-top: -6rem;
 }
 
 .market-hero-content .market-eyebrow { color: var(--gold); }

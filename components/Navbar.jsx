@@ -135,7 +135,17 @@ export default function Navbar() {
             {isFrench ? "Chauffeur privé" : "Private Driver"}
           </Link>
         </li>
-          
+
+          {/* No French version of this page yet, so it's English-only in the nav */}
+          {!isFrench && (
+            <li>
+              <Link href="/private-tour" onClick={() => setIsOpen(false)}>
+                Private Tour
+              </Link>
+            </li>
+          )}
+
+
           <li>
             <Link
               href={isFrench ? "/fr/explore-sri-lanka" : "/explore-sri-lanka"}
