@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { notifyItineraryHotelsCustomer, notifyItineraryHotelsAdmin } from "@/lib/notifications";
 import "./ItineraryResult.css";
 
 const ItineraryRouteMap = dynamic(() => import("./ItineraryRouteMap"), {
@@ -74,7 +75,7 @@ export default function ItineraryResult({ data, searchParams, onReset }) {
 
     setHotelsFlow("submitting");
     try {
-      await addDoc(collection(db, "bookingRequests"), {
+      const docRef = await addDoc(collection(db, "bookingRequests"), {
         type: "itinerary-with-hotels",
         customerName: contact.name.trim(),
         customerEmail: contact.email.trim(),
@@ -83,6 +84,11 @@ export default function ItineraryResult({ data, searchParams, onReset }) {
         status: "Pending",
         createdAt: serverTimestamp(),
       });
+
+      const contactInfo = { name: contact.name.trim(), email: contact.email.trim(), phone: contact.phone.trim() };
+      await notifyItineraryHotelsCustomer(contactInfo, data, docRef.id);
+      await notifyItineraryHotelsAdmin(contactInfo, data, docRef.id);
+
       setHotelsFlow("sent");
     } catch (err) {
       console.error("Failed to submit itinerary-with-hotels request:", err);
