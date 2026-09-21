@@ -7,6 +7,7 @@ import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 import emailjs from "@emailjs/browser";
+import { notifyDriverBookingAdmin } from "@/lib/notifications";
 
 import "./page.css";
 
@@ -246,25 +247,15 @@ Included KM: ${includedKm} km
       );
 
       // ---------------- ADMIN EMAIL ----------------
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          user_name: fullName,
-          user_email: email,
-
-          description: description || tripDetails,
-
-          pickup_date: pickupDate,
-          dropoff_date: dropoffDate,
-
-          price: `LKR ${totalPrice.toFixed(2)}`,
-
-          request_link: `${window.location.origin}/admin/bookings/${id}`,
-
-          to_email: "contact@voyagees.com",
-        },
-        EMAILJS_PUBLIC_KEY
+      // Uses the generic template (see lib/notifications.js) instead of the
+      // booking template above — template_c3d2ptc's hardcoded dashboard body
+      // never actually rendered the `description` field, so the admin was
+      // receiving this email without the trip details it was meant to carry.
+      await notifyDriverBookingAdmin(
+        { name: fullName, email, phone },
+        description || tripDetails,
+        id,
+        `${window.location.origin}/admin/bookings/${id}`
       );
 
       setSuccess(true);
