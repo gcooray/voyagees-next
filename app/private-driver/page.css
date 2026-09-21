@@ -153,10 +153,25 @@
   margin-bottom: 0; /* cancels SearchForm.css's .row margin-bottom: 10px */
 }
 
+/* Same fix as the homepage's search card: a grid guarantees 4 equal
+   columns for the date/time row regardless of label/value content width —
+   flex-wrap was dropping Dropoff Time onto its own row once the 4 fields'
+   natural widths exceeded this card's (narrower than the homepage's)
+   container width. */
+.pd-hero-search form .row:not(:first-of-type) {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem 0.5rem;
+}
+
 .pd-hero-search form .form-group {
   display: flex;
   flex-direction: column;
   flex: 1 1 150px;
+  min-width: 0;
+}
+.pd-hero-search form .row:not(:first-of-type) .form-group {
+  flex: initial;
   min-width: 0;
 }
 .pd-hero-search form .row:first-of-type .form-group.small {
