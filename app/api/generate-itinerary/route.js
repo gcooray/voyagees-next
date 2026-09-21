@@ -302,7 +302,11 @@ function resolveHotelName(destinationName, budget) {
 
   const tiers = hotelsByDestination[destinationId];
   const hotel = tiers[budget] || tiers["mid-range"];
-  return hotel ? `${hotel.name} (${hotel.area})` : null;
+  // "or similar" — a specific real hotel name is shown, but until this
+  // pairs with a real availability check (either a partner-confirmed lead
+  // via the "Include hotels too" flow, or a future live booking API), the
+  // honest claim is "this kind of place," not "this exact room is held."
+  return hotel ? `${hotel.name} (${hotel.area}) or similar` : null;
 }
 
 // Checks each day's date + destination/activities against seasonalNotes and
