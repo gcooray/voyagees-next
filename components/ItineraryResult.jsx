@@ -240,14 +240,16 @@ export default function ItineraryResult({ data, searchParams, onReset }) {
                     <p className="itinerary-stay-label">Suggested stay</p>
                     <p className="itinerary-stay-name">{currentDay.stay.name}</p>
                     <p className="itinerary-stay-price">{currentDay.stay.price}</p>
-                    <a
-                      href={currentDay.stay.affiliateUrl}
-                      target="_blank"
-                      rel="noopener noreferrer sponsored"
-                      className="itinerary-stay-link"
-                    >
-                      View this stay →
-                    </a>
+                    {currentDay.stay.searchUrl && (
+                      <a
+                        href={currentDay.stay.searchUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="itinerary-stay-link"
+                      >
+                        Look up this stay →
+                      </a>
+                    )}
                   </>
                 ) : (
                   <p className="itinerary-stay-none">No accommodation needed this day.</p>

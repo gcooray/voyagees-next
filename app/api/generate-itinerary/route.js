@@ -302,11 +302,21 @@ function resolveHotelName(destinationName, budget) {
 
   const tiers = hotelsByDestination[destinationId];
   const hotel = tiers[budget] || tiers["mid-range"];
+  if (!hotel) return null;
+
   // "or similar" — a specific real hotel name is shown, but until this
   // pairs with a real availability check (either a partner-confirmed lead
   // via the "Include hotels too" flow, or a future live booking API), the
   // honest claim is "this kind of place," not "this exact room is held."
-  return hotel ? `${hotel.name} (${hotel.area}) or similar` : null;
+  return {
+    displayName: `${hotel.name} (${hotel.area}) or similar`,
+    // No affiliate/booking account exists yet, so there's nothing real to
+    // link to. A Google search at least resolves to something true —
+    // unlike the old placeholder URL, it never 404s or misleads.
+    searchUrl: `https://www.google.com/search?q=${encodeURIComponent(
+      `${hotel.name} ${hotel.area} Sri Lanka hotel`
+    )}`,
+  };
 }
 
 // Checks each day's date + destination/activities against seasonalNotes and
@@ -442,6 +452,8 @@ export async function POST(request) {
     const destination = resolveDestinationCoordinates(day.destinationName || "");
     if (day.hasOvernightStay) nightsWithStay += 1;
 
+    const hotelMatch = resolveHotelName(day.destinationName || "", budget);
+
     return {
       label: `Day ${index + 1}`,
       date: addDays(pickupDate, index),
@@ -450,12 +462,9 @@ export async function POST(request) {
       location: { name: destination.name, lat: destination.lat, lng: destination.lng },
       stay: day.hasOvernightStay
         ? {
-          name:
-            resolveHotelName(day.destinationName || "", budget) ||
-            day.stayStyle ||
-            "Recommended local accommodation",
+          name: hotelMatch?.displayName || day.stayStyle || "Recommended local accommodation",
           price: `$${tierRange.min}-${tierRange.max}/night`,
-          affiliateUrl: "https://example.com/affiliate/hotel-placeholder",
+          searchUrl: hotelMatch?.searchUrl || null,
         }
         : null,
     };
