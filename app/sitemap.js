@@ -1,38 +1,34 @@
 export default function sitemap() {
   const baseUrl = "https://www.voyagees.com";
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/explore-sri-lanka`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/plan-trip`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/private-tour`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/fr/private-tour`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/terms`,
-      lastModified: new Date(),
-    },
+  const paths = [
+    "",
+    "/about",
+    "/contact",
+    "/explore-sri-lanka",
+    "/map",
+    "/plan-trip",
+    "/private-driver",
+    "/private-tour",
+    "/request",
+    "/rides",
+    "/search",
+    "/terms",
+    "/fr",
+    "/fr/about",
+    "/fr/contact",
+    "/fr/explore-sri-lanka",
+    "/fr/map",
+    "/fr/private-driver",
+    "/fr/private-tour",
+    "/fr/request",
+    "/fr/rides",
+    "/fr/search",
+    "/fr/terms",
   ];
+
+  return paths.map((path) => ({
+    url: `${baseUrl}${path}`,
+    lastModified: new Date(),
+  }));
 }
