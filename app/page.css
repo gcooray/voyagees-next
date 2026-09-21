@@ -124,35 +124,19 @@
 /* =====================================================
    HERO
 ===================================================== */
+/* Structured to exactly mirror app/private-driver/page.css's .pd-hero —
+   same background/overlay approach, same content-row + copy + search-card
+   layout, same card styling and search-form overrides. Only the image
+   path and hero copy differ. */
 .market-hero {
   position: relative;
-  /* A small, rarely-binding floor rather than a vh-based clamp. With
-     align-items: flex-end, a min-height that's actually bigger than the
-     content needs would leave slack above the text that flex-end eats
-     silently — padding stops being able to control that gap at all. Once
-     the box is content-driven instead, padding-top/bottom work exactly
-     as written. */
-  min-height: 400px;
+  min-height: 380px;
   display: flex;
-  align-items: flex-end;
-  /* cancels <main>'s --navbar-height padding so this section's own
-     background extends up behind the fixed navbar, then adds a small,
-     deliberate gap back so the eyebrow/heading clear the nav instead of
-     touching it. */
+  align-items: center;
   margin-top: calc(-1 * var(--navbar-height));
-  /* Bottom padding is untouched from its previous, already-tuned value —
-     .market-search-card is a flex sibling of .market-hero-content inside
-     this same row (not a separate section below it) and relies on this
-     exact padding plus its own -6rem margin-top for its overlap position.
-     Only the top side of this hero needed fixing. */
-  padding: calc(var(--navbar-height) + 1.75rem) 5vw 10rem;
+  padding: calc(var(--navbar-height) + 0.5rem) 5vw 2.5rem;
   color: var(--paper);
   overflow: hidden;
-}
-
-.market-hero-image {
-  position: absolute;
-  inset: 0;
   background: linear-gradient(135deg, #1c3226 0%, #16241d 60%),
     url("/images/home/hero.jpg") center/cover no-repeat;
   background-blend-mode: multiply;
@@ -161,82 +145,57 @@
 .market-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(22, 36, 29, 0.95) 5%,
-    rgba(22, 36, 29, 0.35) 55%,
-    rgba(22, 36, 29, 0.1) 100%
-  );
+  background: linear-gradient(to top, rgba(22, 36, 29, 0.75) 0%, rgba(22, 36, 29, 0.3) 100%);
 }
 
 .market-hero-content {
   position: relative;
   z-index: 2;
-  max-width: 640px;
-  /* .market-hero's row is bottom-aligned so .market-search-card can
-     overlap down into the next section — but that pushed this heading
-     down too, since it's a flex sibling of the card in the same row.
-     align-self alone wasn't enough: .market-search-card also has its own
-     margin-top: -6rem pulling IT up above the shared flex-start line, so
-     without a matching offset here the card still ends up higher than
-     the heading. Verified via real computed positions (getBoundingClientRect):
-     content sat 96px below the card's actual top — exactly the card's
-     own -6rem — so mirroring that offset here aligns both to the same
-     visual top edge. */
-  align-self: flex-start;
-  margin-top: -6rem;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 3rem;
 }
 
+.market-hero-copy { max-width: 32rem; }
 .market-hero-content .market-eyebrow { color: var(--gold); }
 .market-hero-content .market-eyebrow::before { background: var(--gold); }
 
 .market-hero-content h1 {
-  font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
   color: var(--paper);
 }
 .market-hero-content h1 span { color: var(--gold); }
 
 .market-hero-description {
-  margin-top: 1.5rem;
-  max-width: 34rem;
+  margin-top: 1.25rem;
   font-size: 1.1rem;
   color: rgba(251, 247, 239, 0.82);
 }
 
-/* the floating search card — anchored bottom-left, overlapping the
-   hero/section boundary, not a centered generic search bar */
 .market-search-card {
-  position: relative;
-  z-index: 3;
-  margin-top: -6rem;
-  margin-left: auto;
-  margin-right: 5vw;
-  max-width: 720px;
   background: var(--paper);
   border-radius: 22px;
   padding: 2.5rem 2.75rem 2.25rem;
+  max-width: 600px;
   box-shadow: 0 38px 75px -20px rgba(22, 36, 29, 0.5);
   border-left: 6px solid var(--gold);
-}
-
-.market-search-heading {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 1.6rem;
-}
-.market-search-heading h2 {
-  font-size: 1.8rem;
   color: var(--ink);
 }
-.market-search-step {
+
+.market-search-heading { margin-bottom: 1.6rem; }
+.market-search-heading h2 {
   font-family: var(--display);
-  font-style: italic;
-  font-size: 2.5rem;
-  color: var(--paper-dim);
-  -webkit-text-stroke: 1.5px var(--gold);
-  color: transparent;
-  line-height: 1;
+  font-weight: 500;
+  font-size: 1.8rem;
+  color: var(--ink);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0;
 }
 
 /* SearchForm.jsx overrides — real structure is
@@ -287,43 +246,37 @@
                         which was stacking on top of the form's own gap */
 }
 
-/* The date/time row always has exactly 4 fields. A grid guarantees 4 equal
-   columns no matter how wide the label content is — flex-wrap decides line
-   breaks partly from content size, so longer French labels (e.g. "Heure de
-   Prise en Charge" vs "Pickup Time") pushed the 4th field onto its own row.
-   This is the same class of bug the mobile breakpoint below already works
-   around for a different reason (sub-pixel rounding), just triggered here
-   by label length instead. */
+/* Same fix as private-driver's search card: a grid guarantees 4 equal
+   columns for the date/time row regardless of label/value content width. */
 .market-search-card form .row:not(:first-of-type) {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1rem 0.65rem;
+  gap: 1rem 0.5rem;
 }
 
 .market-search-card form .form-group {
   display: flex;
   flex-direction: column;
-  flex: 1 1 190px;
+  flex: 1 1 150px;
   min-width: 0;
 }
 .market-search-card form .row:not(:first-of-type) .form-group {
   flex: initial;
   min-width: 0;
 }
-/* the passengers row is alone — don't let it stretch full width */
 .market-search-card form .row:first-of-type .form-group.small {
-  flex: 0 1 240px;
+  flex: 0 1 100%;
 }
 
 .market-search-card form .form-group label {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.4rem;
   font-size: 0.76rem;
   font-weight: 600;
   color: var(--sage);
   margin-bottom: 0.45rem;
-  line-height: 1.3;
+  white-space: nowrap;
 }
 
 .market-search-card form .form-group label .icon {
@@ -925,14 +878,16 @@
 /* =====================================================
    RESPONSIVE
 ===================================================== */
+/* Same reasoning as private-driver's 1300px breakpoint: a 512px copy
+   block + 48px gap + 600px card needs ~1160px of content width, which
+   only exists above ~1289px of viewport once the hero's 5vw side padding
+   is accounted for — stack below that instead of an awkward mid-wrap. */
+@media (max-width: 1300px) {
+  .market-hero-content { flex-direction: column; align-items: stretch; }
+  .market-search-card { max-width: none; width: 100%; }
+}
+
 @media (max-width: 960px) {
-  .market-hero {
-    flex-direction: column;
-    align-items: stretch;
-    min-height: 0;
-    padding-bottom: 3rem;
-  }
-  .market-hero-content { max-width: 100%; }
   .value-header,
   .market-how-heading { grid-template-columns: 1fr; }
   .value-grid { grid-template-columns: repeat(2, 1fr); }
@@ -948,16 +903,10 @@
   .market-destination-3 { grid-column: 2; grid-row: 2; }
   .market-destination-4 { grid-column: span 2; grid-row: 3; }
   .market-stories-grid { grid-template-columns: 1fr; }
-  .market-search-card {
-    margin-left: 4vw;
-    margin-right: 4vw;
-    margin-top: 2rem;
-    max-width: none;
-  }
 }
 
 @media (max-width: 640px) {
-  .market-hero { padding: calc(1.25rem + var(--navbar-height)) 6vw 2rem; min-height: 0; }
+  .market-hero { padding: calc(0.5rem + var(--navbar-height)) 6vw 2rem; min-height: 0; }
   .market-hero-content h1 { font-size: clamp(2rem, 9vw, 2.6rem); }
   .market-hero-description { margin-top: 0.85rem; }
   .market-search-card {

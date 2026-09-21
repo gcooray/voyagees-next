@@ -76,32 +76,29 @@ export default function HomePage({ content, locale }) {
 
       <section className="market-hero">
 
-        <div className="market-hero-image" />
-
         <div className="market-hero-overlay" />
 
         <div className="market-hero-content">
 
-          <p className="market-eyebrow">
-            {content.hero.eyebrow}
-          </p>
+          <div className="market-hero-copy">
+            <p className="market-eyebrow">
+              {content.hero.eyebrow}
+            </p>
 
-          <h1>
-            {content.hero.title}
-            <br />
-            <span>{content.hero.titleHighlight}</span>
-          </h1>
+            <h1>
+              {content.hero.title}
+              <br />
+              <span>{content.hero.titleHighlight}</span>
+            </h1>
 
-          <p className="market-hero-description">
-            {content.hero.description}
-          </p>
+            <p className="market-hero-description">
+              {content.hero.description}
+            </p>
+          </div>
 
-        </div>
+          <div className="market-search-card">
 
-        <div className="market-search-card">
-
-          <div className="market-search-heading">
-            <div>
+            <div className="market-search-heading">
               <span className="market-search-label">
                 {content.search.eyebrow}
               </span>
@@ -111,27 +108,26 @@ export default function HomePage({ content, locale }) {
               </h2>
             </div>
 
-            
-          </div>
+            <SearchForm
+              pickup={pickup}
+              setPickup={setPickup}
+              dropoff={dropoff}
+              setDropoff={setDropoff}
+              pickupDate={pickupDate}
+              setPickupDate={setPickupDate}
+              dropoffDate={dropoffDate}
+              setDropoffDate={setDropoffDate}
+              pickupTime={pickupTime}
+              setPickupTime={setPickupTime}
+              dropoffTime={dropoffTime}
+              setDropoffTime={setDropoffTime}
+              passengers={passengers}
+              setPassengers={setPassengers}
+              handleSearch={handleSearch}
+              locale={locale}
+            />
 
-          <SearchForm
-            pickup={pickup}
-            setPickup={setPickup}
-            dropoff={dropoff}
-            setDropoff={setDropoff}
-            pickupDate={pickupDate}
-            setPickupDate={setPickupDate}
-            dropoffDate={dropoffDate}
-            setDropoffDate={setDropoffDate}
-            pickupTime={pickupTime}
-            setPickupTime={setPickupTime}
-            dropoffTime={dropoffTime}
-            setDropoffTime={setDropoffTime}
-            passengers={passengers}
-            setPassengers={setPassengers}
-            handleSearch={handleSearch}
-            locale={locale}
-          />
+          </div>
 
         </div>
 
