@@ -4,6 +4,7 @@ import {
   accommodationPriceRanges,
   activityPrices,
   hotelsByDestination,
+  occupancyPricing,
   seasonalNotes,
 } from "@/lib/destinationContent";
 
@@ -316,7 +317,34 @@ function resolveHotelName(destinationName, budget) {
     searchUrl: `https://www.google.com/search?q=${encodeURIComponent(
       `${hotel.name} ${hotel.area} Sri Lanka hotel`
     )}`,
+    // Not populated yet — hotel objects in hotelsByDestination don't carry
+    // real rates today. Once a hotel gets a `price: { min, max }` field,
+    // it's picked up here automatically and takes priority over the
+    // generic tier range, same double-occupancy-base assumption as
+    // accommodationPriceRanges.
+    priceRange: hotel.price || null,
   };
+}
+
+// Adjusts a base (double-occupancy) per-night price range for the actual
+// travel party. Applies uniformly to the generic tier range and to any
+// future real per-hotel price, since both represent the same 2-adult base
+// rate — only the surcharge on top changes depending on who's staying.
+function calculateStayPrice(baseRange, adults, childrenAges) {
+  const extraAdults = Math.max(0, (adults || occupancyPricing.baseOccupancy) - occupancyPricing.baseOccupancy);
+  let surcharge = extraAdults * occupancyPricing.extraAdultUsd;
+
+  for (const age of childrenAges) {
+    const numericAge = Number(age);
+    if (!Number.isFinite(numericAge) || numericAge >= occupancyPricing.child.reducedUnderAge) {
+      surcharge += occupancyPricing.child.fullAgeUsd;
+    } else if (numericAge >= occupancyPricing.child.freeUnderAge) {
+      surcharge += occupancyPricing.child.reducedUsd;
+    }
+    // Below freeUnderAge: no surcharge.
+  }
+
+  return { min: baseRange.min + surcharge, max: baseRange.max + surcharge };
 }
 
 // Checks each day's date + destination/activities against seasonalNotes and
@@ -375,7 +403,13 @@ export async function POST(request) {
   }
 
   const preferences = await request.json();
-  const { pickupDate, dropoffDate, budget = "mid-range" } = preferences;
+  const {
+    pickupDate,
+    dropoffDate,
+    budget = "mid-range",
+    adults = occupancyPricing.baseOccupancy,
+    childrenAges = [],
+  } = preferences;
 
   if (!pickupDate || !dropoffDate) {
     return Response.json({ error: "pickupDate and dropoffDate are required." }, { status: 400 });
@@ -447,12 +481,25 @@ export async function POST(request) {
   const aiItinerary = toolUseBlock.toolUse.input;
   const tierRange = accommodationPriceRanges[budget] || accommodationPriceRanges["mid-range"];
 
-  let nightsWithStay = 0;
+  let estimateMin = 0;
+  let estimateMax = 0;
   const days = (aiItinerary.days || []).map((day, index) => {
     const destination = resolveDestinationCoordinates(day.destinationName || "");
-    if (day.hasOvernightStay) nightsWithStay += 1;
-
     const hotelMatch = resolveHotelName(day.destinationName || "", budget);
+
+    let stay = null;
+    if (day.hasOvernightStay) {
+      const baseRange = hotelMatch?.priceRange || tierRange;
+      const nightRange = calculateStayPrice(baseRange, adults, childrenAges);
+      estimateMin += nightRange.min;
+      estimateMax += nightRange.max;
+
+      stay = {
+        name: hotelMatch?.displayName || day.stayStyle || "Recommended local accommodation",
+        price: `$${nightRange.min}-${nightRange.max}/night`,
+        searchUrl: hotelMatch?.searchUrl || null,
+      };
+    }
 
     return {
       label: `Day ${index + 1}`,
@@ -460,13 +507,7 @@ export async function POST(request) {
       title: day.title,
       activities: appendVerifiedActivityPrices(day.activities || []),
       location: { name: destination.name, lat: destination.lat, lng: destination.lng },
-      stay: day.hasOvernightStay
-        ? {
-          name: hotelMatch?.displayName || day.stayStyle || "Recommended local accommodation",
-          price: `$${tierRange.min}-${tierRange.max}/night`,
-          searchUrl: hotelMatch?.searchUrl || null,
-        }
-        : null,
+      stay,
     };
   });
 
@@ -474,8 +515,8 @@ export async function POST(request) {
     title: aiItinerary.title,
     routeSummary: aiItinerary.routeSummary,
     accommodationEstimate: {
-      min: tierRange.min * nightsWithStay,
-      max: tierRange.max * nightsWithStay,
+      min: estimateMin,
+      max: estimateMax,
     },
     days,
     seasonalNotes: collectSeasonalNotes(days),
