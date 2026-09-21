@@ -110,6 +110,24 @@
   color: var(--paper);
 }
 
+/* Soft, informational only — never implies the itinerary is wrong, just a
+   heads-up about timing for a specific region/activity it included. */
+.itinerary-seasonal-notes {
+  background: rgba(226, 166, 59, 0.1);
+  border: 1px solid var(--gold);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.itinerary-seasonal-notes p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
 .itinerary-hotels-panel {
   background: var(--paper-dim);
   border: 1px solid var(--line);

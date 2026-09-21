@@ -65,6 +65,7 @@ export default function Navbar() {
     "/request": "/fr/request",
     "/terms": "/fr/terms",
     "/rides": "/fr/rides",
+    "/private-tour": "/fr/private-tour",
 
     "/fr": "/",
     "/fr/private-driver": "/private-driver",
@@ -76,6 +77,7 @@ export default function Navbar() {
     "/fr/request": "/request",
     "/fr/terms": "/terms",
     "/fr/rides": "/rides",
+    "/fr/private-tour": "/private-tour",
   };
 
   const targetPath = routeMap[pathname];
@@ -136,14 +138,14 @@ export default function Navbar() {
           </Link>
         </li>
 
-          {/* No French version of this page yet, so it's English-only in the nav */}
-          {!isFrench && (
-            <li>
-              <Link href="/private-tour" onClick={() => setIsOpen(false)}>
-                Private Tour
-              </Link>
-            </li>
-          )}
+          <li>
+            <Link
+              href={isFrench ? "/fr/private-tour" : "/private-tour"}
+              onClick={() => setIsOpen(false)}
+            >
+              {isFrench ? "Circuit Privé" : "Private Tour"}
+            </Link>
+          </li>
 
 
           <li>

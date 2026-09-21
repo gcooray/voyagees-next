@@ -50,7 +50,7 @@ export default function ItineraryResult({ data, searchParams, onReset }) {
 
   if (!data) return null;
 
-  const { title, routeSummary, driverPriceFrom, accommodationEstimate, days = [] } = data;
+  const { title, routeSummary, driverPriceFrom, accommodationEstimate, days = [], seasonalNotes = [] } = data;
   const currentDay = days[activeDay];
 
   const convertedPrice = exchangeRate && driverPriceFrom != null ? driverPriceFrom * exchangeRate : null;
@@ -141,6 +141,14 @@ export default function ItineraryResult({ data, searchParams, onReset }) {
           </div>
         </div>
       </div>
+
+      {seasonalNotes.length > 0 && (
+        <div className="itinerary-seasonal-notes">
+          {seasonalNotes.map((note) => (
+            <p key={note}>☀️ {note}</p>
+          ))}
+        </div>
+      )}
 
       {hotelsFlow !== "idle" && (
         <div className="itinerary-hotels-panel">

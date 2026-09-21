@@ -23,6 +23,14 @@ export default function sitemap() {
       lastModified: new Date(),
     },
     {
+      url: `${baseUrl}/private-tour`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/fr/private-tour`,
+      lastModified: new Date(),
+    },
+    {
       url: `${baseUrl}/terms`,
       lastModified: new Date(),
     },

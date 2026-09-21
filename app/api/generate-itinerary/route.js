@@ -1,6 +1,11 @@
 import { createHash } from "node:crypto";
 import { touristDestinations } from "@/data/touristDestinations";
-import { accommodationPriceRanges, activityPrices, hotelsByDestination } from "@/lib/destinationContent";
+import {
+  accommodationPriceRanges,
+  activityPrices,
+  hotelsByDestination,
+  seasonalNotes,
+} from "@/lib/destinationContent";
 
 // Cost control: response caching + per-IP rate limiting, both backed by a
 // plain in-memory Map at module scope rather than Firestore or Redis.
@@ -203,7 +208,9 @@ ${knowledgeBaseContext}
 
 The reference list above is for your awareness of which destinations/attractions the platform has verified pricing infrastructure for — it does not limit which destinations you may choose, and you must not quote any of its numbers yourself.
 
-Match accommodation style (via stayStyle) to the traveler's stated budget tier, and the density of each day's activities to their stated pace. Use real, well-known place names for destinationName so they can be matched to map coordinates.`;
+Match accommodation style (via stayStyle) to the traveler's stated budget tier, and the density of each day's activities to their stated pace. Use real, well-known place names for destinationName so they can be matched to map coordinates.
+
+Seasonality awareness: Sri Lanka's west/south/hill-country region is best Dec-Apr, while the east/north coast (Trincomalee, Arugam Bay, Jaffna) has the opposite pattern and is best May-Sept — prefer suggesting each region during its own good season when the traveler's dates allow flexibility, and avoid recommending time-sensitive activities (e.g. whale watching off Mirissa, or Arugam Bay surfing) outside their real season. You don't need to mention this yourself — the platform adds a seasonal note to the response automatically when relevant.`;
 }
 
 function buildUserPrompt(preferences, totalDays) {
@@ -238,6 +245,23 @@ function buildUserPrompt(preferences, totalDays) {
     .join("\n");
 }
 
+// Strips spaces/hyphens so "Arugam Bay" and the knowledge base's
+// "arugambay" key compare equal — a plain .includes() check missed this
+// exact case in testing (a real, verified bug: the model's "Arugam Bay"
+// never matched the hotelsByDestination key "arugambay" because of the
+// space, silently falling back to the model's generic description).
+function normalizeForMatch(text) {
+  return text.trim().toLowerCase().replace(/[\s-]/g, "");
+}
+
+// Names the model uses interchangeably with a knowledge base entry for the
+// same place — found via testing when "Tissamaharama" (the actual town by
+// Yala National Park) didn't match our "yala" entry at all, falling back to
+// an unresolved Colombo coordinate and a generic hotel description.
+const DESTINATION_ALIASES = {
+  tissamaharama: "yala",
+};
+
 // Grounds the model's free-text destination name in a real, known
 // coordinate — the same "don't trust the model for verifiable facts"
 // principle applied to geography instead of price. Falls back to Colombo
@@ -245,9 +269,10 @@ function buildUserPrompt(preferences, totalDays) {
 // pin is safer than a wrong one placed with false confidence.
 function resolveDestinationCoordinates(destinationName) {
   const needle = destinationName.trim().toLowerCase();
+  const aliasSlug = DESTINATION_ALIASES[normalizeForMatch(destinationName)];
 
   const exact = touristDestinations.find(
-    (d) => d.name.toLowerCase() === needle || d.slug === needle
+    (d) => d.name.toLowerCase() === needle || d.slug === needle || (aliasSlug && d.slug === aliasSlug)
   );
   if (exact) return { name: destinationName, lat: exact.lat, lng: exact.lng, resolved: true };
 
@@ -266,17 +291,41 @@ function resolveDestinationCoordinates(destinationName) {
 // falls through to the existing generic behavior — an untracked
 // destination stays as descriptive text, never a guessed hotel name.
 function resolveHotelName(destinationName, budget) {
-  const needle = destinationName.trim().toLowerCase();
+  const normalizedNeedle = normalizeForMatch(destinationName);
+  const aliasId = DESTINATION_ALIASES[normalizedNeedle];
 
   const destinationId = Object.keys(hotelsByDestination)
     .filter((key) => key !== "lastVerified")
-    .find((id) => needle.includes(id.replace("-", " ")) || needle.includes(id));
+    .find((id) => normalizedNeedle.includes(normalizeForMatch(id)) || id === aliasId);
 
   if (!destinationId) return null;
 
   const tiers = hotelsByDestination[destinationId];
   const hotel = tiers[budget] || tiers["mid-range"];
   return hotel ? `${hotel.name} (${hotel.area})` : null;
+}
+
+// Checks each day's date + destination/activities against seasonalNotes and
+// collects any that apply — a soft, informational disclosure, never a
+// reason to drop or alter the day itself. Deduplicated by note id, since
+// e.g. an Arugam Bay day matches both the surf-specific rule and the
+// broader east/north monsoon rule.
+function collectSeasonalNotes(days) {
+  const matched = new Map();
+
+  for (const day of days) {
+    const month = new Date(`${day.date}T00:00:00`).getMonth() + 1;
+    const haystack = `${day.location.name} ${day.activities.join(" ")}`.toLowerCase();
+
+    for (const rule of seasonalNotes) {
+      if (matched.has(rule.id)) continue;
+      const nameMatches = rule.matchNames.some((name) => haystack.includes(name));
+      const outOfSeason = !rule.bestMonths.includes(month);
+      if (nameMatches && outOfSeason) matched.set(rule.id, rule.note);
+    }
+  }
+
+  return [...matched.values()];
 }
 
 // Appends the verified entry fee to any activity line that names one of
@@ -416,6 +465,7 @@ export async function POST(request) {
       max: tierRange.max * nightsWithStay,
     },
     days,
+    seasonalNotes: collectSeasonalNotes(days),
   };
 
   setCachedResult(cacheKey, result);
