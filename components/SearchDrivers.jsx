@@ -2,13 +2,19 @@
 
 import "./SearchDrivers.css";
 import { useState, useMemo } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import DriverList from "@/components/DriverList";
 import DriverModal from "@/components/DriverModal";
 import DriverFilters from "@/components/DriverFilters";
+import SearchForm from "@/components/SearchForm.jsx";
 
 import { drivers } from "@/data/drivers";
+
+const STRINGS = {
+  en: { heading: "Change your dates" },
+  fr: { heading: "Modifier vos dates" },
+};
 
 export default function DriversPage({ locale = "en" }) {
 
@@ -20,12 +26,44 @@ export default function DriversPage({ locale = "en" }) {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
 
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   const pickupDate = searchParams.get("pickupDate");
   const dropoffDate = searchParams.get("dropoffDate");
   const pickupTime = searchParams.get("pickupTime");
   const dropoffTime = searchParams.get("dropoffTime");
+
+  // Pre-filled from the current URL so re-submitting without touching a
+  // field keeps that field's value, rather than wiping it back to blank.
+  const [formPickup, setFormPickup] = useState(searchParams.get("pickup") || "");
+  const [formDropoff, setFormDropoff] = useState(searchParams.get("dropoff") || "");
+  const [formPickupDate, setFormPickupDate] = useState(pickupDate || "");
+  const [formDropoffDate, setFormDropoffDate] = useState(dropoffDate || "");
+  const [formPickupTime, setFormPickupTime] = useState(pickupTime || "");
+  const [formDropoffTime, setFormDropoffTime] = useState(dropoffTime || "");
+  const [formPassengers, setFormPassengers] = useState(searchParams.get("passengers") || "");
+
+  const t = STRINGS[locale] || STRINGS.en;
+
+  // Pushes the new query to the same /search route — the App Router
+  // re-renders this page in place with the updated searchParams instead
+  // of a full navigation, so the results update without leaving the page.
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    const query = new URLSearchParams({
+      pickup: formPickup,
+      dropoff: formDropoff,
+      pickupDate: formPickupDate,
+      dropoffDate: formDropoffDate,
+      pickupTime: formPickupTime,
+      dropoffTime: formDropoffTime,
+      passengers: formPassengers,
+    }).toString();
+
+    router.push(`${locale === "fr" ? "/fr/search" : "/search"}?${query}`);
+  };
 
 
   /*
@@ -142,6 +180,28 @@ export default function DriversPage({ locale = "en" }) {
   return (
 
     <div className="search-results-page">
+
+      <div className="search-edit-card">
+        <p className="search-edit-heading">{t.heading}</p>
+        <SearchForm
+          pickup={formPickup}
+          setPickup={setFormPickup}
+          dropoff={formDropoff}
+          setDropoff={setFormDropoff}
+          pickupDate={formPickupDate}
+          setPickupDate={setFormPickupDate}
+          dropoffDate={formDropoffDate}
+          setDropoffDate={setFormDropoffDate}
+          pickupTime={formPickupTime}
+          setPickupTime={setFormPickupTime}
+          dropoffTime={formDropoffTime}
+          setDropoffTime={setFormDropoffTime}
+          passengers={formPassengers}
+          setPassengers={setFormPassengers}
+          handleSearch={handleSearch}
+          locale={locale}
+        />
+      </div>
 
       <div className="search-results-layout">
 

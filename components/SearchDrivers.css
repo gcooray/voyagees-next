@@ -3,6 +3,30 @@
   padding: 60px 6%;
 }
 
+.search-edit-card {
+  max-width: 1400px;
+  margin: 0 auto 40px;
+  background: var(--paper, #fff);
+  border: 1px solid var(--line, #e6e2d8);
+  border-radius: 18px;
+  padding: 1.5rem 1.75rem;
+}
+
+.search-edit-heading {
+  margin: 0 0 0.75rem;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sage, #666);
+}
+
+.search-edit-card .search-overlay {
+  margin-top: 0;
+  padding: 0;
+  max-width: none;
+}
+
 .search-results-layout {
   max-width: 1400px;
   margin: 0 auto;
@@ -35,6 +59,22 @@
   .search-results-layout {
     grid-template-columns: 1fr;
     gap: 35px;
+  }
+
+  /* On mobile, a single-column stack falls back to DOM order — the
+     filters panel is written first for the desktop sidebar layout, which
+     would otherwise push the actual results below a tall filter form.
+     Show results first, filters after, for anyone who wants to refine. */
+  .search-results-content {
+    order: 1;
+  }
+
+  .driver-filters {
+    order: 2;
+  }
+
+  .search-edit-card {
+    padding: 1.25rem;
   }
 
 }
