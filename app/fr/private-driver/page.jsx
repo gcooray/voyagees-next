@@ -274,6 +274,14 @@ export default function PrivateDriverPage() {
 
       </section>
 
+      <div className="pd-inline-image">
+        <img
+          src="/images/private-driver/hill-country-road.jpg"
+          alt="Chauffeur privé sur une route à travers les collines du Sri Lanka"
+          style={{ objectPosition: "top" }}
+        />
+        <p className="pd-image-caption">Sur la route à travers Kandy et les collines centrales</p>
+      </div>
 
       {/* AIRPORT TRANSFERS */}
 
@@ -344,6 +352,10 @@ export default function PrivateDriverPage() {
 
       </section>
 
+      <div className="pd-inline-image">
+        <img src="/images/private-driver/private-driver.jpg" alt="Chauffeur accueillant des voyageurs à l'aéroport international de Bandaranaike" />
+        <p className="pd-image-caption">Chauffeur privé avec un groupe de touristes</p>
+      </div>
 
       {/* DAY TRIPS */}
 
@@ -489,6 +501,10 @@ export default function PrivateDriverPage() {
 
       </section>
 
+      <div className="pd-inline-image">
+        <img src="/images/private-driver/southern-coast.jpg" alt="Véhicule privé le long de la côte sud du Sri Lanka" />
+        <p className="pd-image-caption">Route de la côte sud — de Galle à Mirissa</p>
+      </div>
 
       {/* DRIVER CREDENTIALS */}
 
