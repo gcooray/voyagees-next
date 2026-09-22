@@ -363,8 +363,8 @@ export default function PrivateDriverPage() {
       </section>
 
       <div className="pd-inline-image">
-  <img src="/images/private-driver/hill-country-road.jpg" alt="Driver meeting travellers at Bandaranaike International Airport" />
-  <p className="pd-image-caption">Airport pickup at Bandaranaike International</p>
+  <img src="/images/private-driver/private-driver.jpg" alt="Driver meeting travellers at Bandaranaike International Airport" />
+  <p className="pd-image-caption">Private driver with a group of tourist</p>
 </div>
 
 
