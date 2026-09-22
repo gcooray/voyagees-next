@@ -138,7 +138,7 @@
   color: var(--paper);
   overflow: hidden;
   background: linear-gradient(135deg, #1c3226 0%, #16241d 60%),
-    url("/images/home/hero.jpg") center/cover no-repeat;
+    url("/images/hero/sigiriya.webp") center/cover no-repeat;
   background-blend-mode: multiply;
 }
 
@@ -847,7 +847,7 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, #16241d, #0f1a14),
-    url("/images/home/final.jpg") center/cover no-repeat;
+    url("/images/hero/galle.webp") center/cover no-repeat;
   background-blend-mode: multiply;
 }
 .market-final-overlay {

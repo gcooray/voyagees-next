@@ -67,7 +67,7 @@
   color: var(--paper);
   overflow: hidden;
   background: linear-gradient(135deg, #1c3226 0%, #16241d 60%),
-    url("/images/private-driver/hero.jpg") center/cover no-repeat;
+    url("/images/hero/ella.webp") center/cover no-repeat;
   background-blend-mode: multiply;
 }
 .pd-hero-overlay {
@@ -527,7 +527,7 @@
   padding: 5rem 5vw;
   overflow: hidden;
   background: linear-gradient(135deg, #16241d, #0f1a14),
-    url("/images/private-driver/final.jpg") center/cover no-repeat;
+    url("/images/hero/kandy.webp") center/cover no-repeat;
   background-blend-mode: multiply;
 }
 .pd-final-overlay {
