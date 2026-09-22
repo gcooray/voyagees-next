@@ -254,8 +254,7 @@ Included KM: ${includedKm} km
       await notifyDriverBookingAdmin(
         { name: fullName, email, phone },
         description || tripDetails,
-        id,
-        `${window.location.origin}/admin/bookings/${id}`
+        id
       );
 
       setSuccess(true);
