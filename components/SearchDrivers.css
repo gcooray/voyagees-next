@@ -1,6 +1,6 @@
 .search-results-page {
   width: 100%;
-  padding: 60px 6%;
+  padding: 12px 6% 60px;
 }
 
 .search-edit-card {
@@ -16,6 +16,17 @@
   margin-top: 0;
   padding: 0;
   max-width: none;
+}
+
+/* Scoped to this card only — SearchForm's own CSS is shared with the
+   homepage/private-driver hero forms, which shouldn't be affected. */
+.search-edit-card .form-panel {
+  gap: 6px;
+}
+
+.search-edit-card .row {
+  margin-bottom: 6px;
+  gap: 8px;
 }
 
 .search-results-layout {
