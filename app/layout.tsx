@@ -45,6 +45,22 @@ export const metadata = {
     siteName: "voyaGees",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "voyaGees — your tour, your way",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Hire Trusted Private Drivers & Tours in Sri Lanka | voyaGees",
+    description:
+      "Book reliable private drivers and tours with voyaGees. Safe, flexible, and affordable travel across Sri Lanka with verified local drivers and clean vehicles.",
+    images: ["/og-image.jpg"],
   },
 
   robots: {
