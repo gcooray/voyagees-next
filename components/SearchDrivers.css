@@ -9,16 +9,7 @@
   background: var(--paper, #fff);
   border: 1px solid var(--line, #e6e2d8);
   border-radius: 18px;
-  padding: 1.5rem 1.75rem;
-}
-
-.search-edit-heading {
-  margin: 0 0 0.75rem;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--sage, #666);
+  padding: 0.5rem;
 }
 
 .search-edit-card .search-overlay {
@@ -74,7 +65,7 @@
   }
 
   .search-edit-card {
-    padding: 1.25rem;
+    padding: 0.5rem;
   }
 
 }

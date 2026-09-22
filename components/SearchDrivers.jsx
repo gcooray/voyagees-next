@@ -11,11 +11,6 @@ import SearchForm from "@/components/SearchForm.jsx";
 
 import { drivers } from "@/data/drivers";
 
-const STRINGS = {
-  en: { heading: "Change your dates" },
-  fr: { heading: "Modifier vos dates" },
-};
-
 export default function DriversPage({ locale = "en" }) {
 
   const [selectedDriver, setSelectedDriver] = useState(null);
@@ -43,8 +38,6 @@ export default function DriversPage({ locale = "en" }) {
   const [formPickupTime, setFormPickupTime] = useState(pickupTime || "");
   const [formDropoffTime, setFormDropoffTime] = useState(dropoffTime || "");
   const [formPassengers, setFormPassengers] = useState(searchParams.get("passengers") || "");
-
-  const t = STRINGS[locale] || STRINGS.en;
 
   // Pushes the new query to the same /search route — the App Router
   // re-renders this page in place with the updated searchParams instead
@@ -182,7 +175,6 @@ export default function DriversPage({ locale = "en" }) {
     <div className="search-results-page">
 
       <div className="search-edit-card">
-        <p className="search-edit-heading">{t.heading}</p>
         <SearchForm
           pickup={formPickup}
           setPickup={setFormPickup}
