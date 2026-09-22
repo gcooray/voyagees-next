@@ -287,7 +287,11 @@ export default function PrivateDriverPage() {
       </section>
 
 <div className="pd-inline-image">
-  <img src="/images/private-driver/hill-country-road.jpg" alt="Private driver route through Sri Lanka's hill country" />
+  <img
+    src="/images/private-driver/hill-country-road.jpg"
+    alt="Private driver route through Sri Lanka's hill country"
+    style={{ objectPosition: "top" }}
+  />
   <p className="pd-image-caption">On the road through Kandy and the hill country</p>
 </div>
 
