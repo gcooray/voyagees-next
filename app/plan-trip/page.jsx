@@ -42,6 +42,7 @@ const INTEREST_OPTIONS = [
   { value: "adventure", label: "Adventure" },
   { value: "wellness", label: "Wellness" },
 ];
+const ALL_INTEREST_VALUES = INTEREST_OPTIONS.map((opt) => opt.value);
 
 // `driverPriceFrom` is a real query against data/drivers.js (see
 // lib/driverPricing.js), matching the exact formula DriverCard.jsx uses to
@@ -115,6 +116,15 @@ export default function PlanTripPage() {
       interests: f.interests.includes(value)
         ? f.interests.filter((i) => i !== value)
         : [...f.interests, value],
+    }));
+  }
+
+  function toggleAllInterests() {
+    setForm((f) => ({
+      ...f,
+      interests: ALL_INTEREST_VALUES.every((v) => f.interests.includes(v))
+        ? []
+        : ALL_INTEREST_VALUES,
     }));
   }
 
@@ -306,6 +316,13 @@ export default function PlanTripPage() {
         <div className="plan-trip-field">
           <span className="plan-trip-field-label">Interests</span>
           <div className="plan-trip-interests">
+            <button
+              type="button"
+              className={`plan-trip-chip ${ALL_INTEREST_VALUES.every((v) => form.interests.includes(v)) ? "plan-trip-chip-active" : ""}`}
+              onClick={toggleAllInterests}
+            >
+              Mix of everything
+            </button>
             {INTEREST_OPTIONS.map((opt) => (
               <button
                 key={opt.value}
