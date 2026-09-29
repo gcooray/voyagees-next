@@ -46,6 +46,26 @@
 .pd-eyebrow.pd-dark { color: var(--teal); }
 .pd-eyebrow.pd-dark::before { background: var(--gold); }
 
+/* the navbar's "Find a Driver" button lands here — clear the fixed nav */
+#find-driver { scroll-margin-top: calc(var(--navbar-height) + 1rem); }
+
+/* pill CTA linking out of a section (e.g. to /airport-transfer) */
+.pd-cta {
+  display: inline-block;
+  margin-top: 0.5rem;
+  background: var(--clay);
+  color: var(--paper);
+  border-radius: 999px;
+  padding: 0.9rem 2rem;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.pd-cta:hover { background: var(--gold-dark); }
+
 /* =====================================================
    HERO
 ===================================================== */

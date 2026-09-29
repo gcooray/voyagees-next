@@ -1,0 +1,122 @@
+/* =========================================================
+   AIRPORT TRANSFER PAGE
+   Built on the private-driver page styles (pd-*) and the Colombo
+   page's checklist / CTA / steps helpers (pdc-*); this file only
+   adds the hero form layout and the popular-routes grid.
+   ========================================================= */
+
+.at-page #book { scroll-margin-top: calc(var(--navbar-height) + 1rem); }
+
+.at-hero,
+.at-final {
+  background: linear-gradient(135deg, #1c3226 0%, #16241d 60%),
+    url("/images/hero/negombo.webp") center/cover no-repeat;
+  background-blend-mode: multiply;
+}
+
+/* the form card is taller than the copy — keep the copy at the top */
+.at-hero .pd-hero-content { align-items: flex-start; }
+.at-hero .pd-hero-copy { padding-top: 1.5rem; }
+
+.at-hero-form {
+  flex: 1 1 560px;
+  max-width: 640px;
+}
+.at-hero-form .atf-card { margin: 0; max-width: none; }
+
+.at-hero-points {
+  list-style: none;
+  padding: 0;
+  margin: 1.75rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.at-hero-points li {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: rgba(251, 247, 239, 0.88);
+  font-size: 0.98rem;
+}
+.at-hero-points li::before {
+  content: "✓";
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 0.72rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =====================================================
+   POPULAR ROUTES
+===================================================== */
+.at-route-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+.at-route {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1.5rem 1.6rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.at-route:hover {
+  border-color: var(--gold);
+  transform: translateY(-3px);
+}
+.at-route-from {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--teal);
+}
+.at-route h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0.3rem 0 0.35rem;
+  color: var(--ink);
+}
+.at-route p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--sage);
+}
+.at-route-note {
+  max-width: 1100px;
+  margin: 1.25rem auto 0;
+  font-size: 0.85rem;
+  color: var(--sage);
+}
+
+.at-inline-link {
+  color: var(--gold);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 1300px) {
+  .at-hero-form { max-width: none; flex-basis: auto; }
+  .at-hero .pd-hero-copy { padding-top: 0; max-width: 40rem; }
+}
+@media (max-width: 900px) {
+  .at-route-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .at-route-grid { grid-template-columns: 1fr; }
+}

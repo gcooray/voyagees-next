@@ -1,0 +1,157 @@
+/* =========================================================
+   PRIVATE DRIVER — COLOMBO
+   Builds on ../page.css (the Sri Lanka private-driver page) and
+   only adds what that page doesn't have: checklists, pill CTAs,
+   a 4/6-card grid and numbered booking steps.
+   ========================================================= */
+
+/* the CTAs jump back up to the hero's search card */
+html:has(.pdc-page) { scroll-behavior: smooth; }
+.pdc-page #find-driver { scroll-margin-top: calc(var(--navbar-height) + 1rem); }
+
+.pdc-hero {
+  background: linear-gradient(135deg, #1c3226 0%, #16241d 60%),
+    url("/images/hero/colombo.webp") center/cover no-repeat;
+  background-blend-mode: multiply;
+}
+
+.pdc-final {
+  background: linear-gradient(135deg, #16241d, #0f1a14),
+    url("/images/hero/colombo.webp") center/cover no-repeat;
+  background-blend-mode: multiply;
+}
+
+/* =====================================================
+   PILL CTA
+===================================================== */
+.pdc-cta {
+  display: inline-block;
+  margin-top: 0.75rem;
+  background: var(--clay);
+  color: var(--paper);
+  border-radius: 999px;
+  padding: 0.9rem 2rem;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.pdc-cta:hover { background: var(--gold-dark); }
+.pdc-cta-light { background: var(--gold); color: var(--ink); }
+.pdc-cta-light:hover { background: var(--paper); }
+.pd-final-content .pdc-cta { margin-top: 1.75rem; }
+
+/* =====================================================
+   CHECKLIST
+===================================================== */
+.pdc-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem 1.5rem;
+}
+.pdc-checklist-1col { grid-template-columns: 1fr; }
+.pdc-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.96rem;
+  color: var(--ink);
+}
+.pdc-checklist li::before {
+  content: "✓";
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--paper);
+  font-size: 0.72rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.1rem;
+}
+.pd-dark-section .pdc-checklist li { color: var(--paper); }
+.pd-dark-section .pdc-checklist li::before { background: var(--gold); color: var(--ink); }
+
+.pd-text-content > p.pdc-note {
+  font-style: italic;
+  font-family: var(--display);
+  color: var(--teal);
+}
+.pd-dark-section .pd-text-content > p.pdc-note { color: var(--gold); }
+
+/* intro line above a card grid, on the same 700px measure as headings */
+.pdc-intro {
+  max-width: 700px;
+  margin: -1rem auto 2rem;
+  color: var(--sage);
+}
+
+/* =====================================================
+   CARD GRID (service options, benefits)
+===================================================== */
+.pdc-card-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+.pdc-card-grid-3col { grid-template-columns: repeat(3, 1fr); }
+
+/* =====================================================
+   BOOKING STEPS
+===================================================== */
+.pdc-steps {
+  list-style: none;
+  padding: 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.pdc-step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  color: var(--gold-dark);
+  font-family: var(--display);
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+}
+.pdc-steps h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.pdc-steps p {
+  font-size: 0.92rem;
+  color: var(--sage);
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 900px) {
+  .pdc-card-grid,
+  .pdc-card-grid-3col,
+  .pdc-steps { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .pdc-checklist,
+  .pdc-card-grid,
+  .pdc-card-grid-3col,
+  .pdc-steps { grid-template-columns: 1fr; }
+  .pdc-cta { display: block; text-align: center; }
+}

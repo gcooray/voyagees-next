@@ -1,3 +1,4 @@
+import Link from "next/link";
 import DriverSearch from "@/components/DriverSearch";
 import "../../private-driver/page.css";
 
@@ -29,7 +30,7 @@ export default function PrivateDriverPage() {
       </h1>
     </div>
 
-    <div className="pd-hero-search">
+    <div className="pd-hero-search" id="find-driver">
       <div className="pd-search-heading">
         <p className="pd-eyebrow pd-dark">PLANIFIEZ VOTRE VOYAGE</p>
         <h2>Trouvez votre chauffeur privé</h2>
@@ -348,6 +349,12 @@ export default function PrivateDriverPage() {
             coordonnée permet de relier tous ces déplacements.
           </p>
 
+        </div>
+
+        <div className="pd-text-content">
+          <Link href="/fr/airport-transfer" className="pd-cta">
+            Réserver un Transfert Aéroport
+          </Link>
         </div>
 
       </section>
