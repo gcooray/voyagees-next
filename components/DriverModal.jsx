@@ -241,7 +241,7 @@ const handleRequest = () => {
     }
 
     router.push(
-      `/request?${params.toString()}`
+      `${isFrench ? "/fr/request" : "/request"}?${params.toString()}`
     );
 
   } catch (error) {

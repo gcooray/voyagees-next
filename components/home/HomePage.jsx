@@ -53,7 +53,7 @@ export default function HomePage({ content, locale }) {
       passengers,
     }).toString();
 
-    router.push(`/search?${query}`);
+    router.push(`${locale === "fr" ? "/fr/search" : "/search"}?${query}`);
   };
 
   const privateDriverPath =

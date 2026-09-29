@@ -28,7 +28,7 @@ export default function DriverSearch({ locale = "en" }) {
       passengers,
     }).toString();
 
-    router.push(`/search?${query}`);
+    router.push(`${locale === "fr" ? "/fr/search" : "/search"}?${query}`);
   };
 
   return (
