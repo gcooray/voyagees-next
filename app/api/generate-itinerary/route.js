@@ -200,7 +200,14 @@ function buildKnowledgeBaseContext() {
   ].join("\n");
 }
 
-function buildSystemPrompt(knowledgeBaseContext) {
+// French output: everything the traveler reads is written in French, but
+// destinationName stays the standard place name — it's matched against
+// touristDestinations / hotelsByDestination, which are keyed in English.
+const FRENCH_INSTRUCTION = `
+
+LANGUAGE: The traveler is using the French version of the site. Write title, routeSummary, every day's title, every activity and every stayStyle in natural, fluent French. Keep destinationName as the standard place name exactly as it is usually written in English (e.g. "Kandy", "Nuwara Eliya", "Arugam Bay") — it is used for map lookup, not shown as prose.`;
+
+function buildSystemPrompt(knowledgeBaseContext, locale) {
   return `You are voyaGees' Sri Lanka trip-itinerary writer. Given a traveler's dates, party details, budget, pace, and interests, you have full creative latitude to choose a geographically sensible sequence of real Sri Lankan destinations, decide how long to spend at each, and write specific, engaging day-by-day activities.
 
 The one hard rule: NEVER state a specific price — not a hotel rate, not an attraction entry fee, not a safari cost — anywhere in your response, including inside activity descriptions or the stay style. Just name places and activities; the platform attaches verified pricing separately after you respond. If you write a number that looks like a price, you have made a mistake.
@@ -211,7 +218,7 @@ The reference list above is for your awareness of which destinations/attractions
 
 Match accommodation style (via stayStyle) to the traveler's stated budget tier, and the density of each day's activities to their stated pace. Use real, well-known place names for destinationName so they can be matched to map coordinates.
 
-Seasonality awareness: Sri Lanka's west/south/hill-country region is best Dec-Apr, while the east/north coast (Trincomalee, Arugam Bay, Jaffna) has the opposite pattern and is best May-Sept — prefer suggesting each region during its own good season when the traveler's dates allow flexibility, and avoid recommending time-sensitive activities (e.g. whale watching off Mirissa, or Arugam Bay surfing) outside their real season. You don't need to mention this yourself — the platform adds a seasonal note to the response automatically when relevant.`;
+Seasonality awareness: Sri Lanka's west/south/hill-country region is best Dec-Apr, while the east/north coast (Trincomalee, Arugam Bay, Jaffna) has the opposite pattern and is best May-Sept — prefer suggesting each region during its own good season when the traveler's dates allow flexibility, and avoid recommending time-sensitive activities (e.g. whale watching off Mirissa, or Arugam Bay surfing) outside their real season. You don't need to mention this yourself — the platform adds a seasonal note to the response automatically when relevant.${locale === "fr" ? FRENCH_INSTRUCTION : ""}`;
 }
 
 function buildUserPrompt(preferences, totalDays) {
@@ -291,7 +298,7 @@ function resolveDestinationCoordinates(destinationName) {
 // instead of the model's generic stayStyle description. No match just
 // falls through to the existing generic behavior — an untracked
 // destination stays as descriptive text, never a guessed hotel name.
-function resolveHotelName(destinationName, budget) {
+function resolveHotelName(destinationName, budget, t = SERVER_STRINGS.en) {
   const normalizedNeedle = normalizeForMatch(destinationName);
   const aliasId = DESTINATION_ALIASES[normalizedNeedle];
 
@@ -310,7 +317,7 @@ function resolveHotelName(destinationName, budget) {
   // via the "Include hotels too" flow, or a future live booking API), the
   // honest claim is "this kind of place," not "this exact room is held."
   return {
-    displayName: `${hotel.name} (${hotel.area}) or similar`,
+    displayName: t.orSimilar(hotel),
     // No affiliate/booking account exists yet, so there's nothing real to
     // link to. A Google search at least resolves to something true —
     // unlike the old placeholder URL, it never 404s or misleads.
@@ -352,7 +359,7 @@ function calculateStayPrice(baseRange, adults, childrenAges) {
 // reason to drop or alter the day itself. Deduplicated by note id, since
 // e.g. an Arugam Bay day matches both the surf-specific rule and the
 // broader east/north monsoon rule.
-function collectSeasonalNotes(days) {
+function collectSeasonalNotes(days, locale = "en") {
   const matched = new Map();
 
   for (const day of days) {
@@ -363,7 +370,9 @@ function collectSeasonalNotes(days) {
       if (matched.has(rule.id)) continue;
       const nameMatches = rule.matchNames.some((name) => haystack.includes(name));
       const outOfSeason = !rule.bestMonths.includes(month);
-      if (nameMatches && outOfSeason) matched.set(rule.id, rule.note);
+      if (nameMatches && outOfSeason) {
+        matched.set(rule.id, (locale === "fr" && FRENCH_SEASONAL_NOTES[rule.id]) || rule.note);
+      }
     }
   }
 
@@ -373,20 +382,71 @@ function collectSeasonalNotes(days) {
 // Appends the verified entry fee to any activity line that names one of
 // our tracked attractions. Everything else passes through unchanged —
 // an untracked attraction just stays priceless rather than guessed at.
-function appendVerifiedActivityPrices(activities) {
+function appendVerifiedActivityPrices(activities, locale = "en") {
+  const t = SERVER_STRINGS[locale] || SERVER_STRINGS.en;
+
   return activities.map((activity) => {
-    const match = activityPrices.find((a) =>
-      activity.toLowerCase().includes(a.name.toLowerCase())
-    );
+    const haystack = activity.toLowerCase();
+    const match = activityPrices.find((a) => {
+      const needles = [a.name.toLowerCase(), ...(locale === "fr" ? FRENCH_ACTIVITY_NAMES[a.id] || [] : [])];
+      return needles.some((needle) => haystack.includes(needle));
+    });
     if (!match) return activity;
 
-    const entry = `entry $${match.entryFeeUsd.adult} adult`;
+    const entry = t.entry(match.entryFeeUsd.adult);
     const safari = match.jeepSafariUsd
-      ? `, jeep safari $${match.jeepSafariUsd.min}-${match.jeepSafariUsd.max}/person`
+      ? t.safari(match.jeepSafariUsd.min, match.jeepSafariUsd.max)
       : "";
     return `${activity} (${entry}${safari})`;
   });
 }
+
+// Text this route adds on top of the model's output, per locale.
+const SERVER_STRINGS = {
+  en: {
+    day: (n) => `Day ${n}`,
+    orSimilar: (hotel) => `${hotel.name} (${hotel.area}) or similar`,
+    fallbackStay: "Recommended local accommodation",
+    perNight: "/night",
+    entry: (adult) => `entry $${adult} adult`,
+    safari: (min, max) => `, jeep safari $${min}-${max}/person`,
+  },
+  fr: {
+    day: (n) => `Jour ${n}`,
+    // hotelsByDestination's `area` notes are English-only, so French
+    // shows just the hotel name
+    orSimilar: (hotel) => `${hotel.name} ou similaire`,
+    fallbackStay: "Hébergement local recommandé",
+    perNight: "/nuit",
+    entry: (adult) => `entrée ${adult} $ par adulte`,
+    safari: (min, max) => `, safari en jeep ${min}-${max} $ par personne`,
+  },
+};
+
+// French names the model is likely to use for the tracked attractions, so
+// a French itinerary still gets the verified entry fee appended. English
+// matching (activityPrices' own `name`) is unchanged.
+const FRENCH_ACTIVITY_NAMES = {
+  "sigiriya-rock-fortress": ["rocher de sigiriya", "forteresse de sigiriya", "rocher du lion"],
+  "pinnawala-elephant-orphanage": ["pinnawala"],
+  "temple-of-the-sacred-tooth-relic": ["temple de la dent", "relique de la dent", "dent sacrée"],
+  "horton-plains-national-park": ["horton plains"],
+  "udawalawe-national-park-safari": ["parc national d'udawalawe", "parc national d’udawalawe", "parc national udawalawe"],
+  "yala-national-park-safari": ["parc national de yala", "parc national yala"],
+};
+
+// Seasonal notes in lib/destinationContent.js are English; French
+// versions keyed by the same note id.
+const FRENCH_SEASONAL_NOTES = {
+  "whale-watching-mirissa":
+    "L'observation des baleines au large de Mirissa se fait idéalement de novembre à avril (pic de décembre à mars). En dehors de cette période, la mer est plus agitée et les observations beaucoup moins fiables.",
+  "arugam-bay-surf":
+    "La saison de surf à Arugam Bay s'étend d'avril à octobre (pic de juin à septembre). En dehors de cette période, la houle est irrégulière et les vents rendent les conditions moins prévisibles.",
+  "minneriya-gathering":
+    "Le grand rassemblement d'éléphants de Minneriya/Kaudulla a lieu pendant la saison sèche, de juillet à octobre (pic en août et septembre). En dehors de cette période, les éléphants y sont beaucoup moins nombreux.",
+  "east-north-monsoon":
+    "Les côtes est et nord du Sri Lanka suivent un régime de mousson inverse de celui de l'ouest, du sud et des hautes terres : la meilleure période va de mai à septembre. Elles restent visitables le reste de l'année, simplement plus pluvieuses.",
+};
 
 function addDays(isoDate, offset) {
   const date = new Date(`${isoDate}T00:00:00`);
@@ -410,6 +470,8 @@ export async function POST(request) {
     adults = occupancyPricing.baseOccupancy,
     childrenAges = [],
   } = preferences;
+  const locale = preferences.locale === "fr" ? "fr" : "en";
+  const t = SERVER_STRINGS[locale];
 
   if (!pickupDate || !dropoffDate) {
     return Response.json({ error: "pickupDate and dropoffDate are required." }, { status: 400 });
@@ -436,7 +498,7 @@ export async function POST(request) {
   const totalDays = Math.round((end - start) / 86400000) + 1;
 
   const knowledgeBaseContext = buildKnowledgeBaseContext();
-  const systemPrompt = buildSystemPrompt(knowledgeBaseContext);
+  const systemPrompt = buildSystemPrompt(knowledgeBaseContext, locale);
   const userPrompt = buildUserPrompt(preferences, totalDays);
 
   let bedrockRes;
@@ -485,7 +547,7 @@ export async function POST(request) {
   let estimateMax = 0;
   const days = (aiItinerary.days || []).map((day, index) => {
     const destination = resolveDestinationCoordinates(day.destinationName || "");
-    const hotelMatch = resolveHotelName(day.destinationName || "", budget);
+    const hotelMatch = resolveHotelName(day.destinationName || "", budget, t);
 
     let stay = null;
     if (day.hasOvernightStay) {
@@ -495,17 +557,17 @@ export async function POST(request) {
       estimateMax += nightRange.max;
 
       stay = {
-        name: hotelMatch?.displayName || day.stayStyle || "Recommended local accommodation",
-        price: `$${nightRange.min}-${nightRange.max}/night`,
+        name: hotelMatch?.displayName || day.stayStyle || t.fallbackStay,
+        price: `$${nightRange.min}-${nightRange.max}${t.perNight}`,
         searchUrl: hotelMatch?.searchUrl || null,
       };
     }
 
     return {
-      label: `Day ${index + 1}`,
+      label: t.day(index + 1),
       date: addDays(pickupDate, index),
       title: day.title,
-      activities: appendVerifiedActivityPrices(day.activities || []),
+      activities: appendVerifiedActivityPrices(day.activities || [], locale),
       location: { name: destination.name, lat: destination.lat, lng: destination.lng },
       stay,
     };
@@ -519,7 +581,7 @@ export async function POST(request) {
       max: estimateMax,
     },
     days,
-    seasonalNotes: collectSeasonalNotes(days),
+    seasonalNotes: collectSeasonalNotes(days, locale),
   };
 
   setCachedResult(cacheKey, result);

@@ -47,7 +47,7 @@ export default function PrivateTourPageFr() {
             nous créerons un itinéraire personnalisé pour vous.
           </p>
 
-          <Link href="/fr/request" className="pt-cta">
+          <Link href="/fr/plan-trip" className="pt-cta">
             Planifier Mon Circuit Privé
           </Link>
 
@@ -133,7 +133,7 @@ export default function PrivateTourPageFr() {
         </div>
 
         <div className="pt-cta-row">
-          <Link href="/fr/request" className="pt-cta">
+          <Link href="/fr/plan-trip" className="pt-cta">
             Commencer à Planifier Mon Voyage
           </Link>
         </div>
@@ -224,7 +224,7 @@ export default function PrivateTourPageFr() {
         </div>
 
         <div className="pt-cta-row">
-          <Link href="/fr/request" className="pt-cta">
+          <Link href="/fr/plan-trip" className="pt-cta">
             Construire Mon Itinéraire
           </Link>
         </div>
@@ -328,7 +328,7 @@ export default function PrivateTourPageFr() {
 
         <div className="pt-idea-grid">
 
-          <Link href="/fr/request" className="pt-idea-card">
+          <Link href="/fr/plan-trip" className="pt-idea-card">
             <h3>Triangle Culturel + Kandy + Ella</h3>
             <p>
               Découvrez un patrimoine ancien avant de poursuivre vers Kandy
@@ -337,7 +337,7 @@ export default function PrivateTourPageFr() {
             <span className="pt-idea-link">Planifier cet itinéraire →</span>
           </Link>
 
-          <Link href="/fr/request" className="pt-idea-card">
+          <Link href="/fr/plan-trip" className="pt-idea-card">
             <h3>Culture + Faune + Plage</h3>
             <p>
               Combinez sites culturels et safari dans un parc national
@@ -346,7 +346,7 @@ export default function PrivateTourPageFr() {
             <span className="pt-idea-link">Planifier cet itinéraire →</span>
           </Link>
 
-          <Link href="/fr/request" className="pt-idea-card">
+          <Link href="/fr/plan-trip" className="pt-idea-card">
             <h3>Pays des Collines + Faune + Côte</h3>
             <p>
               Explorez les montagnes et le pays du thé, découvrez la faune
@@ -356,7 +356,7 @@ export default function PrivateTourPageFr() {
             <span className="pt-idea-link">Planifier cet itinéraire →</span>
           </Link>
 
-          <Link href="/fr/request" className="pt-idea-card">
+          <Link href="/fr/plan-trip" className="pt-idea-card">
             <h3>Découverte Complète de l&apos;Île</h3>
             <p>
               Pour un séjour plus long, combinez patrimoine, Kandy, pays du
@@ -376,7 +376,7 @@ export default function PrivateTourPageFr() {
         </p>
 
         <div className="pt-cta-row">
-          <Link href="/fr/request" className="pt-cta">
+          <Link href="/fr/plan-trip" className="pt-cta">
             Demander à Voyagees de Concevoir Mon Itinéraire
           </Link>
         </div>
@@ -496,7 +496,7 @@ export default function PrivateTourPageFr() {
             dates, le nombre de voyageurs et le style de voyage souhaité.
             Voyagees établira un devis selon vos besoins.
           </p>
-          <Link href="/fr/request" className="pt-cta">
+          <Link href="/fr/plan-trip" className="pt-cta">
             Obtenir Mon Devis Personnalisé
           </Link>
         </div>
@@ -629,7 +629,7 @@ export default function PrivateTourPageFr() {
             souhaitez, et nous vous aiderons à le transformer en
             itinéraire.
           </p>
-          <Link href="/fr/request" className="pt-cta">
+          <Link href="/fr/plan-trip" className="pt-cta">
             Planifier Mon Voyage au Sri Lanka
           </Link>
         </div>
@@ -736,7 +736,7 @@ export default function PrivateTourPageFr() {
             ce que vous souhaitez vivre. Nous nous occupons du reste.
           </p>
 
-          <Link href="/fr/request" className="pt-cta">
+          <Link href="/fr/plan-trip" className="pt-cta">
             Demandez Votre Itinéraire Personnalisé au Sri Lanka →
           </Link>
 

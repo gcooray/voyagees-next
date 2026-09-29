@@ -10,18 +10,69 @@ import "./ItineraryResult.css";
 
 const ItineraryRouteMap = dynamic(() => import("./ItineraryRouteMap"), {
   ssr: false,
-  loading: () => <div className="itinerary-route-map-loading">Loading map…</div>,
+  loading: () => <div className="itinerary-route-map-loading">…</div>,
 });
 
-function formatDayDate(iso) {
+const STRINGS = {
+  en: {
+    dateLocale: "en-GB",
+    yourItinerary: "Your Itinerary",
+    driver: "Driver",
+    startingFrom: "Starting from",
+    loading: "Loading…",
+    excessNote: "Excess distance beyond the driver's daily allowance may incur additional charges.",
+    accommodation: (min, max) => `+ est. $${min}–$${max} accommodation`,
+    bookDriver: "Just book the driver",
+    includeHotels: "Include hotels too",
+    hotelsSent: "Thanks! We'll follow up within 24 hours with hotel options for your trip.",
+    hotelsIntro: "Leave your details and we'll put together hotel options to go with your driver.",
+    name: "Your name",
+    email: "Your email",
+    phone: "Your phone",
+    hotelsError: "Please fill in all fields and try again.",
+    sending: "Sending…",
+    requestHotels: "Request hotel options",
+    suggestedStay: "Suggested stay",
+    lookUpStay: "Look up this stay →",
+    noStay: "No accommodation needed this day.",
+    planAnother: "← Plan another trip",
+  },
+  fr: {
+    dateLocale: "fr-FR",
+    yourItinerary: "Votre Itinéraire",
+    driver: "Chauffeur",
+    startingFrom: "À partir de",
+    loading: "Chargement…",
+    excessNote: "Les kilomètres au-delà du forfait journalier du chauffeur peuvent entraîner des frais supplémentaires.",
+    accommodation: (min, max) => `+ env. ${min}–${max} $ d'hébergement`,
+    bookDriver: "Réserver seulement le chauffeur",
+    includeHotels: "Inclure aussi les hôtels",
+    hotelsSent: "Merci ! Nous vous enverrons des propositions d'hôtels pour votre voyage sous 24 heures.",
+    hotelsIntro: "Laissez-nous vos coordonnées et nous vous proposerons des hôtels en complément de votre chauffeur.",
+    name: "Votre nom",
+    email: "Votre e-mail",
+    phone: "Votre téléphone",
+    hotelsError: "Veuillez remplir tous les champs et réessayer.",
+    sending: "Envoi…",
+    requestHotels: "Demander des propositions d'hôtels",
+    suggestedStay: "Hébergement suggéré",
+    lookUpStay: "Voir cet hébergement →",
+    noStay: "Aucun hébergement nécessaire ce jour-là.",
+    planAnother: "← Planifier un autre voyage",
+  },
+};
+
+function formatDayDate(iso, dateLocale) {
   if (!iso) return "";
   const date = new Date(`${iso}T00:00:00`);
-  return date.toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short" });
+  return date.toLocaleDateString(dateLocale, { weekday: "short", day: "numeric", month: "short" });
 }
 
 const emptyContact = { name: "", email: "", phone: "" };
 
-export default function ItineraryResult({ data, searchParams, onReset }) {
+export default function ItineraryResult({ data, searchParams, onReset, locale = "en" }) {
+  const t = STRINGS[locale] || STRINGS.en;
+  const fmtDate = (iso) => formatDayDate(iso, t.dateLocale);
   const [activeDay, setActiveDay] = useState(0);
   const [hotelsFlow, setHotelsFlow] = useState("idle"); // idle | form | submitting | sent | error
   const [contact, setContact] = useState(emptyContact);
@@ -60,11 +111,12 @@ export default function ItineraryResult({ data, searchParams, onReset }) {
   const formattedLkr = driverPriceFrom != null ? new Intl.NumberFormat("en-US").format(driverPriceFrom) : null;
   const dateRange = days.length > 0
     ? days.length === 1
-      ? formatDayDate(days[0].date)
-      : `${formatDayDate(days[0].date)} – ${formatDayDate(days[days.length - 1].date)}`
+      ? fmtDate(days[0].date)
+      : `${fmtDate(days[0].date)} – ${fmtDate(days[days.length - 1].date)}`
     : "";
 
-  const bookDriverHref = searchParams ? `/search?${new URLSearchParams(searchParams).toString()}` : "/search";
+  const searchPath = locale === "fr" ? "/fr/search" : "/search";
+  const bookDriverHref = searchParams ? `${searchPath}?${new URLSearchParams(searchParams).toString()}` : searchPath;
 
   async function handleHotelsSubmit(e) {
     e.preventDefault();
@@ -81,12 +133,13 @@ export default function ItineraryResult({ data, searchParams, onReset }) {
         customerEmail: contact.email.trim(),
         customerPhone: contact.phone.trim(),
         itinerary: data,
+        locale,
         status: "Pending",
         createdAt: serverTimestamp(),
       });
 
       const contactInfo = { name: contact.name.trim(), email: contact.email.trim(), phone: contact.phone.trim() };
-      await notifyItineraryHotelsCustomer(contactInfo, data, docRef.id);
+      await notifyItineraryHotelsCustomer(contactInfo, data, docRef.id, locale);
       await notifyItineraryHotelsAdmin(contactInfo, data, docRef.id);
 
       setHotelsFlow("sent");
@@ -101,33 +154,31 @@ export default function ItineraryResult({ data, searchParams, onReset }) {
 
       <div className="itinerary-summary-card">
         <div>
-          <p className="itinerary-summary-label">Your Itinerary</p>
+          <p className="itinerary-summary-label">{t.yourItinerary}</p>
           <h2>{title}</h2>
           {dateRange && <p className="itinerary-summary-dates">{dateRange}</p>}
           <p className="itinerary-summary-route">{routeSummary}</p>
         </div>
 
         <div className="itinerary-summary-price-block">
-          <p className="itinerary-summary-price-label">Driver</p>
+          <p className="itinerary-summary-price-label">{t.driver}</p>
           <p className="itinerary-summary-price">
-            Starting from {formattedUsd || "Loading…"}
+            {t.startingFrom} {formattedUsd || t.loading}
           </p>
           {formattedLkr && (
             <p className="itinerary-summary-price-lkr">≈ LKR {formattedLkr}</p>
           )}
-          <p className="itinerary-summary-price-note">
-            Excess distance beyond the driver&apos;s daily allowance may incur additional charges.
-          </p>
+          <p className="itinerary-summary-price-note">{t.excessNote}</p>
 
           {accommodationEstimate && (
             <p className="itinerary-summary-accommodation">
-              + est. ${accommodationEstimate.min}–${accommodationEstimate.max} accommodation
+              {t.accommodation(accommodationEstimate.min, accommodationEstimate.max)}
             </p>
           )}
 
           <div className="itinerary-cta-group">
             <Link href={bookDriverHref} className="itinerary-cta itinerary-cta-primary">
-              Just book the driver
+              {t.bookDriver}
             </Link>
             {hotelsFlow !== "sent" && (
               <button
@@ -135,7 +186,7 @@ export default function ItineraryResult({ data, searchParams, onReset }) {
                 className="itinerary-cta itinerary-cta-secondary"
                 onClick={() => setHotelsFlow("form")}
               >
-                Include hotels too
+                {t.includeHotels}
               </button>
             )}
           </div>
@@ -154,39 +205,39 @@ export default function ItineraryResult({ data, searchParams, onReset }) {
         <div className="itinerary-hotels-panel">
           {hotelsFlow === "sent" ? (
             <p className="itinerary-hotels-sent">
-              Thanks! We&apos;ll follow up within 24 hours with hotel options for your trip.
+              {t.hotelsSent}
             </p>
           ) : (
             <form className="itinerary-hotels-form" onSubmit={handleHotelsSubmit}>
               <p className="itinerary-hotels-intro">
-                Leave your details and we&apos;ll put together hotel options to go with your driver.
+                {t.hotelsIntro}
               </p>
               <input
                 type="text"
-                placeholder="Your name"
+                placeholder={t.name}
                 value={contact.name}
                 onChange={(e) => setContact((c) => ({ ...c, name: e.target.value }))}
                 required
               />
               <input
                 type="email"
-                placeholder="Your email"
+                placeholder={t.email}
                 value={contact.email}
                 onChange={(e) => setContact((c) => ({ ...c, email: e.target.value }))}
                 required
               />
               <input
                 type="tel"
-                placeholder="Your phone"
+                placeholder={t.phone}
                 value={contact.phone}
                 onChange={(e) => setContact((c) => ({ ...c, phone: e.target.value }))}
                 required
               />
               {hotelsFlow === "error" && (
-                <p className="itinerary-hotels-error">Please fill in all fields and try again.</p>
+                <p className="itinerary-hotels-error">{t.hotelsError}</p>
               )}
               <button type="submit" disabled={hotelsFlow === "submitting"}>
-                {hotelsFlow === "submitting" ? "Sending…" : "Request hotel options"}
+                {hotelsFlow === "submitting" ? t.sending : t.requestHotels}
               </button>
             </form>
           )}
@@ -216,7 +267,7 @@ export default function ItineraryResult({ data, searchParams, onReset }) {
                 onClick={() => setActiveDay(index)}
               >
                 <span className="itinerary-day-tab-label">{day.label}</span>
-                <span className="itinerary-day-tab-date">{formatDayDate(day.date)}</span>
+                <span className="itinerary-day-tab-date">{fmtDate(day.date)}</span>
               </button>
             ))}
           </div>
@@ -224,7 +275,7 @@ export default function ItineraryResult({ data, searchParams, onReset }) {
           {currentDay && (
             <div className="itinerary-day-panel">
               <h3>{currentDay.title}</h3>
-              <p className="itinerary-day-date">{formatDayDate(currentDay.date)}</p>
+              <p className="itinerary-day-date">{fmtDate(currentDay.date)}</p>
 
               {currentDay.activities?.length > 0 && (
                 <ul className="itinerary-activities">
@@ -237,7 +288,7 @@ export default function ItineraryResult({ data, searchParams, onReset }) {
               <div className="itinerary-stay">
                 {currentDay.stay ? (
                   <>
-                    <p className="itinerary-stay-label">Suggested stay</p>
+                    <p className="itinerary-stay-label">{t.suggestedStay}</p>
                     <p className="itinerary-stay-name">{currentDay.stay.name}</p>
                     <p className="itinerary-stay-price">{currentDay.stay.price}</p>
                     {currentDay.stay.searchUrl && (
@@ -247,12 +298,12 @@ export default function ItineraryResult({ data, searchParams, onReset }) {
                         rel="noopener noreferrer"
                         className="itinerary-stay-link"
                       >
-                        Look up this stay →
+                        {t.lookUpStay}
                       </a>
                     )}
                   </>
                 ) : (
-                  <p className="itinerary-stay-none">No accommodation needed this day.</p>
+                  <p className="itinerary-stay-none">{t.noStay}</p>
                 )}
               </div>
             </div>
@@ -261,7 +312,7 @@ export default function ItineraryResult({ data, searchParams, onReset }) {
       )}
 
       <button type="button" className="itinerary-reset" onClick={onReset}>
-        ← Plan another trip
+        {t.planAnother}
       </button>
 
     </div>
