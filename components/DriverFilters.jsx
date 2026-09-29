@@ -14,14 +14,22 @@ export default function DriverFilters({
   maxPrice,
   setMaxPrice,
   availableLanguages,
+  // "sidebar" is the tall standalone panel; "bar" is a compact single row
+  // that sits inside the results page's search card on desktop.
+  variant = "sidebar",
 }) {
-  return (
-    <aside className="driver-filters">
+  const isBar = variant === "bar";
+  const Root = isBar ? "div" : "aside";
 
-      <div className="filter-header">
-        <span>FILTERS</span>
-        <h2>Find your<br />perfect driver.</h2>
-      </div>
+  return (
+    <Root className={isBar ? "driver-filters-bar" : "driver-filters"}>
+
+      {!isBar && (
+        <div className="filter-header">
+          <span>FILTERS</span>
+          <h2>Find your<br />perfect driver.</h2>
+        </div>
+      )}
 
       {/* VEHICLE TYPE */}
 
@@ -140,9 +148,9 @@ export default function DriverFilters({
           setMaxPrice("");
         }}
       >
-        CLEAR FILTERS
+        {isBar ? "Clear" : "CLEAR FILTERS"}
       </button>
 
-    </aside>
+    </Root>
   );
 }

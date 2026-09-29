@@ -108,3 +108,57 @@
     font-size: 32px;
   }
 }
+
+/* =====================================================
+   BAR VARIANT — one slim row inside the search card
+===================================================== */
+.driver-filters-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.driver-filters-bar .filter-group {
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.driver-filters-bar .filter-label {
+  margin-bottom: 3px;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: #444;
+}
+
+.driver-filters-bar .filter-group select,
+.driver-filters-bar .filter-group input {
+  height: 32px;
+  padding: 0 8px;
+  font-size: 0.82rem;
+  border-color: var(--line, #e6e2d8);
+  border-radius: 7px;
+}
+
+.driver-filters-bar .price-inputs {
+  grid-template-columns: 1fr 10px 1fr;
+  gap: 4px;
+}
+
+.driver-filters-bar .filter-reset {
+  flex: 0 0 auto;
+  width: auto;
+  height: 32px;
+  margin: 0;
+  padding: 0 14px;
+  border: none;
+  border-radius: 7px;
+  font-size: 0.78rem;
+  letter-spacing: 0;
+  text-decoration: underline;
+}
+
+.driver-filters-bar .filter-reset:hover {
+  background: transparent;
+  color: #b30000;
+}

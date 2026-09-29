@@ -5,11 +5,18 @@
 
 .search-edit-card {
   max-width: 1400px;
-  margin: 0 auto 40px;
+  margin: 0 auto 20px;
   background: var(--paper, #fff);
   border: 1px solid var(--line, #e6e2d8);
-  border-radius: 18px;
-  padding: 0.5rem;
+  border-radius: 14px;
+  padding: 8px 10px;
+}
+
+/* Everything below is scoped to this card — SearchForm's own CSS is
+   shared with the homepage/private-driver hero forms, which shouldn't
+   be affected. */
+.search-edit-card .search-hero {
+  padding: 0;
 }
 
 .search-edit-card .search-overlay {
@@ -18,15 +25,62 @@
   max-width: none;
 }
 
-/* Scoped to this card only — SearchForm's own CSS is shared with the
-   homepage/private-driver hero forms, which shouldn't be affected. */
 .search-edit-card .form-panel {
-  gap: 6px;
+  gap: 0;
+}
+
+/* Desktop: flatten SearchForm's rows so every field and the submit
+   button sit on one slim line. */
+.search-edit-card form {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
 }
 
 .search-edit-card .row {
-  margin-bottom: 6px;
-  gap: 8px;
+  display: contents;
+}
+
+.search-edit-card label {
+  font-size: 0.7rem;
+  margin-bottom: 3px;
+}
+
+.search-edit-card label .icon {
+  width: 13px;
+  height: 13px;
+}
+
+.search-edit-card input,
+.search-edit-card select {
+  height: 36px;
+  padding: 6px 8px;
+  font-size: 0.84rem;
+  border-color: var(--line, #e6e2d8);
+}
+
+.search-edit-card .btn-submit {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: none;
+  height: 36px;
+  margin: 0;
+  padding: 0 18px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  box-shadow: none;
+}
+
+/* the fold-up summary is a mobile-only control */
+.search-summary {
+  display: none;
+}
+
+/* filters bar under the search row, inside the same card */
+/* Mobile only: the filters also live in the fold-up search card there
+   (see the max-width: 1000px block). Desktop keeps the sidebar. */
+.search-edit-filters {
+  display: none;
 }
 
 .search-results-layout {
@@ -56,27 +110,124 @@
   letter-spacing: 0.08em;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
 
   .search-results-layout {
     grid-template-columns: 1fr;
-    gap: 35px;
   }
 
-  /* On mobile, a single-column stack falls back to DOM order — the
-     filters panel is written first for the desktop sidebar layout, which
-     would otherwise push the actual results below a tall filter form.
-     Show results first, filters after, for anyone who wants to refine. */
-  .search-results-content {
-    order: 1;
+  /* filters are in the search card instead of a panel under the results */
+  .search-results-layout > .driver-filters {
+    display: none;
   }
 
-  .driver-filters {
-    order: 2;
-  }
+}
+
+@media (max-width: 1000px) {
 
   .search-edit-card {
-    padding: 0.5rem;
+    padding: 0;
+    margin-bottom: 16px;
+  }
+
+  .search-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 14px;
+    background: none;
+    border: none;
+    font: inherit;
+    text-align: left;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .search-summary-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    color: #444;
+  }
+
+  .search-summary-action {
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #cc0000;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .search-summary-count {
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: #cc0000;
+    color: #fff;
+    font-size: 0.7rem;
+    line-height: 18px;
+    text-align: center;
+  }
+
+  .search-edit-card:not(.is-open) .search-hero,
+  .search-edit-card:not(.is-open) .search-edit-filters {
+    display: none;
+  }
+
+  .search-edit-card.is-open .search-edit-filters {
+    display: block;
+    margin: 0 14px 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line, #e6e2d8);
+  }
+
+  /* bar filters as a two-column grid: vehicle | language,
+     passengers | price, clear link underneath */
+  .search-edit-card .driver-filters-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .search-edit-card .driver-filters-bar .filter-group select,
+  .search-edit-card .driver-filters-bar .filter-group input {
+    height: 36px;
+  }
+
+  .search-edit-card .driver-filters-bar .filter-reset {
+    grid-column: 1 / -1;
+    justify-self: end;
+    height: auto;
+    padding: 2px 0;
+  }
+
+  .search-edit-card.is-open .search-hero {
+    padding: 0 14px 14px;
+  }
+
+  /* expanded: passengers across the top, then date/time pairs side by
+     side, instead of SearchForm's default one-field-per-line stack */
+  .search-edit-card form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .search-edit-card .row:first-child .form-group,
+  .search-edit-card .btn-submit {
+    grid-column: 1 / -1;
+  }
+
+  .search-edit-card .btn-submit {
+    width: 100%;
+    height: 40px;
   }
 
 }

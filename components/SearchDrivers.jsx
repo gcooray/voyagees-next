@@ -39,6 +39,12 @@ export default function DriversPage({ locale = "en" }) {
   const [formDropoffTime, setFormDropoffTime] = useState(dropoffTime || "");
   const [formPassengers, setFormPassengers] = useState(searchParams.get("passengers") || "");
 
+  // Mobile only (CSS hides the toggle on desktop, where the form is a
+  // single slim row): the form starts folded into a one-line summary so
+  // the drivers are what's on screen when the page opens. Opens by default
+  // when there's no search yet to summarise.
+  const [editOpen, setEditOpen] = useState(!pickupDate);
+
   // Pushes the new query to the same /search route — the App Router
   // re-renders this page in place with the updated searchParams instead
   // of a full navigation, so the results update without leaving the page.
@@ -56,7 +62,38 @@ export default function DriversPage({ locale = "en" }) {
     }).toString();
 
     router.push(`${locale === "fr" ? "/fr/search" : "/search"}?${query}`);
+    setEditOpen(false);
   };
+
+  const formatDate = (value) =>
+    value
+      ? new Date(value).toLocaleDateString(locale === "fr" ? "fr-FR" : "en-GB", {
+          day: "numeric",
+          month: "short",
+        })
+      : "";
+
+  const summaryPassengers = searchParams.get("passengers");
+  // the filters are folded away with the form on mobile, so a count next
+  // to "Edit" is the only hint that some are narrowing the results
+  const activeFilterCount = [
+    vehicleType,
+    language,
+    passengers,
+    minPrice || maxPrice,
+  ].filter(Boolean).length;
+  const searchSummary = [
+    summaryPassengers &&
+      `${summaryPassengers} ${
+        locale === "fr"
+          ? Number(summaryPassengers) === 1 ? "passager" : "passagers"
+          : Number(summaryPassengers) === 1 ? "passenger" : "passengers"
+      }`,
+    pickupDate &&
+      `${formatDate(pickupDate)}${pickupTime ? ` ${pickupTime}` : ""} → ${formatDate(dropoffDate)}${dropoffTime ? ` ${dropoffTime}` : ""}`,
+  ]
+    .filter(Boolean)
+    .join(" · ");
 
 
   /*
@@ -174,7 +211,26 @@ export default function DriversPage({ locale = "en" }) {
 
     <div className="search-results-page">
 
-      <div className="search-edit-card">
+      <div className={`search-edit-card${editOpen ? " is-open" : ""}`}>
+        <button
+          type="button"
+          className="search-summary"
+          onClick={() => setEditOpen((open) => !open)}
+          aria-expanded={editOpen}
+        >
+          <span className="search-summary-text">
+            {searchSummary || (locale === "fr" ? "Votre recherche" : "Your search")}
+          </span>
+          <span className="search-summary-action">
+            {editOpen
+              ? locale === "fr" ? "Fermer" : "Close"
+              : locale === "fr" ? "Modifier" : "Edit"}
+            {!editOpen && activeFilterCount > 0 && (
+              <span className="search-summary-count">{activeFilterCount}</span>
+            )}
+          </span>
+        </button>
+
         <SearchForm
           pickup={formPickup}
           setPickup={setFormPickup}
@@ -193,6 +249,25 @@ export default function DriversPage({ locale = "en" }) {
           handleSearch={handleSearch}
           locale={locale}
         />
+
+        {/* Mobile only — desktop shows the sidebar version beside the
+            results instead (see SearchDrivers.css). */}
+        <div className="search-edit-filters">
+          <DriverFilters
+            variant="bar"
+            vehicleType={vehicleType}
+            setVehicleType={setVehicleType}
+            language={language}
+            setLanguage={setLanguage}
+            passengers={passengers}
+            setPassengers={setPassengers}
+            minPrice={minPrice}
+            setMinPrice={setMinPrice}
+            maxPrice={maxPrice}
+            setMaxPrice={setMaxPrice}
+            availableLanguages={availableLanguages}
+          />
+        </div>
       </div>
 
       <div className="search-results-layout">
@@ -260,6 +335,8 @@ export default function DriversPage({ locale = "en" }) {
 
           dropoffDate={dropoffDate}
           dropoffTime={dropoffTime}
+
+          passengers={searchParams.get("passengers")}
 
           locale={locale}
 
