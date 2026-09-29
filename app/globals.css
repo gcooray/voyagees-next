@@ -184,3 +184,23 @@ main {
     padding: 2.5rem 0;
   }
 }
+
+/* Small inline spinner for buttons while a request is in flight
+   (driver booking request, trip planner). Inherits the button's text colour. */
+.btn-spinner {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btn-spin 0.7s linear infinite;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-spinner { animation-duration: 2s; }
+}

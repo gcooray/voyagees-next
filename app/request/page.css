@@ -219,6 +219,18 @@
   transform: none;
 }
 
+/* disabled because it's sending, not because it can't be used — show the
+   busy cursor and a spinner instead of the "not allowed" stop sign */
+.trip-description-form button[aria-busy="true"] {
+  cursor: progress;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  box-shadow: none;
+  transform: none;
+}
+
 /* Inline error message, matching the pattern used on the rides pages */
 .trip-description-form .form-error {
   color: var(--clay);

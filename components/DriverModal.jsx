@@ -33,6 +33,7 @@ export default function DriverModal({
   dropoffDate,
   dropoffTime,
   itinerary,
+  passengers,
   locale = "en",
   onClose
 }) {
@@ -220,6 +221,11 @@ const handleRequest = () => {
     params.set(
       "dropoffTime",
       dropoffTime || ""
+    );
+
+    params.set(
+      "passengers",
+      passengers || ""
     );
 
     params.set(

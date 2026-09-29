@@ -116,6 +116,16 @@
 }
 .plan-trip-submit:hover:not(:disabled) { background: var(--gold-dark); }
 .plan-trip-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+/* disabled because it's generating, not because it can't be used — show
+   the busy cursor and a spinner instead of the "not allowed" stop sign */
+.plan-trip-submit[aria-busy="true"] {
+  cursor: progress;
+  opacity: 0.85;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
 
 @media (max-width: 640px) {
   .plan-trip-page { padding: 1.75rem 6vw 3rem; }

@@ -390,8 +390,14 @@ export default function PlanTripPage() {
 
         {error && <p className="plan-trip-error">{error}</p>}
 
-        <button type="submit" className="plan-trip-submit" disabled={submitting}>
-          {submitting ? "Building your itinerary…" : "Generate My Itinerary"}
+        <button
+          type="submit"
+          className="plan-trip-submit"
+          disabled={submitting}
+          aria-busy={submitting}
+        >
+          {submitting && <span className="btn-spinner" aria-hidden="true" />}
+          {submitting ? "We're preparing your trip…" : "Generate My Itinerary"}
         </button>
       </form>
     </main>

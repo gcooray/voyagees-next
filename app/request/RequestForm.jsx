@@ -42,7 +42,7 @@ const STRINGS = {
     email: "Email",
     phone: "Phone",
     additionalDetails: "Additional trip details or requests",
-    sending: "Sending...",
+    sending: "We're sending your request…",
     sendRequest: "Send Request",
   },
   fr: {
@@ -71,7 +71,7 @@ const STRINGS = {
     email: "E-mail",
     phone: "Téléphone",
     additionalDetails: "Détails ou demandes supplémentaires concernant le voyage",
-    sending: "Envoi en cours...",
+    sending: "Nous envoyons votre demande…",
     sendRequest: "Envoyer la Demande",
   },
 };
@@ -106,6 +106,8 @@ const driver = drivers.find(
   const dropoffDate = searchParams.get("dropoffDate") || "";
   const dropoffTime = searchParams.get("dropoffTime") || "";
 
+  const passengers = searchParams.get("passengers") || "";
+
   const commissionPercent = Number(
     searchParams.get("commissionPercent") || 10
   );
@@ -134,12 +136,15 @@ const driver = drivers.find(
 }
 
   // ---------------- PRICE ----------------
+  // Counts both the pickup and drop-off day (12 → 15 Oct = 4 days), the
+  // same as DriverModal — so the price the customer saw in the popup is
+  // the one saved and emailed here.
   const tripDays = Math.max(
     1,
-    Math.ceil(
+    Math.floor(
       (new Date(dropoffDate) - new Date(pickupDate)) /
         (1000 * 60 * 60 * 24)
-    )
+    ) + 1
   );
 
   const basePrice = (driver.pricePerDay || 0) * tripDays;
@@ -164,6 +169,10 @@ const driver = drivers.find(
       }`
     : "";
 
+  const vehicle = [driver.carMake, driver.carModel, driver.carYear && `(${driver.carYear})`]
+    .filter(Boolean)
+    .join(" ");
+
   const tripDetails = `
 🚗 Driver: ${driver.name}
 
@@ -183,6 +192,53 @@ Days: ${tripDays}
 Total: LKR ${totalPrice.toFixed(2)}
 
 Included KM: ${includedKm} km
+`.trim() + itineraryDetails;
+
+  // Everything the admin needs to act on the booking, laid out for the
+  // email body — so nobody has to open the Firestore console to see the
+  // driver's contact info, the price breakdown or the customer's notes.
+  const buildAdminDetails = () =>
+    `
+👤 CUSTOMER
+Name: ${fullName}
+Email: ${email}
+Phone: ${phone}
+Site language: ${locale === "fr" ? "French" : "English"}
+
+🧭 JOURNEY
+Pickup location: ${pickup || "N/A"}
+Drop-off location: ${dropoff || "N/A"}
+Pickup: ${pickupDate || "N/A"} at ${pickupTime || "N/A"}
+Drop-off: ${dropoffDate || "N/A"} at ${dropoffTime || "N/A"}
+Duration: ${tripDays} ${tripDays === 1 ? "day" : "days"}
+Passengers: ${passengers || "Not specified"}
+
+🚗 DRIVER
+Name: ${driver.name} (ID ${driver.id})
+Phone: ${driver.number ? `+${driver.number}` : "N/A"}
+Email: ${driver.email || "N/A"}
+Based in: ${driver.location || "N/A"}
+Languages: ${driver.languages?.join(", ") || "N/A"}
+Vehicle: ${driver.vehicleType || ""}${vehicle ? ` — ${vehicle}` : ""}
+Seats: ${driver.seats ?? "N/A"}
+Luggage: ${driver.luggageCapacity || "N/A"}
+
+💰 PRICE
+Driver rate: LKR ${(driver.pricePerDay || 0).toLocaleString("en-US")} / day × ${tripDays} = LKR ${basePrice.toLocaleString("en-US")}
+Commission (${commissionPercent}%): LKR ${((basePrice * commissionPercent) / 100).toLocaleString("en-US")}
+Total quoted to customer: LKR ${totalPrice.toLocaleString("en-US")}
+Included distance: ${includedKm} km (${driver.dailyKm || 150} km/day)
+Extra km rate: ${driver.extraKm ? `LKR ${driver.extraKm} / km` : "N/A"}
+Driver accommodation: ${
+      driver.accommodationIncluded
+        ? "Included"
+        : driver.dailyAccommodationPrice
+          ? `Not included — LKR ${driver.dailyAccommodationPrice} / night`
+          : "Not included"
+    }
+
+📝 CUSTOMER NOTES
+${description || "None"}
 `.trim() + itineraryDetails;
 
   // ---------------- SUBMIT ----------------
@@ -212,6 +268,7 @@ Included KM: ${includedKm} km
         pickupTime,
         dropoffDate,
         dropoffTime,
+        passengers,
 
         description: description || "",
         fullTripDetails: tripDetails,
@@ -253,8 +310,9 @@ Included KM: ${includedKm} km
       // receiving this email without the trip details it was meant to carry.
       await notifyDriverBookingAdmin(
         { name: fullName, email, phone },
-        description || tripDetails,
-        id
+        buildAdminDetails(),
+        id,
+        `New driver booking: ${fullName} with ${driver.name}, ${pickupDate} → ${dropoffDate}`
       );
 
       setSuccess(true);
@@ -392,7 +450,8 @@ Included KM: ${includedKm} km
 
         {error && <p className="form-error">{error}</p>}
 
-        <button disabled={loading}>
+        <button disabled={loading} aria-busy={loading}>
+          {loading && <span className="btn-spinner" aria-hidden="true" />}
           {loading ? t.sending : t.sendRequest}
         </button>
       </form>
