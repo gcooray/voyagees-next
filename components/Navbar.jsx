@@ -8,7 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import logo from "@/public/logo-voyagees-dark.svg";
 import "./Navbar.css";
 
-// Desktop: items with more than one child open a submenu on hover/focus.
+// Desktop: items with children open a submenu on hover/focus.
 // Mobile: children are listed indented under their parent.
 const NAV_ITEMS = [
   {
@@ -17,8 +17,7 @@ const NAV_ITEMS = [
     href: "/private-driver",
     frHref: "/fr/private-driver",
     children: [
-      { en: "All of Sri Lanka", fr: "Tout le Sri Lanka", href: "/private-driver", frHref: "/fr/private-driver" },
-      { en: "Colombo", href: "/private-driver/colombo" },
+      { en: "Colombo", fr: "Colombo", href: "/private-driver/colombo", frHref: "/fr/private-driver/colombo" },
     ],
   },
   {
@@ -83,12 +82,13 @@ export default function Navbar() {
     "/terms": "/fr/terms",
     "/rides": "/fr/rides",
     "/private-tour": "/fr/private-tour",
-    // no French Colombo page yet — the closest French equivalent
-    "/private-driver/colombo": "/fr/private-driver",
+    "/private-driver/colombo": "/fr/private-driver/colombo",
     "/airport-transfer": "/fr/airport-transfer",
+    "/plan-trip": "/fr/plan-trip",
 
     "/fr": "/",
     "/fr/private-driver": "/private-driver",
+    "/fr/private-driver/colombo": "/private-driver/colombo",
     "/fr/explore-sri-lanka": "/explore-sri-lanka",
     "/fr/contact": "/contact",
     "/fr/search": "/search",
@@ -99,6 +99,7 @@ export default function Navbar() {
     "/fr/rides": "/rides",
     "/fr/private-tour": "/private-tour",
     "/fr/airport-transfer": "/airport-transfer",
+    "/fr/plan-trip": "/plan-trip",
   };
 
   const targetPath = routeMap[pathname];
@@ -147,8 +148,7 @@ export default function Navbar() {
           {NAV_ITEMS.map((item) => {
             const label = isFrench ? item.fr : item.en;
             const href = isFrench ? item.frHref : item.href;
-            // sub-links that exist in the current language (e.g. the Colombo
-            // page is English-only, so French shows a plain link)
+            // only sub-links that exist in the current language
             const children = (item.children || []).filter(
               (child) => !isFrench || child.frHref
             );
@@ -156,16 +156,16 @@ export default function Navbar() {
             return (
               <li
                 key={item.href}
-                className={children.length > 1 ? "nav-dropdown" : undefined}
+                className={children.length > 0 ? "nav-dropdown" : undefined}
               >
                 <Link href={href} onClick={() => setIsOpen(false)}>
                   {label}
-                  {children.length > 1 && (
+                  {children.length > 0 && (
                     <span className="nav-caret" aria-hidden="true">▾</span>
                   )}
                 </Link>
 
-                {children.length > 1 && (
+                {children.length > 0 && (
                   <ul className="nav-submenu">
                     {children.map((child) => (
                       <li key={child.href}>
