@@ -6,6 +6,8 @@
    ========================================================= */
 
 .private-tour-page {
+  /* shared content column — every section lines up with the hero copy */
+  --pt-content-width: 700px;
   font-family: var(--body);
   color: var(--ink);
   background: var(--paper);
@@ -62,7 +64,10 @@
 .pt-cta:hover { background: var(--gold-dark); }
 .pt-cta.pt-cta-dark { background: var(--ink); }
 .pt-cta.pt-cta-dark:hover { background: var(--teal); }
-.pt-cta-row { margin-top: 1.25rem; }
+.pt-cta-row {
+  max-width: var(--pt-content-width);
+  margin: 1.25rem auto 0;
+}
 
 /* =====================================================
    HERO
@@ -86,7 +91,7 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 700px;
+  max-width: var(--pt-content-width);
   margin: 0 auto;
 }
 .pt-hero-content .pt-eyebrow { color: var(--gold); }
@@ -130,7 +135,7 @@
 .pt-dark-section { background: var(--ink); color: var(--paper); }
 
 .pt-section-heading {
-  max-width: 760px;
+  max-width: var(--pt-content-width);
   margin: 0 auto 1.25rem;
   text-align: left;
 }
@@ -142,7 +147,7 @@
 .pt-section-heading.pt-light .pt-eyebrow { color: var(--gold); }
 
 .pt-section-intro {
-  max-width: 760px;
+  max-width: var(--pt-content-width);
   margin: 0 auto 1.5rem;
   color: var(--sage);
 }
@@ -152,7 +157,7 @@
    LONG-FORM TEXT CONTENT
 ===================================================== */
 .pt-text-content {
-  max-width: 700px;
+  max-width: var(--pt-content-width);
   margin: 0 auto;
 }
 .pt-text-content > p {
@@ -169,11 +174,16 @@
    fixed column count, unlike the private-driver page's grid.
 ===================================================== */
 .pt-card-grid {
-  max-width: 1300px;
+  max-width: var(--pt-content-width);
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 1.25rem;
+}
+/* odd card counts (e.g. 5 travel styles) in the two-column layout —
+   stretch the last card so the grid doesn't end on a lone half-width card */
+.pt-card-grid:not(.pt-card-grid-3col) > .pt-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
 }
 
 /* the 6-card "journey themes" section — fixed 3 columns so it always
@@ -227,7 +237,7 @@
    LINKED IDEA CARDS ("Popular Ways to Explore")
 ===================================================== */
 .pt-idea-grid {
-  max-width: 1100px;
+  max-width: var(--pt-content-width);
   margin: 0 auto;
   display: grid;
   /* fixed 2 columns — 4 cards, so this always lands as two even rows
@@ -278,7 +288,7 @@
    CHECKLIST ("What's Included")
 ===================================================== */
 .pt-checklist {
-  max-width: 760px;
+  max-width: var(--pt-content-width);
   margin: 0 auto;
   list-style: none;
   padding: 0;
@@ -312,7 +322,7 @@
    VALUE LIST ("Why Book Your Journey With Voyagees")
 ===================================================== */
 .pt-value-list {
-  max-width: 700px;
+  max-width: var(--pt-content-width);
   margin: 0 auto;
   list-style: none;
   padding: 0;
@@ -347,7 +357,7 @@
    STEPS ("How Easy Is It to Book")
 ===================================================== */
 .pt-steps-grid {
-  max-width: 1300px;
+  max-width: var(--pt-content-width);
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
@@ -383,7 +393,7 @@
    FAQ ACCORDION
 ===================================================== */
 .pt-faq-list {
-  max-width: 760px;
+  max-width: var(--pt-content-width);
   margin: 0 auto;
 }
 .pt-faq-list details {
