@@ -101,6 +101,51 @@
   right: 0;
 }
 
+/* Private Driver dropdown — desktop: a small panel under the link,
+   opened on hover or keyboard focus */
+.nav-dropdown { position: relative; }
+.nav-submenu {
+  position: absolute;
+  top: 100%;
+  left: -1rem;
+  min-width: 12rem;
+  margin: 0;
+  padding: 0.5rem 0;
+  list-style: none;
+  background: var(--ink);
+  border: 1px solid var(--line-on-dark);
+  border-radius: 12px;
+  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+/* invisible bridge so the pointer can travel from the link to the panel */
+.nav-submenu::before {
+  content: "";
+  position: absolute;
+  top: -0.9rem;
+  left: 0;
+  right: 0;
+  height: 0.9rem;
+}
+.nav-dropdown:hover .nav-submenu,
+.nav-dropdown:focus-within .nav-submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0.6rem);
+}
+.nav-submenu li { display: block; }
+.nav-submenu a {
+  display: block;
+  padding: 0.55rem 1rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.nav-submenu a::after { display: none; }
+.nav-submenu a:hover { background: rgba(226, 166, 59, 0.1); }
+
 /* language switcher — small pill, flag + code */
 .language-switcher {
   margin-left: 0.4rem;
@@ -132,10 +177,52 @@
   line-height: 1;
 }
 
+.nav-links a { white-space: nowrap; }
+
+/* tighter spacing on laptop widths so the full bar fits before the
+   hamburger takes over */
+@media (max-width: 1400px) {
+  .nav-links { gap: 1.4rem; }
+  .language-switcher { margin-left: 0; padding-left: 1.2rem; }
+}
+/* the French labels are longer — a notch smaller just above the
+   hamburger breakpoint so they still fit on one line */
+@media (min-width: 1241px) and (max-width: 1340px) {
+  .navbar-fr .nav-links { gap: 1rem; }
+  .navbar-fr .nav-links a { font-size: 0.86rem; }
+  .navbar-fr .language-switcher { padding-left: 0.9rem; }
+}
+
+/* ▾ marker on items that open a submenu */
+.nav-caret {
+  display: inline-block;
+  margin-left: 0.3rem;
+  font-size: 0.85em;
+  opacity: 0.75;
+  transition: transform 0.2s ease;
+}
+.nav-dropdown:hover .nav-caret,
+.nav-dropdown:focus-within .nav-caret { transform: rotate(180deg); }
+
+/* primary action — gold pill, the one highlighted item in the bar */
+.nav-links a.nav-cta {
+  background: var(--gold);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 0.55rem 1.15rem;
+  font-weight: 700;
+  transition: background 0.2s ease;
+}
+.nav-links a.nav-cta::after { display: none; }
+.nav-links a.nav-cta:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
 /* =====================================================
    MOBILE
 ===================================================== */
-@media (max-width: 880px) {
+@media (max-width: 1240px) {
   .navbar-inner {
     position: relative;
   }
@@ -165,7 +252,7 @@
   }
 
   .nav-links.show {
-    max-height: 26rem;
+    max-height: 42rem;
     opacity: 1;
   }
 
@@ -181,6 +268,40 @@
     border-bottom: 1px solid var(--line-on-dark);
   }
   .nav-links a::after { display: none; }
+
+  /* dropdown: sub-links always listed, indented under Private Driver */
+  .nav-links .nav-dropdown { flex-direction: column; align-items: stretch; }
+  .nav-submenu {
+    position: static;
+    min-width: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .nav-dropdown:hover .nav-submenu,
+  .nav-dropdown:focus-within .nav-submenu { transform: none; }
+  .nav-submenu::before { display: none; }
+  .nav-links .nav-submenu li { padding: 0; width: 100%; }
+  .nav-submenu a {
+    padding: 0.75rem 0 0.75rem 1.1rem;
+    font-size: 0.88rem;
+    color: rgba(251, 247, 239, 0.7);
+  }
+  .nav-submenu a:hover { background: none; }
+
+  .nav-caret { display: none; }
+
+  .nav-links li.nav-cta-item { padding-top: 1rem; }
+  .nav-links a.nav-cta {
+    text-align: center;
+    padding: 0.8rem 1rem;
+    border-bottom: none;
+  }
 
   .language-switcher {
     margin: 0.9rem 0 1.1rem;

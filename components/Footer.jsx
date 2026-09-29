@@ -7,12 +7,14 @@ import "./Footer.css";
 
 const STRINGS = {
   en: {
+    howItWorks: "How It Works",
     about: "About Us",
     contact: "Contact",
     terms: "Terms of Use",
     madeIn: "Made in Sri Lanka",
   },
   fr: {
+    howItWorks: "Comment ça marche",
     about: "À propos",
     contact: "Contact",
     terms: "Conditions d'Utilisation",
@@ -31,6 +33,8 @@ export default function Footer() {
       <div className="footer-container">
 
         <div className="footer-links">
+          {/* moved here from the navbar — it's a homepage section, not a page */}
+          <Link href={`${prefix || "/"}#how-it-works`}>{t.howItWorks}</Link>
           <Link href={`${prefix}/about`}>{t.about}</Link>
           <Link href={`${prefix}/contact`}>{t.contact}</Link>
           <Link href={`${prefix}/terms`}>{t.terms}</Link>

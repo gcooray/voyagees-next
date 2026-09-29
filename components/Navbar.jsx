@@ -8,6 +8,49 @@ import { usePathname, useRouter } from "next/navigation";
 import logo from "@/public/logo-voyagees-dark.svg";
 import "./Navbar.css";
 
+// Desktop: items with more than one child open a submenu on hover/focus.
+// Mobile: children are listed indented under their parent.
+const NAV_ITEMS = [
+  {
+    en: "Private Driver",
+    fr: "Chauffeur privé",
+    href: "/private-driver",
+    frHref: "/fr/private-driver",
+    children: [
+      { en: "All of Sri Lanka", fr: "Tout le Sri Lanka", href: "/private-driver", frHref: "/fr/private-driver" },
+      { en: "Colombo", href: "/private-driver/colombo" },
+    ],
+  },
+  {
+    en: "Airport Transfers",
+    fr: "Transferts aéroport",
+    href: "/airport-transfer",
+    frHref: "/fr/airport-transfer",
+  },
+  {
+    en: "Private Tours",
+    fr: "Circuits privés",
+    href: "/private-tour",
+    frHref: "/fr/private-tour",
+  },
+  {
+    en: "Explore",
+    fr: "Explorer",
+    href: "/explore-sri-lanka",
+    frHref: "/fr/explore-sri-lanka",
+    children: [
+      { en: "Sri Lanka map", fr: "Carte du Sri Lanka", href: "/explore-sri-lanka", frHref: "/fr/explore-sri-lanka" },
+      { en: "Shared trips", fr: "Trajets partagés", href: "/rides", frHref: "/fr/rides" },
+    ],
+  },
+  {
+    en: "Contact",
+    fr: "Contact",
+    href: "/contact",
+    frHref: "/fr/contact",
+  },
+];
+
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
@@ -15,32 +58,6 @@ export default function Navbar() {
 
   // Detect French version
   const isFrench = pathname === "/fr" || pathname.startsWith("/fr/");
-
-  const handleHowItWorksClick = (e) => {
-    e.preventDefault();
-
-    const scrollToSection = () => {
-      const section = document.getElementById("how-it-works");
-
-      if (section) {
-        section.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    };
-
-    const homePath = isFrench ? "/fr" : "/";
-
-    if (pathname !== homePath) {
-      router.push(homePath);
-      setTimeout(scrollToSection, 500);
-    } else {
-      scrollToSection();
-    }
-
-    setIsOpen(false);
-  };
 
   const switchLanguage = () => {
   // Destination pages are dynamic (/destinations/{slug}), so they can't be
@@ -66,6 +83,9 @@ export default function Navbar() {
     "/terms": "/fr/terms",
     "/rides": "/fr/rides",
     "/private-tour": "/fr/private-tour",
+    // no French Colombo page yet — the closest French equivalent
+    "/private-driver/colombo": "/fr/private-driver",
+    "/airport-transfer": "/fr/airport-transfer",
 
     "/fr": "/",
     "/fr/private-driver": "/private-driver",
@@ -78,6 +98,7 @@ export default function Navbar() {
     "/fr/terms": "/terms",
     "/fr/rides": "/rides",
     "/fr/private-tour": "/private-tour",
+    "/fr/airport-transfer": "/airport-transfer",
   };
 
   const targetPath = routeMap[pathname];
@@ -93,7 +114,7 @@ export default function Navbar() {
 };
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar${isFrench ? " navbar-fr" : ""}`}>
       <div className="navbar-inner">
 
         {/* LEFT SIDE: LOGO + TOGGLE */}
@@ -123,55 +144,55 @@ export default function Navbar() {
         {/* RIGHT SIDE: LINKS */}
         <ul className={`nav-links ${isOpen ? "show" : ""}`}>
 
-          <li>
-            <a href="#how-it-works" onClick={handleHowItWorksClick}>
-              {isFrench ? "Comment ça marche" : "How It Works"}
-            </a>
-          </li>
+          {NAV_ITEMS.map((item) => {
+            const label = isFrench ? item.fr : item.en;
+            const href = isFrench ? item.frHref : item.href;
+            // sub-links that exist in the current language (e.g. the Colombo
+            // page is English-only, so French shows a plain link)
+            const children = (item.children || []).filter(
+              (child) => !isFrench || child.frHref
+            );
 
-            <li>
-          <Link
-            href={isFrench ? "/fr/private-driver" : "/private-driver"}
-            onClick={() => setIsOpen(false)}
-          >
-            {isFrench ? "Chauffeur privé" : "Private Driver"}
-          </Link>
-        </li>
+            return (
+              <li
+                key={item.href}
+                className={children.length > 1 ? "nav-dropdown" : undefined}
+              >
+                <Link href={href} onClick={() => setIsOpen(false)}>
+                  {label}
+                  {children.length > 1 && (
+                    <span className="nav-caret" aria-hidden="true">▾</span>
+                  )}
+                </Link>
 
-          <li>
+                {children.length > 1 && (
+                  <ul className="nav-submenu">
+                    {children.map((child) => (
+                      <li key={child.href}>
+                        <Link
+                          href={isFrench ? child.frHref : child.href}
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {isFrench ? child.fr : child.en}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            );
+          })}
+
+          {/* Primary action — the one bookable-on-your-own flow. Lands on
+              the Private Driver page's hero search, which asks for dates
+              before showing results. */}
+          <li className="nav-cta-item">
             <Link
-              href={isFrench ? "/fr/private-tour" : "/private-tour"}
+              href={isFrench ? "/fr/private-driver#find-driver" : "/private-driver#find-driver"}
+              className="nav-cta"
               onClick={() => setIsOpen(false)}
             >
-              {isFrench ? "Circuit Privé" : "Private Tour"}
-            </Link>
-          </li>
-
-
-          <li>
-            <Link
-              href={isFrench ? "/fr/explore-sri-lanka" : "/explore-sri-lanka"}
-              onClick={() => setIsOpen(false)}
-            >
-              {isFrench ? "Explorer le Sri Lanka" : "Explore Sri Lanka"}
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              href={isFrench ? "/fr/rides" : "/rides"}
-              onClick={() => setIsOpen(false)}
-            >
-              {isFrench ? "Trajets Partagés" : "Shared Trips"}
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              href={isFrench ? "/fr/contact" : "/contact"}
-              onClick={() => setIsOpen(false)}
-            >
-              {isFrench ? "Une question ?" : "Any Questions?"}
+              {isFrench ? "Trouver un chauffeur" : "Find a Driver"}
             </Link>
           </li>
 
