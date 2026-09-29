@@ -1,56 +1,149 @@
-/* Contact.css */
+/* =========================================================
+   CONTACT PAGE (/contact and /fr/contact)
+   Form on the left, direct ways to reach us on the right;
+   stacks with the form first on narrow screens.
+   ========================================================= */
 
 .contact-page {
-  max-width: 600px;
-  margin: 4rem auto;
-  padding: 2.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3.5rem 5vw 4.5rem;
   font-family: var(--body);
-  background-color: var(--paper-dim);
+  color: var(--ink);
+}
+
+.contact-header {
+  max-width: 640px;
+  margin-bottom: 2.25rem;
+}
+
+.contact-eyebrow {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--teal);
+  margin: 0 0 0.75rem;
+}
+.contact-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.contact-header h1 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0 0 1rem;
+}
+
+.contact-header > p:last-child {
+  color: var(--sage);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+/* =====================================================
+   RIGHT-HAND OPTIONS
+===================================================== */
+.contact-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-option {
+  background: var(--paper-dim);
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 16px;
+  padding: 1.35rem 1.5rem;
+}
+.contact-option h2 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin: 0 0 0.35rem;
+  color: var(--ink);
+}
+.contact-option p {
+  margin: 0 0 0.9rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
   color: var(--sage);
 }
+.contact-option p:last-child { margin-bottom: 0; }
 
-.contact-page h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+.contact-whatsapp {
+  background: var(--ink);
+  border-color: var(--ink);
 }
+.contact-whatsapp h2 { color: var(--paper); }
+.contact-whatsapp p { color: rgba(251, 247, 239, 0.78); }
 
-.contact-page p {
-  margin-bottom: 1.25rem;
-  line-height: 1.6;
-}
-
-.contact-details {
-  font-size: 0.95rem;
-  margin-top: 1.5rem;
-  line-height: 1.5;
-}
-
-.contact-details a {
-  color: var(--clay);
+.contact-whatsapp-button {
+  display: inline-block;
+  background: #25d366; /* WhatsApp's own brand green, kept as-is */
+  color: #0b2d17;
+  border-radius: 999px;
+  padding: 0.75rem 1.3rem;
+  font-weight: 700;
+  font-size: 0.9rem;
   text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s ease;
+  transition: background 0.2s ease;
 }
+.contact-whatsapp-button:hover { background: #1ea952; }
 
-.contact-details a:hover {
+.contact-email {
+  color: var(--clay);
+  font-weight: 600;
+  text-decoration: none;
+  word-break: break-all;
+}
+.contact-email:hover {
   color: var(--gold-dark);
   text-decoration: underline;
 }
 
-.contact-details .whatsapp {
-  color: #25d366; /* WhatsApp's own brand green, kept as-is */
+.contact-shortcuts {
+  list-style: none;
+  padding: 0;
+  margin: 0.4rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.contact-shortcuts a {
+  color: var(--teal);
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+.contact-shortcuts a:hover {
+  color: var(--gold-dark);
+  text-decoration: underline;
 }
 
-.contact-details .whatsapp:hover {
-  color: #1ea952;
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 860px) {
+  .contact-layout { grid-template-columns: 1fr; }
 }
-
 @media (max-width: 480px) {
-  .contact-page {
-    margin: 2.5rem 1rem;
-    padding: 1.75rem;
-    border-radius: 14px;
-  }
+  .contact-page { padding: 2.25rem 16px 3rem; }
 }

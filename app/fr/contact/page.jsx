@@ -1,4 +1,4 @@
-import ContactClient from "./ContactClient";
+import ContactPageContent from "../../contact/ContactPageContent";
 
 export const metadata = {
   title: "Contacter voyaGees | Organisez votre voyage au Sri Lanka",
@@ -7,5 +7,5 @@ export const metadata = {
 };
 
 export default function ContactPage() {
-  return <ContactClient />;
+  return <ContactPageContent locale="fr" />;
 }
