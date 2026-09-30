@@ -266,6 +266,7 @@ export default function DriversPage({ locale = "en" }) {
             maxPrice={maxPrice}
             setMaxPrice={setMaxPrice}
             availableLanguages={availableLanguages}
+            locale={locale}
           />
         </div>
       </div>
@@ -291,6 +292,7 @@ export default function DriversPage({ locale = "en" }) {
           setMaxPrice={setMaxPrice}
 
           availableLanguages={availableLanguages}
+          locale={locale}
         />
 
 
@@ -301,11 +303,9 @@ export default function DriversPage({ locale = "en" }) {
           <div className="results-heading">
 
             <p>
-              {filteredDrivers.length}{" "}
-              {filteredDrivers.length === 1
-                ? "driver"
-                : "drivers"}{" "}
-              available
+              {locale === "fr"
+                ? `${filteredDrivers.length} ${filteredDrivers.length === 1 ? "chauffeur disponible" : "chauffeurs disponibles"}`
+                : `${filteredDrivers.length} ${filteredDrivers.length === 1 ? "driver" : "drivers"} available`}
             </p>
 
           </div>

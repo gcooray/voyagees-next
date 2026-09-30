@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import "./DriverCard.css";
 
+// data/drivers.js stores vehicle types in English
+const VEHICLE_TYPES_FR = { Car: "Voiture", "Tuk-Tuk": "Tuk-tuk" };
+
 const languageFlags = {
   English: "🇬🇧",
   Sinhala: "🇱🇰",
@@ -112,7 +115,7 @@ export default function DriverCard({
             {driver.carMake} ({driver.carYear})
           </h3>
           <p className="driver-vehicle-meta">
-            {driver.vehicleType} · {driver.seats} {locale === "fr" ? "places" : "seats"}
+            {(locale === "fr" && VEHICLE_TYPES_FR[driver.vehicleType]) || driver.vehicleType} · {driver.seats} {locale === "fr" ? "places" : "seats"}
           </p>
           <p className="driver-price">
             {formattedConvertedPrice || "Loading..."}

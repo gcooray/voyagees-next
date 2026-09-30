@@ -2,6 +2,66 @@
 
 import "./DriverFilters.css";
 
+// Option `value`s match data/drivers.js (English); only the labels change.
+const VEHICLES = [
+  { value: "Car", en: "Car", fr: "Voiture" },
+  { value: "SUV", en: "SUV", fr: "SUV" },
+  { value: "Van", en: "Van", fr: "Van" },
+  { value: "Bus", en: "Bus", fr: "Bus" },
+  { value: "Tuk-Tuk", en: "Tuk-Tuk", fr: "Tuk-tuk" },
+];
+
+// Driver languages are stored in English in data/drivers.js — unknown
+// ones fall back to the stored name.
+const LANGUAGE_NAMES_FR = {
+  English: "Anglais",
+  Sinhala: "Cingalais",
+  Tamil: "Tamoul",
+  Hindi: "Hindi",
+  French: "Français",
+  German: "Allemand",
+  Russian: "Russe",
+  Italian: "Italien",
+  Spanish: "Espagnol",
+  Chinese: "Chinois",
+  Japanese: "Japonais",
+};
+
+const STRINGS = {
+  en: {
+    eyebrow: "FILTERS",
+    heading: <>Find your<br />perfect driver.</>,
+    vehicle: "Vehicle",
+    allVehicles: "All vehicles",
+    language: "Language",
+    allLanguages: "All languages",
+    passengers: "Passengers",
+    anyNumber: "Any number",
+    passenger: (n) => `${n} ${n === 1 ? "passenger" : "passengers"}`,
+    price: "Price per day",
+    min: "Min",
+    max: "Max",
+    clear: "Clear",
+    clearAll: "CLEAR FILTERS",
+  },
+  fr: {
+    eyebrow: "FILTRES",
+    heading: <>Trouvez le<br />chauffeur idéal.</>,
+    vehicle: "Véhicule",
+    allVehicles: "Tous les véhicules",
+    language: "Langue",
+    allLanguages: "Toutes les langues",
+    passengers: "Passagers",
+    anyNumber: "Peu importe",
+    passenger: (n) => `${n} ${n === 1 ? "passager" : "passagers"}`,
+    price: "Prix par jour",
+    min: "Min",
+    max: "Max",
+    clear: "Effacer",
+    clearAll: "EFFACER LES FILTRES",
+  },
+};
+
 export default function DriverFilters({
   vehicleType,
   setVehicleType,
@@ -17,7 +77,10 @@ export default function DriverFilters({
   // "sidebar" is the tall standalone panel; "bar" is a compact single row
   // that sits inside the results page's search card on desktop.
   variant = "sidebar",
+  locale = "en",
 }) {
+  const t = STRINGS[locale] || STRINGS.en;
+  const languageLabel = (lang) => (locale === "fr" && LANGUAGE_NAMES_FR[lang]) || lang;
   const isBar = variant === "bar";
   const Root = isBar ? "div" : "aside";
 
@@ -26,8 +89,8 @@ export default function DriverFilters({
 
       {!isBar && (
         <div className="filter-header">
-          <span>FILTERS</span>
-          <h2>Find your<br />perfect driver.</h2>
+          <span>{t.eyebrow}</span>
+          <h2>{t.heading}</h2>
         </div>
       )}
 
@@ -36,19 +99,19 @@ export default function DriverFilters({
       <div className="filter-group">
 
         <label className="filter-label">
-          Vehicle
+          {t.vehicle}
         </label>
 
         <select
           value={vehicleType}
           onChange={(e) => setVehicleType(e.target.value)}
         >
-          <option value="">All vehicles</option>
-          <option value="Car">Car</option>
-          <option value="SUV">SUV</option>
-          <option value="Van">Van</option>
-          <option value="Bus">Bus</option>
-          <option value="Tuk-Tuk">Tuk-Tuk</option>
+          <option value="">{t.allVehicles}</option>
+          {VEHICLES.map((v) => (
+            <option key={v.value} value={v.value}>
+              {v[locale] || v.en}
+            </option>
+          ))}
         </select>
 
       </div>
@@ -59,18 +122,18 @@ export default function DriverFilters({
       <div className="filter-group">
 
         <label className="filter-label">
-          Language
+          {t.language}
         </label>
 
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
         >
-          <option value="">All languages</option>
+          <option value="">{t.allLanguages}</option>
 
           {availableLanguages.map((lang) => (
             <option key={lang} value={lang}>
-              {lang}
+              {languageLabel(lang)}
             </option>
           ))}
 
@@ -84,18 +147,18 @@ export default function DriverFilters({
       <div className="filter-group">
 
         <label className="filter-label">
-          Passengers
+          {t.passengers}
         </label>
 
         <select
           value={passengers}
           onChange={(e) => setPassengers(e.target.value)}
         >
-          <option value="">Any number</option>
+          <option value="">{t.anyNumber}</option>
 
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => (
             <option key={number} value={number}>
-              {number} {number === 1 ? "passenger" : "passengers"}
+              {t.passenger(number)}
             </option>
           ))}
 
@@ -109,14 +172,14 @@ export default function DriverFilters({
       <div className="filter-group">
 
         <label className="filter-label">
-          Price per day
+          {t.price}
         </label>
 
         <div className="price-inputs">
 
           <input
             type="number"
-            placeholder="Min"
+            placeholder={t.min}
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
           />
@@ -125,7 +188,7 @@ export default function DriverFilters({
 
           <input
             type="number"
-            placeholder="Max"
+            placeholder={t.max}
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
           />
@@ -148,7 +211,7 @@ export default function DriverFilters({
           setMaxPrice("");
         }}
       >
-        {isBar ? "Clear" : "CLEAR FILTERS"}
+        {isBar ? t.clear : t.clearAll}
       </button>
 
     </Root>
