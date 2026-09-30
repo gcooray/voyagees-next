@@ -596,7 +596,7 @@
   }
 }
 @media (max-width: 640px) {
-  .pd-hero { padding: calc(var(--navbar-height) + 0.5rem) 6vw 2rem; min-height: 0; }
+  .pd-hero { padding: calc(var(--navbar-height) + 1.5rem) 6vw 2rem; min-height: 0; }
   .pd-hero-copy h1 { font-size: clamp(1.9rem, 8vw, 2.4rem); }
   .pd-hero-search {
     padding: 1.4rem 1.25rem;

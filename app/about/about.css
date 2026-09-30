@@ -77,7 +77,12 @@
 
 @media (max-width: 480px) {
   .about-us-container {
-    padding: 2.5rem 1rem 3rem;
+    padding: 1rem 1rem 3rem;
+  }
+
+  /* the card's own padding is enough above the first heading */
+  .about-us-content > :first-child {
+    margin-top: 0;
   }
 
   .about-us-content {

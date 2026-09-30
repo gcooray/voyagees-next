@@ -906,7 +906,7 @@
 }
 
 @media (max-width: 640px) {
-  .market-hero { padding: calc(0.5rem + var(--navbar-height)) 6vw 2rem; min-height: 0; }
+  .market-hero { padding: calc(1.5rem + var(--navbar-height)) 6vw 2rem; min-height: 0; }
   .market-hero-content h1 { font-size: clamp(2rem, 9vw, 2.6rem); }
   .market-hero-description { margin-top: 0.85rem; }
   .market-search-card {

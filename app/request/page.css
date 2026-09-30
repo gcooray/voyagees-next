@@ -371,3 +371,10 @@
   }
 
 }
+
+/* the layout's <main> already clears the fixed navbar — on phones the
+   extra top padding above read as an empty band. Kept last so it wins
+   over the 768px block's shorthand padding. */
+@media (max-width: 640px) {
+  .request-page { padding-top: 20px; }
+}

@@ -478,7 +478,7 @@
    RESPONSIVE
 ===================================================== */
 @media (max-width: 640px) {
-  .pt-hero { padding: calc(1.25rem + var(--navbar-height)) 6vw 2.25rem; }
+  .pt-hero { padding: calc(1.5rem + var(--navbar-height)) 6vw 2.25rem; min-height: 0; }
   .pt-white-section,
   .pt-cream-section,
   .pt-dark-section { padding: 2.25rem 6vw; }

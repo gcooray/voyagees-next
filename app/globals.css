@@ -148,6 +148,15 @@ main {
                                          hero sections cancel this themselves */
 }
 
+/* app/layout.tsx already wraps every page in <main>, and most pages render
+   their own <main> inside it — so the navbar clearance above is applied
+   twice. Desktop is designed around that extra space and left as is; on
+   phones it read as a large empty band under the navbar, so the inner
+   page's copy is dropped there. */
+@media (max-width: 640px) {
+  main main { padding-top: 0; }
+}
+
 /* =========================
    SCROLLBAR (optional nice touch)
 ========================= */
