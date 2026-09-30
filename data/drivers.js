@@ -1,9 +1,10 @@
+// Public driver profiles only — this file ships to every visitor's
+// browser (and the repo is public), so no phone numbers or emails here.
+// Those live in private/driver-contacts.csv, which git ignores.
 export const drivers = [
   {
     id: 8,
     name: "Roshan",
-    number: +94775211368,
-    email: "wvernonroshan@yahoo.com",
     location: "Colombo, Matara",
     vehicleType: "Car",
     languages: ["English", "Sinhala"],
@@ -35,8 +36,6 @@ export const drivers = [
   {
     id: 15,
     name: "Nishantha",
-    number: +94776291305,
-    email: "",
     location: "Negombo",
     vehicleType: "Tuk-Tuk",
     languages: ["English", "Sinhala"],
@@ -67,8 +66,6 @@ export const drivers = [
   {
     id: 1,
     name: "Gamunu",
-    number: +94711461450,
-    email: "gamunuherath43@gmail.com",
     location: "Negombo",
     vehicleType: "Car",
     languages: ["English", "Sinhala"],
@@ -102,8 +99,6 @@ export const drivers = [
     {
     id: 2,
     name: "Srikantha",
-    number: +94774319021,
-    email: "srikanthasunimal@gmail.com",
     location: "Wennappuva",
     languages: ["English", "Sinhala"],
     vehicleType: "Van",
@@ -137,8 +132,6 @@ export const drivers = [
   {
     id: 3,
     name: "Dinesh",
-    number: +94715324154,
-    email: "lmdsurang@gmail.com",
     location: "",
     languages: ["English", "Sinhala"],
     vehicleType: "Car",
@@ -172,8 +165,6 @@ export const drivers = [
   {
     id: 4,
     name: "Menaka",
-    number: +94770820614,
-    email: "supunmenaka6@gmail.com",
     location: "Negombo",
     vehicleType: "Van",
     languages: ["English", "Sinhala"],
@@ -206,8 +197,6 @@ export const drivers = [
   {
     id: 5,
     name: "Saman",
-    number: +94777195012,
-    email: "saman195012@gmail.com",
     location: "Kandy",
     vehicleType: "Car",
     languages: ["English", "Sinhala", "Tamil", "Hindi"],
@@ -240,8 +229,6 @@ export const drivers = [
   {
     id: 6,
     name: "Prabath",
-    number: +94765691827,
-    email: "prabahath1827@auto.com",
     location: "Colombo",
     vehicleType: "Car",
     languages: ["English", "Sinhala"],
@@ -274,8 +261,6 @@ export const drivers = [
   {
     id: 7,
     name: "Indika",
-    number: +94702117432,
-    email: "indikasweerawardena@gmail.com",
     location: "Colombo",
     vehicleType: "Car",
     languages: ["English", "Sinhala"],
@@ -308,8 +293,6 @@ export const drivers = [
   {
     id: 9,
     name: "Shashi",
-    number: +94777169082,
-    email: "travelnowsrilanka123@gmail.com",
     location: "Colombo",
     vehicleType: "Van",
     languages: ["English", "Sinhala"],
@@ -344,8 +327,6 @@ export const drivers = [
   {
     id: 10,
     name: "Shashi",
-    number: +94777169082,
-    email: "travelnowsrilanka123@gmail.com",
     location: "Colombo",
     vehicleType: "Van",
     languages: ["English", "Sinhala"],
@@ -377,8 +358,6 @@ export const drivers = [
   {
     id: 11,
     name: "Operated by Canisius",
-    number: +94767447167,
-    email: "canisiusadrian@gmail.com",
     location: "Wattala",
     vehicleType: "Van",
     languages: ["English", "Sinhala"],
@@ -413,8 +392,6 @@ export const drivers = [
   {
     id: 12,
     name: "Operated by Canisius",
-    number: +94767447167,
-    email: "canisiusadrian@gmail.com",
     location: "Wattala",
     vehicleType: "Bus",
     languages: ["English", "Sinhala"],
@@ -457,8 +434,6 @@ export const drivers = [
   {
     id: 13,
     name: "Operated by Canisius",
-    number: +94767447167,
-    email: "canisiusadrian@gmail.com",
     location: "Wattala",
     vehicleType: "Bus",
     languages: ["English", "Sinhala"],
@@ -494,8 +469,6 @@ export const drivers = [
   {
     id: 14,
     name: "Operated by Canisius",
-    number: +94767447167,
-    email: "canisiusadrian@gmail.com",
     location: "Wattala",
     vehicleType: "Bus",
     languages: ["English", "Sinhala"],

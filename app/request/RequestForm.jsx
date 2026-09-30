@@ -215,8 +215,7 @@ Passengers: ${passengers || "Not specified"}
 
 🚗 DRIVER
 Name: ${driver.name} (ID ${driver.id})
-Phone: ${driver.number ? `+${driver.number}` : "N/A"}
-Email: ${driver.email || "N/A"}
+Contact: see the driver contacts list (not stored on the website)
 Based in: ${driver.location || "N/A"}
 Languages: ${driver.languages?.join(", ") || "N/A"}
 Vehicle: ${driver.vehicleType || ""}${vehicle ? ` — ${vehicle}` : ""}
