@@ -136,6 +136,11 @@
   box-shadow: none;
 }
 
+.atf-field .wa-country-display {
+  background: #fff;
+  border-radius: 10px;
+}
+
 .atf-check {
   display: flex;
   align-items: center;

@@ -15,6 +15,7 @@ import { notifyOrganizerNewRequest } from "@/lib/notifications";
 import { trackEvent } from "@/lib/analytics";
 import EmailSignIn from "@/components/rides/EmailSignIn";
 import "./page.css";
+import WhatsAppInput from "@/components/WhatsAppInput";
 
 export default function TripDetailClient({ tripId }) {
   const { user, authLoading } = useAuthUser();
@@ -183,13 +184,8 @@ export default function TripDetailClient({ tripId }) {
               onChange={(e) => setTravelerName(e.target.value)}
               required
             />
-            <input
-              type="tel"
-              placeholder="Your phone / WhatsApp"
-              value={travelerPhone}
-              onChange={(e) => setTravelerPhone(e.target.value)}
-              required
-            />
+            <WhatsAppInput value={travelerPhone} onChange={setTravelerPhone} required />
+            <span className="wa-hint">Your WhatsApp number with country code, shared with the organizer if they accept.</span>
             <button type="submit" className="rides-request-btn" disabled={submitting}>
               {submitting ? "Sending…" : "Request to join"}
             </button>

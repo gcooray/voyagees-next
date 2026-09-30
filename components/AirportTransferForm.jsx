@@ -7,6 +7,7 @@ import {
   notifyAirportTransferCustomer,
   notifyAirportTransferAdmin,
 } from "@/lib/notifications";
+import WhatsAppInput from "@/components/WhatsAppInput";
 import "./AirportTransferForm.css";
 
 // Quote-on-request airport transfer form (Bandaranaike International
@@ -49,7 +50,8 @@ const STRINGS = {
     yourDetails: "Your details",
     fullName: "Full name",
     email: "Email",
-    phone: "Phone / WhatsApp",
+    phone: "WhatsApp number",
+    phoneHint: "With country code, so your driver can message you.",
     notes: "Anything else?",
     notesPlaceholder: "Child seats, extra stops, name sign for the driver…",
     error: "Couldn't send your request. Please try again.",
@@ -98,7 +100,8 @@ const STRINGS = {
     yourDetails: "Vos coordonnées",
     fullName: "Nom complet",
     email: "E-mail",
-    phone: "Téléphone / WhatsApp",
+    phone: "Numéro WhatsApp",
+    phoneHint: "Avec l'indicatif du pays, pour que votre chauffeur puisse vous écrire.",
     notes: "Autre chose ?",
     notesPlaceholder: "Sièges enfant, arrêts supplémentaires, pancarte à votre nom…",
     error: "Impossible d'envoyer votre demande. Veuillez réessayer.",
@@ -397,7 +400,13 @@ ${form.notes.trim() || "None"}
 
         <label className="atf-field">
           <span>{t.phone}</span>
-          <input required type="tel" value={form.phone} onChange={set("phone")} autoComplete="tel" />
+          <WhatsAppInput
+            value={form.phone}
+            onChange={(phone) => setForm((f) => ({ ...f, phone }))}
+            required
+            locale={locale}
+          />
+          <span className="wa-hint">{t.phoneHint}</span>
         </label>
 
         <label className="atf-field atf-span-2">

@@ -1,0 +1,86 @@
+/* Country-code box + number, side by side. The number <input> keeps the
+   host form's own input styling; the country box copies a neutral
+   version of it so the pair reads as one field. */
+
+.wa-input {
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.wa-input .wa-number {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  margin: 0; /* host forms' input margins would stretch the country box */
+}
+
+/* the visible "🇫🇷 +33 ▾" box, with the real <select> laid invisibly on
+   top — keeps the closed state compact while the open list shows full
+   country names */
+.wa-country {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  margin: 0;
+}
+
+.wa-country-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 44px;
+  padding: 0 0.7rem;
+  border: 1px solid var(--line, #e6e2d8);
+  border-radius: var(--radius, 8px);
+  background: var(--paper, #fbf7ef);
+  color: var(--ink, #16241d);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.wa-caret {
+  font-size: 0.7em;
+  opacity: 0.6;
+}
+
+.wa-country select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  /* undo host-form select styling, which would otherwise size it */
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 16px; /* stops iOS zooming in when the list opens */
+}
+
+.wa-country:focus-within .wa-country-display {
+  border-color: var(--gold-dark, #b9812a);
+  outline: 2px solid rgba(226, 166, 59, 0.35);
+  outline-offset: 1px;
+}
+
+/* stack the hint under the field, used by forms that show one */
+.wa-hint {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--sage, #748176);
+}
+
+/* forms that lay their fields out as a wrapping flex row (hotels request,
+   join a shared trip): give the field and its hint their own full line */
+.itinerary-hotels-form .wa-input,
+.itinerary-hotels-form .wa-hint,
+.rides-join-form .wa-input,
+.rides-join-form .wa-hint {
+  flex: 1 1 100%;
+}

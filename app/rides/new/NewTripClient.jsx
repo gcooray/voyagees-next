@@ -7,6 +7,7 @@ import { useAuthUser } from "@/lib/useAuthUser";
 import { trackEvent } from "@/lib/analytics";
 import EmailSignIn from "@/components/rides/EmailSignIn";
 import "./page.css";
+import WhatsAppInput from "@/components/WhatsAppInput";
 
 const emptyForm = {
   from: TOWNS[0],
@@ -138,14 +139,13 @@ export default function NewTripClient() {
         </div>
 
         <label>
-          Phone / WhatsApp
-          <input
-            type="tel"
-            placeholder="Shared with confirmed travelers only"
+          WhatsApp number
+          <WhatsAppInput
             value={form.organizerPhone}
-            onChange={handleChange("organizerPhone")}
+            onChange={(organizerPhone) => setForm((f) => ({ ...f, organizerPhone }))}
             required
           />
+          <span className="wa-hint">With country code. Shared with confirmed travelers only.</span>
         </label>
 
         <label>

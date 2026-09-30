@@ -75,6 +75,11 @@
   border-color: var(--gold-dark);
 }
 
+.cf-field .wa-country-display {
+  background: #fff;
+  border-radius: 10px;
+}
+
 .cf-error {
   margin: 1rem 0 0;
   color: var(--clay);

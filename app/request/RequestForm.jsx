@@ -9,6 +9,7 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import emailjs from "@emailjs/browser";
 import { notifyDriverBookingAdmin } from "@/lib/notifications";
 
+import WhatsAppInput from "@/components/WhatsAppInput";
 import "./page.css";
 
 const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
@@ -40,7 +41,8 @@ const STRINGS = {
     yourDetails: "Your Details",
     fullName: "Full Name",
     email: "Email",
-    phone: "Phone",
+    phone: "WhatsApp number",
+    phoneHint: "Your WhatsApp number with country code, so your driver can reach you.",
     additionalDetails: "Additional trip details or requests",
     sending: "We're sending your request…",
     sendRequest: "Send Request",
@@ -69,7 +71,8 @@ const STRINGS = {
     yourDetails: "Vos Coordonnées",
     fullName: "Nom Complet",
     email: "E-mail",
-    phone: "Téléphone",
+    phone: "Numéro WhatsApp",
+    phoneHint: "Votre numéro WhatsApp avec l'indicatif du pays, pour que votre chauffeur puisse vous joindre.",
     additionalDetails: "Détails ou demandes supplémentaires concernant le voyage",
     sending: "Nous envoyons votre demande…",
     sendRequest: "Envoyer la Demande",
@@ -428,14 +431,19 @@ ${description || "None"}
           }
         />
 
-        <input
-          required
-          placeholder={t.phone}
+        <WhatsAppInput
+
           value={phone}
-          onChange={(e) =>
-            setPhone(e.target.value)
-          }
+
+          onChange={setPhone}
+
+          required
+
+          locale={locale}
+
         />
+
+        <p className="wa-hint request-wa-hint">{t.phoneHint}</p>
 
         <textarea
           required

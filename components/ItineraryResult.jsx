@@ -6,6 +6,7 @@ import Link from "next/link";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { notifyItineraryHotelsCustomer, notifyItineraryHotelsAdmin } from "@/lib/notifications";
+import WhatsAppInput from "@/components/WhatsAppInput";
 import "./ItineraryResult.css";
 
 const ItineraryRouteMap = dynamic(() => import("./ItineraryRouteMap"), {
@@ -28,7 +29,8 @@ const STRINGS = {
     hotelsIntro: "Leave your details and we'll put together hotel options to go with your driver.",
     name: "Your name",
     email: "Your email",
-    phone: "Your phone",
+    phone: "Your WhatsApp number",
+    phoneHint: "Your WhatsApp number with country code.",
     hotelsError: "Please fill in all fields and try again.",
     sending: "Sending…",
     requestHotels: "Request hotel options",
@@ -51,7 +53,8 @@ const STRINGS = {
     hotelsIntro: "Laissez-nous vos coordonnées et nous vous proposerons des hôtels en complément de votre chauffeur.",
     name: "Votre nom",
     email: "Votre e-mail",
-    phone: "Votre téléphone",
+    phone: "Votre numéro WhatsApp",
+    phoneHint: "Votre numéro WhatsApp avec l'indicatif du pays.",
     hotelsError: "Veuillez remplir tous les champs et réessayer.",
     sending: "Envoi…",
     requestHotels: "Demander des propositions d'hôtels",
@@ -226,13 +229,13 @@ export default function ItineraryResult({ data, searchParams, onReset, locale = 
                 onChange={(e) => setContact((c) => ({ ...c, email: e.target.value }))}
                 required
               />
-              <input
-                type="tel"
-                placeholder={t.phone}
+              <WhatsAppInput
                 value={contact.phone}
-                onChange={(e) => setContact((c) => ({ ...c, phone: e.target.value }))}
+                onChange={(phone) => setContact((c) => ({ ...c, phone }))}
                 required
+                locale={locale}
               />
+              <span className="wa-hint">{t.phoneHint}</span>
               {hotelsFlow === "error" && (
                 <p className="itinerary-hotels-error">{t.hotelsError}</p>
               )}

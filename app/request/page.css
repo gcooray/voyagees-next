@@ -146,6 +146,10 @@
   margin-bottom: 12px;
 }
 
+.trip-description-form .request-wa-hint {
+  margin: 0.35rem 0 12px;
+}
+
 .trip-description-form textarea {
   min-height: 130px;
   resize: vertical;

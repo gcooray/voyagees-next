@@ -4,6 +4,7 @@ import { useState } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { notifyContactCustomer, notifyContactAdmin } from "@/lib/notifications";
+import WhatsAppInput from "@/components/WhatsAppInput";
 import "./ContactForm.css";
 
 // Contact-page message form. Saved to bookingRequests (type "contact")
@@ -25,7 +26,7 @@ const STRINGS = {
     title: "Send us a message",
     name: "Your name",
     email: "Email",
-    phone: "Phone / WhatsApp",
+    phone: "WhatsApp number",
     optional: "(optional)",
     topic: "What's it about?",
     selectTopic: "Choose a topic",
@@ -49,7 +50,7 @@ const STRINGS = {
     title: "Envoyez-nous un message",
     name: "Votre nom",
     email: "E-mail",
-    phone: "Téléphone / WhatsApp",
+    phone: "Numéro WhatsApp",
     optional: "(facultatif)",
     topic: "À quel sujet ?",
     selectTopic: "Choisissez un sujet",
@@ -171,7 +172,11 @@ ${form.message.trim()}
 
         <label className="cf-field">
           <span>{t.phone} <em>{t.optional}</em></span>
-          <input type="tel" value={form.phone} onChange={set("phone")} autoComplete="tel" />
+          <WhatsAppInput
+            value={form.phone}
+            onChange={(phone) => setForm((f) => ({ ...f, phone }))}
+            locale={locale}
+          />
         </label>
 
         <label className="cf-field">
