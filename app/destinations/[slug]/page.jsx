@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { touristDestinations } from "@/data/touristDestinations";
-import TouristMap from "@/components/TouristMap";
+import TouristMapLoader from "@/components/TouristMapLoader";
 import "./page.css";
+import { withSeo } from "@/lib/seo";
 
 // Optional SEO (Next.js App Router way)
 export async function generateMetadata({ params }) {
@@ -18,13 +19,10 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  return {
+  return withSeo(`/destinations/${destination.slug}`, {
     title: destination.metaTitle,
     description: destination.metaDescription,
-    alternates: {
-      canonical: `https://www.voyagees.com/destinations/${destination.slug}`,
-    },
-  };
+  });
 }
 
 export default async function DestinationPage({ params }) {
@@ -190,7 +188,7 @@ export default async function DestinationPage({ params }) {
       {/* Map */}
       <section className="map-section">
         <h2>Explore Nearby Destinations</h2>
-        <TouristMap highlightSlug={destination.slug} />
+        <TouristMapLoader highlightSlug={destination.slug} />
       </section>
 
       {/* CTA */}
