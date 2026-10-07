@@ -46,7 +46,7 @@ export const metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-voyagees.jpg",
         width: 1200,
         height: 630,
         alt: "voyaGees — your tour, your way",
@@ -59,7 +59,7 @@ export const metadata = {
     title: "Hire Trusted Private Drivers & Tours in Sri Lanka | voyaGees",
     description:
       "Book reliable private drivers and tours with voyaGees. Safe, flexible, and affordable travel across Sri Lanka with verified local drivers and clean vehicles.",
-    images: ["/og-image.jpg"],
+    images: ["/og-voyagees.jpg"],
   },
 
   robots: {
