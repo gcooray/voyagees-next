@@ -165,6 +165,11 @@ function DriversManager({ user }) {
 
   if (drivers === null) return <main className="adm-page"><p>Loading drivers…</p></main>;
 
+  // the collection can hold unrelated older records, so "imported" means
+  // the website's own drivers are there, not just "not empty"
+  const importedIds = new Set(drivers.map((d) => d.id));
+  const imported = staticDrivers.some((d) => importedIds.has(String(d.id)));
+
   return (
     <main className="adm-page">
       <header className="adm-header">
@@ -177,7 +182,7 @@ function DriversManager({ user }) {
         <div className="adm-header-actions">
           <span className="adm-muted">{user.email}</span>
           <button type="button" className="adm-btn adm-btn-ghost" onClick={() => signOut(auth)}>Sign out</button>
-          {drivers.length > 0 && (
+          {imported && (
             <button type="button" className="adm-btn" onClick={() => setEditing(EMPTY_DRIVER)}>+ Add driver</button>
           )}
         </div>
@@ -185,7 +190,7 @@ function DriversManager({ user }) {
 
       {error && <p className="adm-error">{error}</p>}
 
-      {drivers.length === 0 && !error && <ImportPanel onDone={load} />}
+      {!imported && !error && <ImportPanel onDone={load} />}
 
       {drivers.length > 0 && (
         <>
@@ -319,7 +324,7 @@ function ImportPanel({ onDone }) {
     <section className="adm-card">
       <h2>Import the current drivers</h2>
       <p>
-        There are no drivers in the database yet, so the website is still using the{" "}
+        The website&apos;s drivers aren&apos;t in the database yet, so it is still using the{" "}
         {staticDrivers.length} drivers from its built-in list. Import them here once; after that,
         everything is managed on this page.
       </p>
