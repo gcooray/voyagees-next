@@ -146,7 +146,7 @@ function DriversManager({ user }) {
 
   const shown = useMemo(() => {
     const q = filter.trim().toLowerCase();
-    const list = (drivers || []).slice().sort((a, b) => a.name.localeCompare(b.name));
+    const list = (drivers || []).slice().sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")));
     if (!q) return list;
     return list.filter((d) =>
       [d.name, d.location, d.vehicleType, d.carMake, d.carModel].join(" ").toLowerCase().includes(q)
@@ -339,9 +339,13 @@ function ImportPanel({ onDone }) {
 
 function DriverEditor({ initial, onClose, onSaved }) {
   const isNew = !initial.id;
+  const toList = (v) => (Array.isArray(v) ? v : typeof v === "string" && v ? v.split(",") : []);
   const [form, setForm] = useState({
     ...EMPTY_DRIVER,
     ...initial,
+    // older records may store these as plain text
+    languages: toList(initial.languages ?? EMPTY_DRIVER.languages),
+    carImages: toList(initial.carImages),
     phone: initial.phone || "",
     email: initial.email || "",
   });
