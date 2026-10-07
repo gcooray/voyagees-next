@@ -2,16 +2,14 @@ import Link from "next/link";
 import DriverSearch from "@/components/DriverSearch";
 import "../page.css";
 import "./page.css";
+import { withSeo } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withSeo("/private-driver/colombo", {
   title:
     "Hire a Private Driver in Colombo | Private Taxi with Professional Drivers",
   description:
     "Hire a private driver in Colombo for airport pickups, sightseeing, business travel and trips across Sri Lanka. A dedicated vehicle and driver arranged around your schedule.",
-  alternates: {
-    canonical: "https://www.voyagees.com/private-driver/colombo",
-  },
-};
+});
 
 // Every "request a driver" CTA on this page scrolls back up to the hero's
 // driver search rather than linking away — that form is the booking flow.

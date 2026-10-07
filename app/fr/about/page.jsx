@@ -1,13 +1,11 @@
-export const metadata = {
+export const metadata = withSeo("/fr/about", {
   title: "Découvrez le Sri Lanka avec des Chauffeurs et Guides Privés | VoyaGees",
   description:
     "Découvrez Voyagees – connectez-vous avec des chauffeurs et guides touristiques locaux de confiance au Sri Lanka. Voyages personnalisés, tarifs équitables et expériences authentiques.",
-  alternates: {
-    canonical: "https://www.voyagees.com/fr/about",
-  },
-};
+});
 
 import "../../about/about.css";
+import { withSeo } from "@/lib/seo";
 
 export default function AboutPageFr() {
   return (

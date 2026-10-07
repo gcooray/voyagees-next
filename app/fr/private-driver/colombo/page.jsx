@@ -2,16 +2,14 @@ import Link from "next/link";
 import DriverSearch from "@/components/DriverSearch";
 import "../../../private-driver/page.css";
 import "../../../private-driver/colombo/page.css";
+import { withSeo } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withSeo("/fr/private-driver/colombo", {
   title:
     "Chauffeur Privé à Colombo | Taxi Privé avec Chauffeurs Professionnels",
   description:
     "Réservez un chauffeur privé à Colombo pour vos transferts aéroport, visites, déplacements professionnels et trajets dans tout le Sri Lanka. Un véhicule et un chauffeur dédiés, organisés selon votre emploi du temps.",
-  alternates: {
-    canonical: "https://www.voyagees.com/fr/private-driver/colombo",
-  },
-};
+});
 
 // Chaque bouton « demander un chauffeur » remonte vers le formulaire de
 // recherche en haut de page, qui est le parcours de réservation.

@@ -1,13 +1,14 @@
 import Link from "next/link";
 import DriverSearch from "@/components/DriverSearch";
 import "../../private-driver/page.css";
+import { withSeo } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withSeo("/fr/private-driver", {
   title:
     "Chauffeur privé au Sri Lanka | Taxi privé avec chauffeur fiable",
   description:
     "Trouvez un chauffeur privé au Sri Lanka pour voyager en toute sécurité et avec flexibilité. Organisez vos transferts aéroport, excursions et circuits de plusieurs jours avec Voyagees.",
-};
+});
 
 export default function PrivateDriverPage() {
   return (

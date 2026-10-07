@@ -1,13 +1,11 @@
 import "./terms.css";
+import { withSeo } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withSeo("/terms", {
   title: "Travel Terms of Use for Sri Lanka Tours | voyaGees",
   description:
     "Read the Terms of Use for voyaGees — understand booking process, cancellations, payments, and responsibilities before your trip in Sri Lanka.",
-  alternates: {
-    canonical: "https://www.voyagees.com/terms",
-  },
-};
+});
 
 export default function TermsPage() {
   return (

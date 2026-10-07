@@ -1,11 +1,12 @@
 import Link from "next/link";
 import "./page.css";
+import { withSeo } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withSeo("/private-tour", {
   title: "Private Tour of Sri Lanka – Custom Itineraries With Qualified Drivers",
   description:
     "Explore Sri Lanka with a custom private tour built around your dates, interests and pace. Voyagees plans tailor-made itineraries with private transportation and local expertise.",
-};
+});
 
 export default function PrivateTourPage() {
   return (

@@ -1,13 +1,14 @@
 import DriverSearch from "@/components/DriverSearch";
 import Link from "next/link";
 import "./page.css";
+import { withSeo } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withSeo("/private-driver", {
   title:
     "Hire Private Driver in Sri Lanka | Private Taxi with Reliable Drivers",
   description:
     "Hire a private driver in Sri Lanka for safe, reliable and flexible travel. Arrange airport transfers, day trips and multi-day journeys with Voyagees.",
-};
+});
 
 export default function PrivateDriverPage() {
   return (

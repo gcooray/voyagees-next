@@ -1,13 +1,11 @@
-export const metadata = {
+export const metadata = withSeo("/about", {
   title: "Explore Sri Lanka with Private Drivers and Guides | VoyaGees",
   description:
     "Discover Voyagees – connect with trusted local drivers and tour guides in Sri Lanka. Personalized trips, fair pricing, and authentic experiences.",
-  alternates: {
-    canonical: "https://www.voyagees.com/about",
-  },
-};
+});
 
 import "./about.css";
+import { withSeo } from "@/lib/seo";
 
 export default function AboutPage() {
   return (

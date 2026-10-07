@@ -1,13 +1,11 @@
 import TouristMapClient from "@/components/MapClient";
+import { withSeo } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withSeo("/fr/map", {
   title: "Carte du Sri Lanka | Voyagees",
   description:
     "Découvrez les destinations du Sri Lanka sur une carte interactive.",
-  alternates: {
-    canonical: "https://www.voyagees.com/fr/map",
-  },
-};
+});
 
 export default function MapPageFr() {
   return (

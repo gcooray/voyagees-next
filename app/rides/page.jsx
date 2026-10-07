@@ -1,11 +1,12 @@
 import BrowseTripsClient from "./BrowseTripsClient";
 import "./page.css";
+import { withSeo } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withSeo("/rides", {
   title: "Shared Trips – Split a Private Driver's Cost in Sri Lanka | voyaGees",
   description:
     "Share a private driver with other travelers heading your way in Sri Lanka. Post a trip or request a seat, and split the cost automatically as more riders join.",
-};
+});
 
 export default function BrowseTripsPage() {
   return (

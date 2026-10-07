@@ -1,11 +1,12 @@
 import Link from "next/link";
 import "../../private-tour/page.css";
+import { withSeo } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withSeo("/fr/private-tour", {
   title: "Circuit Privé au Sri Lanka – Itinéraires Sur Mesure avec Chauffeurs Qualifiés",
   description:
     "Découvrez le Sri Lanka avec un circuit privé sur mesure, conçu selon vos dates, vos centres d'intérêt et votre rythme. Voyagees élabore des itinéraires personnalisés avec transport privé et expertise locale.",
-};
+});
 
 export default function PrivateTourPageFr() {
   return (

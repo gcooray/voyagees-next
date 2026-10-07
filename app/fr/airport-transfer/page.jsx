@@ -3,16 +3,14 @@ import AirportTransferForm from "@/components/AirportTransferForm";
 import "../../private-driver/page.css";
 import "../../private-driver/colombo/page.css";
 import "../../airport-transfer/page.css";
+import { withSeo } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withSeo("/fr/airport-transfer", {
   title:
     "Transfert Aéroport Colombo | Prise en Charge Privée à l'Aéroport International Bandaranaike",
   description:
     "Réservez un transfert privé depuis l'aéroport international Bandaranaike (CMB) vers Colombo, Negombo, Kandy, Galle ou partout au Sri Lanka. Indiquez votre vol et votre destination et recevez un devis sous 24 heures.",
-  alternates: {
-    canonical: "https://www.voyagees.com/fr/airport-transfer",
-  },
-};
+});
 
 const DESTINATIONS = [
   { name: "Negombo", time: "env. 20 à 30 min" },

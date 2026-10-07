@@ -3,16 +3,14 @@ import AirportTransferForm from "@/components/AirportTransferForm";
 import "../private-driver/page.css";
 import "../private-driver/colombo/page.css";
 import "./page.css";
+import { withSeo } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = withSeo("/airport-transfer", {
   title:
     "Colombo Airport Transfers | Private Pickup from Bandaranaike International Airport",
   description:
     "Book a private airport transfer from Bandaranaike International Airport (CMB) to Colombo, Negombo, Kandy, Galle or anywhere in Sri Lanka. Tell us your flight and destination and get a quote within 24 hours.",
-  alternates: {
-    canonical: "https://www.voyagees.com/airport-transfer",
-  },
-};
+});
 
 const DESTINATIONS = [
   { name: "Negombo", time: "approx. 20–30 min" },

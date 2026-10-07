@@ -1,10 +1,14 @@
 import TripDetailClient from "./TripDetailClient";
+import { withSeo } from "@/lib/seo";
 
-export const metadata = {
-  title: "Shared Trip Details | voyaGees",
-  description:
-    "View trip details and request a seat to split the cost of a private driver in Sri Lanka.",
-};
+export async function generateMetadata({ params }) {
+  const { tripId } = await params;
+  return withSeo(`/rides/${tripId}`, {
+    title: "Shared Trip Details",
+    description:
+      "View trip details and request a seat to split the cost of a private driver in Sri Lanka.",
+  }, { translated: false });
+}
 
 export default async function TripDetailPage({ params }) {
   const { tripId } = await params;

@@ -33,15 +33,14 @@ export const metadata = {
   description:
     "Book reliable private drivers and tours with voyaGees. Safe, flexible, and affordable travel across Sri Lanka with verified local drivers and clean vehicles.",
 
-  alternates: {
-    canonical: "https://www.voyagees.com/",
-  },
+  // No `alternates.canonical` or `openGraph.url` here: every page inherits
+  // the layout's, which pointed all pages at the homepage. Each page sets
+  // its own via withSeo() in lib/seo.js.
 
   openGraph: {
     title: "Hire Trusted Private Drivers & Tours in Sri Lanka | voyaGees",
     description:
       "Book reliable private drivers and tours with voyaGees. Safe, flexible, and affordable travel across Sri Lanka with verified local drivers and clean vehicles.",
-    url: "https://www.voyagees.com/",
     siteName: "voyaGees",
     type: "website",
     locale: "en_US",
