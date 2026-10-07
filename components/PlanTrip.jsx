@@ -124,7 +124,7 @@ const ALL_INTEREST_VALUES = INTEREST_OPTIONS.map((opt) => opt.value);
 async function generateItinerary(formValues, locale) {
   const { pickupDate, dropoffDate } = formValues;
 
-  const driverPriceFrom = getLowestDriverPrice({ pickupDate, dropoffDate });
+  const driverPriceFrom = await getLowestDriverPrice({ pickupDate, dropoffDate });
   if (driverPriceFrom == null) {
     throw new Error("NO_DRIVERS_AVAILABLE");
   }

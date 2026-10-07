@@ -1,0 +1,101 @@
+rules_version = '2';
+
+// Deployed by pasting into Firebase console → Firestore Database → Rules.
+// Kept here so changes are versioned with the code that depends on them.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // The one account that manages drivers (/admin/drivers). Email-link
+    // sign-in marks the email as verified, so it can't be spoofed.
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == "contact@voyagees.com"
+        && request.auth.token.email_verified == true;
+    }
+
+    // ===== BOOKINGS (driver, airport transfer, contact, hotels leads) =====
+    match /bookingRequests/{requestId} {
+      // anyone (guest or logged-in) can send a request
+      allow create: if true;
+      // logged-in users can manage their own; the admin can see and update all
+      allow read, update, delete: if request.auth != null
+        && resource.data.userId == request.auth.uid;
+      allow read, update: if isAdmin();
+    }
+
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // ===== DRIVERS =====
+    // Public profiles: everyone can read live drivers; only the admin can
+    // add, edit, pause or see paused ones.
+    match /drivers/{driverId} {
+      allow read: if resource.data.status == "active" || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Driver phone numbers and emails: admin only, never public.
+    match /driverContacts/{driverId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Commission setting: public read
+    match /platformSettings/{settingId} {
+      allow read: if true;
+    }
+
+    // ===== TRIP SHARING (see lib/rideshare.js for the design) =====
+    match /trips/{tripId} {
+      function trip() {
+        return get(/databases/$(database)/documents/trips/$(tripId)).data;
+      }
+      function isOrganizer() {
+        return request.auth != null && trip().organizerId == request.auth.uid;
+      }
+
+      allow read: if true; // trips are publicly browsable
+
+      allow create: if request.auth != null
+        && request.resource.data.organizerId == request.auth.uid;
+
+      // organizer can update their own trip (e.g. cancel it); nobody else can
+      allow update: if request.auth != null
+        && resource.data.organizerId == request.auth.uid;
+
+      allow delete: if false;
+
+      // Organizer's phone, split out of the public trip doc: visible only to
+      // the organizer and to travelers whose request was accepted.
+      match /contact/{docId} {
+        allow read: if isOrganizer()
+          || (request.auth != null
+              && exists(/databases/$(database)/documents/trips/$(tripId)/requests/$(request.auth.uid))
+              && get(/databases/$(database)/documents/trips/$(tripId)/requests/$(request.auth.uid)).data.status == "accepted");
+        allow create, update: if isOrganizer();
+        allow delete: if false;
+      }
+
+      match /requests/{requestId} {
+        // the organizer can see all requests on their trip; a traveler only
+        // their own (request ids are the traveler's uid)
+        allow read: if isOrganizer()
+          || (request.auth != null && requestId == request.auth.uid);
+
+        // a traveler can create their own pending request, nothing else
+        allow create: if request.auth != null
+          && requestId == request.auth.uid
+          && request.resource.data.travelerId == request.auth.uid
+          && request.resource.data.status == "pending";
+
+        // ONLY the trip's organizer can change a request's status, and only
+        // to "accepted" or "declined"
+        allow update: if isOrganizer()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["status"])
+          && request.resource.data.status in ["accepted", "declined"];
+
+        allow delete: if false;
+      }
+    }
+  }
+}

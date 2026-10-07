@@ -9,9 +9,11 @@ import DriverModal from "@/components/DriverModal";
 import DriverFilters from "@/components/DriverFilters";
 import SearchForm from "@/components/SearchForm.jsx";
 
-import { drivers } from "@/data/drivers";
+import { useDrivers } from "@/lib/driversStore";
 
 export default function DriversPage({ locale = "en" }) {
+
+  const { drivers, loading: driversLoading } = useDrivers();
 
   const [selectedDriver, setSelectedDriver] = useState(null);
 
@@ -115,7 +117,7 @@ export default function DriversPage({ locale = "en" }) {
 
     return Array.from(languages).sort();
 
-  }, []);
+  }, [drivers]);
 
 
   /*
@@ -197,6 +199,7 @@ export default function DriversPage({ locale = "en" }) {
     });
 
   }, [
+    drivers,
     pickupDate,
     dropoffDate,
     vehicleType,
@@ -303,20 +306,25 @@ export default function DriversPage({ locale = "en" }) {
           <div className="results-heading">
 
             <p>
-              {locale === "fr"
+              {driversLoading
+                ? (locale === "fr" ? "Chargement des chauffeurs…" : "Loading drivers…")
+                : locale === "fr"
                 ? `${filteredDrivers.length} ${filteredDrivers.length === 1 ? "chauffeur disponible" : "chauffeurs disponibles"}`
                 : `${filteredDrivers.length} ${filteredDrivers.length === 1 ? "driver" : "drivers"} available`}
             </p>
 
           </div>
 
-          <DriverList
-            drivers={filteredDrivers}
-            pickupDate={pickupDate}
-            dropoffDate={dropoffDate}
-            locale={locale}
-            onSelect={(driver) => setSelectedDriver(driver)}
-          />
+          {/* held back while loading, or it flashes "No drivers found." */}
+          {!driversLoading && (
+            <DriverList
+              drivers={filteredDrivers}
+              pickupDate={pickupDate}
+              dropoffDate={dropoffDate}
+              locale={locale}
+              onSelect={(driver) => setSelectedDriver(driver)}
+            />
+          )}
 
         </div>
 

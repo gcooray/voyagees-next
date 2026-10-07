@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { drivers } from "@/data/drivers";
+import { useDrivers } from "@/lib/driversStore";
 
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -95,6 +95,7 @@ export default function RequestPage({ locale = "en" }) {
 
   const driverId = searchParams.get("driverId");
 
+  const { drivers, loading: driversLoading } = useDrivers();
 const driver = drivers.find(
   (d) => String(d.id) === String(driverId)
 );
@@ -128,6 +129,10 @@ const driver = drivers.find(
   const [showDetails, setShowDetails] = useState(false);
   const [error, setError] = useState("");
 
+
+  if (driversLoading) {
+    return <div className="request-page" aria-busy="true" />;
+  }
 
   if (!driver) {
   return (
@@ -218,7 +223,7 @@ Passengers: ${passengers || "Not specified"}
 
 🚗 DRIVER
 Name: ${driver.name} (ID ${driver.id})
-Contact: see the driver contacts list (not stored on the website)
+Contact: see voyagees.com/admin/drivers (admin only)
 Based in: ${driver.location || "N/A"}
 Languages: ${driver.languages?.join(", ") || "N/A"}
 Vehicle: ${driver.vehicleType || ""}${vehicle ? ` — ${vehicle}` : ""}
