@@ -1,3 +1,6 @@
+import { touristDestinations } from "@/data/touristDestinations";
+import { destinationsFr } from "@/data/destinationsFr";
+
 export default function sitemap() {
   const baseUrl = "https://www.voyagees.com";
 
@@ -30,6 +33,12 @@ export default function sitemap() {
     "/fr/rides",
     "/fr/search",
     "/fr/terms",
+
+    // destination pages, read from the same data the pages render from so
+    // a new destination is listed automatically (each language from its
+    // own list, since the two aren't guaranteed to match)
+    ...touristDestinations.map((d) => `/destinations/${d.slug}`),
+    ...destinationsFr.map((d) => `/fr/destinations/${d.slug}`),
   ];
 
   return paths.map((path) => ({
