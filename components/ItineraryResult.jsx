@@ -8,6 +8,7 @@ import { db } from "@/lib/firebase";
 import { notifyItineraryHotelsCustomer, notifyItineraryHotelsAdmin } from "@/lib/notifications";
 import WhatsAppInput from "@/components/WhatsAppInput";
 import "./ItineraryResult.css";
+import { trackLead } from "@/lib/analytics";
 
 const ItineraryRouteMap = dynamic(() => import("./ItineraryRouteMap"), {
   ssr: false,
@@ -145,6 +146,7 @@ export default function ItineraryResult({ data, searchParams, onReset, locale = 
       await notifyItineraryHotelsCustomer(contactInfo, data, docRef.id, locale);
       await notifyItineraryHotelsAdmin(contactInfo, data, docRef.id);
 
+      trackLead("itinerary_hotels", { days: days.length });
       setHotelsFlow("sent");
     } catch (err) {
       console.error("Failed to submit itinerary-with-hotels request:", err);

@@ -6,6 +6,7 @@ import { db } from "@/lib/firebase";
 import { notifyContactCustomer, notifyContactAdmin } from "@/lib/notifications";
 import WhatsAppInput from "@/components/WhatsAppInput";
 import "./ContactForm.css";
+import { trackLead } from "@/lib/analytics";
 
 // Contact-page message form. Saved to bookingRequests (type "contact")
 // alongside the other request types, then emailed to the admin inbox with
@@ -126,6 +127,7 @@ ${form.message.trim()}
         `Contact form: ${form.topic} – ${contact.name}`
       );
 
+      trackLead("contact", { topic: form.topic });
       setStatus("sent");
     } catch (err) {
       console.error("Failed to send contact message:", err);

@@ -11,6 +11,7 @@ import { notifyDriverBookingAdmin } from "@/lib/notifications";
 
 import WhatsAppInput from "@/components/WhatsAppInput";
 import "./page.css";
+import { trackLead } from "@/lib/analytics";
 
 const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_BOOKING;
@@ -322,6 +323,7 @@ ${description || "None"}
         `New driver booking: ${fullName} with ${driver.name}, ${pickupDate} → ${dropoffDate}`
       );
 
+      trackLead("driver_booking", { value: totalPrice, currency: "LKR", driver_id: String(driver.id) });
       setSuccess(true);
     } catch (err) {
       console.error(err);

@@ -4,6 +4,7 @@ import { useState } from "react";
 import ItineraryResult from "@/components/ItineraryResult";
 import { getLowestDriverPrice } from "@/lib/driverPricing";
 import "./PlanTrip.css";
+import { trackEvent } from "@/lib/analytics";
 
 const MAX_TRIP_DAYS = 21;
 const MAX_CHILDREN = 8;
@@ -257,6 +258,7 @@ export default function PlanTrip({ locale = "en" }) {
     setSubmitting(true);
     try {
       const result = await generateItinerary(form, locale);
+      trackEvent("generate_itinerary", { days: result.days?.length || 0, budget: form.budget });
       setItinerary(result);
     } catch (err) {
       setError(

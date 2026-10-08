@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Analytics from "@/components/analytics/Analytics";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 // Self-hosted via next/font instead of the globals.css @import this replaced —
 // removes the render-blocking request to fonts.googleapis.com and gets
@@ -81,6 +82,7 @@ export default function RootLayout({
         <main>{children}</main>
 
         <Footer />
+        <WhatsAppButton />
         <Analytics />
       </body>
     </html>

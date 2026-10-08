@@ -9,6 +9,7 @@ import {
 } from "@/lib/notifications";
 import WhatsAppInput from "@/components/WhatsAppInput";
 import "./AirportTransferForm.css";
+import { trackLead } from "@/lib/analytics";
 
 // Quote-on-request airport transfer form (Bandaranaike International
 // Airport). Unlike the day-hire flow there's no driver to pick and no
@@ -253,6 +254,7 @@ ${form.notes.trim() || "None"}
       );
 
       setRequestId(docRef.id);
+      trackLead("airport_transfer", { direction: form.direction, return_trip: form.returnTrip });
       setStatus("sent");
     } catch (err) {
       console.error("Failed to send airport transfer request:", err);
