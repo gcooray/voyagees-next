@@ -219,14 +219,16 @@
 .pd-hero-search form .form-group select {
   width: 100%;
   min-width: 0;
-  height: auto;
+  /* fixed height — see the same rule on the homepage card (app/page.css) */
+  height: 2.85rem;
   box-sizing: border-box;
   border: none;
   border-bottom: 2px solid var(--line);
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-  padding: 0.68rem 0.1rem;
+  padding: 0 0.1rem;
+  line-height: normal;
   font-family: var(--body);
   font-size: 0.97rem;
   color: var(--ink);

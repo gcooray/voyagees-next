@@ -24,7 +24,6 @@ const STRINGS = {
     pickupTime: "Pickup Time",
     dropoffDate: "Drop-off Date",
     dropoffTime: "Drop-off Time",
-    selectTime: "Select time",
     submit: "FIND MY DRIVER",
   },
   fr: {
@@ -35,7 +34,6 @@ const STRINGS = {
     pickupTime: "Heure de Départ",
     dropoffDate: "Date de Retour",
     dropoffTime: "Heure de Retour",
-    selectTime: "Sélectionnez l'heure",
     submit: "TROUVER MON CHAUFFEUR",
   },
 };
@@ -144,7 +142,7 @@ function SearchForm({
                   onChange={(e) => setPickupTime(e.target.value)}
                   required
                 >
-                  <option value="" disabled>{t.selectTime}</option>
+                  <option value="" disabled hidden></option>
                   {timeOptions.map((time) => (
                     <option key={time} value={time}>{time}</option>
                   ))}
@@ -173,7 +171,7 @@ function SearchForm({
                   onChange={(e) => setDropoffTime(e.target.value)}
                   required
                 >
-                  <option value="" disabled>{t.selectTime}</option>
+                  <option value="" disabled hidden></option>
                   {timeOptions.map((time) => (
                     <option key={time} value={time}>{time}</option>
                   ))}

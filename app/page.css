@@ -290,7 +290,10 @@
 .market-search-card form .form-group select {
   width: 100%;
   min-width: 0;
-  height: auto;
+  /* fixed height, not padding-driven: date inputs and selects size their
+     padding differently (most visibly in iOS Safari), which left the date
+     and time underlines at different heights */
+  height: 2.85rem;
   box-sizing: border-box;
   border: none;               /* resets all 4 sides — SearchForm.css sets a
                                   full 1px border, we only want a bottom rule */
@@ -298,7 +301,8 @@
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-  padding: 0.68rem 0.1rem;
+  padding: 0 0.1rem;
+  line-height: normal;
   font-family: var(--body);
   font-size: 0.97rem;
   color: var(--ink);
@@ -372,7 +376,7 @@
 @media (max-width: 400px) {
   .market-search-card form .form-group label { font-size: 0.7rem; }
   .market-search-card form .form-group input,
-  .market-search-card form .form-group select { font-size: 0.85rem; padding: 0.45rem 0.05rem; }
+  .market-search-card form .form-group select { font-size: 0.85rem; height: 2.4rem; padding: 0 0.05rem; }
 }
 
 /* =====================================================

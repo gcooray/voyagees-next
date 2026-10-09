@@ -63,6 +63,13 @@ select:focus {
   box-shadow: 0 0 5px rgba(204, 0, 0, 0.2);
 }
 
+/* iOS Safari centres a date input's value and adds its own inner margin,
+   so the date text sat lower and further right than the time beside it */
+.search-hero input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+  margin: 0;
+}
+
 /* BUTTON */
 .btn-submit {
   background-color: #cc0000;
