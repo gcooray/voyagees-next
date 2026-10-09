@@ -213,3 +213,26 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .btn-spinner { animation-duration: 2s; }
 }
+
+
+/* =========================
+   DATE & TIME INPUTS (iOS Safari)
+   iPhones draw these with a native style that ignores width: 100%, so
+   they spill out of narrow form columns (e.g. "Flight lands at" on the
+   airport transfer form), centre their value, and show no placeholder.
+   Dropping the native appearance makes them size like any other input;
+   Chrome keeps its calendar/clock icon either way.
+========================= */
+input[type="date"],
+input[type="time"] {
+  -webkit-appearance: none;
+  appearance: none;
+  min-width: 0;
+  max-width: 100%;
+}
+
+input[type="date"]::-webkit-date-and-time-value,
+input[type="time"]::-webkit-date-and-time-value {
+  text-align: left;
+  margin: 0;
+}
