@@ -29,7 +29,7 @@ const STRINGS = {
     fitsGroup: (n) => `Vehicles that seat ${n} ${n === 1 ? "traveller" : "travellers"}`,
     seeDrivers: "See available drivers",
     optHotelsTitle: "Driver + hotels",
-    optHotelsText: "Your driver, plus hand-picked hotel options for every night, sent to you within 24 hours.",
+    optHotelsText: "Your driver, plus a hotel for every night (the ones suggested above or similar in category), sent to you within 24 hours.",
     hotelsEstimate: (min, max, nights) => `Hotels: about ${min}–${max} in total for ${nights} ${nights === 1 ? "night" : "nights"}`,
     perNight: "per night",
     party: (adults, children) =>
@@ -47,7 +47,7 @@ const STRINGS = {
     getHotels: "Get hotel options",
     startingFrom: "Starting from",
     loading: "Loading…",
-    excessNote: "Excess distance beyond the driver's daily allowance may incur additional charges.",
+    excessNote: "Kilometres beyond the driver's daily allowance may cost extra. Some drivers include their own accommodation in the price; others add a small nightly fee when your hotel doesn't provide a room for drivers.",
     hotelsSent: "Thanks! We'll follow up within 24 hours with hotel options for your trip.",
     hotelsIntro: "Leave your details and we'll put together hotel options to go with your driver.",
     name: "Your name",
@@ -75,7 +75,7 @@ const STRINGS = {
     fitsGroup: (n) => `Véhicules pour ${n} ${n === 1 ? "voyageur" : "voyageurs"}`,
     seeDrivers: "Voir les chauffeurs disponibles",
     optHotelsTitle: "Chauffeur + hôtels",
-    optHotelsText: "Votre chauffeur, plus des hôtels sélectionnés pour chaque nuit, envoyés sous 24 heures.",
+    optHotelsText: "Votre chauffeur, plus un hôtel pour chaque nuit (ceux suggérés ci-dessus ou de catégorie similaire), envoyés sous 24 heures.",
     hotelsEstimate: (min, max, nights) => `Hôtels : environ ${min} – ${max} au total pour ${nights} ${nights === 1 ? "nuit" : "nuits"}`,
     perNight: "par nuit",
     party: (adults, children) =>
@@ -93,7 +93,7 @@ const STRINGS = {
     getHotels: "Recevoir des propositions d'hôtels",
     startingFrom: "À partir de",
     loading: "Chargement…",
-    excessNote: "Les kilomètres au-delà du forfait journalier du chauffeur peuvent entraîner des frais supplémentaires.",
+    excessNote: "Les kilomètres au-delà du forfait journalier du chauffeur peuvent être facturés en plus. Certains chauffeurs incluent leur hébergement dans le prix ; d'autres ajoutent un petit supplément par nuit si votre hôtel ne propose pas de chambre pour les chauffeurs.",
     hotelsSent: "Merci ! Nous vous enverrons des propositions d'hôtels pour votre voyage sous 24 heures.",
     hotelsIntro: "Laissez-nous vos coordonnées et nous vous proposerons des hôtels en complément de votre chauffeur.",
     name: "Votre nom",
@@ -114,6 +114,44 @@ function formatDayDate(iso, dateLocale) {
   if (!iso) return "";
   const date = new Date(`${iso}T00:00:00`);
   return date.toLocaleDateString(dateLocale, { weekday: "short", day: "numeric", month: "short" });
+}
+
+// Map stops: the start point (✈ for the airport), then one marker per town
+// in visiting order — consecutive days in the same town share a marker
+// ("1–2") instead of stacking unreadably — then the end point if it's
+// somewhere else. Places the API couldn't place are left off rather than
+// pinned in the wrong spot.
+const AIRPORT_WORDS = /airport|a[ée]roport|katunayake|bandaranaike|\bcmb\b/i;
+function samePlace(a, b) {
+  return a && b && Math.abs(a.lat - b.lat) < 0.02 && Math.abs(a.lng - b.lng) < 0.02;
+}
+function buildMapStops(startPoint, days, endPoint) {
+  const usable = (p) => p && p.resolved !== false && p.lat != null && p.lng != null;
+  const endpointLabel = (p) => (AIRPORT_WORDS.test(p.name || "") ? "✈" : "●");
+  const stops = [];
+
+  if (usable(startPoint)) stops.push({ ...startPoint, label: endpointLabel(startPoint) });
+
+  days.forEach((day, i) => {
+    const loc = day.location;
+    if (!usable(loc)) return;
+    const prev = stops[stops.length - 1];
+    if (prev?.isDay && samePlace(prev, loc)) {
+      prev.lastDay = i + 1;
+      prev.label = `${prev.firstDay}–${prev.lastDay}`;
+    } else if (prev && !prev.isDay && samePlace(prev, loc)) {
+      // day 1 is spent where the trip starts: number the start marker instead
+      Object.assign(prev, { isDay: true, firstDay: i + 1, lastDay: i + 1, label: `${i + 1}` });
+    } else {
+      stops.push({ ...loc, isDay: true, firstDay: i + 1, lastDay: i + 1, label: `${i + 1}` });
+    }
+  });
+
+  const last = stops[stops.length - 1];
+  if (usable(endPoint) && !samePlace(last, endPoint)) {
+    stops.push({ ...endPoint, label: endpointLabel(endPoint) });
+  }
+  return stops;
 }
 
 const emptyContact = { name: "", email: "", phone: "", mealPlan: "BB" };
@@ -253,13 +291,7 @@ export default function ItineraryResult({ data, searchParams, onReset, locale = 
       )}
 
       {days.length > 0 && (
-        <ItineraryRouteMap
-          stops={days.map((day) => ({
-            name: day.location?.name,
-            lat: day.location?.lat,
-            lng: day.location?.lng,
-          }))}
-        />
+        <ItineraryRouteMap stops={buildMapStops(data.startPoint, days, data.endPoint)} />
       )}
 
       {/* every day, top to bottom — easier to read on a phone than tabs */}

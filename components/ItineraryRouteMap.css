@@ -27,7 +27,7 @@
 .itinerary-route-marker {
   background: var(--clay);
   color: var(--paper);
-  border-radius: 50%;
+  border-radius: 999px; /* round for "1", pill for "1–2" */
   width: 26px;
   height: 26px;
   display: flex;

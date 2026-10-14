@@ -146,7 +146,7 @@ async function generateItinerary(formValues, locale) {
     throw new Error("GENERATION_FAILED");
   }
 
-  const { title, routeSummary, accommodationEstimate, days, seasonalNotes } = await res.json();
+  const { title, routeSummary, accommodationEstimate, days, seasonalNotes, startPoint, endPoint } = await res.json();
 
   return {
     title,
@@ -155,6 +155,8 @@ async function generateItinerary(formValues, locale) {
     accommodationEstimate,
     days,
     seasonalNotes,
+    startPoint,
+    endPoint,
   };
 }
 

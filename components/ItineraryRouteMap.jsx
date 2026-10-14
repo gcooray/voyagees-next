@@ -9,12 +9,13 @@ import "./ItineraryRouteMap.css";
 // A plain static import of "leaflet" is safe here only because this module
 // is always loaded via next/dynamic with ssr:false (see ItineraryResult.jsx)
 // — it never runs outside the browser.
-function numberedIcon(number) {
+function labelIcon(label) {
+  const width = String(label).length > 2 ? 40 : 26;
   return L.divIcon({
     className: "itinerary-route-marker",
-    html: `<span>${number}</span>`,
-    iconSize: [26, 26],
-    iconAnchor: [13, 13],
+    html: `<span>${label}</span>`,
+    iconSize: [width, 26],
+    iconAnchor: [width / 2, 13],
   });
 }
 
@@ -68,7 +69,7 @@ export default function ItineraryRouteMap({ stops }) {
           <Marker
             key={`${stop.lat}-${stop.lng}-${index}`}
             position={[stop.lat, stop.lng]}
-            icon={numberedIcon(index + 1)}
+            icon={labelIcon(stop.label ?? index + 1)}
           />
         ))}
       </MapContainer>

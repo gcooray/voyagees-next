@@ -153,7 +153,8 @@ const ITINERARY_TOOL = {
                 },
                 hasOvernightStay: {
                   type: "boolean",
-                  description: "False only for the final day if it ends in departure with no overnight stay.",
+                  description:
+                    "False ONLY for the final day when the trip ends at the airport for a departing flight. If the trip ends anywhere else (e.g. a beach town like Mirissa), the traveller stays on there: the final day arrives in that end location and has an overnight stay there.",
                 },
                 stayStyle: {
                   type: "string",
@@ -254,6 +255,9 @@ function buildUserPrompt(preferences, totalDays) {
     `Plan a ${totalDays}-day private-driver trip around Sri Lanka.`,
     `Starting point: ${startLocation}.`,
     endLocation ? `Ending point: ${endLocation}.` : "Ending point: same as starting point.",
+    isAirport(endLocation || startLocation)
+      ? "The trip ends at the airport for a departing flight: keep the final day light and within easy reach of the airport, with no overnight stay."
+      : `The trip ends in ${endLocation || startLocation}, where the traveller stays on: the final day must arrive there, with that night's stay there.`,
     `Travel party: ${partyDescription}.`,
     `Budget tier: ${budget}.`,
     `Pace: ${pace}.`,
@@ -286,7 +290,16 @@ const DESTINATION_ALIASES = {
 // principle applied to geography instead of price. Falls back to Colombo
 // (with a flag) rather than fabricating a coordinate, since an approximate
 // pin is safer than a wrong one placed with false confidence.
+const AIRPORT_WORDS = /airport|a[ée]roport|katunayake|bandaranaike|\bcmb\b/i;
+const CMB_AIRPORT = { lat: 7.1808, lng: 79.8841 };
+
+function isAirport(place) {
+  return AIRPORT_WORDS.test(place || "");
+}
+
 function resolveDestinationCoordinates(destinationName) {
+  if (!destinationName.trim()) return { name: destinationName, lat: null, lng: null, resolved: false };
+  if (isAirport(destinationName)) return { name: destinationName, ...CMB_AIRPORT, resolved: true };
   const needle = destinationName.trim().toLowerCase();
   const aliasSlug = DESTINATION_ALIASES[normalizeForMatch(destinationName)];
 
@@ -577,12 +590,22 @@ export async function POST(request) {
 
   let estimateMin = 0;
   let estimateMax = 0;
-  const days = (aiItinerary.days || []).map((day, index) => {
+  const startPlace = preferences.startLocation || "";
+  const endPlace = preferences.endLocation || startPlace;
+  const endsAtAirport = isAirport(endPlace);
+  const aiDays = aiItinerary.days || [];
+
+  const days = aiDays.map((day, index) => {
     const destination = resolveDestinationCoordinates(day.destinationName || "");
     const hotelMatch = resolveHotelName(day.destinationName || "", budget, t);
 
+    // a trip that ends somewhere other than the airport (e.g. Mirissa) still
+    // needs that last night's hotel, even if the model left it out
+    const isLastDay = index === aiDays.length - 1;
+    const needsStay = day.hasOvernightStay || (isLastDay && !endsAtAirport);
+
     let stay = null;
-    if (day.hasOvernightStay) {
+    if (needsStay) {
       const baseRange = hotelMatch?.priceRange || tierRange;
       const nightRange = calculateStayPrice(baseRange, adults, childrenAges);
       estimateMin += nightRange.min;
@@ -608,7 +631,7 @@ export async function POST(request) {
       date: addDays(pickupDate, index),
       title: day.title,
       activities: appendVerifiedActivityPrices(day.activities || [], locale),
-      location: { name: destination.name, lat: destination.lat, lng: destination.lng },
+      location: { name: destination.name, lat: destination.lat, lng: destination.lng, resolved: destination.resolved },
       stay,
     };
   });
@@ -618,6 +641,9 @@ export async function POST(request) {
     routeSummary: aiItinerary.routeSummary,
     accommodationEstimate: SHOW_HOTEL_PRICES ? { min: estimateMin, max: estimateMax } : null,
     days,
+    // where the trip starts/ends, for the route map
+    startPoint: resolveDestinationCoordinates(startPlace),
+    endPoint: resolveDestinationCoordinates(endPlace),
     seasonalNotes: [...collectSeasonalNotes(days, locale), trainNote(days, locale)].filter(Boolean),
   };
 
