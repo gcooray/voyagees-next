@@ -19,9 +19,13 @@ and posts manually.
    three may mention Voyagees (trip planner, driver search or WhatsApp),
    softly, and with the right https://voyagees.com/fr link.
 
-   ## Instagram — 3 captions
-   Matching the week's themes: caption in French, 5–10 hashtags, and the
-   photo/reel idea.
+   ## Facebook Page + Instagram — 3 posts
+   Matching the week's themes, posted together via Meta Business Suite:
+   suggested day (offset from the group posts, e.g. Tue/Thu/Sat), the
+   caption in French, then a separate line of 5–10 hashtags (for
+   Instagram), and the photo/reel idea. One of the three may present a
+   Voyagees service directly (trip planner, private driver, airport
+   transfer) with its https://voyagees.com/fr link.
 
    ## Comment replies
    2–3 ready-made, friendly French replies to questions people commonly ask

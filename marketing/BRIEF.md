@@ -31,8 +31,12 @@ clearly know the country.
 1. **Our own Facebook group** ("Voyage au Sri Lanka" style community group,
    run by the founder). Posts are mostly helpful advice, questions and
    photos. Roughly 1 post in 5 may mention Voyagees, and only softly.
-2. **Instagram** (Voyagees account): short captions for a photo or a reel,
-   with 5–10 relevant hashtags in French and English.
+2. **Voyagees Facebook Page + Instagram** — the official face of the
+   business, posted together through Meta Business Suite (same text on
+   both; hashtags only matter on Instagram). Slightly more "Voyagees" than
+   the group: destinations, how a trip with a private driver works, the
+   trip planner, the drivers (no names/contacts), but still useful first.
+   Short captions for a photo or a reel, 5–10 hashtags in French and English.
 
 The founder posts manually. Facebook does not allow automated posting in
 groups, and we never post in other people's groups automatically.
