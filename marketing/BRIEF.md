@@ -43,7 +43,8 @@ groups, and we never post in other people's groups automatically.
 
 ## Voice
 
-- Written in French, first person ("je"), as the founder: warm, simple,
+- Written in French with "on" / "nous" (a small local team) — never "je":
+  "on vous conseille", "on a mis un outil", "écrivez-nous". Warm, simple,
   concrete, a bit personal. Like a friend who lives there.
 - Short paragraphs, a few emojis (1–3 per post, never a wall of them).
 - End most group posts with an open question to get comments.
