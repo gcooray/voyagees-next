@@ -77,6 +77,7 @@ const STRINGS = {
     errChildAge: (max) => `Please enter a valid age (0–${max}) for each child.`,
     errNoDrivers: "No drivers are currently available for those dates. Try a different date range.",
     errFailed: "Couldn't generate your itinerary. Please try again.",
+    errLimit: "You've planned 5 trips in the last hour, which is the limit for now. Please try again a little later, or message us on WhatsApp (+94 77 220 0565) and we'll plan it with you.",
     submitting: "We're preparing your trip…",
     submit: "Generate My Itinerary",
   },
@@ -110,6 +111,7 @@ const STRINGS = {
     errChildAge: (max) => `Veuillez indiquer un âge valide (0–${max}) pour chaque enfant.`,
     errNoDrivers: "Aucun chauffeur n'est disponible à ces dates. Essayez d'autres dates.",
     errFailed: "Impossible de générer votre itinéraire. Veuillez réessayer.",
+    errLimit: "Vous avez préparé 5 itinéraires au cours de la dernière heure, c'est la limite pour le moment. Réessayez un peu plus tard, ou écrivez-nous sur WhatsApp (+94 77 220 0565) et nous le préparerons avec vous.",
     submitting: "Nous préparons votre voyage…",
     submit: "Générer Mon Itinéraire",
   },
@@ -143,7 +145,7 @@ async function generateItinerary(formValues, locale) {
   });
 
   if (!res.ok) {
-    throw new Error("GENERATION_FAILED");
+    throw new Error(res.status === 429 ? "RATE_LIMITED" : "GENERATION_FAILED");
   }
 
   const { title, routeSummary, accommodationEstimate, days, seasonalNotes, startPoint, endPoint } = await res.json();
@@ -320,7 +322,9 @@ export default function PlanTrip({ locale = "en" }) {
       setError(
         err.message === "NO_DRIVERS_AVAILABLE"
           ? t.errNoDrivers
-          : t.errFailed
+          : err.message === "RATE_LIMITED"
+            ? t.errLimit
+            : t.errFailed
       );
     } finally {
       setSubmitting(false);

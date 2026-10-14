@@ -30,7 +30,7 @@ const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour — short, since a longer TTL
 
 const rateLimitMap = new Map(); // ip -> { count, windowStart }
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
-const RATE_LIMIT_MAX_REQUESTS = 8; // generous for genuine trip-planning iteration
+const RATE_LIMIT_MAX_REQUESTS = 5; // per visitor per hour — enough to try a few versions of a trip
 
 function pruneExpired(map, isExpired) {
   for (const [key, value] of map) {
