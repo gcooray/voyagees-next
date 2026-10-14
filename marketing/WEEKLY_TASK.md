@@ -10,7 +10,9 @@ and posts manually.
 3. Work out the date of the coming Monday (the week the pack is for) and
    the season, using the calendar hints in the brief. If today is Monday,
    that's today. If a pack for that Monday already exists, prepare the
-   following week's instead — never overwrite an existing pack.
+   first following week that has no pack yet — never overwrite an existing
+   pack. (The founder sometimes posts ahead of the dates, so packs work as
+   a queue.)
 4. Write `marketing/weekly/YYYY-MM-DD.md` (that Monday's date) containing:
 
    ## Facebook group — 3 posts
