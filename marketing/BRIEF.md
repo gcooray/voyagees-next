@@ -80,7 +80,10 @@ groups, and we never post in other people's groups automatically.
   sell out and that services stop after heavy rain — never promise it.
 - No visa rules, health rules or safety claims stated as fact — those
   change; tell people to check official sources.
-- No invented reviews, testimonials, client stories or statistics.
+- No invented reviews, testimonials, client stories or statistics — and no
+  invented first-hand moments ("ce matin-là, on était…"). A story post must
+  be a template with [brackets] for the founder to fill in from something
+  that really happened, e.g. "[le lieu], [ce qui s'est passé]".
 - No claims of being the "best", "cheapest" or "n°1".
 
 ## Seasonal calendar hints
