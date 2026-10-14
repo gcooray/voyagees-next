@@ -6,6 +6,8 @@ import {
   hotelsByDestination,
   occupancyPricing,
   seasonalNotes,
+  SHOW_HOTEL_PRICES,
+  HILL_COUNTRY_TRAIN_RUNNING,
 } from "@/lib/destinationContent";
 
 // Cost control: response caching + per-IP rate limiting, both backed by a
@@ -207,6 +209,15 @@ const FRENCH_INSTRUCTION = `
 
 LANGUAGE: The traveler is using the French version of the site. Write title, routeSummary, every day's title, every activity and every stayStyle in natural, fluent French. Keep destinationName as the standard place name exactly as it is usually written in English (e.g. "Kandy", "Nuwara Eliya", "Arugam Bay") — it is used for map lookup, not shown as prose.`;
 
+// Train rules for the model — see HILL_COUNTRY_TRAIN_RUNNING.
+const TRAIN_INSTRUCTION = HILL_COUNTRY_TRAIN_RUNNING
+  ? `
+
+TRAINS: The Kandy–Nanu Oya–Ella train may be suggested only as an OPTIONAL experience on the day the traveller moves between those towns, never as a guaranteed or pre-booked part of the trip. Phrase it like "optional: take the scenic train (subject to ticket availability) while your driver brings your luggage by road and meets you at the station". Never suggest trains on other lines.`
+  : `
+
+TRAINS: Do NOT include any train journey, anywhere in Sri Lanka. All travel between towns, including Kandy, Nuwara Eliya and Ella, is by road with the private driver; describe these as scenic drives (tea country, waterfalls, viewpoints) instead.`;
+
 function buildSystemPrompt(knowledgeBaseContext, locale) {
   return `You are voyaGees' Sri Lanka trip-itinerary writer. Given a traveler's dates, party details, budget, pace, and interests, you have full creative latitude to choose a geographically sensible sequence of real Sri Lankan destinations, decide how long to spend at each, and write specific, engaging day-by-day activities.
 
@@ -218,7 +229,7 @@ The reference list above is for your awareness of which destinations/attractions
 
 Match accommodation style (via stayStyle) to the traveler's stated budget tier, and the density of each day's activities to their stated pace. Use real, well-known place names for destinationName so they can be matched to map coordinates.
 
-Seasonality awareness: Sri Lanka's west/south/hill-country region is best Dec-Apr, while the east/north coast (Trincomalee, Arugam Bay, Jaffna) has the opposite pattern and is best May-Sept — prefer suggesting each region during its own good season when the traveler's dates allow flexibility, and avoid recommending time-sensitive activities (e.g. whale watching off Mirissa, or Arugam Bay surfing) outside their real season. You don't need to mention this yourself — the platform adds a seasonal note to the response automatically when relevant.${locale === "fr" ? FRENCH_INSTRUCTION : ""}`;
+Seasonality awareness: Sri Lanka's west/south/hill-country region is best Dec-Apr, while the east/north coast (Trincomalee, Arugam Bay, Jaffna) has the opposite pattern and is best May-Sept — prefer suggesting each region during its own good season when the traveler's dates allow flexibility, and avoid recommending time-sensitive activities (e.g. whale watching off Mirissa, or Arugam Bay surfing) outside their real season. You don't need to mention this yourself — the platform adds a seasonal note to the response automatically when relevant.${TRAIN_INSTRUCTION}${locale === "fr" ? FRENCH_INSTRUCTION : ""}`;
 }
 
 function buildUserPrompt(preferences, totalDays) {
@@ -359,6 +370,27 @@ function calculateStayPrice(baseRange, adults, childrenAges) {
 // reason to drop or alter the day itself. Deduplicated by note id, since
 // e.g. an Arugam Bay day matches both the surf-specific rule and the
 // broader east/north monsoon rule.
+const TRAIN_NOTES = {
+  running: {
+    en: "Train journeys are optional and subject to ticket availability — reserved seats often sell out weeks ahead, and services can be suspended after heavy rain. We'll confirm before you travel; if the train isn't possible, your driver takes you by road.",
+    fr: "Les trajets en train sont optionnels et dépendent de la disponibilité des billets : les places réservées partent souvent des semaines à l'avance, et le service peut être suspendu après de fortes pluies. Nous confirmerons avant votre départ ; si le train n'est pas possible, votre chauffeur vous conduit par la route.",
+  },
+  suspended: {
+    en: "Train journeys aren't included at the moment — your driver takes you between towns by road.",
+    fr: "Les trajets en train ne sont pas inclus pour le moment : votre chauffeur vous conduit d'une ville à l'autre par la route.",
+  },
+};
+const TRAIN_WORDS = /\btrains?\b|\brailways?\b|\bchemin de fer\b/i;
+
+function trainNote(days, locale) {
+  const mentionsTrain = days.some((day) =>
+    [day.title, ...(day.activities || [])].some((text) => TRAIN_WORDS.test(text || ""))
+  );
+  if (!mentionsTrain) return null;
+  const note = TRAIN_NOTES[HILL_COUNTRY_TRAIN_RUNNING ? "running" : "suspended"];
+  return note[locale] || note.en;
+}
+
 function collectSeasonalNotes(days, locale = "en") {
   const matched = new Map();
 
@@ -558,10 +590,16 @@ export async function POST(request) {
 
       stay = {
         name: hotelMatch?.displayName || day.stayStyle || t.fallbackStay,
-        price: `$${nightRange.min}-${nightRange.max}${t.perNight}`,
-        // numeric form of the same range (USD) — the French page shows it in €
-        priceUsd: { min: nightRange.min, max: nightRange.max },
         searchUrl: hotelMatch?.searchUrl || null,
+        // prices only once real rates are in (see SHOW_HOTEL_PRICES);
+        // until then the page shows "price on request"
+        ...(SHOW_HOTEL_PRICES
+          ? {
+              price: `$${nightRange.min}-${nightRange.max}${t.perNight}`,
+              // numeric form of the same range (USD) — the French page shows it in €
+              priceUsd: { min: nightRange.min, max: nightRange.max },
+            }
+          : {}),
       };
     }
 
@@ -578,12 +616,9 @@ export async function POST(request) {
   const result = {
     title: aiItinerary.title,
     routeSummary: aiItinerary.routeSummary,
-    accommodationEstimate: {
-      min: estimateMin,
-      max: estimateMax,
-    },
+    accommodationEstimate: SHOW_HOTEL_PRICES ? { min: estimateMin, max: estimateMax } : null,
     days,
-    seasonalNotes: collectSeasonalNotes(days, locale),
+    seasonalNotes: [...collectSeasonalNotes(days, locale), trainNote(days, locale)].filter(Boolean),
   };
 
   setCachedResult(cacheKey, result);

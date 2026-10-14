@@ -34,7 +34,16 @@ const STRINGS = {
     perNight: "per night",
     party: (adults, children) =>
       `for ${adults} ${adults === 1 ? "adult" : "adults"}${children ? ` & ${children} ${children === 1 ? "child" : "children"}` : ""}`,
-    under6Free: "Children under 6 stay free.",
+    priceOnRequest: "Price on request",
+    hotelsQuoted: "We'll send you a real quotation for your group and dates, with no obligation.",
+    mealPlan: "Meal plan",
+    mealPlans: {
+      BB: "Bed & breakfast",
+      HB: "Half board (breakfast + dinner)",
+      FB: "Full board (all meals)",
+      AI: "All inclusive",
+      RO: "Room only",
+    },
     getHotels: "Get hotel options",
     startingFrom: "Starting from",
     loading: "Loading…",
@@ -71,7 +80,16 @@ const STRINGS = {
     perNight: "par nuit",
     party: (adults, children) =>
       `pour ${adults} ${adults === 1 ? "adulte" : "adultes"}${children ? ` et ${children} ${children === 1 ? "enfant" : "enfants"}` : ""}`,
-    under6Free: "Gratuit pour les enfants de moins de 6 ans.",
+    priceOnRequest: "Prix sur demande",
+    hotelsQuoted: "Nous vous enverrons un vrai devis pour votre groupe et vos dates, sans engagement.",
+    mealPlan: "Formule repas",
+    mealPlans: {
+      BB: "Petit-déjeuner inclus",
+      HB: "Demi-pension (petit-déjeuner + dîner)",
+      FB: "Pension complète (tous les repas)",
+      AI: "Tout compris",
+      RO: "Chambre seule",
+    },
     getHotels: "Recevoir des propositions d'hôtels",
     startingFrom: "À partir de",
     loading: "Chargement…",
@@ -98,7 +116,16 @@ function formatDayDate(iso, dateLocale) {
   return date.toLocaleDateString(dateLocale, { weekday: "short", day: "numeric", month: "short" });
 }
 
-const emptyContact = { name: "", email: "", phone: "" };
+const emptyContact = { name: "", email: "", phone: "", mealPlan: "BB" };
+
+// meal plan codes stored with the request; the admin email spells them out
+const MEAL_PLAN_LABELS_EN = {
+  RO: "Room only",
+  BB: "Bed & breakfast",
+  HB: "Half board (breakfast + dinner)",
+  FB: "Full board (all meals)",
+  AI: "All inclusive",
+};
 
 export default function ItineraryResult({ data, searchParams, onReset, locale = "en", party }) {
   const t = STRINGS[locale] || STRINGS.en;
@@ -159,7 +186,6 @@ export default function ItineraryResult({ data, searchParams, onReset, locale = 
   const childrenAges = party?.childrenAges || [];
   const groupSize = adults + childrenAges.length;
   const partyLabel = t.party(adults, childrenAges.length);
-  const hasYoungChildren = childrenAges.some((age) => age < 6);
   const nights = days.filter((d) => d.stay).length;
   const dateRange = days.length > 0
     ? days.length === 1
@@ -185,6 +211,8 @@ export default function ItineraryResult({ data, searchParams, onReset, locale = 
         customerEmail: contact.email.trim(),
         customerPhone: contact.phone.trim(),
         itinerary: data,
+        mealPlan: contact.mealPlan,
+        party: { adults, childrenAges },
         locale,
         status: "Pending",
         createdAt: serverTimestamp(),
@@ -192,7 +220,11 @@ export default function ItineraryResult({ data, searchParams, onReset, locale = 
 
       const contactInfo = { name: contact.name.trim(), email: contact.email.trim(), phone: contact.phone.trim() };
       await notifyItineraryHotelsCustomer(contactInfo, data, docRef.id, locale);
-      await notifyItineraryHotelsAdmin(contactInfo, data, docRef.id);
+      await notifyItineraryHotelsAdmin(contactInfo, data, docRef.id, {
+        mealPlan: MEAL_PLAN_LABELS_EN[contact.mealPlan] || contact.mealPlan,
+        adults,
+        childrenAges,
+      });
 
       trackLead("itinerary_hotels", { days: days.length });
       setHotelsFlow("sent");
@@ -260,7 +292,7 @@ export default function ItineraryResult({ data, searchParams, onReset, locale = 
                       <p className="itinerary-stay-price">
                         {day.stay.priceUsd && usdRate != null
                           ? `${fromUsd(day.stay.priceUsd.min)} – ${fromUsd(day.stay.priceUsd.max)} ${t.perNight}`
-                          : day.stay.price}
+                          : day.stay.price || t.priceOnRequest}
                         {" · "}
                         {partyLabel}
                       </p>
@@ -322,8 +354,11 @@ export default function ItineraryResult({ data, searchParams, onReset, locale = 
                 {t.hotelsEstimate(fromUsd(accommodationEstimate.min), fromUsd(accommodationEstimate.max), nights)}
               </p>
             )}
+            {!accommodationEstimate && (
+              <p className="itinerary-option-price itinerary-option-price-small">{t.priceOnRequest}</p>
+            )}
             <p className="itinerary-option-sub">
-              {partyLabel}.{hasYoungChildren ? ` ${t.under6Free}` : ""}
+              {t.hotelsQuoted} ({partyLabel})
             </p>
 
             {hotelsFlow !== "sent" && (
@@ -364,6 +399,18 @@ export default function ItineraryResult({ data, searchParams, onReset, locale = 
                   onChange={(e) => setContact((c) => ({ ...c, email: e.target.value }))}
                   required
                 />
+                <label className="itinerary-hotels-field">
+                  <span>{t.mealPlan}</span>
+                  <select
+                    value={contact.mealPlan}
+                    onChange={(e) => setContact((c) => ({ ...c, mealPlan: e.target.value }))}
+                    required
+                  >
+                    {Object.entries(t.mealPlans).map(([code, label]) => (
+                      <option key={code} value={code}>{label}</option>
+                    ))}
+                  </select>
+                </label>
                 <WhatsAppInput
                   value={contact.phone}
                   onChange={(phone) => setContact((c) => ({ ...c, phone }))}
