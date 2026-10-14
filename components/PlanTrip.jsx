@@ -9,6 +9,7 @@ import { trackEvent } from "@/lib/analytics";
 const MAX_TRIP_DAYS = 21;
 const MAX_CHILDREN = 8;
 const MAX_CHILD_AGE = 17;
+const MAX_ADULTS = 12;
 
 // Same 30-minute time picker as components/SearchForm.jsx, duplicated here
 // since it's a small unexported helper there, not a shared utility.
@@ -66,8 +67,10 @@ const STRINGS = {
     children: "Children",
     childrenAges: "Children's ages",
     child: (n) => `Child ${n}`,
+    age: (n) => (n === 1 ? "1 year" : `${n} years`),
+    under1: "Under 1",
     notes: "Anything else we should know?",
-    notesPlaceholder: "Special occasions, accessibility needs, must-see places…",
+    notesPlaceholder: "E.g. first night in Negombo, a birthday on the trip, must-see places, accessibility needs…",
     errRequired: "Please fill in your starting point and pickup/dropoff date and time.",
     errOrder: "Your dropoff date needs to be after your pickup date.",
     errTooLong: (max) => `Trips can be planned for up to ${max} days at a time.`,
@@ -97,8 +100,10 @@ const STRINGS = {
     children: "Enfants",
     childrenAges: "Âge des enfants",
     child: (n) => `Enfant ${n}`,
+    age: (n) => (n === 1 ? "1 an" : `${n} ans`),
+    under1: "Moins d'1 an",
     notes: "Autre chose à nous signaler ?",
-    notesPlaceholder: "Occasion spéciale, besoins d'accessibilité, lieux incontournables…",
+    notesPlaceholder: "Ex. première nuit à Negombo, un anniversaire pendant le voyage, lieux incontournables, besoins d'accessibilité…",
     errRequired: "Veuillez indiquer votre point de départ ainsi que les dates et heures de prise en charge et de fin.",
     errOrder: "La date de fin doit être postérieure à la date de prise en charge.",
     errTooLong: (max) => `Les voyages peuvent être planifiés sur ${max} jours maximum.`,
@@ -408,22 +413,19 @@ export default function PlanTrip({ locale = "en" }) {
         <div className="plan-trip-row">
           <label>
             {t.adults}
-            <input
-              type="number"
-              min={1}
-              value={form.adults}
-              onChange={handleAdultsChange}
-            />
+            <select value={form.adults} onChange={handleAdultsChange}>
+              {Array.from({ length: MAX_ADULTS }, (_, i) => i + 1).map((n) => (
+                <option key={n} value={n}>{n}</option>
+              ))}
+            </select>
           </label>
           <label>
             {t.children}
-            <input
-              type="number"
-              min={0}
-              max={MAX_CHILDREN}
-              value={form.children}
-              onChange={handleChildrenChange}
-            />
+            <select value={form.children} onChange={handleChildrenChange}>
+              {Array.from({ length: MAX_CHILDREN + 1 }, (_, i) => i).map((n) => (
+                <option key={n} value={n}>{n}</option>
+              ))}
+            </select>
           </label>
         </div>
 
@@ -432,16 +434,18 @@ export default function PlanTrip({ locale = "en" }) {
             <span className="plan-trip-field-label">{t.childrenAges}</span>
             <div className="plan-trip-child-ages">
               {form.childrenAges.map((age, index) => (
-                <input
+                <select
                   key={index}
-                  type="number"
-                  min={0}
-                  max={MAX_CHILD_AGE}
-                  placeholder={t.child(index + 1)}
+                  aria-label={t.child(index + 1)}
                   value={age}
                   onChange={handleChildAgeChange(index)}
                   required
-                />
+                >
+                  <option value="" disabled>{t.child(index + 1)}</option>
+                  {Array.from({ length: MAX_CHILD_AGE + 1 }, (_, n) => n).map((n) => (
+                    <option key={n} value={n}>{n === 0 ? t.under1 : t.age(n)}</option>
+                  ))}
+                </select>
               ))}
             </div>
           </div>

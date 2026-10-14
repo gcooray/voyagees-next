@@ -19,6 +19,9 @@ const STRINGS = {
   en: {
     dateLocale: "en-GB",
     yourItinerary: "Your Itinerary",
+    bookingEyebrow: "Book this trip",
+    bookingTitle: "Like this itinerary?",
+    bookingText: "Book a private driver for these dates, or let us add hand-picked hotels for every night of the trip.",
     driver: "Driver",
     startingFrom: "Starting from",
     loading: "Loading…",
@@ -43,6 +46,9 @@ const STRINGS = {
   fr: {
     dateLocale: "fr-FR",
     yourItinerary: "Votre Itinéraire",
+    bookingEyebrow: "Réserver ce voyage",
+    bookingTitle: "Cet itinéraire vous plaît ?",
+    bookingText: "Réservez un chauffeur privé pour ces dates, ou laissez-nous ajouter des hôtels sélectionnés pour chaque nuit du voyage.",
     driver: "Chauffeur",
     startingFrom: "À partir de",
     loading: "Chargement…",
@@ -77,7 +83,6 @@ const emptyContact = { name: "", email: "", phone: "" };
 export default function ItineraryResult({ data, searchParams, onReset, locale = "en" }) {
   const t = STRINGS[locale] || STRINGS.en;
   const fmtDate = (iso) => formatDayDate(iso, t.dateLocale);
-  const [activeDay, setActiveDay] = useState(0);
   const [hotelsFlow, setHotelsFlow] = useState("idle"); // idle | form | submitting | sent | error
   const [contact, setContact] = useState(emptyContact);
   const [exchangeRate, setExchangeRate] = useState(null);
@@ -106,7 +111,6 @@ export default function ItineraryResult({ data, searchParams, onReset, locale = 
   if (!data) return null;
 
   const { title, routeSummary, driverPriceFrom, accommodationEstimate, days = [], seasonalNotes = [] } = data;
-  const currentDay = days[activeDay];
 
   const convertedPrice = exchangeRate && driverPriceFrom != null ? driverPriceFrom * exchangeRate : null;
   const formattedUsd = convertedPrice != null
@@ -158,44 +162,10 @@ export default function ItineraryResult({ data, searchParams, onReset, locale = 
     <div className="itinerary-result">
 
       <div className="itinerary-summary-card">
-        <div>
-          <p className="itinerary-summary-label">{t.yourItinerary}</p>
-          <h2>{title}</h2>
-          {dateRange && <p className="itinerary-summary-dates">{dateRange}</p>}
-          <p className="itinerary-summary-route">{routeSummary}</p>
-        </div>
-
-        <div className="itinerary-summary-price-block">
-          <p className="itinerary-summary-price-label">{t.driver}</p>
-          <p className="itinerary-summary-price">
-            {t.startingFrom} {formattedUsd || t.loading}
-          </p>
-          {formattedLkr && (
-            <p className="itinerary-summary-price-lkr">≈ LKR {formattedLkr}</p>
-          )}
-          <p className="itinerary-summary-price-note">{t.excessNote}</p>
-
-          {accommodationEstimate && (
-            <p className="itinerary-summary-accommodation">
-              {t.accommodation(accommodationEstimate.min, accommodationEstimate.max)}
-            </p>
-          )}
-
-          <div className="itinerary-cta-group">
-            <Link href={bookDriverHref} className="itinerary-cta itinerary-cta-primary">
-              {t.bookDriver}
-            </Link>
-            {hotelsFlow !== "sent" && (
-              <button
-                type="button"
-                className="itinerary-cta itinerary-cta-secondary"
-                onClick={() => setHotelsFlow("form")}
-              >
-                {t.includeHotels}
-              </button>
-            )}
-          </div>
-        </div>
+        <p className="itinerary-summary-label">{t.yourItinerary}</p>
+        <h2>{title}</h2>
+        {dateRange && <p className="itinerary-summary-dates">{dateRange}</p>}
+        <p className="itinerary-summary-route">{routeSummary}</p>
       </div>
 
       {seasonalNotes.length > 0 && (
@@ -203,49 +173,6 @@ export default function ItineraryResult({ data, searchParams, onReset, locale = 
           {seasonalNotes.map((note) => (
             <p key={note}>☀️ {note}</p>
           ))}
-        </div>
-      )}
-
-      {hotelsFlow !== "idle" && (
-        <div className="itinerary-hotels-panel">
-          {hotelsFlow === "sent" ? (
-            <p className="itinerary-hotels-sent">
-              {t.hotelsSent}
-            </p>
-          ) : (
-            <form className="itinerary-hotels-form" onSubmit={handleHotelsSubmit}>
-              <p className="itinerary-hotels-intro">
-                {t.hotelsIntro}
-              </p>
-              <input
-                type="text"
-                placeholder={t.name}
-                value={contact.name}
-                onChange={(e) => setContact((c) => ({ ...c, name: e.target.value }))}
-                required
-              />
-              <input
-                type="email"
-                placeholder={t.email}
-                value={contact.email}
-                onChange={(e) => setContact((c) => ({ ...c, email: e.target.value }))}
-                required
-              />
-              <WhatsAppInput
-                value={contact.phone}
-                onChange={(phone) => setContact((c) => ({ ...c, phone }))}
-                required
-                locale={locale}
-              />
-              <span className="wa-hint">{t.phoneHint}</span>
-              {hotelsFlow === "error" && (
-                <p className="itinerary-hotels-error">{t.hotelsError}</p>
-              )}
-              <button type="submit" disabled={hotelsFlow === "submitting"}>
-                {hotelsFlow === "submitting" ? t.sending : t.requestHotels}
-              </button>
-            </form>
-          )}
         </div>
       )}
 
@@ -259,62 +186,138 @@ export default function ItineraryResult({ data, searchParams, onReset, locale = 
         />
       )}
 
+      {/* every day, top to bottom — easier to read on a phone than tabs */}
       {days.length > 0 && (
-        <div className="itinerary-days">
-          <div className="itinerary-day-tabs" role="tablist">
-            {days.map((day, index) => (
-              <button
-                key={day.label}
-                type="button"
-                role="tab"
-                aria-selected={index === activeDay}
-                className={`itinerary-day-tab ${index === activeDay ? "itinerary-day-tab-active" : ""}`}
-                onClick={() => setActiveDay(index)}
-              >
-                <span className="itinerary-day-tab-label">{day.label}</span>
-                <span className="itinerary-day-tab-date">{fmtDate(day.date)}</span>
-              </button>
-            ))}
+        <ol className="itinerary-timeline">
+          {days.map((day, index) => (
+            <li className="itinerary-timeline-day" key={day.label}>
+              <span className="itinerary-timeline-marker" aria-hidden="true">{index + 1}</span>
+
+              <div className="itinerary-timeline-body">
+                <p className="itinerary-day-kicker">
+                  {day.label} · {fmtDate(day.date)}
+                  {day.location?.name && <> · {day.location.name}</>}
+                </p>
+                <h3>{day.title}</h3>
+
+                {day.activities?.length > 0 && (
+                  <ul className="itinerary-activities">
+                    {day.activities.map((activity) => (
+                      <li key={activity}>{activity}</li>
+                    ))}
+                  </ul>
+                )}
+
+                <div className="itinerary-stay">
+                  {day.stay ? (
+                    <>
+                      <p className="itinerary-stay-label">{t.suggestedStay}</p>
+                      <p className="itinerary-stay-name">{day.stay.name}</p>
+                      <p className="itinerary-stay-price">{day.stay.price}</p>
+                      {day.stay.searchUrl && (
+                        <a
+                          href={day.stay.searchUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="itinerary-stay-link"
+                        >
+                          {t.lookUpStay}
+                        </a>
+                      )}
+                    </>
+                  ) : (
+                    <p className="itinerary-stay-none">{t.noStay}</p>
+                  )}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ol>
+      )}
+
+      {/* booking options come after the whole itinerary, once it's been read */}
+      <section className="itinerary-booking" aria-labelledby="itinerary-booking-title">
+        <p className="itinerary-summary-label">{t.bookingEyebrow}</p>
+        <h2 id="itinerary-booking-title">{t.bookingTitle}</h2>
+        <p className="itinerary-booking-text">{t.bookingText}</p>
+
+        <div className="itinerary-booking-grid">
+          <div className="itinerary-booking-price">
+            <p className="itinerary-summary-price-label">{t.driver}</p>
+            <p className="itinerary-summary-price">
+              {t.startingFrom} {formattedUsd || t.loading}
+            </p>
+            {formattedLkr && (
+              <p className="itinerary-summary-price-lkr">≈ LKR {formattedLkr}</p>
+            )}
+            {accommodationEstimate && (
+              <p className="itinerary-summary-accommodation">
+                {t.accommodation(accommodationEstimate.min, accommodationEstimate.max)}
+              </p>
+            )}
+            <p className="itinerary-summary-price-note">{t.excessNote}</p>
           </div>
 
-          {currentDay && (
-            <div className="itinerary-day-panel">
-              <h3>{currentDay.title}</h3>
-              <p className="itinerary-day-date">{fmtDate(currentDay.date)}</p>
-
-              {currentDay.activities?.length > 0 && (
-                <ul className="itinerary-activities">
-                  {currentDay.activities.map((activity) => (
-                    <li key={activity}>{activity}</li>
-                  ))}
-                </ul>
-              )}
-
-              <div className="itinerary-stay">
-                {currentDay.stay ? (
-                  <>
-                    <p className="itinerary-stay-label">{t.suggestedStay}</p>
-                    <p className="itinerary-stay-name">{currentDay.stay.name}</p>
-                    <p className="itinerary-stay-price">{currentDay.stay.price}</p>
-                    {currentDay.stay.searchUrl && (
-                      <a
-                        href={currentDay.stay.searchUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="itinerary-stay-link"
-                      >
-                        {t.lookUpStay}
-                      </a>
-                    )}
-                  </>
-                ) : (
-                  <p className="itinerary-stay-none">{t.noStay}</p>
-                )}
-              </div>
-            </div>
-          )}
+          <div className="itinerary-cta-group">
+            <Link href={bookDriverHref} className="itinerary-cta itinerary-cta-primary">
+              {t.bookDriver}
+            </Link>
+            {hotelsFlow !== "sent" && (
+              <button
+                type="button"
+                className="itinerary-cta itinerary-cta-secondary"
+                onClick={() => setHotelsFlow("form")}
+                aria-expanded={hotelsFlow !== "idle"}
+              >
+                {t.includeHotels}
+              </button>
+            )}
+          </div>
         </div>
-      )}
+
+        {hotelsFlow !== "idle" && (
+          <div className="itinerary-hotels-panel">
+            {hotelsFlow === "sent" ? (
+              <p className="itinerary-hotels-sent">
+                {t.hotelsSent}
+              </p>
+            ) : (
+              <form className="itinerary-hotels-form" onSubmit={handleHotelsSubmit}>
+                <p className="itinerary-hotels-intro">
+                  {t.hotelsIntro}
+                </p>
+                <input
+                  type="text"
+                  placeholder={t.name}
+                  value={contact.name}
+                  onChange={(e) => setContact((c) => ({ ...c, name: e.target.value }))}
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder={t.email}
+                  value={contact.email}
+                  onChange={(e) => setContact((c) => ({ ...c, email: e.target.value }))}
+                  required
+                />
+                <WhatsAppInput
+                  value={contact.phone}
+                  onChange={(phone) => setContact((c) => ({ ...c, phone }))}
+                  required
+                  locale={locale}
+                />
+                <span className="wa-hint">{t.phoneHint}</span>
+                {hotelsFlow === "error" && (
+                  <p className="itinerary-hotels-error">{t.hotelsError}</p>
+                )}
+                <button type="submit" disabled={hotelsFlow === "submitting"}>
+                  {hotelsFlow === "submitting" ? t.sending : t.requestHotels}
+                </button>
+              </form>
+            )}
+          </div>
+        )}
+      </section>
 
       <button type="button" className="itinerary-reset" onClick={onReset}>
         {t.planAnother}

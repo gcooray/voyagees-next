@@ -5,10 +5,6 @@
 }
 
 .itinerary-summary-card {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 1.5rem;
   background: var(--paper-dim);
   border: 1px solid var(--line);
   border-radius: 18px;
@@ -40,10 +36,6 @@
   font-size: 0.92rem;
 }
 
-.itinerary-summary-price-block {
-  text-align: right;
-  flex-shrink: 0;
-}
 .itinerary-summary-price-label {
   font-size: 0.78rem;
   color: var(--sage);
@@ -64,8 +56,7 @@
 .itinerary-summary-price-note {
   font-size: 0.72rem;
   color: var(--sage);
-  max-width: 220px;
-  margin-left: auto;
+  max-width: 280px;
   line-height: 1.4;
 }
 .itinerary-summary-accommodation {
@@ -78,12 +69,14 @@
 .itinerary-cta-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  align-items: flex-end;
+  gap: 0.6rem;
+  align-items: stretch;
+  min-width: 220px;
 }
 
 .itinerary-cta {
   display: inline-block;
+  text-align: center;
   border-radius: 999px;
   padding: 0.7rem 1.3rem;
   font-size: 0.85rem;
@@ -180,57 +173,64 @@
   font-size: 0.92rem;
 }
 
-.itinerary-days {
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  overflow: hidden;
-}
-
-.itinerary-day-tabs {
-  display: flex;
-  overflow-x: auto;
-  background: var(--paper-dim);
-  border-bottom: 1px solid var(--line);
-}
-.itinerary-day-tab {
-  flex: 1 0 auto;
+/* ---------- day-by-day timeline ---------- */
+.itinerary-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.15rem;
-  padding: 0.85rem 1.1rem;
-  border: none;
-  background: transparent;
-  color: var(--sage);
-  font-family: var(--body);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
 }
-.itinerary-day-tab:hover { color: var(--ink); }
-.itinerary-day-tab-active {
-  color: var(--ink);
-  border-bottom-color: var(--clay);
+.itinerary-timeline-day {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1rem;
+  padding-bottom: 1.75rem;
 }
-.itinerary-day-tab-label {
+/* the line joining the day markers */
+.itinerary-timeline-day::before {
+  content: "";
+  position: absolute;
+  left: calc(1.25rem - 1px);
+  top: 2.5rem;
+  bottom: 0;
+  width: 2px;
+  background: var(--line);
+}
+.itinerary-timeline-day:last-child { padding-bottom: 0; }
+.itinerary-timeline-day:last-child::before { display: none; }
+.itinerary-timeline-marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--clay);
+  color: var(--paper);
+  font-family: var(--display);
+  font-size: 1.05rem;
   font-weight: 600;
-  font-size: 0.85rem;
 }
-.itinerary-day-tab-date {
-  font-size: 0.72rem;
+.itinerary-timeline-body {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1.25rem 1.4rem;
+  min-width: 0;
 }
-
-.itinerary-day-panel {
-  padding: 1.5rem 1.75rem;
+.itinerary-day-kicker {
+  margin: 0 0 0.3rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--gold-dark);
 }
-.itinerary-day-panel h3 {
+.itinerary-timeline-body h3 {
   font-size: 1.15rem;
-  margin-bottom: 0.25rem;
-}
-.itinerary-day-date {
-  color: var(--sage);
-  font-size: 0.82rem;
-  margin-bottom: 1rem;
+  margin: 0 0 0.85rem;
 }
 
 .itinerary-activities {
@@ -289,6 +289,36 @@
   font-size: 0.88rem;
 }
 
+/* ---------- booking options, after the itinerary ---------- */
+.itinerary-booking {
+  background: var(--paper-dim);
+  border: 1px solid var(--line);
+  border-left: 6px solid var(--gold);
+  border-radius: 18px;
+  padding: 1.75rem;
+}
+.itinerary-booking h2 {
+  font-size: 1.5rem;
+  margin: 0 0 0.4rem;
+}
+.itinerary-booking-text {
+  color: var(--sage);
+  font-size: 0.92rem;
+  margin: 0 0 1.25rem;
+  max-width: 36rem;
+}
+.itinerary-booking-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.25rem 2rem;
+}
+.itinerary-booking .itinerary-hotels-panel {
+  margin-top: 1.25rem;
+  background: var(--paper);
+}
+
 .itinerary-reset {
   align-self: flex-start;
   background: none;
@@ -302,10 +332,12 @@
 .itinerary-reset:hover { color: var(--ink); }
 
 @media (max-width: 640px) {
-  .itinerary-summary-card { flex-direction: column; }
-  .itinerary-summary-price-block { text-align: left; }
-  .itinerary-summary-price-note { margin-left: 0; max-width: none; }
-  .itinerary-cta-group { align-items: stretch; }
-  .itinerary-cta { text-align: center; }
-  .itinerary-day-panel { padding: 1.25rem; }
+  .itinerary-summary-card,
+  .itinerary-booking { padding: 1.25rem; }
+  .itinerary-booking-grid { flex-direction: column; align-items: stretch; }
+  .itinerary-cta-group { min-width: 0; }
+  .itinerary-timeline-day { grid-template-columns: 2rem 1fr; gap: 0.75rem; }
+  .itinerary-timeline-day::before { left: calc(1rem - 1px); top: 2rem; }
+  .itinerary-timeline-marker { width: 2rem; height: 2rem; font-size: 0.9rem; }
+  .itinerary-timeline-body { padding: 1rem 1.1rem; }
 }
