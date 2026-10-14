@@ -81,13 +81,15 @@ export default function HomePage({ content, locale }) {
         <div className="market-hero-content">
 
           <div className="market-hero-copy">
-            <p className="market-eyebrow">
-              {content.hero.eyebrow}
-            </p>
-
+            {/* the eyebrow sits inside the h1 so the page's main heading
+                says what we offer ("Private drivers • Sri Lanka"), not just
+                "Discover Sri Lanka." — it keeps its small eyebrow styling */}
             <h1>
+              <span className="market-eyebrow market-eyebrow-in-h1">
+                {content.hero.eyebrow}
+              </span>{" "}
               {content.hero.title}
-              <br />
+              {" "}<br />
               <span>{content.hero.titleHighlight}</span>
             </h1>
 
@@ -149,7 +151,7 @@ export default function HomePage({ content, locale }) {
 
             <h2>
               {content.value.title}
-              <br />
+              {" "}<br />
               <span>{content.value.titleHighlight}</span>
             </h2>
           </div>
@@ -205,7 +207,7 @@ export default function HomePage({ content, locale }) {
 
           <h2>
             {content.intro.title}
-            <br />
+            {" "}<br />
             <span>{content.intro.titleHighlight}</span>
           </h2>
 
@@ -245,7 +247,7 @@ export default function HomePage({ content, locale }) {
 
             <h2>
               {content.destinations.title}
-              <br />
+              {" "}<br />
               <span>{content.destinations.titleHighlight}</span>
             </h2>
           </div>
@@ -325,7 +327,7 @@ export default function HomePage({ content, locale }) {
 
             <h2>
               {content.how.title}
-              <br />
+              {" "}<br />
               <span>{content.how.titleHighlight}</span>
             </h2>
 
@@ -397,7 +399,7 @@ export default function HomePage({ content, locale }) {
 
           <h2>
             {content.driver.title}
-            <br />
+            {" "}<br />
             <span>{content.driver.titleHighlight}</span>
           </h2>
 
@@ -438,7 +440,7 @@ export default function HomePage({ content, locale }) {
 
             <h2>
               {content.stories.title}
-              <br />
+              {" "}<br />
               <span>{content.stories.titleHighlight}</span>
             </h2>
 
@@ -527,7 +529,7 @@ export default function HomePage({ content, locale }) {
 
           <h2>
             {content.final.title}
-            <br />
+            {" "}<br />
             <span>{content.final.titleHighlight}</span>
           </h2>
 

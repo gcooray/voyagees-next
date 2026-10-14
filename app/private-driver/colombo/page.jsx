@@ -3,10 +3,13 @@ import DriverSearch from "@/components/DriverSearch";
 import "../page.css";
 import "./page.css";
 import { withSeo } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/structuredData";
+import RelatedLinks from "@/components/RelatedLinks";
 
 export const metadata = withSeo("/private-driver/colombo", {
   title:
-    "Hire a Private Driver in Colombo | Private Taxi with Professional Drivers",
+    "Private Driver in Colombo – Airport & City Hire",
   description:
     "Hire a private driver in Colombo for airport pickups, sightseeing, business travel and trips across Sri Lanka. A dedicated vehicle and driver arranged around your schedule.",
 });
@@ -28,6 +31,7 @@ function Checklist({ items, columns = 2 }) {
 export default function PrivateDriverColomboPage() {
   return (
     <main className="private-driver-page pdc-page">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Private Driver", path: "/private-driver" }, { name: "Colombo", path: "/private-driver/colombo" }])} />
 
       {/* =====================================================
           HERO
@@ -640,6 +644,9 @@ export default function PrivateDriverColomboPage() {
 
       </section>
 
+
+
+      <RelatedLinks locale="en" current="/private-driver/colombo" />
 
       {/* =====================================================
           FINAL CTA

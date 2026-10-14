@@ -21,6 +21,19 @@
   margin-bottom: 1.25rem;
 }
 
+/* the map heading is an h1 on the Explore page and an h2 when embedded on
+   a destination page — same look either way (and immune to that page's
+   generic underlined h2 / .map-section h2 rules) */
+.tourist-map-section .tourist-map-header h1,
+.tourist-map-section .tourist-map-header h2 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
 .tourist-map-header p {
   color: var(--sage);
   margin-top: 0.35rem;

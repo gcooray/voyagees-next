@@ -1,5 +1,5 @@
 export const metadata = withSeo("/fr/about", {
-  title: "Découvrez le Sri Lanka avec des Chauffeurs et Guides Privés | VoyaGees",
+  title: "À Propos – Chauffeurs et Guides au Sri Lanka",
   description:
     "Découvrez Voyagees – connectez-vous avec des chauffeurs et guides touristiques locaux de confiance au Sri Lanka. Voyages personnalisés, tarifs équitables et expériences authentiques.",
 });
@@ -12,7 +12,7 @@ export default function AboutPageFr() {
     <div className="about-us-container">
       <div className="about-us-content">
 
-        <h2>Bienvenue chez VOYAGEES</h2>
+        <h1>Bienvenue chez VOYAGEES</h1>
 
         <p>
           Notre mission est de rendre les voyages au Sri Lanka plus authentiques, personnalisés, abordables et accessibles.

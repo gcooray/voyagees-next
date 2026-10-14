@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Analytics from "@/components/analytics/Analytics";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import JsonLd from "@/components/JsonLd";
+import { organizationSchema } from "@/lib/structuredData";
 
 // Self-hosted via next/font instead of the globals.css @import this replaced —
 // removes the render-blocking request to fonts.googleapis.com and gets
@@ -77,6 +79,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body>
+        <JsonLd data={organizationSchema()} />
         <Navbar />
 
         <main>{children}</main>

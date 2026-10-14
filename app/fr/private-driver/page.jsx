@@ -2,17 +2,46 @@ import Link from "next/link";
 import DriverSearch from "@/components/DriverSearch";
 import "../../private-driver/page.css";
 import { withSeo } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
+import { faqSchema, serviceSchema } from "@/lib/structuredData";
+import RelatedLinks from "@/components/RelatedLinks";
 
 export const metadata = withSeo("/fr/private-driver", {
   title:
-    "Chauffeur privé au Sri Lanka | Taxi privé avec chauffeur fiable",
+    "Chauffeur Privé au Sri Lanka – Fiable et Local",
   description:
     "Trouvez un chauffeur privé au Sri Lanka pour voyager en toute sécurité et avec flexibilité. Organisez vos transferts aéroport, excursions et circuits de plusieurs jours avec Voyagees.",
 });
 
+// Rendered as the FAQ list below and as FAQPage structured data, from
+// one list so the two can't drift apart.
+const FAQS = [
+  {
+    q: "Combien coûte un chauffeur privé au Sri Lanka ?",
+    a: "Le prix dépend de la durée, de la distance, de la catégorie du véhicule, du nombre de passagers et de l'itinéraire. Un devis doit également préciser si le carburant, le stationnement, les péages, le temps d'attente et l'hébergement du chauffeur sont inclus."
+  },
+  {
+    q: "Est-il intéressant de louer un chauffeur privé au Sri Lanka ?",
+    a: "Un transport privé est particulièrement intéressant pour les voyageurs qui privilégient la flexibilité, le confort porte-à-porte et un itinéraire personnalisé. Il est particulièrement utile lorsqu'un voyage comprend plusieurs destinations difficiles à relier efficacement avec des solutions de transport séparées."
+  },
+  {
+    q: "Les chauffeurs privés au Sri Lanka sont-ils sûrs ?",
+    a: "Les voyageurs doivent vérifier les qualifications du chauffeur, son expérience, l'état du véhicule et les éventuelles inscriptions touristiques pertinentes avant de réserver. Sri Lanka Tourism propose un répertoire officiel des chauffeurs touristiques autorisés, tandis que la Sri Lanka Tourism Development Authority fournit des informations sur l'enregistrement et la formation des chauffeurs touristiques."
+  },
+  {
+    q: "Quelle est la différence entre un chauffeur privé et un chauffeur-guide touristique ?",
+    a: "Un chauffeur privé fournit principalement le transport, tandis qu'un chauffeur-guide touristique combine conduite et accompagnement professionnel. Sri Lanka Tourism identifie les chauffeurs-guides comme une catégorie spécifique destinée notamment aux petits groupes voyageant en voiture ou en van."
+  },
+  {
+    q: "Puis-je louer un chauffeur pour tout mon voyage au Sri Lanka ?",
+    a: "Oui. Une formule de plusieurs jours permet de conserver une solution de transport continue pendant tout l'itinéraire et permet à un même chauffeur d'assurer les transferts entre hôtels, les excursions et les déplacements entre les différentes villes pendant la période convenue."
+  }
+];
+
 export default function PrivateDriverPage() {
   return (
     <main className="private-driver-page">
+      <JsonLd data={serviceSchema({name:  "Chauffeur privé au Sri Lanka", description:  "Chauffeurs privés avec leur propre véhicule pour les transferts aéroport, les excursions et les circuits de plusieurs jours au Sri Lanka.", path:  "/fr/private-driver", serviceType:  "Location de chauffeur privé"})} />
 
       {/* HERO */}
 
@@ -888,89 +917,24 @@ export default function PrivateDriverPage() {
 
 
         <div className="pd-faq-list">
+          {FAQS.map(({ q, a }) => (
+            <details key={q}>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </details>
+          ))}
 
-          <details>
-            <summary>
-              Combien coûte un chauffeur privé au Sri Lanka ?
-            </summary>
-
-            <p>
-              Le prix dépend de la durée, de la distance, de la catégorie
-              du véhicule, du nombre de passagers et de l'itinéraire.
-              Un devis doit également préciser si le carburant, le stationnement,
-              les péages, le temps d'attente et l'hébergement du chauffeur
-              sont inclus.
-            </p>
-          </details>
-
-
-          <details>
-            <summary>
-              Est-il intéressant de louer un chauffeur privé au Sri Lanka ?
-            </summary>
-
-            <p>
-              Un transport privé est particulièrement intéressant pour les
-              voyageurs qui privilégient la flexibilité, le confort porte-à-porte
-              et un itinéraire personnalisé. Il est particulièrement utile
-              lorsqu'un voyage comprend plusieurs destinations difficiles à
-              relier efficacement avec des solutions de transport séparées.
-            </p>
-          </details>
-
-
-          <details>
-            <summary>
-              Les chauffeurs privés au Sri Lanka sont-ils sûrs ?
-            </summary>
-
-            <p>
-              Les voyageurs doivent vérifier les qualifications du chauffeur,
-              son expérience, l'état du véhicule et les éventuelles inscriptions
-              touristiques pertinentes avant de réserver. <strong>Sri Lanka Tourism</strong>
-              propose un répertoire officiel des chauffeurs touristiques autorisés,
-              tandis que la <strong>Sri Lanka Tourism Development Authority</strong>
-              fournit des informations sur l'enregistrement et la formation des
-              chauffeurs touristiques.
-            </p>
-          </details>
-
-
-          <details>
-            <summary>
-              Quelle est la différence entre un chauffeur privé et un chauffeur-guide touristique ?
-            </summary>
-
-            <p>
-              Un chauffeur privé fournit principalement le transport, tandis
-              qu'un chauffeur-guide touristique combine conduite et accompagnement
-              professionnel. Sri Lanka Tourism identifie les chauffeurs-guides
-              comme une catégorie spécifique destinée notamment aux petits groupes
-              voyageant en voiture ou en van.
-            </p>
-          </details>
-
-
-          <details>
-            <summary>
-              Puis-je louer un chauffeur pour tout mon voyage au Sri Lanka ?
-            </summary>
-
-            <p>
-              Oui. Une formule de plusieurs jours permet de conserver une
-              solution de transport continue pendant tout l'itinéraire et
-              permet à un même chauffeur d'assurer les transferts entre hôtels,
-              les excursions et les déplacements entre les différentes villes
-              pendant la période convenue.
-            </p>
-          </details>
 
         </div>
+        <JsonLd data={faqSchema(FAQS)} />
 
       </section>
 
 
       {/* FINAL CTA */}
+
+      <RelatedLinks locale="fr" current="/fr/private-driver" />
+
 
       <section className="pd-final-section">
 

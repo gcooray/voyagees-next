@@ -1,5 +1,5 @@
 export const metadata = withSeo("/about", {
-  title: "Explore Sri Lanka with Private Drivers and Guides | VoyaGees",
+  title: "About Us – Local Drivers & Guides in Sri Lanka",
   description:
     "Discover Voyagees – connect with trusted local drivers and tour guides in Sri Lanka. Personalized trips, fair pricing, and authentic experiences.",
 });
@@ -12,7 +12,7 @@ export default function AboutPage() {
     <div className="about-us-container">
       <div className="about-us-content">
 
-        <h2>Welcome to VOYAGEES</h2>
+        <h1>Welcome to VOYAGEES</h1>
 
         <p>
           Our mission is to make travel in Sri Lanka more authentic, personalized, affordable, and accessible.

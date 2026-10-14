@@ -2,17 +2,46 @@ import DriverSearch from "@/components/DriverSearch";
 import Link from "next/link";
 import "./page.css";
 import { withSeo } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
+import { faqSchema, serviceSchema } from "@/lib/structuredData";
+import RelatedLinks from "@/components/RelatedLinks";
 
 export const metadata = withSeo("/private-driver", {
   title:
-    "Hire Private Driver in Sri Lanka | Private Taxi with Reliable Drivers",
+    "Private Driver in Sri Lanka – Hire a Local Driver",
   description:
     "Hire a private driver in Sri Lanka for safe, reliable and flexible travel. Arrange airport transfers, day trips and multi-day journeys with Voyagees.",
 });
 
+// Rendered as the FAQ list below and as FAQPage structured data, from
+// one list so the two can't drift apart.
+const FAQS = [
+  {
+    q: "How much does it cost to hire a private driver in Sri Lanka?",
+    a: "The price depends on the duration, distance, vehicle category, passenger numbers and itinerary. A quotation should also state whether fuel, parking, tolls, waiting time and driver accommodation are included."
+  },
+  {
+    q: "Is it worth hiring a private driver in Sri Lanka?",
+    a: "Hiring dedicated transportation is worthwhile for travellers who prioritise flexibility, door-to-door convenience and a personalised itinerary. It is particularly useful when a trip includes several destinations that are difficult to connect efficiently with separate transport arrangements."
+  },
+  {
+    q: "Are private drivers in Sri Lanka safe?",
+    a: "Travellers should evaluate the driver's credentials, experience, vehicle condition and relevant tourist registration before booking. Sri Lanka Tourism provides an official directory of Authorized Tourist Drivers, while the Sri Lanka Tourism Development Authority provides tourist-driver registration and training information."
+  },
+  {
+    q: "What is the difference between a private driver and a chauffeur tourist guide?",
+    a: "A private driver primarily provides transportation, while a chauffeur tourist guide combines driving with professional sightseeing guidance. Sri Lanka Tourism identifies chauffeur guides as a specific guide category for smaller groups travelling by car or van."
+  },
+  {
+    q: "Can I hire a driver for my entire Sri Lanka trip?",
+    a: "Yes. A multi-day arrangement keeps transportation connected across the itinerary and allows one driver to support hotel transfers, sightseeing journeys and intercity travel throughout the agreed period."
+  }
+];
+
 export default function PrivateDriverPage() {
   return (
     <main className="private-driver-page">
+      <JsonLd data={serviceSchema({name:  "Private driver hire in Sri Lanka", description:  "Private drivers with their own vehicle for airport transfers, day trips and multi-day journeys across Sri Lanka.", path:  "/private-driver", serviceType:  "Private driver hire"})} />
 
       {/* =====================================================
           HERO
@@ -917,87 +946,22 @@ export default function PrivateDriverPage() {
         </div>
 
         <div className="pd-faq-list">
+          {FAQS.map(({ q, a }) => (
+            <details key={q}>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </details>
+          ))}
 
-          <details>
-            <summary>
-              How much does it cost to hire a private driver in Sri Lanka?
-            </summary>
-
-            <p>
-              The price depends on the duration, distance, vehicle
-              category, passenger numbers and itinerary. A quotation
-              should also state whether fuel, parking, tolls, waiting
-              time and driver accommodation are included.
-            </p>
-          </details>
-
-
-          <details>
-            <summary>
-              Is it worth hiring a private driver in Sri Lanka?
-            </summary>
-
-            <p>
-              Hiring dedicated transportation is worthwhile for
-              travellers who prioritise flexibility, door-to-door
-              convenience and a personalised itinerary. It is
-              particularly useful when a trip includes several
-              destinations that are difficult to connect efficiently
-              with separate transport arrangements.
-            </p>
-          </details>
-
-
-          <details>
-            <summary>
-              Are private drivers in Sri Lanka safe?
-            </summary>
-
-            <p>
-              Travellers should evaluate the driver's credentials,
-              experience, vehicle condition and relevant tourist
-              registration before booking. <strong>Sri Lanka Tourism</strong>
-              provides an official directory of Authorized Tourist
-              Drivers, while the <strong>Sri Lanka Tourism Development
-              Authority</strong> provides tourist-driver registration
-              and training information.
-            </p>
-          </details>
-
-
-          <details>
-            <summary>
-              What is the difference between a private driver and a
-              chauffeur tourist guide?
-            </summary>
-
-            <p>
-              A private driver primarily provides transportation, while
-              a chauffeur tourist guide combines driving with
-              professional sightseeing guidance. Sri Lanka Tourism
-              identifies chauffeur guides as a specific guide category
-              for smaller groups travelling by car or van.
-            </p>
-          </details>
-
-
-          <details>
-            <summary>
-              Can I hire a driver for my entire Sri Lanka trip?
-            </summary>
-
-            <p>
-              Yes. A multi-day arrangement keeps transportation
-              connected across the itinerary and allows one driver to
-              support hotel transfers, sightseeing journeys and
-              intercity travel throughout the agreed period.
-            </p>
-          </details>
 
         </div>
+        <JsonLd data={faqSchema(FAQS)} />
 
       </section>
 
+
+
+      <RelatedLinks locale="en" current="/private-driver" />
 
       {/* =====================================================
           FINAL CTA

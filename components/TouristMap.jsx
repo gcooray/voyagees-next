@@ -87,7 +87,11 @@ function ScrollZoomOnClick() {
   return null;
 }
 
-export default function TouristMap() {
+// `headingLevel`: "h1" on the Explore page, where the map is the page;
+// "h2" when it's embedded lower down a page that has its own h1
+// (the destination pages).
+export default function TouristMap({ headingLevel = "h1" }) {
+  const Heading = headingLevel === "h2" ? "h2" : "h1";
   const router = useRouter();
   const pathname = usePathname();
   const isFrench = pathname.startsWith("/fr/");
@@ -144,7 +148,7 @@ export default function TouristMap() {
   return (
     <section className="tourist-map-section">
       <div className="tourist-map-header">
-        <h1>{isFrench ? "Explorer le Sri Lanka" : "Explore Sri Lanka"}</h1>
+        <Heading>{isFrench ? "Explorer le Sri Lanka" : "Explore Sri Lanka"}</Heading>
         <p>
           {isFrench
             ? "Découvrez des destinations selon vos envies"

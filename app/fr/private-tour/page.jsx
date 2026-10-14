@@ -1,16 +1,45 @@
 import Link from "next/link";
 import "../../private-tour/page.css";
 import { withSeo } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
+import { faqSchema, serviceSchema } from "@/lib/structuredData";
+import RelatedLinks from "@/components/RelatedLinks";
 
 export const metadata = withSeo("/fr/private-tour", {
-  title: "Circuit Privé au Sri Lanka – Itinéraires Sur Mesure avec Chauffeurs Qualifiés",
+  title: "Circuits Privés au Sri Lanka – Sur Mesure",
   description:
     "Découvrez le Sri Lanka avec un circuit privé sur mesure, conçu selon vos dates, vos centres d'intérêt et votre rythme. Voyagees élabore des itinéraires personnalisés avec transport privé et expertise locale.",
 });
 
+// Rendered as the FAQ list below and as FAQPage structured data, from
+// one list so the two can't drift apart.
+const FAQS = [
+  {
+    q: "Qu'est-ce qu'un circuit privé au Sri Lanka ?",
+    a: "Un circuit privé offre à votre groupe un itinéraire dédié et un transport privé, plutôt que de rejoindre un grand groupe. Voyagees construit le voyage autour de vos destinations, centres d'intérêt, horaires et style de voyage préférés."
+  },
+  {
+    q: "Combien coûte un circuit privé au Sri Lanka ?",
+    a: "Le prix dépend de la durée, du nombre de voyageurs, de l'hébergement, du véhicule, des destinations, des activités et des prestations choisies. Voyagees fournit un devis personnalisé selon vos besoins réels."
+  },
+  {
+    q: "Combien de jours faut-il pour un circuit privé au Sri Lanka ?",
+    a: "Sept à dix jours suffisent pour combiner plusieurs régions majeures, tandis que quatorze jours permettent un voyage plus complet et plus détendu. Voyagees crée aussi des itinéraires plus courts et ciblés pour les voyageurs disposant de moins de temps."
+  },
+  {
+    q: "Puis-je personnaliser un circuit privé au Sri Lanka ?",
+    a: "Oui. Vous pouvez personnaliser les destinations, la durée, l'hébergement, les activités, le transport et le rythme du voyage. Voyagees utilise vos préférences pour créer l'itinéraire plutôt que de vous imposer un parcours fixe."
+  },
+  {
+    q: "Qu'est-ce qui est inclus dans un circuit privé au Sri Lanka ?",
+    a: "Votre devis précise exactement ce qui est inclus. Selon la formule choisie, cela peut comprendre le transport privé, les services de chauffeur, l'hébergement, les transferts aéroport, les visites, les activités, les frais d'entrée et les safaris."
+  }
+];
+
 export default function PrivateTourPageFr() {
   return (
     <main className="private-tour-page">
+      <JsonLd data={serviceSchema({name:  "Circuits privés au Sri Lanka", description:  "Circuits privés sur mesure au Sri Lanka avec chauffeur, organisés selon vos dates, vos envies et votre rythme.", path:  "/fr/private-tour", serviceType:  "Circuit privé"})} />
 
       {/* =====================================================
           HERO
@@ -650,66 +679,22 @@ export default function PrivateTourPageFr() {
         </div>
 
         <div className="pt-faq-list">
+          {FAQS.map(({ q, a }) => (
+            <details key={q}>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </details>
+          ))}
 
-          <details>
-            <summary>Qu&apos;est-ce qu&apos;un circuit privé au Sri Lanka ?</summary>
-            <p>
-              Un circuit privé offre à votre groupe un itinéraire dédié et
-              un transport privé, plutôt que de rejoindre un grand groupe.
-              Voyagees construit le voyage autour de vos destinations,
-              centres d&apos;intérêt, horaires et style de voyage préférés.
-            </p>
-          </details>
-
-          <details>
-            <summary>Combien coûte un circuit privé au Sri Lanka ?</summary>
-            <p>
-              Le prix dépend de la durée, du nombre de voyageurs, de
-              l&apos;hébergement, du véhicule, des destinations, des
-              activités et des prestations choisies. Voyagees fournit un
-              devis personnalisé selon vos besoins réels.
-            </p>
-          </details>
-
-          <details>
-            <summary>
-              Combien de jours faut-il pour un circuit privé au Sri Lanka ?
-            </summary>
-            <p>
-              Sept à dix jours suffisent pour combiner plusieurs régions
-              majeures, tandis que quatorze jours permettent un voyage plus
-              complet et plus détendu. Voyagees crée aussi des itinéraires
-              plus courts et ciblés pour les voyageurs disposant de moins
-              de temps.
-            </p>
-          </details>
-
-          <details>
-            <summary>Puis-je personnaliser un circuit privé au Sri Lanka ?</summary>
-            <p>
-              Oui. Vous pouvez personnaliser les destinations, la durée,
-              l&apos;hébergement, les activités, le transport et le rythme
-              du voyage. Voyagees utilise vos préférences pour créer
-              l&apos;itinéraire plutôt que de vous imposer un parcours
-              fixe.
-            </p>
-          </details>
-
-          <details>
-            <summary>Qu&apos;est-ce qui est inclus dans un circuit privé au Sri Lanka ?</summary>
-            <p>
-              Votre devis précise exactement ce qui est inclus. Selon la
-              formule choisie, cela peut comprendre le transport privé, les
-              services de chauffeur, l&apos;hébergement, les transferts
-              aéroport, les visites, les activités, les frais
-              d&apos;entrée et les safaris.
-            </p>
-          </details>
 
         </div>
+        <JsonLd data={faqSchema(FAQS)} />
 
       </section>
 
+
+
+      <RelatedLinks locale="fr" current="/fr/private-tour" />
 
       {/* =====================================================
           FINAL CTA

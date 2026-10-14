@@ -4,8 +4,17 @@ import { touristDestinations } from "@/data/touristDestinations";
 import TouristMapLoader from "@/components/TouristMapLoader";
 import "./page.css";
 import { withSeo } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema, faqSchema } from "@/lib/structuredData";
+import RelatedLinks from "@/components/RelatedLinks";
 
 // Optional SEO (Next.js App Router way)
+const BRAND_SUFFIX = /\s*\|\s*voyagees\s*$/i;
+function shortTitle(metaTitle, fallback) {
+  const title = (metaTitle || "").replace(BRAND_SUFFIX, "");
+  return title && title.length <= 49 ? title : fallback;
+}
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
 
@@ -20,7 +29,9 @@ export async function generateMetadata({ params }) {
   }
 
   return withSeo(`/destinations/${destination.slug}`, {
-    title: destination.metaTitle,
+    // Google cuts titles at ~60 characters (incl. " | voyaGees"), and most
+    // metaTitles in the data run 70–110 — use a short one when they don't fit
+    title: shortTitle(destination.metaTitle, `${destination.name} Tours with a Private Driver`),
     description: destination.metaDescription,
   });
 }
@@ -38,6 +49,14 @@ export default async function DestinationPage({ params }) {
 
   return (
     <div className="destination-page">
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Explore Sri Lanka", path: "/explore-sri-lanka" },
+          { name: destination.name, path: `/destinations/${destination.slug}` },
+        ])}
+      />
+      {destination.faq?.length > 0 && <JsonLd data={faqSchema(destination.faq)} />}
 
       {/* Hero Section */}
       <header className="hero">
@@ -188,7 +207,7 @@ export default async function DestinationPage({ params }) {
       {/* Map */}
       <section className="map-section">
         <h2>Explore Nearby Destinations</h2>
-        <TouristMapLoader highlightSlug={destination.slug} />
+        <TouristMapLoader highlightSlug={destination.slug} headingLevel="h2" />
       </section>
 
       {/* CTA */}
@@ -200,6 +219,8 @@ export default async function DestinationPage({ params }) {
           Request a Quote
         </Link>
       </section>
+
+      <RelatedLinks locale="en" current={`/destinations/${destination.slug}`} />
     </div>
   );
 }

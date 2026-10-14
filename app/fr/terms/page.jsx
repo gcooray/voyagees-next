@@ -2,7 +2,7 @@ import "../../terms/terms.css";
 import { withSeo } from "@/lib/seo";
 
 export const metadata = withSeo("/fr/terms", {
-  title: "Conditions d'Utilisation pour les Voyages au Sri Lanka | voyaGees",
+  title: "Conditions d'Utilisation – Voyages au Sri Lanka",
   description:
     "Lisez les Conditions d'Utilisation de voyaGees — comprenez le processus de réservation, les annulations, les paiements et les responsabilités avant votre voyage au Sri Lanka.",
 });

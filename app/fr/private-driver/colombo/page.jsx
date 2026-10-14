@@ -3,10 +3,13 @@ import DriverSearch from "@/components/DriverSearch";
 import "../../../private-driver/page.css";
 import "../../../private-driver/colombo/page.css";
 import { withSeo } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/structuredData";
+import RelatedLinks from "@/components/RelatedLinks";
 
 export const metadata = withSeo("/fr/private-driver/colombo", {
   title:
-    "Chauffeur Privé à Colombo | Taxi Privé avec Chauffeurs Professionnels",
+    "Chauffeur Privé à Colombo – Aéroport et Ville",
   description:
     "Réservez un chauffeur privé à Colombo pour vos transferts aéroport, visites, déplacements professionnels et trajets dans tout le Sri Lanka. Un véhicule et un chauffeur dédiés, organisés selon votre emploi du temps.",
 });
@@ -28,6 +31,7 @@ function Checklist({ items }) {
 export default function PrivateDriverColomboPageFr() {
   return (
     <main className="private-driver-page pdc-page">
+      <JsonLd data={breadcrumbSchema([{ name: "Accueil", path: "/fr" }, { name: "Chauffeur privé", path: "/fr/private-driver" }, { name: "Colombo", path: "/fr/private-driver/colombo" }])} />
 
       {/* =====================================================
           HERO
@@ -649,6 +653,9 @@ export default function PrivateDriverColomboPageFr() {
 
       </section>
 
+
+
+      <RelatedLinks locale="fr" current="/fr/private-driver/colombo" />
 
       {/* =====================================================
           CTA FINAL

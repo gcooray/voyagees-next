@@ -4,10 +4,13 @@ import "../private-driver/page.css";
 import "../private-driver/colombo/page.css";
 import "./page.css";
 import { withSeo } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
+import { faqSchema, serviceSchema } from "@/lib/structuredData";
+import RelatedLinks from "@/components/RelatedLinks";
 
 export const metadata = withSeo("/airport-transfer", {
   title:
-    "Colombo Airport Transfers | Private Pickup from Bandaranaike International Airport",
+    "Colombo Airport Transfers – Private Pickup (CMB)",
   description:
     "Book a private airport transfer from Bandaranaike International Airport (CMB) to Colombo, Negombo, Kandy, Galle or anywhere in Sri Lanka. Tell us your flight and destination and get a quote within 24 hours.",
 });
@@ -21,9 +24,35 @@ const DESTINATIONS = [
   { name: "Ella", time: "approx. 5.5–6.5 hrs" },
 ];
 
+// Rendered as the FAQ list below and as FAQPage structured data, from
+// one list so the two can't drift apart.
+const FAQS = [
+  {
+    q: "How much does an airport transfer cost?",
+    a: "The price depends on your destination, the vehicle needed for your group and luggage, the time of day and whether you need a return trip. Send us your details and we'll reply with a quote within 24 hours."
+  },
+  {
+    q: "What if my flight is delayed?",
+    a: "Include your flight number when you book, and let us know if your plans change. That way your driver can plan around your actual landing time."
+  },
+  {
+    q: "Can I book a transfer back to the airport?",
+    a: "Yes. Choose “To the airport” on the form, or tick the return trip option to book both directions in one request."
+  },
+  {
+    q: "Do I have to pay when I book?",
+    a: "No. Sending the form is a request for a quote. Nothing is booked until you accept the price we send you."
+  },
+  {
+    q: "Can I travel to other parts of Sri Lanka?",
+    a: "Yes. Transfers aren't limited to Colombo and Negombo. We can arrange a transfer from the airport to Kandy, Galle, Sigiriya, Ella or anywhere else on the island."
+  }
+];
+
 export default function AirportTransferPage() {
   return (
     <main className="private-driver-page pdc-page at-page">
+      <JsonLd data={serviceSchema({name:  "Private airport transfers from Colombo airport (CMB)", description:  "Pre-booked private transfers between Bandaranaike International Airport and Colombo, Negombo, Kandy, Galle or anywhere in Sri Lanka.", path:  "/airport-transfer", serviceType:  "Airport transfer"})} />
 
       {/* =====================================================
           HERO — copy + the booking form itself
@@ -247,55 +276,22 @@ export default function AirportTransferPage() {
         </div>
 
         <div className="pd-faq-list">
+          {FAQS.map(({ q, a }) => (
+            <details key={q}>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </details>
+          ))}
 
-          <details>
-            <summary>How much does an airport transfer cost?</summary>
-            <p>
-              The price depends on your destination, the vehicle needed for
-              your group and luggage, the time of day and whether you need a
-              return trip. Send us your details and we&apos;ll reply with a
-              quote within 24 hours.
-            </p>
-          </details>
-
-          <details>
-            <summary>What if my flight is delayed?</summary>
-            <p>
-              Include your flight number when you book, and let us know if
-              your plans change. That way your driver can plan around your
-              actual landing time.
-            </p>
-          </details>
-
-          <details>
-            <summary>Can I book a transfer back to the airport?</summary>
-            <p>
-              Yes. Choose &ldquo;To the airport&rdquo; on the form, or tick
-              the return trip option to book both directions in one request.
-            </p>
-          </details>
-
-          <details>
-            <summary>Do I have to pay when I book?</summary>
-            <p>
-              No. Sending the form is a request for a quote. Nothing is
-              booked until you accept the price we send you.
-            </p>
-          </details>
-
-          <details>
-            <summary>Can I travel to other parts of Sri Lanka?</summary>
-            <p>
-              Yes. Transfers aren&apos;t limited to Colombo and Negombo.
-              We can arrange a transfer from the airport to Kandy, Galle,
-              Sigiriya, Ella or anywhere else on the island.
-            </p>
-          </details>
 
         </div>
+        <JsonLd data={faqSchema(FAQS)} />
 
       </section>
 
+
+
+      <RelatedLinks locale="en" current="/airport-transfer" />
 
       {/* =====================================================
           FINAL CTA

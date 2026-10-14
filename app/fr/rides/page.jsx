@@ -3,7 +3,7 @@ import "../../rides/page.css";
 import { withSeo } from "@/lib/seo";
 
 export const metadata = withSeo("/fr/rides", {
-  title: "Trajets Partagés – Partagez les Frais d'un Chauffeur Privé au Sri Lanka | voyaGees",
+  title: "Trajets Partagés – Partagez un Chauffeur Privé",
   description:
     "Partagez un chauffeur privé avec d'autres voyageurs allant dans votre direction au Sri Lanka. Publiez un trajet ou demandez une place, et partagez les frais automatiquement à mesure que d'autres voyageurs se joignent.",
 });

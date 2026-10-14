@@ -1,16 +1,45 @@
 import Link from "next/link";
 import "./page.css";
 import { withSeo } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
+import { faqSchema, serviceSchema } from "@/lib/structuredData";
+import RelatedLinks from "@/components/RelatedLinks";
 
 export const metadata = withSeo("/private-tour", {
-  title: "Private Tour of Sri Lanka – Custom Itineraries With Qualified Drivers",
+  title: "Private Tours of Sri Lanka – Custom Itineraries",
   description:
     "Explore Sri Lanka with a custom private tour built around your dates, interests and pace. Voyagees plans tailor-made itineraries with private transportation and local expertise.",
 });
 
+// Rendered as the FAQ list below and as FAQPage structured data, from
+// one list so the two can't drift apart.
+const FAQS = [
+  {
+    q: "What is a private tour in Sri Lanka?",
+    a: "A private tour gives your own travel party a dedicated itinerary and private transportation instead of joining a larger group. Voyagees builds the journey around your destinations, interests, schedule and preferred travel style."
+  },
+  {
+    q: "How much does a private tour in Sri Lanka cost?",
+    a: "The price depends on the duration, number of travelers, accommodation, vehicle, destinations, activities and inclusions you choose. Voyagees provides a personalized quotation based on your actual requirements."
+  },
+  {
+    q: "How many days do you need for a Sri Lanka private tour?",
+    a: "Seven to ten days provides enough time to combine several major regions, while fourteen days allows a more comprehensive and relaxed journey. Voyagees also creates shorter focused itineraries for travelers with limited time."
+  },
+  {
+    q: "Can I customize a private Sri Lanka tour?",
+    a: "Yes. You can customize destinations, duration, accommodation, activities, transportation and travel pace. Voyagees uses your preferences to create the itinerary rather than placing you into a fixed route."
+  },
+  {
+    q: "What is included in a private Sri Lanka tour?",
+    a: "Your quotation specifies the exact inclusions. Depending on your selected arrangement, these can include private transportation, driver services, accommodation, airport transfers, sightseeing, activities, entrance fees and safari experiences."
+  }
+];
+
 export default function PrivateTourPage() {
   return (
     <main className="private-tour-page">
+      <JsonLd data={serviceSchema({name:  "Private tours of Sri Lanka", description:  "Tailor-made private tours of Sri Lanka with a private driver, planned around your dates, interests and pace.", path:  "/private-tour", serviceType:  "Private tour"})} />
 
       {/* =====================================================
           HERO
@@ -633,65 +662,22 @@ export default function PrivateTourPage() {
         </div>
 
         <div className="pt-faq-list">
+          {FAQS.map(({ q, a }) => (
+            <details key={q}>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </details>
+          ))}
 
-          <details>
-            <summary>What is a private tour in Sri Lanka?</summary>
-            <p>
-              A private tour gives your own travel party a dedicated
-              itinerary and private transportation instead of joining a
-              larger group. Voyagees builds the journey around your
-              destinations, interests, schedule and preferred travel
-              style.
-            </p>
-          </details>
-
-          <details>
-            <summary>How much does a private tour in Sri Lanka cost?</summary>
-            <p>
-              The price depends on the duration, number of travelers,
-              accommodation, vehicle, destinations, activities and
-              inclusions you choose. Voyagees provides a personalized
-              quotation based on your actual requirements.
-            </p>
-          </details>
-
-          <details>
-            <summary>
-              How many days do you need for a Sri Lanka private tour?
-            </summary>
-            <p>
-              Seven to ten days provides enough time to combine several
-              major regions, while fourteen days allows a more
-              comprehensive and relaxed journey. Voyagees also creates
-              shorter focused itineraries for travelers with limited time.
-            </p>
-          </details>
-
-          <details>
-            <summary>Can I customize a private Sri Lanka tour?</summary>
-            <p>
-              Yes. You can customize destinations, duration, accommodation,
-              activities, transportation and travel pace. Voyagees uses
-              your preferences to create the itinerary rather than placing
-              you into a fixed route.
-            </p>
-          </details>
-
-          <details>
-            <summary>What is included in a private Sri Lanka tour?</summary>
-            <p>
-              Your quotation specifies the exact inclusions. Depending on
-              your selected arrangement, these can include private
-              transportation, driver services, accommodation, airport
-              transfers, sightseeing, activities, entrance fees and safari
-              experiences.
-            </p>
-          </details>
 
         </div>
+        <JsonLd data={faqSchema(FAQS)} />
 
       </section>
 
+
+
+      <RelatedLinks locale="en" current="/private-tour" />
 
       {/* =====================================================
           FINAL CTA

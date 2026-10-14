@@ -4,10 +4,13 @@ import "../../private-driver/page.css";
 import "../../private-driver/colombo/page.css";
 import "../../airport-transfer/page.css";
 import { withSeo } from "@/lib/seo";
+import JsonLd from "@/components/JsonLd";
+import { faqSchema, serviceSchema } from "@/lib/structuredData";
+import RelatedLinks from "@/components/RelatedLinks";
 
 export const metadata = withSeo("/fr/airport-transfer", {
   title:
-    "Transfert Aéroport Colombo | Prise en Charge Privée à l'Aéroport International Bandaranaike",
+    "Transferts Aéroport Colombo – Chauffeur Privé",
   description:
     "Réservez un transfert privé depuis l'aéroport international Bandaranaike (CMB) vers Colombo, Negombo, Kandy, Galle ou partout au Sri Lanka. Indiquez votre vol et votre destination et recevez un devis sous 24 heures.",
 });
@@ -21,9 +24,35 @@ const DESTINATIONS = [
   { name: "Ella", time: "env. 5 h 30 à 6 h 30" },
 ];
 
+// Rendered as the FAQ list below and as FAQPage structured data, from
+// one list so the two can't drift apart.
+const FAQS = [
+  {
+    q: "Combien coûte un transfert aéroport ?",
+    a: "Le prix dépend de votre destination, du véhicule nécessaire pour votre groupe et vos bagages, de l'heure et du besoin éventuel d'un trajet retour. Envoyez-nous vos informations et nous vous répondrons avec un devis sous 24 heures."
+  },
+  {
+    q: "Que se passe-t-il si mon vol est retardé ?",
+    a: "Indiquez votre numéro de vol lors de la réservation et prévenez-nous si vos plans changent. Votre chauffeur pourra ainsi s'organiser selon votre heure réelle d'atterrissage."
+  },
+  {
+    q: "Puis-je réserver un transfert vers l'aéroport ?",
+    a: "Oui. Choisissez « Vers l'aéroport » dans le formulaire, ou cochez l'option de trajet retour pour réserver les deux sens en une seule demande."
+  },
+  {
+    q: "Dois-je payer au moment de la réservation ?",
+    a: "Non. Le formulaire est une demande de devis. Rien n'est réservé tant que vous n'avez pas accepté le prix que nous vous envoyons."
+  },
+  {
+    q: "Puis-je aller ailleurs au Sri Lanka ?",
+    a: "Oui. Les transferts ne se limitent pas à Colombo et Negombo. Nous pouvons organiser un transfert depuis l'aéroport vers Kandy, Galle, Sigiriya, Ella ou n'importe où sur l'île."
+  }
+];
+
 export default function AirportTransferPageFr() {
   return (
     <main className="private-driver-page pdc-page at-page">
+      <JsonLd data={serviceSchema({name:  "Transferts aéroport privés depuis Colombo (CMB)", description:  "Transferts privés réservés à l'avance entre l'aéroport international Bandaranaike et Colombo, Negombo, Kandy, Galle ou partout au Sri Lanka.", path:  "/fr/airport-transfer", serviceType:  "Transfert aéroport"})} />
 
       {/* =====================================================
           HERO — texte + le formulaire de réservation
@@ -253,59 +282,22 @@ export default function AirportTransferPageFr() {
         </div>
 
         <div className="pd-faq-list">
+          {FAQS.map(({ q, a }) => (
+            <details key={q}>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </details>
+          ))}
 
-          <details>
-            <summary>Combien coûte un transfert aéroport ?</summary>
-            <p>
-              Le prix dépend de votre destination, du véhicule nécessaire
-              pour votre groupe et vos bagages, de l&apos;heure et du besoin
-              éventuel d&apos;un trajet retour. Envoyez-nous vos informations
-              et nous vous répondrons avec un devis sous 24 heures.
-            </p>
-          </details>
-
-          <details>
-            <summary>Que se passe-t-il si mon vol est retardé ?</summary>
-            <p>
-              Indiquez votre numéro de vol lors de la réservation et
-              prévenez-nous si vos plans changent. Votre chauffeur pourra
-              ainsi s&apos;organiser selon votre heure réelle
-              d&apos;atterrissage.
-            </p>
-          </details>
-
-          <details>
-            <summary>Puis-je réserver un transfert vers l&apos;aéroport ?</summary>
-            <p>
-              Oui. Choisissez « Vers l&apos;aéroport » dans le formulaire, ou
-              cochez l&apos;option de trajet retour pour réserver les deux
-              sens en une seule demande.
-            </p>
-          </details>
-
-          <details>
-            <summary>Dois-je payer au moment de la réservation ?</summary>
-            <p>
-              Non. Le formulaire est une demande de devis. Rien n&apos;est
-              réservé tant que vous n&apos;avez pas accepté le prix que nous
-              vous envoyons.
-            </p>
-          </details>
-
-          <details>
-            <summary>Puis-je aller ailleurs au Sri Lanka ?</summary>
-            <p>
-              Oui. Les transferts ne se limitent pas à Colombo et Negombo.
-              Nous pouvons organiser un transfert depuis l&apos;aéroport vers
-              Kandy, Galle, Sigiriya, Ella ou n&apos;importe où sur
-              l&apos;île.
-            </p>
-          </details>
 
         </div>
+        <JsonLd data={faqSchema(FAQS)} />
 
       </section>
 
+
+
+      <RelatedLinks locale="fr" current="/fr/airport-transfer" />
 
       {/* =====================================================
           CTA FINAL

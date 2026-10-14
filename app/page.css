@@ -170,6 +170,16 @@
   color: var(--paper);
 }
 .market-hero-content h1 span { color: var(--gold); }
+/* the eyebrow inside the h1: block so the title starts on the next line,
+   and immune to the h1's own span styling */
+.market-hero-content h1 .market-eyebrow-in-h1 {
+  display: flex;
+  width: fit-content;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  letter-spacing: normal;
+  color: var(--gold);
+}
 
 .market-hero-description {
   margin-top: 1.25rem;
