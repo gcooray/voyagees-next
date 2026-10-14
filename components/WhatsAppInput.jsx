@@ -69,7 +69,9 @@ export default function WhatsAppInput({
     () => guessCountry(fallbackCountry),
     () => fallbackCountry
   );
-  const country = chosenCountry || guessedCountry;
+  // the French site always starts on France (+33), whatever the browser
+  // says; the English site follows the browser's region
+  const country = chosenCountry || (locale === "fr" ? "FR" : guessedCountry);
 
   const [national, setNational] = useState(() => {
     const parsed = value ? parsePhoneNumberFromString(value) : null;
