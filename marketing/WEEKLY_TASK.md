@@ -8,7 +8,9 @@ and posts manually.
    topics, openings or photo ideas. Also read `marketing/FEEDBACK.md` if it
    exists — it holds the founder's comments and overrides your defaults.
 3. Work out the date of the coming Monday (the week the pack is for) and
-   the season, using the calendar hints in the brief.
+   the season, using the calendar hints in the brief. If today is Monday,
+   that's today. If a pack for that Monday already exists, prepare the
+   following week's instead — never overwrite an existing pack.
 4. Write `marketing/weekly/YYYY-MM-DD.md` (that Monday's date) containing:
 
    ## Facebook group — 3 posts
