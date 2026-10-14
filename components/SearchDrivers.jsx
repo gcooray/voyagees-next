@@ -19,12 +19,25 @@ export default function DriversPage({ locale = "en" }) {
 
   const [vehicleType, setVehicleType] = useState("");
   const [language, setLanguage] = useState("");
-  const [passengers, setPassengers] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
 
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  // the passengers filter starts from the group size in the URL (search
+  // form, trip planner), so vehicles that are too small aren't shown;
+  // re-synced when a new search changes it
+  const urlPassengers = searchParams.get("passengers") || "";
+  const [passengers, setPassengers] = useState(urlPassengers);
+  const [prevUrlPassengers, setPrevUrlPassengers] = useState(urlPassengers);
+  if (urlPassengers !== prevUrlPassengers) {
+    setPrevUrlPassengers(urlPassengers);
+    setPassengers(urlPassengers);
+  }
+  // ?sort=price (from the trip planner): cheapest first, so the first card
+  // matches the "from" price shown there
+  const sortByPrice = searchParams.get("sort") === "price";
 
   const pickupDate = searchParams.get("pickupDate");
   const dropoffDate = searchParams.get("dropoffDate");
@@ -61,6 +74,7 @@ export default function DriversPage({ locale = "en" }) {
       pickupTime: formPickupTime,
       dropoffTime: formDropoffTime,
       passengers: formPassengers,
+      ...(sortByPrice ? { sort: "price" } : {}),
     }).toString();
 
     router.push(`${locale === "fr" ? "/fr/search" : "/search"}?${query}`);
@@ -126,7 +140,7 @@ export default function DriversPage({ locale = "en" }) {
 
   const filteredDrivers = useMemo(() => {
 
-    return drivers.filter((driver) => {
+    const matches = drivers.filter((driver) => {
 
       // -------------------------
       // DATE AVAILABILITY
@@ -198,8 +212,13 @@ export default function DriversPage({ locale = "en" }) {
 
     });
 
+    return sortByPrice
+      ? [...matches].sort((x, y) => (x.pricePerDay || 0) - (y.pricePerDay || 0))
+      : matches;
+
   }, [
     drivers,
+    sortByPrice,
     pickupDate,
     dropoffDate,
     vehicleType,

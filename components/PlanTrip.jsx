@@ -130,7 +130,8 @@ const ALL_INTEREST_VALUES = INTEREST_OPTIONS.map((opt) => opt.value);
 async function generateItinerary(formValues, locale) {
   const { pickupDate, dropoffDate } = formValues;
 
-  const driverPriceFrom = await getLowestDriverPrice({ pickupDate, dropoffDate });
+  const passengers = Number(formValues.adults || 1) + Number(formValues.children || 0);
+  const driverPriceFrom = await getLowestDriverPrice({ pickupDate, dropoffDate, passengers });
   if (driverPriceFrom == null) {
     throw new Error("NO_DRIVERS_AVAILABLE");
   }
@@ -290,7 +291,11 @@ export default function PlanTrip({ locale = "en" }) {
             pickupTime: form.pickupTime,
             dropoffDate: form.dropoffDate,
             dropoffTime: form.dropoffTime,
+            passengers: String(Number(form.adults) + Number(form.children)),
+            // cheapest first, so the first driver is the "from" price shown
+            sort: "price",
           }}
+          party={{ adults: Number(form.adults), childrenAges: form.childrenAges.map(Number) }}
           onReset={handleReset}
           locale={locale}
         />

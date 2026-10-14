@@ -236,3 +236,12 @@ input[type="time"]::-webkit-date-and-time-value {
   text-align: left;
   margin: 0;
 }
+
+
+/* Safety net: no page should ever scroll sideways on a phone. `clip`
+   (unlike `hidden`) doesn't create a scroll container, so sticky
+   elements keep working. */
+html,
+body {
+  overflow-x: clip;
+}

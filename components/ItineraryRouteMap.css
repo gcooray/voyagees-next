@@ -1,7 +1,13 @@
 .itinerary-route-map-frame {
+  position: relative;
   height: 320px;
   border-radius: 16px;
   overflow: hidden;
+  /* Leaflet's tile layer is far wider than the frame; iOS Safari doesn't
+     always honour overflow + border-radius while the map is transformed,
+     so make the clip unconditional */
+  contain: paint;
+  isolation: isolate;
   border: 1px solid var(--line);
 }
 

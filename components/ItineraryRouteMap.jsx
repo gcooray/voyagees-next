@@ -45,6 +45,10 @@ export default function ItineraryRouteMap({ stops }) {
         center={positions[0]}
         zoom={8}
         scrollWheelZoom={false}
+        // on phones a one-finger swipe should scroll the page, not drag the
+        // map sideways (which felt like the whole page scrolling
+        // horizontally); pinch-zoom and the +/- buttons still work
+        dragging={!L.Browser.mobile}
         style={{ height: "100%", width: "100%" }}
       >
         <TileLayer

@@ -559,6 +559,8 @@ export async function POST(request) {
       stay = {
         name: hotelMatch?.displayName || day.stayStyle || t.fallbackStay,
         price: `$${nightRange.min}-${nightRange.max}${t.perNight}`,
+        // numeric form of the same range (USD) — the French page shows it in €
+        priceUsd: { min: nightRange.min, max: nightRange.max },
         searchUrl: hotelMatch?.searchUrl || null,
       };
     }
