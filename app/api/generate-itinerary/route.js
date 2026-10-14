@@ -211,6 +211,21 @@ const FRENCH_INSTRUCTION = `
 LANGUAGE: The traveler is using the French version of the site. Write title, routeSummary, every day's title, every activity and every stayStyle in natural, fluent French. Keep destinationName as the standard place name exactly as it is usually written in English (e.g. "Kandy", "Nuwara Eliya", "Arugam Bay") — it is used for map lookup, not shown as prose.`;
 
 // Train rules for the model — see HILL_COUNTRY_TRAIN_RUNNING.
+// Sri Lankan roads are slow (often 30–40 km/h door to door), so the model
+// tends to underestimate drive times — e.g. a 3-day trip with a Sigiriya →
+// Mirissa day (6–7 h). Real times keep each day realistic.
+const DRIVING_INSTRUCTION = `
+
+DRIVING TIMES (hard rule): Roads in Sri Lanka are slow — plan with these real door-to-door times by car:
+- Airport/Negombo → Colombo 1 h; → Sigiriya/Dambulla 4 h; → Kandy 3 h; → Galle 2.5 h; → Mirissa 3 h; → Ella 6 h.
+- Colombo → Galle 2 h; → Mirissa 2.5 h; → Kandy 3.5 h; → Sigiriya 4.5 h.
+- Sigiriya ↔ Dambulla 0.5 h; ↔ Polonnaruwa 1.5 h; ↔ Anuradhapura 2 h; ↔ Kandy 2.5–3 h; ↔ Trincomalee 2.5 h; ↔ Mirissa/Galle 6–7 h.
+- Kandy → Nuwara Eliya 2.5–3 h; → Ella 5–6 h. Nuwara Eliya → Ella 2.5–3 h. Ella → Yala/Tissamaharama 2.5 h; → Mirissa 4 h; → Arugam Bay 3 h.
+- Yala/Tissamaharama → Mirissa 2.5 h. Mirissa ↔ Galle 1 h. Galle → Bentota 1.5 h.
+Never plan more than about 4–5 hours of driving in one day (about 3 hours for a relaxed pace or a party with young children), and never more than 3 hours on the first day after a long-haul arrival or on the final day before a flight. If two places are further apart than that, stop overnight in between or leave one out.
+
+TRIP LENGTH: Choose a realistic scope for the number of days. For trips of 4 days or fewer, stay within one area close to the start and end points (for example the Cultural Triangle, or Kandy and the hill country, or the south coast) — do not try to cover the island. Fewer places with real time at each beats a rushed loop.`;
+
 const TRAIN_INSTRUCTION = HILL_COUNTRY_TRAIN_RUNNING
   ? `
 
@@ -230,7 +245,7 @@ The reference list above is for your awareness of which destinations/attractions
 
 Match accommodation style (via stayStyle) to the traveler's stated budget tier, and the density of each day's activities to their stated pace. Use real, well-known place names for destinationName so they can be matched to map coordinates.
 
-Seasonality awareness: Sri Lanka's west/south/hill-country region is best Dec-Apr, while the east/north coast (Trincomalee, Arugam Bay, Jaffna) has the opposite pattern and is best May-Sept — prefer suggesting each region during its own good season when the traveler's dates allow flexibility, and avoid recommending time-sensitive activities (e.g. whale watching off Mirissa, or Arugam Bay surfing) outside their real season. You don't need to mention this yourself — the platform adds a seasonal note to the response automatically when relevant.${TRAIN_INSTRUCTION}${locale === "fr" ? FRENCH_INSTRUCTION : ""}`;
+Seasonality awareness: Sri Lanka's west/south/hill-country region is best Dec-Apr, while the east/north coast (Trincomalee, Arugam Bay, Jaffna) has the opposite pattern and is best May-Sept — prefer suggesting each region during its own good season when the traveler's dates allow flexibility, and avoid recommending time-sensitive activities (e.g. whale watching off Mirissa, or Arugam Bay surfing) outside their real season. You don't need to mention this yourself — the platform adds a seasonal note to the response automatically when relevant.${DRIVING_INSTRUCTION}${TRAIN_INSTRUCTION}${locale === "fr" ? FRENCH_INSTRUCTION : ""}`;
 }
 
 function buildUserPrompt(preferences, totalDays) {
@@ -314,6 +329,60 @@ function resolveDestinationCoordinates(destinationName) {
   if (partial) return { name: destinationName, lat: partial.lat, lng: partial.lng, resolved: true };
 
   return { name: destinationName, lat: 6.9271, lng: 79.8612, resolved: false };
+}
+
+// Server-side check on the model's route, since the prompt's driving rules
+// aren't always followed (a 3-day trip once went Kandy → Galle → Colombo,
+// another Sigiriya → Mirissa in a day). Straight-line km is crude — coastal
+// expressways are faster than hill roads — so the limits only catch the
+// clearly unrealistic: one leg over MAX_LEG_KM (e.g. Sigiriya → Mirissa,
+// 226 km, 6–7 h), or a short trip covering more than SHORT_TRIP_KM_PER_DAY
+// on average (an island loop squeezed into a few days).
+const MAX_LEG_KM = 170;
+const SHORT_TRIP_DAYS = 4;
+const SHORT_TRIP_KM_PER_DAY = 110;
+
+function distanceKm(a, b) {
+  const rad = (x) => (x * Math.PI) / 180;
+  const dLat = rad(b.lat - a.lat);
+  const dLng = rad(b.lng - a.lng);
+  const h =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dLng / 2) ** 2;
+  return 2 * 6371 * Math.asin(Math.sqrt(h));
+}
+
+// Returns a note for the model describing what's unrealistic, or null.
+function findRouteProblems(aiDays, startPlace, endPlace) {
+  const stops = [
+    startPlace,
+    ...aiDays.map((day) => day.destinationName || ""),
+    endPlace,
+  ].map((name) => ({ name, ...resolveDestinationCoordinates(name) }));
+
+  const longLegs = [];
+  let totalKm = 0;
+  for (let i = 1; i < stops.length; i++) {
+    const a = stops[i - 1];
+    const b = stops[i];
+    if (!a.resolved || !b.resolved) continue;
+    const km = distanceKm(a, b);
+    totalKm += km;
+    if (km > MAX_LEG_KM) longLegs.push(`${a.name} → ${b.name}`);
+  }
+
+  const problems = [];
+  if (longLegs.length > 0) {
+    problems.push(
+      `These drives are far too long for one day (6 hours or more on Sri Lankan roads): ${longLegs.join("; ")}.`
+    );
+  }
+  if (aiDays.length <= SHORT_TRIP_DAYS && totalKm > SHORT_TRIP_KM_PER_DAY * aiDays.length) {
+    problems.push(
+      `The route covers too much ground for a ${aiDays.length}-day trip — the traveller would spend most of it in the car. Stay within one area near the start and end points.`
+    );
+  }
+  return problems.length > 0 ? problems.join(" ") : null;
 }
 
 // Same fuzzy-match principle as resolveDestinationCoordinates, applied to
@@ -499,6 +568,53 @@ function addDays(isoDate, offset) {
   return date.toISOString().slice(0, 10);
 }
 
+// A plan takes ~20 s; a re-plan of an unrealistic route makes it ~40 s.
+export const maxDuration = 60;
+
+// One Bedrock Converse call. Returns { itinerary } or { error: Response }.
+async function requestItinerary(systemPrompt, userPrompt) {
+  let bedrockRes;
+  try {
+    bedrockRes = await fetch(bedrockConverseUrl(), {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${process.env.BEDROCK_API_KEY}`,
+      },
+      body: JSON.stringify({
+        system: [{ text: systemPrompt }],
+        messages: [{ role: "user", content: [{ text: userPrompt }] }],
+        toolConfig: {
+          tools: [ITINERARY_TOOL],
+          toolChoice: { tool: { name: "return_itinerary" } },
+        },
+        inferenceConfig: { maxTokens: 4096 },
+      }),
+    });
+  } catch (err) {
+    console.error("generate-itinerary: Bedrock request failed:", err);
+    return { error: Response.json({ error: "Failed to reach the itinerary service." }, { status: 502 }) };
+  }
+
+  if (!bedrockRes.ok) {
+    const errorBody = await bedrockRes.text();
+    console.error("generate-itinerary: Bedrock API error:", bedrockRes.status, errorBody);
+    return { error: Response.json({ error: "The itinerary service returned an error." }, { status: 502 }) };
+  }
+
+  const bedrockData = await bedrockRes.json();
+  const toolUseBlock = bedrockData.output?.message?.content?.find(
+    (block) => block.toolUse?.name === "return_itinerary"
+  );
+
+  if (!toolUseBlock) {
+    console.error("generate-itinerary: no toolUse block in response:", bedrockData);
+    return { error: Response.json({ error: "Couldn't generate an itinerary. Please try again." }, { status: 502 }) };
+  }
+
+  return { itinerary: toolUseBlock.toolUse.input };
+}
+
 export async function POST(request) {
   if (!process.env.BEDROCK_API_KEY) {
     return Response.json(
@@ -546,52 +662,29 @@ export async function POST(request) {
   const systemPrompt = buildSystemPrompt(knowledgeBaseContext, locale);
   const userPrompt = buildUserPrompt(preferences, totalDays);
 
-  let bedrockRes;
-  try {
-    bedrockRes = await fetch(bedrockConverseUrl(), {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${process.env.BEDROCK_API_KEY}`,
-      },
-      body: JSON.stringify({
-        system: [{ text: systemPrompt }],
-        messages: [{ role: "user", content: [{ text: userPrompt }] }],
-        toolConfig: {
-          tools: [ITINERARY_TOOL],
-          toolChoice: { tool: { name: "return_itinerary" } },
-        },
-        inferenceConfig: { maxTokens: 4096 },
-      }),
-    });
-  } catch (err) {
-    console.error("generate-itinerary: Bedrock request failed:", err);
-    return Response.json({ error: "Failed to reach the itinerary service." }, { status: 502 });
+  const firstTry = await requestItinerary(systemPrompt, userPrompt);
+  if (firstTry.error) return firstTry.error;
+  let aiItinerary = firstTry.itinerary;
+
+  const startPlace = preferences.startLocation || "";
+  const endPlace = preferences.endLocation || startPlace;
+
+  // one retry when the route is clearly unrealistic; if the retry fails,
+  // the first plan is still better than an error
+  const routeProblems = findRouteProblems(aiItinerary.days || [], startPlace, endPlace);
+  if (routeProblems) {
+    console.warn("generate-itinerary: re-planning unrealistic route:", routeProblems);
+    const retry = await requestItinerary(
+      systemPrompt,
+      `${userPrompt}\n\nA previous draft of this trip was not realistic: ${routeProblems} Plan it again following the driving-time rules.`
+    );
+    if (retry.itinerary) aiItinerary = retry.itinerary;
   }
 
-  if (!bedrockRes.ok) {
-    const errorBody = await bedrockRes.text();
-    console.error("generate-itinerary: Bedrock API error:", bedrockRes.status, errorBody);
-    return Response.json({ error: "The itinerary service returned an error." }, { status: 502 });
-  }
-
-  const bedrockData = await bedrockRes.json();
-  const toolUseBlock = bedrockData.output?.message?.content?.find(
-    (block) => block.toolUse?.name === "return_itinerary"
-  );
-
-  if (!toolUseBlock) {
-    console.error("generate-itinerary: no toolUse block in response:", bedrockData);
-    return Response.json({ error: "Couldn't generate an itinerary. Please try again." }, { status: 502 });
-  }
-
-  const aiItinerary = toolUseBlock.toolUse.input;
   const tierRange = accommodationPriceRanges[budget] || accommodationPriceRanges["mid-range"];
 
   let estimateMin = 0;
   let estimateMax = 0;
-  const startPlace = preferences.startLocation || "";
-  const endPlace = preferences.endLocation || startPlace;
   const endsAtAirport = isAirport(endPlace);
   const aiDays = aiItinerary.days || [];
 
