@@ -6,8 +6,8 @@ import "./WhatsAppButton.css";
 
 // Floating "chat on WhatsApp" button on every public page — most travellers
 // would rather message than fill in a form, and it's where Facebook visitors
-// expect to reach a local driver service. Opens a chat with a prefilled
-// message (in the page's language) that says which page they came from.
+// expect to reach a local driver service. Opens a chat with a short
+// prefilled greeting in the page's language.
 
 const WHATSAPP_NUMBER = "94772200565";
 
@@ -29,8 +29,7 @@ export default function WhatsAppButton() {
   if (pathname.startsWith("/admin")) return null;
 
   const t = pathname === "/fr" || pathname.startsWith("/fr/") ? STRINGS.fr : STRINGS.en;
-  const text = `${t.message}\n\n(voyagees.com${pathname === "/" ? "" : pathname})`;
-  const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+  const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.message)}`;
 
   return (
     <a
