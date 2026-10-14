@@ -165,7 +165,7 @@ const MEAL_PLAN_LABELS_EN = {
   AI: "All inclusive",
 };
 
-export default function ItineraryResult({ data, searchParams, onReset, locale = "en", party }) {
+export default function ItineraryResult({ data, searchParams, onReset, onLeave, locale = "en", party }) {
   const t = STRINGS[locale] || STRINGS.en;
   const fmtDate = (iso) => formatDayDate(iso, t.dateLocale);
   const [hotelsFlow, setHotelsFlow] = useState("idle"); // idle | form | submitting | sent | error
@@ -371,7 +371,7 @@ export default function ItineraryResult({ data, searchParams, onReset, locale = 
             <p className="itinerary-option-sub">{t.fitsGroup(groupSize)}</p>
             <p className="itinerary-summary-price-note">{t.excessNote}</p>
 
-            <Link href={bookDriverHref} className="itinerary-cta itinerary-cta-primary">
+            <Link href={bookDriverHref} className="itinerary-cta itinerary-cta-primary" onClick={onLeave}>
               {t.seeDrivers}{"\u00a0→"}
             </Link>
           </div>

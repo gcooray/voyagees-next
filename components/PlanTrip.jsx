@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ItineraryResult from "@/components/ItineraryResult";
 import { getLowestDriverPrice } from "@/lib/driverPricing";
 import "./PlanTrip.css";
@@ -176,12 +176,59 @@ const emptyForm = {
   notes: "",
 };
 
+// The generated itinerary and the form answers are kept in sessionStorage
+// (this browser tab only), so going to the driver search and pressing Back
+// brings the trip back instead of an empty form. "Plan another trip"
+// clears it; closing the tab does too.
+function storageKey(locale) {
+  return `voyagees:plan-trip:${locale}`;
+}
+
+function readSaved(locale) {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(storageKey(locale)) || "null");
+    return saved?.itinerary ? saved : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeSaved(locale, value) {
+  try {
+    if (value) sessionStorage.setItem(storageKey(locale), JSON.stringify(value));
+    else sessionStorage.removeItem(storageKey(locale));
+  } catch {
+    // storage unavailable (private mode etc.): the trip just isn't remembered
+  }
+}
+
 export default function PlanTrip({ locale = "en" }) {
   const t = STRINGS[locale] || STRINGS.en;
   const [form, setForm] = useState(emptyForm);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [itinerary, setItinerary] = useState(null);
+
+  // restore a trip generated earlier in this tab (e.g. after Back from the
+  // driver search). Runs after hydration because storage only exists in the
+  // browser — the server always renders the empty form.
+  useEffect(() => {
+    const saved = readSaved(locale);
+    if (!saved) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setForm({ ...emptyForm, ...saved.form });
+    setItinerary(saved.itinerary);
+    if (saved.scrollY) {
+      // after the restored itinerary has rendered
+      requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, saved.scrollY)));
+    }
+  }, [locale]);
+
+  // remember where they were when they leave for the driver search
+  function rememberScroll() {
+    const saved = readSaved(locale);
+    if (saved) writeSaved(locale, { ...saved, scrollY: window.scrollY });
+  }
 
   function handleChange(field) {
     return (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
@@ -268,6 +315,7 @@ export default function PlanTrip({ locale = "en" }) {
       const result = await generateItinerary(form, locale);
       trackEvent("generate_itinerary", { days: result.days?.length || 0, budget: form.budget });
       setItinerary(result);
+      writeSaved(locale, { form, itinerary: result });
     } catch (err) {
       setError(
         err.message === "NO_DRIVERS_AVAILABLE"
@@ -281,6 +329,8 @@ export default function PlanTrip({ locale = "en" }) {
 
   function handleReset() {
     setItinerary(null);
+    writeSaved(locale, null);
+    window.scrollTo(0, 0);
   }
 
   if (itinerary) {
@@ -299,6 +349,7 @@ export default function PlanTrip({ locale = "en" }) {
           }}
           party={{ adults: Number(form.adults), childrenAges: form.childrenAges.map(Number) }}
           onReset={handleReset}
+          onLeave={rememberScroll}
           locale={locale}
         />
       </main>
