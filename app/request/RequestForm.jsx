@@ -7,7 +7,7 @@ import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 import emailjs from "@emailjs/browser";
-import { notifyDriverBookingAdmin } from "@/lib/notifications";
+import { notifyDriverBookingAdmin, notifyDriverBookingCustomerFr } from "@/lib/notifications";
 
 import WhatsAppInput from "@/components/WhatsAppInput";
 import "./page.css";
@@ -297,19 +297,27 @@ ${description || "None"}
       setRequestId(id);
 
       // ---------------- CUSTOMER EMAIL ----------------
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          user_name: fullName,
-          user_email: email,
-          message:
-            "We received your booking request. Our team will confirm within 24 hours.",
-          request_id: id,
-          to_email: email,
-        },
-        EMAILJS_PUBLIC_KEY
-      );
+      if (locale === "fr") {
+        await notifyDriverBookingCustomerFr(
+          { name: fullName, email },
+          `${driver.name}, du ${pickupDate} au ${dropoffDate}`,
+          id
+        );
+      } else {
+        await emailjs.send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_ID,
+          {
+            user_name: fullName,
+            user_email: email,
+            message:
+              "We received your booking request. Our team will confirm within 24 hours.",
+            request_id: id,
+            to_email: email,
+          },
+          EMAILJS_PUBLIC_KEY
+        );
+      }
 
       // ---------------- ADMIN EMAIL ----------------
       // Uses the generic template (see lib/notifications.js) instead of the

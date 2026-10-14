@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import "./DriverCard.css";
+import DriverAvatar from "@/components/DriverAvatar";
 
 // data/drivers.js stores vehicle types in English
 const VEHICLE_TYPES_FR = { Car: "Voiture", "Tuk-Tuk": "Tuk-tuk" };
@@ -101,11 +102,7 @@ export default function DriverCard({
         style={{ backgroundImage: `url(${carImage})` }}
       >
         <div className="driver-photo-wrapper">
-          <img
-            className="driver-photo"
-            src={driver.driverPhoto}
-            alt={driver.name}
-          />
+          <DriverAvatar driver={driver} className="driver-photo" />
         </div>
       </div>
 

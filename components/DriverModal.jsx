@@ -25,6 +25,8 @@ import {
 } from "lucide-react";
 
 import "./DriverModal.css";
+import DriverAvatar from "@/components/DriverAvatar";
+import { LANGUAGE_NAMES_FR } from "@/components/DriverFilters";
 
 export default function DriverModal({
   driver,
@@ -286,22 +288,16 @@ const handleRequest = () => {
 
           <p>
             <strong>{t.languages}:</strong>
-            {driver.languages?.join(
-              ", "
-            ) || "N/A"}
+            {driver.languages
+              ?.map((lang) => (isFrench && LANGUAGE_NAMES_FR[lang]) || lang)
+              .join(", ") || "N/A"}
           </p>
 
-          {driver.driverPhoto && (
-            <img
-              src={driver.driverPhoto}
-              alt={driver.name}
-              style={{
-                maxWidth: "20%",
-                borderRadius:
-                  "10px"
-              }}
-            />
-          )}
+          <DriverAvatar
+            driver={driver}
+            className="driver-modal-avatar"
+            style={{ maxWidth: "20%", borderRadius: "10px" }}
+          />
 
           <p>
             <strong>{t.about}:</strong>

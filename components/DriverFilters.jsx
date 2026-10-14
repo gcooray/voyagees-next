@@ -13,7 +13,7 @@ const VEHICLES = [
 
 // Driver languages are stored in English in data/drivers.js — unknown
 // ones fall back to the stored name.
-const LANGUAGE_NAMES_FR = {
+export const LANGUAGE_NAMES_FR = {
   English: "Anglais",
   Sinhala: "Cingalais",
   Tamil: "Tamoul",
