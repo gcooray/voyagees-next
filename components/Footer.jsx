@@ -36,6 +36,8 @@ export default function Footer() {
           {/* moved here from the navbar — it's a homepage section, not a page */}
           <Link href={`${prefix || "/"}#how-it-works`}>{t.howItWorks}</Link>
           <Link href={`${prefix}/about`}>{t.about}</Link>
+          {/* the blog is French-only for now */}
+          {isFrench && <Link href="/fr/blog">Blog</Link>}
           <Link href={`${prefix}/contact`}>{t.contact}</Link>
           <Link href={`${prefix}/terms`}>{t.terms}</Link>
         </div>

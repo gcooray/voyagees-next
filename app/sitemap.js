@@ -1,5 +1,6 @@
 import { touristDestinations } from "@/data/touristDestinations";
 import { destinationsFr } from "@/data/destinationsFr";
+import { getPosts } from "@/lib/blog";
 
 export default function sitemap() {
   const baseUrl = "https://www.voyagees.com";
@@ -20,6 +21,7 @@ export default function sitemap() {
     "/terms",
     "/fr",
     "/fr/about",
+    "/fr/blog",
     "/fr/airport-transfer",
     "/fr/contact",
     "/fr/explore-sri-lanka",
@@ -37,6 +39,7 @@ export default function sitemap() {
     // own list, since the two aren't guaranteed to match)
     ...touristDestinations.map((d) => `/destinations/${d.slug}`),
     ...destinationsFr.map((d) => `/fr/destinations/${d.slug}`),
+    ...getPosts("fr").map((post) => `/fr/blog/${post.slug}`),
   ];
 
   return paths.map((path) => ({

@@ -40,6 +40,8 @@ const NAV_ITEMS = [
     children: [
       { en: "Sri Lanka map", fr: "Carte du Sri Lanka", href: "/explore-sri-lanka", frHref: "/fr/explore-sri-lanka" },
       { en: "Shared trips", fr: "Trajets partagés", href: "/rides", frHref: "/fr/rides" },
+      // the blog is French-only for now
+      { fr: "Blog & conseils", frHref: "/fr/blog" },
     ],
   },
   {
@@ -150,7 +152,7 @@ export default function Navbar() {
             const href = isFrench ? item.frHref : item.href;
             // only sub-links that exist in the current language
             const children = (item.children || []).filter(
-              (child) => !isFrench || child.frHref
+              (child) => (isFrench ? child.frHref : child.href)
             );
 
             return (
@@ -168,7 +170,7 @@ export default function Navbar() {
                 {children.length > 0 && (
                   <ul className="nav-submenu">
                     {children.map((child) => (
-                      <li key={child.href}>
+                      <li key={child.frHref || child.href}>
                         <Link
                           href={isFrench ? child.frHref : child.href}
                           onClick={() => setIsOpen(false)}
