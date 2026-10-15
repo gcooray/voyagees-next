@@ -41,7 +41,13 @@ and posts manually.
 
 5. Check every post against the brief's "Never say" list before saving.
 6. Commit the file to the `marketing-content` branch with a message like
-   "Content pack for week of YYYY-MM-DD" and push. Do not touch any other
-   branch or any file outside `marketing/`.
-7. Finish with a short summary in English: the week's topics and the
-   filename.
+   "Content pack for week of YYYY-MM-DD" and push. On this branch, only
+   touch files inside `marketing/`.
+7. Write this week's blog article by following `marketing/BLOG_TASK.md`
+   (read it from this branch before switching to main). Choose the topic
+   first, and in the pack's Page + Instagram section add one extra post
+   sharing the article (link https://voyagees.com/fr/blog/<slug>), marked
+   "post only once the article is live". Do steps 6 and 7 in that order:
+   commit the pack, then write the article on its own branch.
+8. Finish with a short summary in English: the week's topics, the pack
+   filename, and the blog pull request link.
