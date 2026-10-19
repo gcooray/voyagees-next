@@ -43,7 +43,7 @@ C'est une bonne option si vous partez pendant les vacances d'été et que vous v
 
 ## Mois par mois, en résumé
 
-1. **Octobre-novembre** : bon moment pour préparer son voyage d'hiver
+1. **Octobre-novembre** : intersaison, souvent plus pluvieuse dans une grande partie du pays ; c'est surtout le bon moment pour préparer son voyage d'hiver
 2. **Décembre-janvier** : côte sud, baleines, montagnes ; haute saison autour des fêtes
 3. **Février-avril** : montagnes, Sigiriya, vacances de Pâques en famille
 4. **Mai-septembre** : côte est, surf à Arugam Bay, vacances d'été
