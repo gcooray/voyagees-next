@@ -54,6 +54,33 @@ Quelle que soit la saison, les routes sont lentes : comptez 30 à 40 km/h de moy
 
 Pour la météo, les dates exactes et les conditions du moment, vérifiez toujours les sources officielles avant de partir.
 
+## Voyager en famille : quelle période choisir ?
+
+Les vacances scolaires françaises tombent souvent à des moments très différents du calendrier des moussons. Pour les vacances de Noël, la côte sud et les montagnes sont de bons choix. Pour Pâques, les montagnes et le Triangle culturel marchent bien. En été, la côte est est la plus logique pour la plage.
+
+Avec des enfants, on conseille surtout de ralentir : moins d'étapes, des trajets courts, et une vraie pause plage au milieu ou à la fin. Une route de 5 heures, c'est long à l'arrière d'une voiture, quelle que soit la saison.
+
+## Combien de temps rester dans chaque région ?
+
+La saison n'est qu'une partie de la question. Voici ce qui fonctionne bien, d'après ce que l'on voit chez les voyageurs :
+
+- **7 jours** : une ou deux régions seulement, par exemple Sigiriya et Kandy, ou la côte sud
+- **10 à 12 jours** : Sigiriya, Kandy, Ella et la côte sud
+- **15 jours et plus** : on peut ajouter un safari et/ou la côte est, selon la saison
+
+L'idée est toujours la même : mieux vaut rester deux nuits au même endroit que changer d'hôtel chaque matin.
+
+## Les erreurs classiques
+
+- **Mélanger les côtes** : prévoir la côte est en décembre ou la côte sud en juillet, sans vérifier la saison
+- **Enchaîner les étapes** : vouloir voir les montagnes, la côte sud et le nord en une semaine
+- **Sous-estimer les routes** : regarder la distance sur la carte au lieu du temps de trajet
+- **Arriver sans réserve** : les hôtels les plus demandés de la côte sud se remplissent tôt autour des fêtes
+
+## Si vous hésitez entre deux périodes
+
+Dites-nous ce qui compte le plus pour vous : la plage, les paysages, la culture, les animaux. Souvent, la réponse vient toute seule. Et si vous avez déjà une période en tête, [écrivez-nous](/fr/contact) : on vous dira dans quelles régions elle fonctionne le mieux.
+
 ## Pour aller plus loin
 
 Quand vos dates sont claires, le plus long est de savoir comment organiser les étapes. Notre [outil gratuit de planification](/fr/plan-trip) vous propose un itinéraire jour par jour en une vingtaine de secondes, que vous pouvez ajuster ensuite avec nous.
