@@ -74,10 +74,12 @@ groups, and we never post in other people's groups automatically.
 - **No prices** (driver, hotel, entrance fees, safaris) — say "voir sur le
   site" or "écrivez-nous" instead. Prices change and must come from the site.
 - **No driver names, phone numbers or personal details.**
-- **Trains:** the hill-country train (Kandy–Ella) is switched off in our
-  trip planner because it may not be running normally. Don't build posts
-  around it; if it comes up, say to check whether it's running, that seats
-  sell out and that services stop after heavy rain — never promise it.
+- **Trains:** the Kandy – Nanu Oya (Nuwara Eliya) section of the
+  hill-country railway is closed (storm damage, Oct 2026); only Nanu Oya –
+  Haputale – Ella is running. Never suggest a train to or from Kandy. The
+  Nanu Oya – Ella train can be mentioned as an optional extra, always with
+  "subject to tickets and the line being open", the driver taking the
+  luggage by road. Never build a post around it or promise it.
 - No visa rules, health rules or safety claims stated as fact — those
   change; tell people to check official sources.
 - No invented reviews, testimonials, client stories or statistics — and no
