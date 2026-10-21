@@ -7,7 +7,7 @@ import {
   occupancyPricing,
   seasonalNotes,
   SHOW_HOTEL_PRICES,
-  HILL_COUNTRY_TRAIN_RUNNING,
+  HILL_COUNTRY_TRAIN,
 } from "@/lib/destinationContent";
 
 // Cost control: response caching + per-IP rate limiting, both backed by a
@@ -210,7 +210,7 @@ const FRENCH_INSTRUCTION = `
 
 LANGUAGE: The traveler is using the French version of the site. Write title, routeSummary, every day's title, every activity and every stayStyle in natural, fluent French. Keep destinationName as the standard place name exactly as it is usually written in English (e.g. "Kandy", "Nuwara Eliya", "Arugam Bay") — it is used for map lookup, not shown as prose.`;
 
-// Train rules for the model — see HILL_COUNTRY_TRAIN_RUNNING.
+// Train rules for the model — see HILL_COUNTRY_TRAIN.
 // Sri Lankan roads are slow (often 30–40 km/h door to door), so the model
 // tends to underestimate drive times — e.g. a 3-day trip with a Sigiriya →
 // Mirissa day (6–7 h). Real times keep each day realistic.
@@ -226,13 +226,20 @@ Never plan more than about 4–5 hours of driving in one day (about 3 hours for 
 
 TRIP LENGTH: Choose a realistic scope for the number of days. For trips of 4 days or fewer, stay within one area close to the start and end points (for example the Cultural Triangle, or Kandy and the hill country, or the south coast) — do not try to cover the island. Fewer places with real time at each beats a rushed loop.`;
 
-const TRAIN_INSTRUCTION = HILL_COUNTRY_TRAIN_RUNNING
-  ? `
+const TRAIN_OPTIONAL_WORDING = `Phrase it like "optional: take the scenic train (subject to ticket availability and the line being open) while your driver brings your luggage by road and meets you at the station". Mention it only in that day's activities — never in the day's title, since it may not happen. Never suggest trains on other lines.`;
 
-TRAINS: The Kandy–Nanu Oya–Ella train may be suggested only as an OPTIONAL experience on the day the traveller moves between those towns, never as a guaranteed or pre-booked part of the trip. Phrase it like "optional: take the scenic train (subject to ticket availability) while your driver brings your luggage by road and meets you at the station". Never suggest trains on other lines.`
-  : `
+const TRAIN_INSTRUCTIONS = {
+  closed: `
 
-TRAINS: Do NOT include any train journey, anywhere in Sri Lanka. All travel between towns, including Kandy, Nuwara Eliya and Ella, is by road with the private driver; describe these as scenic drives (tea country, waterfalls, viewpoints) instead.`;
+TRAINS: Do NOT include any train journey, anywhere in Sri Lanka. All travel between towns, including Kandy, Nuwara Eliya and Ella, is by road with the private driver; describe these as scenic drives (tea country, waterfalls, viewpoints) instead.`,
+  ella_section: `
+
+TRAINS: Only the Nanu Oya (Nuwara Eliya) – Haputale – Ella section of the hill-country railway is currently running. You may suggest it only as an OPTIONAL experience on a day the traveller moves between Nuwara Eliya, Haputale and Ella (either direction), never as a guaranteed or pre-booked part of the trip. ${TRAIN_OPTIONAL_WORDING} The Kandy – Nanu Oya section is CLOSED: any journey to or from Kandy (Kandy ↔ Nuwara Eliya, Kandy ↔ Ella, Kandy ↔ Haputale) is by road with the driver — never suggest a train from or to Kandy.`,
+  full: `
+
+TRAINS: The Kandy–Nanu Oya–Ella train may be suggested only as an OPTIONAL experience on the day the traveller moves between those towns, never as a guaranteed or pre-booked part of the trip. ${TRAIN_OPTIONAL_WORDING}`,
+};
+const TRAIN_INSTRUCTION = TRAIN_INSTRUCTIONS[HILL_COUNTRY_TRAIN] || TRAIN_INSTRUCTIONS.closed;
 
 function buildSystemPrompt(knowledgeBaseContext, locale) {
   return `You are voyaGees' Sri Lanka trip-itinerary writer. Given a traveler's dates, party details, budget, pace, and interests, you have full creative latitude to choose a geographically sensible sequence of real Sri Lankan destinations, decide how long to spend at each, and write specific, engaging day-by-day activities.
@@ -453,6 +460,10 @@ function calculateStayPrice(baseRange, adults, childrenAges) {
 // e.g. an Arugam Bay day matches both the surf-specific rule and the
 // broader east/north monsoon rule.
 const TRAIN_NOTES = {
+  ella_section: {
+    en: "Trains currently run only between Nanu Oya (Nuwara Eliya), Haputale and Ella, so the train is offered as an option, subject to ticket availability and the line being open. The Kandy – Nuwara Eliya line is closed: that journey is by road with your driver. We'll confirm before you travel; if the train isn't possible, your driver takes you by road.",
+    fr: "Le train ne circule actuellement qu'entre Nanu Oya (Nuwara Eliya), Haputale et Ella : il est proposé en option, selon la disponibilité des billets et l'état de la ligne. Entre Kandy et Nuwara Eliya, la ligne est fermée : ce trajet se fait par la route avec votre chauffeur. Nous confirmerons avant votre départ ; si le train n'est pas possible, votre chauffeur vous conduit par la route.",
+  },
   running: {
     en: "Train journeys are optional and subject to ticket availability — reserved seats often sell out weeks ahead, and services can be suspended after heavy rain. We'll confirm before you travel; if the train isn't possible, your driver takes you by road.",
     fr: "Les trajets en train sont optionnels et dépendent de la disponibilité des billets : les places réservées partent souvent des semaines à l'avance, et le service peut être suspendu après de fortes pluies. Nous confirmerons avant votre départ ; si le train n'est pas possible, votre chauffeur vous conduit par la route.",
@@ -469,7 +480,8 @@ function trainNote(days, locale) {
     [day.title, ...(day.activities || [])].some((text) => TRAIN_WORDS.test(text || ""))
   );
   if (!mentionsTrain) return null;
-  const note = TRAIN_NOTES[HILL_COUNTRY_TRAIN_RUNNING ? "running" : "suspended"];
+  const note =
+    TRAIN_NOTES[{ full: "running", ella_section: "ella_section" }[HILL_COUNTRY_TRAIN] || "suspended"];
   return note[locale] || note.en;
 }
 
