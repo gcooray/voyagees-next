@@ -10,6 +10,7 @@ const SERVICES = [
   { en: "Private driver in Sri Lanka", fr: "Chauffeur privé au Sri Lanka", href: "/private-driver" },
   { en: "Airport transfers", fr: "Transferts aéroport", href: "/airport-transfer" },
   { en: "Private driver in Colombo", fr: "Chauffeur privé à Colombo", href: "/private-driver/colombo" },
+  { en: "Private driver in Galle", fr: "Chauffeur privé à Galle", href: "/private-driver/galle" },
   { en: "Private tours of Sri Lanka", fr: "Circuits privés au Sri Lanka", href: "/private-tour" },
   { en: "Plan your trip", fr: "Planifier votre voyage", href: "/plan-trip" },
 ];

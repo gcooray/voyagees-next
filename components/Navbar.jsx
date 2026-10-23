@@ -18,6 +18,7 @@ const NAV_ITEMS = [
     frHref: "/fr/private-driver",
     children: [
       { en: "Colombo", fr: "Colombo", href: "/private-driver/colombo", frHref: "/fr/private-driver/colombo" },
+      { en: "Galle", fr: "Galle", href: "/private-driver/galle", frHref: "/fr/private-driver/galle" },
     ],
   },
   {
@@ -85,12 +86,14 @@ export default function Navbar() {
     "/rides": "/fr/rides",
     "/private-tour": "/fr/private-tour",
     "/private-driver/colombo": "/fr/private-driver/colombo",
+    "/private-driver/galle": "/fr/private-driver/galle",
     "/airport-transfer": "/fr/airport-transfer",
     "/plan-trip": "/fr/plan-trip",
 
     "/fr": "/",
     "/fr/private-driver": "/private-driver",
     "/fr/private-driver/colombo": "/private-driver/colombo",
+    "/fr/private-driver/galle": "/private-driver/galle",
     "/fr/explore-sri-lanka": "/explore-sri-lanka",
     "/fr/contact": "/contact",
     "/fr/search": "/search",

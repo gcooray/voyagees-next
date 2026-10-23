@@ -1,0 +1,79 @@
+/* =========================================================
+   PRIVATE DRIVER — GALLE
+   Shares ../colombo/page.css; only the Galle photos, the transfer
+   blocks on the dark section and the FAQ accordion are added here.
+   ========================================================= */
+
+.pdg-hero {
+  background: linear-gradient(135deg, #1c3226 0%, #16241d 60%),
+    url("/images/hero/galle.webp") center/cover no-repeat;
+  background-blend-mode: multiply;
+}
+
+.pdg-final {
+  background: linear-gradient(135deg, #16241d, #0f1a14),
+    url("/images/hero/galle.webp") center/cover no-repeat;
+  background-blend-mode: multiply;
+}
+
+.pdg-after-cards { margin-top: 1.75rem; }
+
+.pdg-transfer {
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--gold);
+}
+.pdg-transfer h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: var(--paper);
+  margin-bottom: 0.4rem;
+}
+.pdg-transfer p { margin: 0; }
+
+.pdg-final-text {
+  max-width: 640px;
+  margin: 1.25rem auto 0;
+  color: rgba(251, 247, 239, 0.82);
+  line-height: 1.6;
+}
+
+/* FAQ accordion */
+.pdg-faq {
+  max-width: 760px;
+  margin: 0 auto;
+  display: grid;
+  gap: 0.75rem;
+}
+.pdg-faq details {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+}
+.pdg-faq summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--body);
+  font-weight: 600;
+  color: var(--ink);
+}
+.pdg-faq summary::-webkit-details-marker { display: none; }
+.pdg-faq summary::after {
+  content: "+";
+  flex-shrink: 0;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--clay);
+  transition: transform 0.2s ease;
+}
+.pdg-faq details[open] summary::after { transform: rotate(45deg); }
+.pdg-faq details p {
+  margin: 0.75rem 0 0;
+  color: var(--sage);
+  line-height: 1.6;
+}
