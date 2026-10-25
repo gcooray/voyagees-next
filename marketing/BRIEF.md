@@ -17,7 +17,7 @@ Website (French): https://voyagees.com/fr
 - Private driver in Colombo: https://voyagees.com/fr/private-driver/colombo
 - Destinations guide: https://voyagees.com/fr/explore-sri-lanka
 - Contact: https://voyagees.com/fr/contact
-- WhatsApp: +94 77 220 0565
+- WhatsApp: +94 76 112 8692
 
 ## Audience
 
