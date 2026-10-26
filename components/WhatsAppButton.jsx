@@ -9,7 +9,7 @@ import "./WhatsAppButton.css";
 // expect to reach a local driver service. Opens a chat with a short
 // prefilled greeting in the page's language.
 
-const WHATSAPP_NUMBER = "94772200565";
+const WHATSAPP_NUMBER = "94761128692";
 
 const STRINGS = {
   en: {

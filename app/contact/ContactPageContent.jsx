@@ -4,7 +4,7 @@ import "./contact.css";
 
 // Shared by /contact and /fr/contact — only the copy differs.
 
-const WHATSAPP_URL = "https://wa.me/94772200565";
+const WHATSAPP_URL = "https://wa.me/94761128692";
 const EMAIL = "contact@voyagees.com";
 
 const STRINGS = {
@@ -75,7 +75,7 @@ export default function ContactPageContent({ locale = "en" }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {t.whatsappButton} · +94 77 220 0565
+              {t.whatsappButton} · +94 76 112 8692
             </a>
           </div>
 
