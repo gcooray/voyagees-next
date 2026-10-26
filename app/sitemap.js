@@ -8,6 +8,7 @@ export default function sitemap() {
   const paths = [
     "",
     "/about",
+    "/blog",
     "/airport-transfer",
     "/contact",
     "/explore-sri-lanka",
@@ -41,6 +42,7 @@ export default function sitemap() {
     // own list, since the two aren't guaranteed to match)
     ...touristDestinations.map((d) => `/destinations/${d.slug}`),
     ...destinationsFr.map((d) => `/fr/destinations/${d.slug}`),
+    ...getPosts("en").map((post) => `/blog/${post.slug}`),
     ...getPosts("fr").map((post) => `/fr/blog/${post.slug}`),
   ];
 

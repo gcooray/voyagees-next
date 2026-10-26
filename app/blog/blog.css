@@ -179,6 +179,23 @@
   text-underline-offset: 2px;
 }
 
+.blog-figure {
+  margin: 1.75rem 0;
+}
+.blog-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
+.blog-figure figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.88rem;
+  color: var(--sage);
+  text-align: center;
+}
+
 .blog-tip {
   margin: 1.5rem 0;
   padding: 1rem 1.25rem;

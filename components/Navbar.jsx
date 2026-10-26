@@ -41,8 +41,7 @@ const NAV_ITEMS = [
     children: [
       { en: "Sri Lanka map", fr: "Carte du Sri Lanka", href: "/explore-sri-lanka", frHref: "/fr/explore-sri-lanka" },
       { en: "Shared trips", fr: "Trajets partagés", href: "/rides", frHref: "/fr/rides" },
-      // the blog is French-only for now
-      { fr: "Blog & conseils", frHref: "/fr/blog" },
+      { en: "Travel blog", fr: "Blog & conseils", href: "/blog", frHref: "/fr/blog" },
     ],
   },
   {
@@ -89,6 +88,7 @@ export default function Navbar() {
     "/private-driver/galle": "/fr/private-driver/galle",
     "/airport-transfer": "/fr/airport-transfer",
     "/plan-trip": "/fr/plan-trip",
+    "/blog": "/fr/blog",
 
     "/fr": "/",
     "/fr/private-driver": "/private-driver",
@@ -105,6 +105,7 @@ export default function Navbar() {
     "/fr/private-tour": "/private-tour",
     "/fr/airport-transfer": "/airport-transfer",
     "/fr/plan-trip": "/plan-trip",
+    "/fr/blog": "/blog",
   };
 
   const targetPath = routeMap[pathname];

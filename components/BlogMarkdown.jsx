@@ -6,6 +6,7 @@ import Link from "next/link";
 //   ## Heading / ### Subheading
 //   - bullet list         1. numbered list
 //   > tip box (consecutive "> " lines form one box)
+//   ![alt text](/images/…)  — an image on its own line (alt is also the caption)
 //   **bold**, *italic*, [link text](/fr/plan-trip or https://…)
 //
 // Blank lines separate paragraphs.
@@ -66,6 +67,13 @@ function toBlocks(markdown) {
       continue;
     }
 
+    const image = line.match(/^!\[([^\]]*)\]\((\/[^)\s]+)\)$/);
+    if (image) {
+      flush();
+      blocks.push({ type: "img", alt: image[1], src: image[2] });
+      continue;
+    }
+
     const heading = line.match(/^(#{2,3})\s+(.*)$/);
     if (heading) {
       flush();
@@ -121,6 +129,14 @@ export default function BlogMarkdown({ markdown }) {
           </List>
         );
       }
+      case "img":
+        return (
+          <figure key={key} className="blog-figure">
+            {/* eslint-disable-next-line @next/next/no-img-element -- article images vary in size */}
+            <img src={block.src} alt={block.alt} loading="lazy" />
+            {block.alt && <figcaption>{block.alt}</figcaption>}
+          </figure>
+        );
       case "tip":
         return (
           <aside key={key} className="blog-tip">
