@@ -146,3 +146,15 @@ blockquote {
     border-radius: 14px;
   }
 }
+
+/* photographer credits for Wikimedia Commons photos */
+.photo-credits {
+  margin-top: 12px;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--sage);
+}
+.photo-credits a {
+  color: inherit;
+  text-decoration: underline;
+}

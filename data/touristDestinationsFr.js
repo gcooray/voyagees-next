@@ -160,4 +160,40 @@ export const touristDestinationsFr = {
     description:
       "Le principal site de rafting en eaux vives du Sri Lanka, niché au cœur de la forêt tropicale.",
   },
+
+  "Unawatuna": {
+    name: "Unawatuna",
+    description:
+      "Une baie abritée bordée de palmiers, à quelques minutes du fort de Galle.",
+  },
+
+  "Weligama": {
+    name: "Weligama",
+    description:
+      "Une grande baie de sable idéale pour débuter le surf, avec ses pirogues colorées.",
+  },
+
+  "Tangalle": {
+    name: "Tangalle",
+    description:
+      "De longues plages tranquilles et des criques cachées tout au sud de l'île.",
+  },
+
+  "Bandarawela": {
+    name: "Bandarawela",
+    description:
+      "Une ville de montagne au climat doux, entre Ella et Haputale.",
+  },
+
+  "Habarana": {
+    name: "Habarana",
+    description:
+      "Une base tranquille du Triangle culturel, proche de Sigiriya et des safaris éléphants.",
+  },
+
+  "Knuckles Mountain Range": {
+    name: "Massif de Knuckles",
+    description:
+      "Un massif sauvage classé à l'UNESCO, avec forêts de nuages et belles randonnées.",
+  },
 };

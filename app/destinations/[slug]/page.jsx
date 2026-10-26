@@ -201,6 +201,29 @@ export default async function DestinationPage({ params }) {
               </div>
             ))}
           </div>
+          {destination.photoCredits?.length > 0 && (
+            <p className="photo-credits">
+              Photos:{" "}
+              {destination.photoCredits.map((c, idx) => (
+                <span key={c.source}>
+                  {idx > 0 && " · "}
+                  <a href={c.source} target="_blank" rel="noopener noreferrer">{c.artist}</a>
+                  {c.license && (
+                    <>
+                      {" "}(
+                      {c.licenseUrl ? (
+                        <a href={c.licenseUrl} target="_blank" rel="noopener noreferrer">{c.license}</a>
+                      ) : (
+                        c.license
+                      )}
+                      )
+                    </>
+                  )}
+                </span>
+              ))}{" "}
+              via Wikimedia Commons
+            </p>
+          )}
         </section>
       )}
 
