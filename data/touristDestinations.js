@@ -1467,7 +1467,7 @@ export const touristDestinations = [
     metaTitle: "Unawatuna Beach – Private Driver Trips from Galle",
     metaDescription: "Discover Unawatuna's sheltered bay, Jungle Beach and the Peace Pagoda with a private driver, just minutes from Galle Fort.",
     heroImage: "/images/destinations/unawatuna/hero.jpg",
-    altText: "Palm trees and a sheltered sandy bay at Unawatuna beach, Sri Lanka",
+    altText: "The sandy bay at Unawatuna beach, Sri Lanka",
     h1: "Discover Unawatuna – A Sheltered Bay Next to Galle",
     description: "A palm-fringed bay with calm water, minutes from Galle Fort.",
     overview: "Unawatuna is a curved, palm-fringed bay on Sri Lanka's south coast, only a few kilometres from Galle Fort. A reef helps keep the water calm in season, which makes it one of the easier beaches on the coast for swimming. With cafés and guesthouses along the sand, it is a popular base for exploring Galle and the beaches around it.",
@@ -1476,9 +1476,7 @@ export const touristDestinations = [
     bestTime: "December to April (calm sea and drier weather)",
     faq: [{"q": "How far is Unawatuna from Galle?", "a": "About 6 km, or around 15 minutes by car or tuk-tuk, so it is easy to combine the beach with a visit to Galle Fort."}, {"q": "Is Unawatuna good for swimming?", "a": "Usually yes, in season: the bay is sheltered and calmer than many beaches on the south coast. Conditions change with the monsoon, so always check locally."}],
     relatedLinks: [{"label": "Galle Fort", "url": "/destinations/galle"}, {"label": "Mirissa", "url": "/destinations/mirissa"}],
-    galleryImages: ["/images/destinations/unawatuna/photo-1.jpg", "/images/destinations/unawatuna/photo-2.jpg", "/images/destinations/unawatuna/photo-3.jpg"],
-    // Wikimedia Commons photos: the licences require crediting the photographers
-    photoCredits: [{"artist": "Bernard Gagnon", "license": "CC BY-SA 3.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "source": "https://commons.wikimedia.org/wiki/File:Unawatuna.jpg"}, {"artist": "Hirushini Dematagoda", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Jungle_Beach,_Unawatuna,_Sri_Lanka.jpg"}, {"artist": "Ruchira159", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Unawatuna_beach_sri_lanka.jpg"}, {"artist": "Aashaa", "license": "CC0", "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en", "source": "https://commons.wikimedia.org/wiki/File:Unawatuna_Beach_full_view.jpg"}],
+    galleryImages: [],
   },
   {
     name: "Weligama",
@@ -1490,7 +1488,7 @@ export const touristDestinations = [
     metaTitle: "Weligama Beach & Surfing – Private Driver South Coast Trips",
     metaDescription: "Learn to surf in Weligama's wide bay, see the colourful outrigger canoes and explore the south coast with a private driver.",
     heroImage: "/images/destinations/weligama/hero.jpg",
-    altText: "Colourful outrigger fishing canoes on the beach at Weligama, Sri Lanka",
+    altText: "A surfer on the beach at Weligama, Sri Lanka",
     h1: "Discover Weligama – Sri Lanka's Beginner Surf Bay",
     description: "A wide, sandy bay known for gentle surf and colourful fishing boats.",
     overview: "Weligama is a long, sandy bay on the south coast, best known for its gentle waves, which make it one of the most popular places in Sri Lanka to learn to surf. Colourful outrigger fishing canoes line parts of the beach, and the small island of Taprobane sits just offshore. Mirissa is about 15 minutes away, so the two are easy to combine.",
@@ -1499,9 +1497,7 @@ export const touristDestinations = [
     bestTime: "November to April (surf season and calmer weather)",
     faq: [{"q": "Is Weligama good for beginner surfers?", "a": "Yes. The waves in the bay are generally gentle and sandy-bottomed, which is why many surf schools are based here."}, {"q": "How far is Weligama from Mirissa and Galle?", "a": "Mirissa is about 15 minutes away, and Galle about 45 minutes, depending on traffic."}],
     relatedLinks: [{"label": "Mirissa", "url": "/destinations/mirissa"}, {"label": "Unawatuna", "url": "/destinations/unawatuna"}],
-    galleryImages: ["/images/destinations/weligama/photo-1.jpg", "/images/destinations/weligama/photo-2.jpg", "/images/destinations/weligama/photo-3.jpg"],
-    // Wikimedia Commons photos: the licences require crediting the photographers
-    photoCredits: [{"artist": "Pierre André Leclercq", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Weligama_outrigger_canoes_on_the_beach.jpg"}, {"artist": "PIERRE ANDRE LECLERCQ", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Weligama_beach_(3).jpg"}, {"artist": "Honeplus", "license": "CC BY-SA 3.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "source": "https://commons.wikimedia.org/wiki/File:Weligama_Beach_in_Sri_Lanka.jpg"}, {"artist": "PIERRE ANDRE LECLERCQ", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Weligama_beach_(6).jpg"}],
+    galleryImages: [],
   },
   {
     name: "Tangalle",
@@ -1513,7 +1509,7 @@ export const touristDestinations = [
     metaTitle: "Tangalle Beaches – Private Driver Trips on Sri Lanka's South Coast",
     metaDescription: "Explore Tangalle's quiet beaches, Goyambokka bay, turtle watching at Rekawa and the Mulkirigala rock temple with a private driver.",
     heroImage: "/images/destinations/tangalle/hero.jpg",
-    altText: "Evening light over palm trees and the beach at Tangalle, Sri Lanka",
+    altText: "Rocky coast and palm trees at Tangalle, Sri Lanka",
     h1: "Discover Tangalle – Quiet Beaches on the Deep South Coast",
     description: "Long, quiet beaches, hidden coves and turtle nesting sites on the deep south coast.",
     overview: "Tangalle is a relaxed town on Sri Lanka's deep south coast, surrounded by long, uncrowded beaches and small coves such as Goyambokka. It is quieter than the busier resorts further west, and a good base for turtle watching at Rekawa, the Mulkirigala rock temple and the Hummanaya blowhole.",
@@ -1522,9 +1518,7 @@ export const touristDestinations = [
     bestTime: "December to April (calmer sea and drier weather)",
     faq: [{"q": "Is Tangalle good for swimming?", "a": "Some coves, such as Goyambokka, are calmer than the open beaches. Waves and currents can be strong, so always ask locally."}, {"q": "How far is Tangalle from Mirissa?", "a": "About an hour by road along the coast."}],
     relatedLinks: [{"label": "Mirissa", "url": "/destinations/mirissa"}, {"label": "Yala National Park", "url": "/destinations/yala"}],
-    galleryImages: ["/images/destinations/tangalle/photo-1.jpg", "/images/destinations/tangalle/photo-2.jpg", "/images/destinations/tangalle/photo-3.jpg"],
-    // Wikimedia Commons photos: the licences require crediting the photographers
-    photoCredits: [{"artist": "Peter Addor from underway; mailnly Switzerland, Italy and Sri Lanka, world", "license": "CC BY 2.0", "licenseUrl": "https://creativecommons.org/licenses/by/2.0", "source": "https://commons.wikimedia.org/wiki/File:Eveninglight_at_Tangalle_Beach,_Sri_Lanka_(39695821345).jpg"}, {"artist": "Satdeep Gill", "license": "CC BY 4.0", "licenseUrl": "https://creativecommons.org/licenses/by/4.0", "source": "https://commons.wikimedia.org/wiki/File:Goyambokka_Beach,_Tangalle,_Sri_Lanka.jpg"}, {"artist": "Tuderna", "license": "CC BY 3.0", "licenseUrl": "https://creativecommons.org/licenses/by/3.0", "source": "https://commons.wikimedia.org/wiki/File:Tangalle_beach_scenery_-_panoramio.jpg"}, {"artist": "Aysha Banu", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Beautiful_Scenery_of_Tangalle_Beach.jpg"}],
+    galleryImages: [],
   },
   {
     name: "Bandarawela",
@@ -1535,8 +1529,8 @@ export const touristDestinations = [
     type: "hill_station",
     metaTitle: "Bandarawela Hill Town – Private Driver Tours in Tea Country",
     metaDescription: "Discover Bandarawela's mild climate, tea estates and colonial charm with a private driver, between Ella and Haputale.",
-    heroImage: "/images/destinations/bandarawela/hero.jpg",
-    altText: "Green hills and valleys around Bandarawela in Sri Lanka's hill country",
+    heroImage: "/images/hero/haputale.webp",
+    altText: "Tea-covered hills of the Uva hill country near Bandarawela, Sri Lanka",
     h1: "Discover Bandarawela – A Mild Hill Town in Tea Country",
     description: "A pleasant hill town with a mild climate, tea estates and colonial charm.",
     overview: "Bandarawela is a hill town in Sri Lanka's Uva province, known for its mild, sunny climate and the tea estates and vegetable farms around it. It sits between Ella and Haputale, so it makes a quieter alternative base for exploring the hill country, with an old colonial-era hotel and a lively local market.",
@@ -1545,9 +1539,7 @@ export const touristDestinations = [
     bestTime: "January to April (drier, sunny weather)",
     faq: [{"q": "Is Bandarawela worth visiting?", "a": "Yes, if you want a quieter, less touristy base in the hill country, close to both Ella and Haputale."}, {"q": "How far is Bandarawela from Ella?", "a": "About 30 to 45 minutes by road, depending on traffic and stops."}],
     relatedLinks: [{"label": "Ella", "url": "/destinations/ella"}, {"label": "Haputale", "url": "/destinations/haputale"}],
-    galleryImages: ["/images/destinations/bandarawela/photo-1.jpg", "/images/destinations/bandarawela/photo-2.jpg"],
-    // Wikimedia Commons photos: the licences require crediting the photographers
-    photoCredits: [{"artist": "Kavindalb", "license": "CC BY-SA 3.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0", "source": "https://commons.wikimedia.org/wiki/File:Bandarawela,_Porawagala.jpg"}, {"artist": "Adam Jones from Kelowna, BC, Canada", "license": "CC BY-SA 2.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0", "source": "https://commons.wikimedia.org/wiki/File:Garden_of_Colonial-Era_Bandarawela_Hotel_-_Bandarawela_-_Hill_Country_-_Sri_Lanka_-_01_(14141591473).jpg"}, {"artist": "Umedha Hettigoda", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Rest_House_Bandarawela_-_Bandarawela,_Sri_Lanka_(55155057402).jpg"}],
+    galleryImages: [],
   },
   {
     name: "Habarana",
@@ -1558,8 +1550,8 @@ export const touristDestinations = [
     type: "cultural_city",
     metaTitle: "Habarana – Private Driver Base for Sigiriya & Elephant Safaris",
     metaDescription: "Stay in Habarana to explore Sigiriya, Polonnaruwa, Dambulla and elephant safaris in Minneriya and Kaudulla with a private driver.",
-    heroImage: "/images/destinations/habarana/hero.jpg",
-    altText: "Lake and forest at Habarana in Sri Lanka's Cultural Triangle",
+    heroImage: "/images/hero/minneriya.webp",
+    altText: "Elephants at Minneriya National Park, next to Habarana, Sri Lanka",
     h1: "Discover Habarana – Your Base in the Cultural Triangle",
     description: "A quiet base in the Cultural Triangle, close to Sigiriya and elephant safaris.",
     overview: "Habarana is a small town at the heart of Sri Lanka's Cultural Triangle, surrounded by lakes and dry-zone forest. It is a convenient base for visiting Sigiriya, Dambulla and Polonnaruwa, and for jeep safaris to see elephants in the Minneriya and Kaudulla national parks or the Hurulu Eco Park.",
@@ -1568,9 +1560,7 @@ export const touristDestinations = [
     bestTime: "All year; elephant gatherings at Minneriya are usually biggest around July to October",
     faq: [{"q": "Should I stay in Habarana or Sigiriya?", "a": "Both work well. Habarana is slightly closer to Polonnaruwa and the elephant parks, while Sigiriya is closer to the rock itself; they are only about 25 minutes apart."}, {"q": "Which elephant safari is best from Habarana?", "a": "Minneriya, Kaudulla and Hurulu Eco Park are all close by. The best one changes with the season, so ask your driver or a local safari operator."}],
     relatedLinks: [{"label": "Sigiriya", "url": "/destinations/sigiriya"}, {"label": "Minneriya National Park", "url": "/destinations/minneriya"}],
-    galleryImages: ["/images/destinations/habarana/photo-1.jpg", "/images/destinations/habarana/photo-2.jpg"],
-    // Wikimedia Commons photos: the licences require crediting the photographers
-    photoCredits: [{"artist": "Chulani Iddawela", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Habarana_lake.jpg"}, {"artist": "Lapmaster", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Habarana_Jungle.jpg"}, {"artist": "K YATHU", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Habarana_National_park.jpg"}],
+    galleryImages: [],
   },
   {
     name: "Knuckles Mountain Range",
@@ -1581,8 +1571,6 @@ export const touristDestinations = [
     type: "national_park",
     metaTitle: "Knuckles Mountain Range – Hiking Trips with a Private Driver",
     metaDescription: "Hike the cloud forests and viewpoints of the Knuckles Mountain Range, a UNESCO World Heritage area, with a private driver from Kandy.",
-    heroImage: "/images/destinations/knuckles/hero.jpg",
-    altText: "Morning view over the valleys of the Knuckles Mountain Range, Sri Lanka",
     h1: "Discover the Knuckles Mountain Range – Wild Hiking Near Kandy",
     description: "A rugged UNESCO-listed mountain range with cloud forests and spectacular hikes.",
     overview: "The Knuckles Mountain Range, north-east of Kandy, is one of Sri Lanka's wildest landscapes: misty peaks, cloud forests, waterfalls and small villages, rich in plants and wildlife found nowhere else. It is part of the Central Highlands of Sri Lanka, a UNESCO World Heritage Site, and a favourite with hikers looking for trails away from the crowds.",
@@ -1591,8 +1579,6 @@ export const touristDestinations = [
     bestTime: "January to April (drier weather and clearer views)",
     faq: [{"q": "Can I visit the Knuckles range on a day trip from Kandy?", "a": "Yes, for a short hike, but it is a long day. Staying a night nearby lets you hike early, when views are clearest."}, {"q": "Do I need a guide to hike in the Knuckles range?", "a": "It is strongly recommended. A local guide knows the trails, handles permits where needed and keeps you safe when the weather changes."}],
     relatedLinks: [{"label": "Kandy", "url": "/destinations/kandy"}, {"label": "Horton Plains National Park", "url": "/destinations/horton-plains"}],
-    galleryImages: ["/images/destinations/knuckles/photo-1.jpg", "/images/destinations/knuckles/photo-2.jpg", "/images/destinations/knuckles/photo-3.jpg"],
-    // Wikimedia Commons photos: the licences require crediting the photographers
-    photoCredits: [{"artist": "Ruwangiudawattage", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Mornings_at_knuckles_mountain_jpg.jpg"}, {"artist": "Thusitha Jayasundara", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Knuckles_mountain_range_-_Sri_Lanka.jpg"}, {"artist": "KapilaKTK", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Knuckles_Mountain_Range_1.jpg"}, {"artist": "Hemaka Pathiranage", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "source": "https://commons.wikimedia.org/wiki/File:Knuckles_Mountain_Range_View.jpg"}],
+    galleryImages: [],
   },
 ];
