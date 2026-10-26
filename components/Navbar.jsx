@@ -88,6 +88,7 @@ export default function Navbar() {
     "/private-driver/galle": "/fr/private-driver/galle",
     "/airport-transfer": "/fr/airport-transfer",
     "/plan-trip": "/fr/plan-trip",
+    "/plan-trip/review": "/fr/plan-trip/review",
     "/blog": "/fr/blog",
 
     "/fr": "/",
@@ -105,6 +106,7 @@ export default function Navbar() {
     "/fr/private-tour": "/private-tour",
     "/fr/airport-transfer": "/airport-transfer",
     "/fr/plan-trip": "/plan-trip",
+    "/fr/plan-trip/review": "/plan-trip/review",
     "/fr/blog": "/blog",
   };
 

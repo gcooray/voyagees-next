@@ -58,6 +58,7 @@ const STRINGS = {
     sending: "Sending…",
     requestHotels: "Request hotel options",
     suggestedStay: "Suggested stay",
+    goodToKnow: "Good to know:",
     lookUpStay: "Look up this stay →",
     noStay: "No accommodation needed this day.",
     planAnother: "← Plan another trip",
@@ -104,6 +105,7 @@ const STRINGS = {
     sending: "Envoi…",
     requestHotels: "Demander des propositions d'hôtels",
     suggestedStay: "Hébergement suggéré",
+    goodToKnow: "Bon à savoir :",
     lookUpStay: "Voir cet hébergement →",
     noStay: "Aucun hébergement nécessaire ce jour-là.",
     planAnother: "← Planifier un autre voyage",
@@ -307,6 +309,7 @@ export default function ItineraryResult({ data, searchParams, onReset, onLeave, 
                   {day.location?.name && <> · {day.location.name}</>}
                 </p>
                 <h3>{day.title}</h3>
+                {day.travel && <p className="itinerary-travel">🚗 {day.travel}</p>}
 
                 {day.activities?.length > 0 && (
                   <ul className="itinerary-activities">
@@ -314,6 +317,12 @@ export default function ItineraryResult({ data, searchParams, onReset, onLeave, 
                       <li key={activity}>{activity}</li>
                     ))}
                   </ul>
+                )}
+
+                {day.goodToKnow && (
+                  <p className="itinerary-good-to-know">
+                    <strong>{t.goodToKnow}</strong> {day.goodToKnow}
+                  </p>
                 )}
 
                 <div className="itinerary-stay">

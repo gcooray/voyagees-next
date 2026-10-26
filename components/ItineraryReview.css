@@ -1,0 +1,114 @@
+/* "Improve my itinerary" (components/ItineraryReview.jsx); builds on
+   PlanTrip.css for the page, form and button. */
+
+.review-switch {
+  margin: -1.25rem 0 1.75rem;
+  font-size: 0.92rem;
+}
+.review-switch a { color: var(--teal); }
+
+.review-textarea {
+  min-height: 260px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.review-verdict {
+  margin: 0.5rem 0 1.75rem;
+  padding: 1.25rem 1.4rem;
+  border-radius: 16px;
+  background: var(--paper-dim);
+  border-left: 5px solid var(--teal);
+}
+.review-verdict strong {
+  display: block;
+  font-family: var(--display);
+  font-size: 1.35rem;
+  margin-bottom: 0.4rem;
+}
+.review-verdict p { margin: 0; line-height: 1.6; }
+.review-verdict-a_bit_full { border-left-color: var(--gold); }
+.review-verdict-too_rushed { border-left-color: var(--clay); }
+
+.review-days {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+.review-day {
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  border-left-width: 4px;
+}
+.review-day p { margin: 0.35rem 0 0; line-height: 1.55; }
+.review-day-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.review-day-label { font-weight: 700; }
+.review-day-plan { color: var(--sage); font-size: 0.92rem; }
+.review-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+}
+.review-ok { border-left-color: var(--teal); }
+.review-ok .review-badge { background: rgba(43, 110, 113, 0.12); color: var(--teal); }
+.review-adjust { border-left-color: var(--gold); }
+.review-adjust .review-badge { background: rgba(226, 166, 59, 0.18); color: var(--gold-dark); }
+.review-rethink { border-left-color: var(--clay); }
+.review-rethink .review-badge { background: rgba(193, 91, 61, 0.14); color: var(--clay); }
+.review-suggestion {
+  padding: 0.6rem 0.8rem;
+  background: var(--paper-dim);
+  border-radius: 10px;
+  margin-top: 0.6rem !important;
+}
+
+.review-tips, .review-next {
+  margin-top: 2rem;
+  padding: 1.4rem;
+  border-radius: 16px;
+  background: var(--paper-dim);
+}
+.review-tips h2, .review-next h2 {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  margin: 0 0 0.75rem;
+}
+.review-tips ul { margin: 0; padding-left: 1.2rem; }
+.review-tips li { margin-bottom: 0.45rem; line-height: 1.5; }
+.review-next p { margin: 0 0 1rem; line-height: 1.55; }
+.review-next-buttons { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.review-btn {
+  display: inline-block;
+  padding: 0.75rem 1.2rem;
+  border-radius: 999px;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.review-btn-primary { background: var(--clay); color: var(--paper); }
+.review-btn-wa { background: #25d366; color: #fff; }
+.review-btn-ghost { background: transparent; border-color: var(--line); color: var(--ink); }
+
+.review-disclaimer {
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--sage);
+}
+
+@media (max-width: 640px) {
+  .review-btn { display: block; width: 100%; text-align: center; }
+}

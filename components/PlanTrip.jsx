@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import ItineraryResult from "@/components/ItineraryResult";
 import { getLowestDriverPrice } from "@/lib/driverPricing";
@@ -77,6 +78,7 @@ const STRINGS = {
     errChildAge: (max) => `Please enter a valid age (0–${max}) for each child.`,
     errNoDrivers: "No drivers are currently available for those dates. Try a different date range.",
     errFailed: "Couldn't generate your itinerary. Please try again.",
+    reviewLink: "Already have an itinerary? Get free feedback on it",
     errLimit: "You've planned 5 trips in the last hour, which is the limit for now. Please try again a little later, or message us on WhatsApp (+94 76 112 8692) and we'll plan it with you.",
     submitting: "We're preparing your trip…",
     submit: "Generate My Itinerary",
@@ -111,6 +113,7 @@ const STRINGS = {
     errChildAge: (max) => `Veuillez indiquer un âge valide (0–${max}) pour chaque enfant.`,
     errNoDrivers: "Aucun chauffeur n'est disponible à ces dates. Essayez d'autres dates.",
     errFailed: "Impossible de générer votre itinéraire. Veuillez réessayer.",
+    reviewLink: "Vous avez déjà un itinéraire ? Faites-le analyser gratuitement",
     errLimit: "Vous avez préparé 5 itinéraires au cours de la dernière heure, c'est la limite pour le moment. Réessayez un peu plus tard, ou écrivez-nous sur WhatsApp (+94 76 112 8692) et nous le préparerons avec vous.",
     submitting: "Nous préparons votre voyage…",
     submit: "Générer Mon Itinéraire",
@@ -364,6 +367,9 @@ export default function PlanTrip({ locale = "en" }) {
     <main className="plan-trip-page">
       <h1>{t.title}</h1>
       <p className="plan-trip-intro">{t.intro}</p>
+      <p className="plan-trip-review-link">
+        <Link href={locale === "fr" ? "/fr/plan-trip/review" : "/plan-trip/review"}>{t.reviewLink} →</Link>
+      </p>
 
       <form className="plan-trip-form" onSubmit={handleSubmit}>
         <div className="plan-trip-row">

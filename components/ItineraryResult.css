@@ -286,6 +286,25 @@
   background: var(--gold);
 }
 
+.itinerary-travel {
+  margin: 0.15rem 0 0.6rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--teal);
+}
+
+.itinerary-good-to-know {
+  margin: 0.75rem 0 0;
+  padding: 0.7rem 0.9rem;
+  background: var(--paper-dim);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.itinerary-good-to-know strong { color: var(--gold-dark); }
+
 .itinerary-stay {
   background: var(--paper-dim);
   border-radius: var(--radius, 8px);

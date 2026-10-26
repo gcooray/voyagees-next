@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { fieldNotesText } from "@/lib/fieldNotes";
 import { touristDestinations } from "@/data/touristDestinations";
 import {
   accommodationPriceRanges,
@@ -161,6 +162,16 @@ const ITINERARY_TOOL = {
                   description:
                     "A short description of the TYPE/STYLE of accommodation for the night (e.g. 'boutique tea-estate bungalow', 'family-run guesthouse'). Never include a price or number here — pricing is added separately.",
                 },
+                travel: {
+                  type: "string",
+                  description:
+                    "The main drive of the day, if any, as a short phrase with a realistic time from the driving-time rules, e.g. 'About 3 h drive from Kandy'. Omit on days without a real transfer.",
+                },
+                goodToKnow: {
+                  type: "string",
+                  description:
+                    "One short, practical tip specific to this day (best time to visit, what to bring, what to book ahead, a pitfall to avoid), drawn from the field notes where relevant. No prices.",
+                },
               },
               required: ["title", "destinationName", "activities", "hasOvernightStay"],
             },
@@ -208,7 +219,7 @@ function buildKnowledgeBaseContext() {
 // touristDestinations / hotelsByDestination, which are keyed in English.
 const FRENCH_INSTRUCTION = `
 
-LANGUAGE: The traveler is using the French version of the site. Write title, routeSummary, every day's title, every activity and every stayStyle in natural, fluent French. Keep destinationName as the standard place name exactly as it is usually written in English (e.g. "Kandy", "Nuwara Eliya", "Arugam Bay") — it is used for map lookup, not shown as prose.`;
+LANGUAGE: The traveler is using the French version of the site. Write title, routeSummary, every day's title, every activity, every stayStyle, travel and goodToKnow in natural, fluent French. Keep destinationName as the standard place name exactly as it is usually written in English (e.g. "Kandy", "Nuwara Eliya", "Arugam Bay") — it is used for map lookup, not shown as prose.`;
 
 // Train rules for the model — see HILL_COUNTRY_TRAIN.
 // Sri Lankan roads are slow (often 30–40 km/h door to door), so the model
@@ -252,7 +263,11 @@ The reference list above is for your awareness of which destinations/attractions
 
 Match accommodation style (via stayStyle) to the traveler's stated budget tier, and the density of each day's activities to their stated pace. Use real, well-known place names for destinationName so they can be matched to map coordinates.
 
-Seasonality awareness: Sri Lanka's west/south/hill-country region is best Dec-Apr, while the east/north coast (Trincomalee, Arugam Bay, Jaffna) has the opposite pattern and is best May-Sept — prefer suggesting each region during its own good season when the traveler's dates allow flexibility, and avoid recommending time-sensitive activities (e.g. whale watching off Mirissa, or Arugam Bay surfing) outside their real season. You don't need to mention this yourself — the platform adds a seasonal note to the response automatically when relevant.${DRIVING_INSTRUCTION}${TRAIN_INSTRUCTION}${locale === "fr" ? FRENCH_INSTRUCTION : ""}`;
+Seasonality awareness: Sri Lanka's west/south/hill-country region is best Dec-Apr, while the east/north coast (Trincomalee, Arugam Bay, Jaffna) has the opposite pattern and is best May-Sept — prefer suggesting each region during its own good season when the traveler's dates allow flexibility, and avoid recommending time-sensitive activities (e.g. whale watching off Mirissa, or Arugam Bay surfing) outside their real season. You don't need to mention this yourself — the platform adds a seasonal note to the response automatically when relevant.
+
+${fieldNotesText()}
+
+Use the field notes to order each day sensibly (sunrise visits first, safaris in the late afternoon, one sunrise activity per day) and to fill each day's goodToKnow with the most useful tip for that day.${DRIVING_INSTRUCTION}${TRAIN_INSTRUCTION}${locale === "fr" ? FRENCH_INSTRUCTION : ""}`;
 }
 
 function buildUserPrompt(preferences, totalDays) {
@@ -735,6 +750,8 @@ export async function POST(request) {
       label: t.day(index + 1),
       date: addDays(pickupDate, index),
       title: day.title,
+      travel: day.travel || null,
+      goodToKnow: day.goodToKnow || null,
       activities: appendVerifiedActivityPrices(day.activities || [], locale),
       location: { name: destination.name, lat: destination.lat, lng: destination.lng, resolved: destination.resolved },
       stay,
