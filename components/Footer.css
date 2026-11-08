@@ -117,3 +117,18 @@
   .footer-links { gap: 1.25rem 1.75rem; }
   .footer-bottom { flex-direction: column; gap: 0.5rem; }
 }
+/* line-art band above the footer (see Footer.jsx) */
+.footer-art {
+  background: var(--paper);
+  color: var(--ink);
+  padding: 2.5rem 5vw 0;
+  line-height: 0;
+}
+.footer-art svg {
+  display: block;
+  width: 100%;
+  max-width: 1100px;
+  height: auto;
+  margin: 0 auto;
+  opacity: 0.55;
+}

@@ -32,6 +32,37 @@ export default function Footer() {
   const prefix = isFrench ? "/fr" : "";
 
   return (
+    <>
+    {/* line drawing of the island above the footer: hills, Sigiriya, a
+        dagoba, a bodhi tree and a Kandyan temple roof */}
+    <div className="footer-art" aria-hidden="true">
+      <svg viewBox="0 0 1200 140" preserveAspectRatio="xMidYMax meet" fill="none" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M0 132 C40 128 70 112 105 92 C130 78 150 70 168 74" />
+        <path d="M150 132 C162 130 168 122 172 108 C176 90 178 70 186 56 C190 50 196 48 204 48 L250 47 C258 47 262 52 265 60 C271 76 272 100 276 116 C279 126 284 131 300 132" />
+        <path d="M196 60 C214 57 236 58 254 62" opacity="0.6" />
+        <path d="M262 112 C280 104 300 104 318 110 C332 115 344 124 360 128" />
+        <path d="M340 132 H500" />
+        <path d="M356 132 V124 H484 V132 M366 124 V117 H474 V124" />
+        <path d="M372 117 C372 84 394 66 420 66 C446 66 468 84 468 117" />
+        <path d="M410 66 V58 H430 V66" />
+        <path d="M414 58 L420 22 L426 58" />
+        <circle cx="420" cy="19" r="2.2" />
+        <path d="M520 132 C560 130 590 130 640 131" />
+        <path d="M617 131 C619 118 618 106 614 96 M625 131 C624 118 626 106 630 96" />
+        <path d="M616 106 C606 102 600 100 594 101 M627 108 C637 103 645 101 652 103" />
+        <path d="M588 100 C570 98 566 80 580 74 C578 60 594 52 606 58 C612 46 634 44 642 56 C656 52 670 62 666 76 C680 82 676 100 660 101 C650 106 636 104 628 100 C618 105 600 106 588 100 Z" />
+        <path d="M690 132 H960" />
+        <path d="M748 132 V122 H952 V132" />
+        <path d="M770 122 V98 M800 122 V98 M830 122 V98 M870 122 V98 M900 122 V98 M930 122 V98" />
+        <path d="M842 122 V104 H858 V122" />
+        <path d="M744 98 C752 98 756 94 760 90 L780 82 H920 L940 90 C944 94 948 98 956 98 Z" />
+        <path d="M786 82 L806 70 H894 L914 82" />
+        <path d="M806 70 L836 60 H864 L894 70" />
+        <path d="M836 60 C842 56 846 54 850 52 C854 54 858 56 864 60" />
+        <path d="M960 132 C1000 128 1030 110 1070 104 C1110 98 1140 112 1170 122 C1182 126 1192 129 1200 130" />
+        <path d="M1020 118 C1050 108 1080 108 1110 116" opacity="0.6" />
+      </svg>
+    </div>
     <footer className="footer">
       <div className="footer-container">
 
@@ -74,5 +105,6 @@ export default function Footer() {
 
       </div>
     </footer>
+    </>
   );
 }
