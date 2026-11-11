@@ -40,6 +40,7 @@ const NAV_ITEMS = [
     frHref: "/fr/explore-sri-lanka",
     children: [
       { en: "Sri Lanka map", fr: "Carte du Sri Lanka", href: "/explore-sri-lanka", frHref: "/fr/explore-sri-lanka" },
+      { en: "Itineraries", fr: "Itinéraires", href: "/itineraries", frHref: "/fr/itineraries" },
       { en: "Shared trips", fr: "Trajets partagés", href: "/rides", frHref: "/fr/rides" },
       { en: "Travel blog", fr: "Blog & conseils", href: "/blog", frHref: "/fr/blog" },
     ],
@@ -90,6 +91,7 @@ export default function Navbar() {
     "/plan-trip": "/fr/plan-trip",
     "/plan-trip/review": "/fr/plan-trip/review",
     "/blog": "/fr/blog",
+    "/itineraries": "/fr/itineraries",
 
     "/fr": "/",
     "/fr/private-driver": "/private-driver",
@@ -108,6 +110,7 @@ export default function Navbar() {
     "/fr/plan-trip": "/plan-trip",
     "/fr/plan-trip/review": "/plan-trip/review",
     "/fr/blog": "/blog",
+    "/fr/itineraries": "/itineraries",
   };
 
   const targetPath = routeMap[pathname];
