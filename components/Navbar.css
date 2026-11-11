@@ -185,12 +185,19 @@
   .nav-links { gap: 1.4rem; }
   .language-switcher { margin-left: 0; padding-left: 1.2rem; }
 }
+/* just above the hamburger breakpoint the full bar (with Itineraries)
+   is tight in English too: a little less spacing so it stays on one line */
+@media (min-width: 1241px) and (max-width: 1340px) {
+  .nav-links { gap: 1.1rem; }
+  .language-switcher { padding-left: 0.9rem; }
+}
 /* the French labels are longer — a notch smaller just above the
    hamburger breakpoint so they still fit on one line */
 @media (min-width: 1241px) and (max-width: 1340px) {
-  .navbar-fr .nav-links { gap: 1rem; }
-  .navbar-fr .nav-links a { font-size: 0.86rem; }
-  .navbar-fr .language-switcher { padding-left: 0.9rem; }
+  .navbar-fr .nav-links { gap: 0.85rem; }
+  .navbar-fr .nav-links a { font-size: 0.84rem; }
+  .navbar-fr .language-switcher { padding-left: 0.8rem; }
+  .navbar-fr .nav-links a.nav-cta { padding: 0.5rem 0.9rem; }
 }
 
 /* ▾ marker on items that open a submenu */

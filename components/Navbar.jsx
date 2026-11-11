@@ -34,13 +34,18 @@ const NAV_ITEMS = [
     frHref: "/fr/private-tour",
   },
   {
+    en: "Itineraries",
+    fr: "Itinéraires",
+    href: "/itineraries",
+    frHref: "/fr/itineraries",
+  },
+  {
     en: "Explore",
     fr: "Explorer",
     href: "/explore-sri-lanka",
     frHref: "/fr/explore-sri-lanka",
     children: [
       { en: "Sri Lanka map", fr: "Carte du Sri Lanka", href: "/explore-sri-lanka", frHref: "/fr/explore-sri-lanka" },
-      { en: "Itineraries", fr: "Itinéraires", href: "/itineraries", frHref: "/fr/itineraries" },
       { en: "Shared trips", fr: "Trajets partagés", href: "/rides", frHref: "/fr/rides" },
       { en: "Travel blog", fr: "Blog & conseils", href: "/blog", frHref: "/fr/blog" },
     ],
