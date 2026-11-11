@@ -1,9 +1,12 @@
 const fr = {
   hero: {
-    eyebrow: "CHAUFFEURS PRIVÉS • SRI LANKA",
-    title: "Découvrez",
-    titleHighlight: "le Sri Lanka.",
-    description: "Votre voyage. Votre rythme. Votre expérience locale.",
+    eyebrow: "CHAUFFEURS PRIVÉS · SRI LANKA",
+    title: "Le Sri Lanka, avec un chauffeur",
+    titleHighlight: "qui connaît la route.",
+    description: "Des chauffeurs locaux qui parlent votre langue, un itinéraire à votre rythme, et quelqu'un sur la route qui connaît l'île comme sa maison.",
+    planCta: "Planifier mon voyage gratuitement",
+    itinerariesCta: "Voir les itinéraires",
+    points: ["Chauffeurs francophones et anglophones", "Chauffeurs agréés, véhicules assurés", "Planificateur de voyage gratuit"],
   },
 
   search: {

@@ -82,8 +82,7 @@ export default function HomePage({ content, locale }) {
 
           <div className="market-hero-copy">
             {/* the eyebrow sits inside the h1 so the page's main heading
-                says what we offer ("Private drivers • Sri Lanka"), not just
-                "Discover Sri Lanka." — it keeps its small eyebrow styling */}
+                says what we offer ("Private drivers · Sri Lanka") */}
             <h1>
               <span className="market-eyebrow market-eyebrow-in-h1">
                 {content.hero.eyebrow}
@@ -96,41 +95,46 @@ export default function HomePage({ content, locale }) {
             <p className="market-hero-description">
               {content.hero.description}
             </p>
-          </div>
 
-          <div className="market-search-card">
-
-            <div className="market-search-heading">
-              <span className="market-search-label">
-                {content.search.eyebrow}
-              </span>
-
-              <h2>
-                {content.search.heading}
-              </h2>
+            <div className="market-hero-actions">
+              <Link href={locale === "fr" ? "/fr/plan-trip" : "/plan-trip"} className="market-hero-btn market-hero-btn-primary">
+                {content.hero.planCta} <span aria-hidden="true">→</span>
+              </Link>
+              <Link href={locale === "fr" ? "/fr/itineraries" : "/itineraries"} className="market-hero-btn market-hero-btn-ghost">
+                {content.hero.itinerariesCta}
+              </Link>
             </div>
 
-            <SearchForm
-              pickup={pickup}
-              setPickup={setPickup}
-              dropoff={dropoff}
-              setDropoff={setDropoff}
-              pickupDate={pickupDate}
-              setPickupDate={setPickupDate}
-              dropoffDate={dropoffDate}
-              setDropoffDate={setDropoffDate}
-              pickupTime={pickupTime}
-              setPickupTime={setPickupTime}
-              dropoffTime={dropoffTime}
-              setDropoffTime={setDropoffTime}
-              passengers={passengers}
-              setPassengers={setPassengers}
-              handleSearch={handleSearch}
-              locale={locale}
-            />
-
+            <ul className="market-hero-points">
+              {content.hero.points.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
           </div>
 
+        </div>
+
+        {/* search as one wide bar along the bottom of the hero */}
+        <div className="market-search-card market-search-bar" id="find-driver">
+          <span className="market-search-label">{content.search.heading}</span>
+          <SearchForm
+            pickup={pickup}
+            setPickup={setPickup}
+            dropoff={dropoff}
+            setDropoff={setDropoff}
+            pickupDate={pickupDate}
+            setPickupDate={setPickupDate}
+            dropoffDate={dropoffDate}
+            setDropoffDate={setDropoffDate}
+            pickupTime={pickupTime}
+            setPickupTime={setPickupTime}
+            dropoffTime={dropoffTime}
+            setDropoffTime={setDropoffTime}
+            passengers={passengers}
+            setPassengers={setPassengers}
+            handleSearch={handleSearch}
+            locale={locale}
+          />
         </div>
 
       </section>

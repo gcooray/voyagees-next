@@ -130,22 +130,27 @@
    path and hero copy differ. */
 .market-hero {
   position: relative;
-  min-height: 380px;
+  /* the hero sits below the fixed navbar, so subtract it to keep the
+     search bar inside the first screen */
+  min-height: calc(min(100vh, 980px) - var(--navbar-height));
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-end;
   margin-top: calc(-1 * var(--navbar-height));
-  padding: calc(var(--navbar-height) + 0.5rem) 5vw 2.5rem;
+  padding: calc(var(--navbar-height) + 1.5rem) 5vw 2rem;
   color: var(--paper);
   overflow: hidden;
-  background: linear-gradient(135deg, #1c3226 0%, #16241d 60%),
-    url("/images/hero/sigiriya.webp") center/cover no-repeat;
-  background-blend-mode: multiply;
+  background: url("/images/hero/ella.webp") center 40% / cover no-repeat;
 }
 
+/* darker on the left and at the bottom only, so the photo stays bright
+   and the headline and search bar stay readable */
 .market-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(22, 36, 29, 0.75) 0%, rgba(22, 36, 29, 0.3) 100%);
+  background:
+    linear-gradient(90deg, rgba(22, 36, 29, 0.78) 0%, rgba(22, 36, 29, 0.35) 55%, rgba(22, 36, 29, 0.05) 100%),
+    linear-gradient(to top, rgba(22, 36, 29, 0.7) 0%, rgba(22, 36, 29, 0) 45%);
 }
 
 .market-hero-content {
@@ -153,21 +158,18 @@
   z-index: 2;
   width: 100%;
   max-width: 1240px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 3rem;
+  margin: auto auto 0;
 }
 
-.market-hero-copy { max-width: 32rem; }
+.market-hero-copy { max-width: 56rem; }
 .market-hero-content .market-eyebrow { color: var(--gold); }
 .market-hero-content .market-eyebrow::before { background: var(--gold); }
 
 .market-hero-content h1 {
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-size: clamp(2.4rem, 4.6vw, 4rem);
+  line-height: 1.06;
   color: var(--paper);
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
 }
 .market-hero-content h1 span { color: var(--gold); }
 /* the eyebrow inside the h1: block so the title starts on the next line,
@@ -179,34 +181,70 @@
   line-height: 1.6;
   letter-spacing: normal;
   color: var(--gold);
+  text-shadow: none;
+  margin-bottom: 1rem;
 }
 
-.market-hero-description {
-  margin-top: 1.25rem;
-  font-size: 1.1rem;
-  color: rgba(251, 247, 239, 0.82);
+.market-hero-content .market-hero-description {
+  margin-top: 1.4rem;
+  max-width: 46rem; /* wide enough for two lines in both languages */
+  font-size: 1.15rem;
+  color: rgba(251, 247, 239, 0.88);
 }
 
+.market-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+}
+.market-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.98rem;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+.market-hero-btn:hover { transform: translateY(-2px); }
+.market-hero-btn-primary { background: var(--gold); color: var(--ink); }
+.market-hero-btn-primary:hover { background: var(--paper); }
+.market-hero-btn-ghost {
+  border: 1px solid rgba(251, 247, 239, 0.55);
+  color: var(--paper);
+  backdrop-filter: blur(4px);
+}
+.market-hero-btn-ghost:hover { border-color: var(--gold); }
+
+.market-hero-points {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.6rem;
+  margin: 1.4rem 0 0;
+  padding: 0;
+  font-size: 0.92rem;
+  color: rgba(251, 247, 239, 0.85);
+}
+.market-hero-points li { display: flex; align-items: center; gap: 0.5rem; }
+.market-hero-points li::before { content: "✓"; color: var(--gold); font-weight: 700; }
+
+/* search bar: one row of fields along the bottom of the hero */
 .market-search-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1240px;
+  margin: 2rem auto 0;
   background: var(--paper);
-  border-radius: 22px;
-  padding: 2.5rem 2.75rem 2.25rem;
-  max-width: 600px;
-  box-shadow: 0 38px 75px -20px rgba(22, 36, 29, 0.5);
-  border-left: 6px solid var(--gold);
+  border-radius: 20px;
+  padding: 1.3rem 1.6rem 1.4rem;
+  box-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.45);
   color: var(--ink);
 }
-
-.market-search-heading { margin-bottom: 1.6rem; }
-.market-search-heading h2 {
-  font-family: var(--display);
-  font-weight: 500;
-  font-size: 1.8rem;
-  color: var(--ink);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  margin: 0;
-}
+.market-search-bar .market-search-label { margin-bottom: 0.6rem; }
 
 /* SearchForm.jsx overrides — real structure is
    .search-hero > .search-overlay > .form-panel > form > .row > .form-group
@@ -364,6 +402,19 @@
   transform: none;
 }
 
+/* desktop: all fields and the button on one line */
+@media (min-width: 1000px) {
+  .market-search-bar form {
+    display: grid;
+    grid-template-columns: 1.3fr repeat(4, 1fr) auto;
+    align-items: end;
+    gap: 0 1.1rem;
+  }
+  .market-search-bar form .row,
+  .market-search-bar form .row:not(:first-of-type) { display: contents; }
+  .market-search-bar form .btn-submit { margin: 0; align-self: end; white-space: nowrap; padding: 0.95rem 1.8rem; }
+}
+
 /* keep the date/time fields as a 2-column grid even on small
    phones — full single-column stacking made the card too tall */
 @media (max-width: 760px) {
@@ -381,6 +432,31 @@
     min-width: 0;
   }
   .market-search-card form .row:first-of-type .form-group.small { flex: 1 1 100%; }
+}
+
+@media (max-width: 760px) {
+  .market-hero { min-height: auto; padding-top: calc(var(--navbar-height) + 2rem); background-position: 65% center; }
+  .market-hero-overlay { background: linear-gradient(to top, rgba(22, 36, 29, 0.85) 0%, rgba(22, 36, 29, 0.55) 60%, rgba(22, 36, 29, 0.35) 100%); }
+  .market-hero-description { font-size: 1.02rem; }
+  .market-hero-btn { flex: 1 1 100%; justify-content: center; }
+  .market-hero-points { gap: 0.4rem; flex-direction: column; }
+  .market-search-card { margin-top: 2rem; padding: 1.2rem; }
+  .market-search-card form .btn-submit { width: 100%; }
+}
+
+/* phones: the driver form comes straight after the headline so it shows
+   on landing; the description, buttons and trust points follow below it */
+@media (max-width: 760px) {
+  .market-hero-content,
+  .market-hero-copy { display: contents; }
+  /* with their wrappers gone, the copy elements need their own stacking
+     so they sit above the photo overlay */
+  .market-hero-copy > * { position: relative; z-index: 2; }
+  .market-hero-content h1 { order: 1; font-size: clamp(1.9rem, 8vw, 2.3rem); }
+  .market-search-bar { order: 2; margin-top: 1.25rem; }
+  .market-hero-content .market-hero-description { order: 3; margin-top: 1.6rem; }
+  .market-hero-actions { order: 4; }
+  .market-hero-points { order: 5; }
 }
 
 @media (max-width: 400px) {
@@ -920,7 +996,7 @@
 }
 
 @media (max-width: 640px) {
-  .market-hero { padding: calc(1.5rem + var(--navbar-height)) 6vw 2rem; min-height: 0; }
+  .market-hero { padding: calc(2.5rem + var(--navbar-height)) 6vw 2rem; min-height: 0; }
   .market-hero-content h1 { font-size: clamp(2rem, 9vw, 2.6rem); }
   .market-hero-description { margin-top: 0.85rem; }
   .market-search-card {
@@ -928,7 +1004,6 @@
     border-radius: 18px;
   }
   .market-search-card form { gap: 0.85rem; }
-  .market-search-heading { margin-bottom: 0.9rem; }
   .market-search-card .row { gap: 0.7rem 1rem; }
   .market-search-card .btn-submit {
     padding: 0.7rem 1.7rem;

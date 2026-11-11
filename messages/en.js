@@ -1,9 +1,12 @@
 const en = {
   hero: {
-    eyebrow: "PRIVATE DRIVERS • SRI LANKA",
-    title: "Discover",
-    titleHighlight: "Sri Lanka.",
-    description: "Your journey. Your pace. Your local connection.",
+    eyebrow: "PRIVATE DRIVERS · SRI LANKA",
+    title: "Sri Lanka, with a driver",
+    titleHighlight: "who knows the way.",
+    description: "Local drivers who speak your language, a route that fits your pace, and someone on the road who knows the island like home.",
+    planCta: "Plan my trip for free",
+    itinerariesCta: "See itineraries",
+    points: ["French & English-speaking drivers", "Licensed drivers, insured vehicles", "Free trip planner"],
   },
 
   search: {
