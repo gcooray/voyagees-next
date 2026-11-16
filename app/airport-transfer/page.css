@@ -8,9 +8,7 @@
 .at-page #book { scroll-margin-top: calc(var(--navbar-height) + 1rem); }
 
 .at-final {
-  background: linear-gradient(135deg, #1c3226 0%, #16241d 60%),
-    url("/images/hero/negombo.webp") center/cover no-repeat;
-  background-blend-mode: multiply;
+  background: url("/images/hero/negombo.webp") center/cover no-repeat;
 }
 .at-hero {
   /* a little darker than the other heroes: this photo has a bright sky */

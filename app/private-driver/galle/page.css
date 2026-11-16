@@ -10,9 +10,7 @@
 }
 
 .pdg-final {
-  background: linear-gradient(135deg, #16241d, #0f1a14),
-    url("/images/hero/galle.webp") center/cover no-repeat;
-  background-blend-mode: multiply;
+  background: url("/images/hero/galle.webp") center/cover no-repeat;
 }
 
 .pdg-after-cards { margin-top: 1.75rem; }

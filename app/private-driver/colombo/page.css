@@ -15,9 +15,7 @@ html:has(.pdc-page) { scroll-behavior: smooth; }
 }
 
 .pdc-final {
-  background: linear-gradient(135deg, #16241d, #0f1a14),
-    url("/images/hero/colombo.webp") center/cover no-repeat;
-  background-blend-mode: multiply;
+  background: url("/images/hero/colombo.webp") center/cover no-repeat;
 }
 
 /* =====================================================

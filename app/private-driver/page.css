@@ -27,7 +27,9 @@
 .pd-eyebrow {
   display: inline-flex;
   align-items: baseline;
-  flex-wrap: wrap;
+  /* nowrap: a long label wraps inside its own text, so the dot stays
+     beside the first line instead of sitting alone above it */
+  flex-wrap: nowrap;
   gap: 0.5rem;
   font-family: var(--display);
   font-style: italic;
@@ -549,14 +551,14 @@
   text-align: center;
   padding: 5rem 5vw;
   overflow: hidden;
-  background: linear-gradient(135deg, #16241d, #0f1a14),
-    url("/images/hero/kandy.webp") center/cover no-repeat;
-  background-blend-mode: multiply;
+  /* the photo shows through (it was multiplied with dark green); one even
+     overlay keeps the centred text readable */
+  background: url("/images/hero/kandy.webp") center/cover no-repeat;
 }
 .pd-final-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(22, 36, 29, 0.55);
+  background: rgba(22, 36, 29, 0.5);
 }
 .pd-final-content {
   position: relative;
