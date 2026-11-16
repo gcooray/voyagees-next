@@ -249,6 +249,8 @@
 .itin-btn-primary { background: var(--clay); color: var(--paper); }
 .itin-btn-ghost { border-color: var(--line); color: var(--ink); }
 .itin-btn-ghost:hover { border-color: var(--gold); }
+.itin-btn-primary:hover { color: var(--paper); background: var(--gold-dark); }
+.itin-btn-ghost:hover { color: var(--ink); }
 
 @media (max-width: 700px) {
   .itin-facts { grid-template-columns: 1fr 1fr; }

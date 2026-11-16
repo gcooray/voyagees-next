@@ -179,7 +179,7 @@ export const touristDestinations = [
     ],
     relatedLinks: [
       { label: "Kandy Day Tour", url: "/destinations/kandy" },
-      { label: "Airport Transfers", url: "/services/airport-transfers" }
+      { label: "Airport Transfers", url: "/airport-transfer" }
     ],
     galleryImages: [
       /*"/images/gallery/sigiriya-1.jpg",
@@ -1014,7 +1014,7 @@ export const touristDestinations = [
   ],
   relatedLinks: [
     { label: "Colombo City Tour", url: "/destinations/colombo" },
-    { label: "Airport Transfers", url: "/services/airport-transfers" }
+    { label: "Airport Transfers", url: "/airport-transfer" }
   ],
   galleryImages: [
     /*"/images/gallery/negombo-1.jpg",

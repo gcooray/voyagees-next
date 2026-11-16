@@ -209,8 +209,8 @@
   transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 .market-hero-btn:hover { transform: translateY(-2px); }
-.market-hero-btn-primary { background: var(--gold); color: var(--ink); }
-.market-hero-btn-primary:hover { background: var(--paper); }
+.market-hero .market-hero-btn-primary { background: var(--gold); color: var(--ink); }
+.market-hero .market-hero-btn-primary:hover { background: var(--paper); color: var(--ink); }
 .market-hero-btn-ghost {
   border: 1px solid rgba(251, 247, 239, 0.55);
   color: var(--paper);

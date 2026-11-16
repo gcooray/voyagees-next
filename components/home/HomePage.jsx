@@ -61,7 +61,7 @@ export default function HomePage({ content, locale }) {
 
   const explorePath =
     locale === "fr"
-      ? "/fr/explorer-le-sri-lanka"
+      ? "/fr/explore-sri-lanka"
       : "/explore-sri-lanka";
 
   // const reviewsPath =

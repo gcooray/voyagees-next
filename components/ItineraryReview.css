@@ -102,6 +102,10 @@
 .review-btn-primary { background: var(--clay); color: var(--paper); }
 .review-btn-wa { background: #25d366; color: #fff; }
 .review-btn-ghost { background: transparent; border-color: var(--line); color: var(--ink); }
+/* keep button text readable on hover (the global a:hover turns links gold) */
+.review-btn-primary:hover { color: var(--paper); background: var(--gold-dark); }
+.review-btn-wa:hover { color: #fff; background: #1ebe5a; }
+.review-btn-ghost:hover { color: var(--ink); border-color: var(--ink); }
 
 .review-disclaimer {
   margin-top: 1.5rem;

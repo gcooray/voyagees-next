@@ -174,7 +174,7 @@ export const destinationsFr = [
     ],
     relatedLinks: [
       { label: "Journée à Kandy", url: "/fr/destinations/kandy" },
-      { label: "Transferts Aéroport", url: "/fr/services/airport-transfers" },
+      { label: "Transferts Aéroport", url: "/fr/airport-transfer" },
     ],
     galleryImages: [],
   },
@@ -932,7 +932,7 @@ export const destinationsFr = [
     ],
     relatedLinks: [
       { label: "Visite de Colombo", url: "/fr/destinations/colombo" },
-      { label: "Transferts Aéroport", url: "/fr/services/airport-transfers" },
+      { label: "Transferts Aéroport", url: "/fr/airport-transfer" },
     ],
     galleryImages: [],
   },

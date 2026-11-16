@@ -66,7 +66,10 @@ a {
   text-decoration: none;
 }
 
-a:hover {
+/* :where() keeps this at zero specificity, so a button-style link's own
+   colour always wins: only plain text links turn gold on hover. (As a plain
+   a:hover it overrode buttons and made their text vanish on hover.) */
+:where(a):hover {
   color: var(--gold-dark);
 }
 
