@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import "./DriverCard.css";
 import DriverAvatar from "@/components/DriverAvatar";
+import { getExchangeRate } from "@/lib/exchangeRate";
 
 // data/drivers.js stores vehicle types in English
 const VEHICLE_TYPES_FR = { Car: "Voiture", "Tuk-Tuk": "Tuk-tuk" };
@@ -51,20 +52,9 @@ export default function DriverCard({
 
     async function fetchExchangeRate() {
       try {
-        const currency = locale === "fr" ? "EUR" : "USD";
-
-        const response = await fetch(
-          `https://api.frankfurter.dev/v2/rate/LKR/${currency}`
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch exchange rate");
-        }
-
-        const data = await response.json();
-
+        const rate = await getExchangeRate("LKR", locale === "fr" ? "EUR" : "USD");
         if (!cancelled) {
-          setExchangeRate(data.rate);
+          setExchangeRate(rate);
         }
       } catch (error) {
         console.error("Exchange rate error:", error);

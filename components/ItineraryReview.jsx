@@ -14,7 +14,7 @@ const WHATSAPP_URL = "https://wa.me/94761128692";
 
 const T = {
   en: {
-    title: "Improve my itinerary",
+    title: "Is your Sri Lanka itinerary realistic?",
     intro:
       "Already planned your Sri Lanka trip? Paste it below and get free, day-by-day feedback: realistic drive times, days that are too full, the best time of day for each visit, and answers to your questions.",
     switchToPlan: "Prefer to start from scratch? Plan a new trip",
@@ -42,7 +42,7 @@ const T = {
     disclaimer: "This review is generated automatically from our drivers' experience. Times are approximate; check opening hours and train schedules before you travel.",
   },
   fr: {
-    title: "Améliorer mon itinéraire",
+    title: "Votre itinéraire tient-il la route ?",
     intro:
       "Vous avez déjà préparé votre voyage au Sri Lanka ? Collez votre itinéraire ci-dessous et recevez gratuitement un avis jour par jour : temps de route réalistes, journées trop chargées, meilleur moment pour chaque visite, et réponses à vos questions.",
     switchToPlan: "Vous préférez partir de zéro ? Créer un nouvel itinéraire",

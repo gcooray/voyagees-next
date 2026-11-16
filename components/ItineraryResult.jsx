@@ -9,6 +9,7 @@ import { notifyItineraryHotelsCustomer, notifyItineraryHotelsAdmin } from "@/lib
 import WhatsAppInput from "@/components/WhatsAppInput";
 import "./ItineraryResult.css";
 import { trackLead } from "@/lib/analytics";
+import { getExchangeRate } from "@/lib/exchangeRate";
 
 const ItineraryRouteMap = dynamic(() => import("./ItineraryRouteMap"), {
   ssr: false,
@@ -185,16 +186,12 @@ export default function ItineraryResult({ data, searchParams, onReset, onLeave, 
 
     async function fetchExchangeRate() {
       try {
-        const response = await fetch(`https://api.frankfurter.dev/v2/rate/LKR/${currency}`);
-        if (!response.ok) throw new Error("Failed to fetch exchange rate");
-        const result = await response.json();
-        if (!cancelled) setExchangeRate(result.rate);
+        const rate = await getExchangeRate("LKR", currency);
+        if (!cancelled) setExchangeRate(rate);
 
         if (currency !== "USD") {
-          const usdResponse = await fetch(`https://api.frankfurter.dev/v2/rate/USD/${currency}`);
-          if (!usdResponse.ok) throw new Error("Failed to fetch exchange rate");
-          const usdResult = await usdResponse.json();
-          if (!cancelled) setUsdRate(usdResult.rate);
+          const usd = await getExchangeRate("USD", currency);
+          if (!cancelled) setUsdRate(usd);
         }
       } catch (error) {
         console.error("Exchange rate error:", error);
