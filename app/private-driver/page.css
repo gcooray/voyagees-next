@@ -89,7 +89,7 @@
   /* the photo shows through; a gradient darkens only the left, behind the
      headline (it was multiplied with dark green and almost black) */
   background: linear-gradient(90deg, rgba(22, 36, 29, 0.62) 0%, rgba(22, 36, 29, 0.3) 55%, rgba(22, 36, 29, 0.12) 100%),
-    url("/images/hero/ella.webp") center/cover no-repeat;
+    url("/images/hero/nuwaraeliya.webp") center 60%/cover no-repeat;
 }
 .pd-hero-overlay {
   position: absolute;
