@@ -86,14 +86,15 @@
   padding: calc(var(--navbar-height) + 0.5rem) 5vw 2.5rem;
   color: var(--paper);
   overflow: hidden;
-  background: linear-gradient(135deg, #1c3226 0%, #16241d 60%),
+  /* the photo shows through; a gradient darkens only the left, behind the
+     headline (it was multiplied with dark green and almost black) */
+  background: linear-gradient(90deg, rgba(22, 36, 29, 0.62) 0%, rgba(22, 36, 29, 0.3) 55%, rgba(22, 36, 29, 0.12) 100%),
     url("/images/hero/ella.webp") center/cover no-repeat;
-  background-blend-mode: multiply;
 }
 .pd-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(22, 36, 29, 0.75) 0%, rgba(22, 36, 29, 0.3) 100%);
+  background: linear-gradient(to top, rgba(22, 36, 29, 0.45) 0%, rgba(22, 36, 29, 0) 55%);
 }
 
 .pd-hero-content {

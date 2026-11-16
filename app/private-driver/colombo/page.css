@@ -10,9 +10,8 @@ html:has(.pdc-page) { scroll-behavior: smooth; }
 .pdc-page #find-driver { scroll-margin-top: calc(var(--navbar-height) + 1rem); }
 
 .pdc-hero {
-  background: linear-gradient(135deg, #1c3226 0%, #16241d 60%),
+  background: linear-gradient(90deg, rgba(22, 36, 29, 0.62) 0%, rgba(22, 36, 29, 0.3) 55%, rgba(22, 36, 29, 0.12) 100%),
     url("/images/hero/colombo.webp") center/cover no-repeat;
-  background-blend-mode: multiply;
 }
 
 .pdc-final {
