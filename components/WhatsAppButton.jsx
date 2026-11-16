@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { trackWhatsAppClick } from "@/lib/analytics";
 import "./WhatsAppButton.css";
@@ -24,6 +25,23 @@ const STRINGS = {
 
 export default function WhatsAppButton() {
   const pathname = usePathname() || "/";
+  // which page the observation belongs to, so a stale "in view" from the
+  // homepage never carries over to another page
+  const [barInView, setBarInView] = useState({ path: null, visible: false });
+  const compact = barInView.path === pathname && barInView.visible;
+
+  // On the homepage the driver search bar sits at the bottom of the first
+  // screen, where the labelled pill would cover its search button: shrink
+  // to the round icon while the bar is in view.
+  useEffect(() => {
+    const bar = document.querySelector(".market-search-bar");
+    if (!bar || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([entry]) =>
+      setBarInView({ path: pathname, visible: entry.isIntersecting })
+    );
+    io.observe(bar);
+    return () => io.disconnect();
+  }, [pathname]);
 
   // not on the admin pages
   if (pathname.startsWith("/admin")) return null;
@@ -33,7 +51,7 @@ export default function WhatsAppButton() {
 
   return (
     <a
-      className="wa-float"
+      className={`wa-float${compact ? " wa-float-compact" : ""}`}
       href={href}
       target="_blank"
       rel="noopener noreferrer"
