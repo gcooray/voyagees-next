@@ -79,7 +79,10 @@
   align-items: center;
   color: var(--paper);
   overflow: hidden;
-  background: linear-gradient(135deg, #1c3226 0%, #16241d 60%, #0f1a14 100%);
+  /* Sigiriya from the air: the classic stop on a multi-day tour; the text
+     here is centred over the rock, so the shade is even across the photo */
+  background: linear-gradient(rgba(22, 36, 29, 0.6), rgba(22, 36, 29, 0.6)),
+    url("/images/hero/sigiriya.webp") center 45%/cover no-repeat;
   /* cancels <main>'s --navbar-height padding so this section's own
      background extends up behind the fixed navbar, then adds that same
      amount back to the top padding so the copy still clears the nav. */
@@ -245,6 +248,14 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 1.25rem;
 }
+/* phones: the paragraph runs over the busiest part of the photo */
+@media (max-width: 640px) {
+  .pt-hero {
+    background: linear-gradient(rgba(22, 36, 29, 0.7), rgba(22, 36, 29, 0.7)),
+      url("/images/hero/sigiriya.webp") center 45%/cover no-repeat;
+  }
+}
+
 @media (max-width: 640px) {
   .pt-idea-grid { grid-template-columns: 1fr; }
 }
@@ -445,7 +456,9 @@
   text-align: center;
   padding: 3.5rem 5vw;
   overflow: hidden;
-  background: linear-gradient(135deg, #16241d, #0f1a14);
+  /* tea hills of Haputale, with an even shade for the centred text */
+  background: linear-gradient(rgba(22, 36, 29, 0.55), rgba(22, 36, 29, 0.55)),
+    url("/images/hero/haputale.webp") center/cover no-repeat;
 }
 .pt-final-content {
   position: relative;
