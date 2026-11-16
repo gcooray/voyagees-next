@@ -522,7 +522,8 @@ export default function PlanTrip({ locale = "en" }) {
         <label>
           {t.notes}
           <textarea
-            rows={4}
+            className="plan-trip-notes"
+            rows={5}
             placeholder={t.notesPlaceholder}
             value={form.notes}
             onChange={handleChange("notes")}

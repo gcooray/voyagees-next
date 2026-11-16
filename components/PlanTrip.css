@@ -36,6 +36,15 @@
   flex: 1;
 }
 
+/* the free-text notes: a roomy box, text at 16px (also stops iOS from
+   zooming in when the field is tapped) */
+.plan-trip-form textarea.plan-trip-notes {
+  min-height: 9rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
 .plan-trip-form input,
 .plan-trip-form select,
 .plan-trip-form textarea {
