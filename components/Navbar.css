@@ -193,6 +193,13 @@
 }
 /* the French labels are longer — a notch smaller just above the
    hamburger breakpoint so they still fit on one line */
+/* French labels are longer than the English ones: from 1341px up to
+   1560px the full French bar (with Itineraries) still needs a bit less
+   spacing, or the language switcher is pushed off the right edge */
+@media (min-width: 1341px) and (max-width: 1560px) {
+  .navbar-fr .nav-links { gap: 1.05rem; }
+  .navbar-fr .language-switcher { margin-left: 0; padding-left: 0.9rem; }
+}
 @media (min-width: 1241px) and (max-width: 1340px) {
   .navbar-fr .nav-links { gap: 0.85rem; }
   .navbar-fr .nav-links a { font-size: 0.84rem; }
