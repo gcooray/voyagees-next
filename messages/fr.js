@@ -6,6 +6,8 @@ const fr = {
     description: "Des chauffeurs locaux qui parlent votre langue, un itinéraire à votre rythme, et quelqu'un sur la route qui connaît l'île comme sa maison.",
     planCta: "Planifier mon voyage gratuitement",
     itinerariesCta: "Voir les itinéraires",
+    planCtaShort: "Planifier mon voyage",
+    itinerariesCtaShort: "Itinéraires",
     points: ["Chauffeurs francophones et anglophones", "Chauffeurs agréés, véhicules assurés", "Planificateur de voyage gratuit"],
   },
 

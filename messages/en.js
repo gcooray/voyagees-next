@@ -6,6 +6,8 @@ const en = {
     description: "Local drivers who speak your language, a route that fits your pace, and someone on the road who knows the island like home.",
     planCta: "Plan my trip for free",
     itinerariesCta: "See itineraries",
+    planCtaShort: "Plan my trip",
+    itinerariesCtaShort: "Itineraries",
     points: ["French & English-speaking drivers", "Licensed drivers, insured vehicles", "Free trip planner"],
   },
 

@@ -449,7 +449,7 @@
 }
 
 @media (max-width: 760px) {
-  .market-hero { min-height: auto; padding-top: calc(var(--navbar-height) + 2rem); background-position: 65% center; }
+  .market-hero { min-height: auto; padding-top: calc(var(--navbar-height) + 1.25rem); background-position: 65% center; }
   .market-hero-overlay { background: linear-gradient(to top, rgba(22, 36, 29, 0.85) 0%, rgba(22, 36, 29, 0.55) 60%, rgba(22, 36, 29, 0.35) 100%); }
   .market-hero-description { font-size: 1.02rem; }
   .market-hero-btn { flex: 1 1 100%; justify-content: center; }
@@ -466,11 +466,26 @@
   /* with their wrappers gone, the copy elements need their own stacking
      so they sit above the photo overlay */
   .market-hero-copy > * { position: relative; z-index: 2; }
-  .market-hero-content h1 { order: 1; font-size: clamp(1.9rem, 8vw, 2.3rem); }
-  .market-search-bar { order: 2; margin-top: 1.25rem; }
-  .market-hero-content .market-hero-description { order: 3; margin-top: 1.6rem; }
-  .market-hero-actions { order: 4; }
+  /* order on phones: headline, the two quick links side by side, the driver
+     form, then the description and trust points, so the planner,
+     itineraries and the form all show on landing */
+  .market-hero-content h1 { order: 1; font-size: clamp(1.8rem, 7.6vw, 2.2rem); }
+  .market-hero-actions { order: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 1rem; }
+  .market-hero-actions .market-hero-btn { flex: none; justify-content: center; padding: 0.7rem 0.6rem; font-size: 0.92rem; white-space: nowrap; }
+  .market-search-bar { order: 3; margin-top: 1rem; }
+  .market-hero-content .market-hero-description { order: 4; margin-top: 1.5rem; }
   .market-hero-points { order: 5; }
+  /* a more compact form */
+  .market-hero .market-search-bar { padding: 0.95rem 1rem 1rem; }
+  .market-search-bar .market-search-label { display: none; }
+  .market-search-bar form { gap: 0.75rem; }
+  .market-search-bar form .btn-submit { padding: 0.85rem 1rem; }
+}
+/* short labels on the quick-link buttons on phones */
+.market-hero-btn-short { display: none; }
+@media (max-width: 760px) {
+  .market-hero-btn-long { display: none; }
+  .market-hero-btn-short { display: inline; }
 }
 
 @media (max-width: 400px) {
@@ -1010,8 +1025,7 @@
 }
 
 @media (max-width: 640px) {
-  .market-hero { padding: calc(2.5rem + var(--navbar-height)) 6vw 2rem; min-height: 0; }
-  .market-hero-content h1 { font-size: clamp(2rem, 9vw, 2.6rem); }
+  .market-hero { padding: calc(var(--navbar-height) + 1.25rem) 6vw 2rem; min-height: 0; }
   .market-hero-description { margin-top: 0.85rem; }
   .market-search-card {
     padding: 1.4rem 1.25rem;

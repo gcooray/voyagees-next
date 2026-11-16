@@ -98,10 +98,13 @@ export default function HomePage({ content, locale }) {
 
             <div className="market-hero-actions">
               <Link href={locale === "fr" ? "/fr/plan-trip" : "/plan-trip"} className="market-hero-btn market-hero-btn-primary">
-                {content.hero.planCta} <span aria-hidden="true">→</span>
+                <span className="market-hero-btn-long">{content.hero.planCta}</span>
+                <span className="market-hero-btn-short">{content.hero.planCtaShort}</span>
+                {" "}<span aria-hidden="true">→</span>
               </Link>
               <Link href={locale === "fr" ? "/fr/itineraries" : "/itineraries"} className="market-hero-btn market-hero-btn-ghost">
-                {content.hero.itinerariesCta}
+                <span className="market-hero-btn-long">{content.hero.itinerariesCta}</span>
+                <span className="market-hero-btn-short">{content.hero.itinerariesCtaShort}</span>
               </Link>
             </div>
 
