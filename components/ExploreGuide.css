@@ -1,0 +1,280 @@
+/* Written guide under the map on the Explore Sri Lanka page
+   (components/ExploreGuide.jsx). Same tokens as the rest of the site. */
+
+.explore-guide {
+  font-family: var(--body);
+  color: var(--ink);
+  background: var(--paper);
+}
+.explore-guide * { box-sizing: border-box; }
+
+.eg-header {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3.5rem 1.25rem 0;
+}
+.eg-header h1 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.75rem;
+}
+.eg-header p {
+  max-width: 640px;
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: var(--sage);
+  margin: 0;
+}
+
+.eg-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3.5rem 1.25rem;
+}
+.eg-alt { background: var(--paper-dim); }
+
+.explore-guide h2 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.75rem;
+}
+.explore-guide h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.35rem;
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+}
+
+.eg-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--clay);
+  margin: 0 0 0.5rem;
+}
+.eg-eyebrow::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.eg-intro {
+  max-width: 680px;
+  line-height: 1.7;
+  color: var(--sage);
+  margin: 0 0 2rem;
+}
+
+/* Regions */
+.eg-regions {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+.eg-region {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.5rem 1.5rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+}
+.eg-region dl {
+  margin: 0 0 1rem;
+  display: grid;
+  gap: 0.45rem;
+}
+.eg-region dl div { line-height: 1.45; }
+.eg-region dt { color: var(--sage); font-size: 0.8rem; }
+.eg-region dd { margin: 0; font-weight: 600; font-size: 0.95rem; }
+.eg-tip {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin: 0 0 1.1rem;
+  padding: 0.85rem 1rem;
+  background: var(--paper);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+}
+.eg-tip strong { color: var(--clay); font-weight: 600; }
+.eg-places {
+  list-style: none;
+  margin: auto 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.eg-places a {
+  display: inline-block;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.eg-places a:hover { border-color: var(--teal); color: var(--teal); }
+
+/* Weather table */
+.eg-table-wrap {
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem;
+}
+.eg-weather {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: separate;
+  border-spacing: 4px;
+  font-size: 0.85rem;
+}
+.eg-weather th {
+  font-weight: 600;
+  color: var(--sage);
+  text-align: center;
+  padding: 0.25rem 0;
+}
+.eg-weather th[scope="row"] {
+  text-align: left;
+  color: var(--ink);
+  white-space: nowrap;
+  padding-right: 0.75rem;
+}
+.eg-weather td {
+  /* keeps the visually hidden label inside the scroll box on phones */
+  position: relative;
+  height: 30px;
+  border-radius: 6px;
+}
+.eg-w-g { background: #7fae8a; }
+.eg-w-m { background: #f0cf8a; }
+.eg-w-r { background: #c9d3dc; }
+.eg-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.eg-legend {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--sage);
+}
+.eg-legend li { display: flex; align-items: center; gap: 0.45rem; }
+.eg-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* Mistakes and good to know */
+.eg-traps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.eg-trap {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--clay);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+.eg-trap h3 { font-size: 1.15rem; }
+.eg-trap p {
+  margin: 0;
+  font-size: 0.93rem;
+  line-height: 1.65;
+  color: #3d4741;
+}
+.eg-good-eyebrow { margin-top: 3rem; }
+.eg-good {
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+  max-width: 760px;
+}
+.eg-good li {
+  position: relative;
+  padding-left: 1.4rem;
+  line-height: 1.65;
+}
+.eg-good li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* Closing call to action */
+.eg-cta {
+  background: var(--ink);
+  color: var(--paper);
+  text-align: center;
+  padding: 3.5rem 1.25rem 4rem;
+}
+.eg-cta h2 { color: var(--paper); }
+.eg-cta p {
+  max-width: 620px;
+  margin: 0 auto 1.75rem;
+  line-height: 1.7;
+  color: rgba(251, 247, 239, 0.8);
+}
+.eg-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.eg-btn {
+  display: inline-block;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-on-dark);
+  color: var(--paper);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.eg-btn:hover { border-color: var(--gold); }
+.eg-btn-main { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.eg-btn-main:hover { background: var(--gold-dark); border-color: var(--gold-dark); }
+
+@media (max-width: 760px) {
+  .eg-header { padding: 2.5rem 1rem 0; }
+  .eg-section { padding: 2.5rem 1rem; }
+  .eg-regions { grid-template-columns: 1fr; }
+  .eg-legend { gap: 1rem; }
+}

@@ -70,6 +70,9 @@
 }
 
 .tourist-map-frame {
+  /* Leaflet's panes and controls use z-index 400–1000; keep them inside
+     the frame so the map scrolls under the sticky navbar (z-index 100) */
+  isolation: isolate;
   height: 80vh;
   border-radius: 20px;
   overflow: hidden;
