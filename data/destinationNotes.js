@@ -554,4 +554,873 @@ export const destinationNotes = {
       ],
     },
   },
+
+  anuradhapura: {
+    en: {
+      intro:
+        "Anuradhapura was Sri Lanka's first great capital, more than two thousand years ago. Giant white and brick dagobas rise above the trees, and pilgrims in white still come every day to the sacred Bodhi tree. It's spread out, quiet and deeply spiritual: less of a ruin site, more of a living holy city.",
+      facts: {
+        time: "A full day",
+        when: "Early morning or late afternoon; the middle of the day is hot and shadeless",
+        access: "2 h from Sigiriya, 45 minutes from Wilpattu, 4 h from Jaffna",
+      },
+      sections: [
+        {
+          title: "How to see it",
+          text: "The sites are kilometres apart, so go by bicycle, tuk-tuk or with your driver. Don't miss the Sri Maha Bodhi, grown from a cutting of the tree under which the Buddha found enlightenment, the white Ruwanwelisaya and the huge brick Jetavanaramaya. Isurumuniya, a small rock temple, is lovely at the end of the day.",
+        },
+        {
+          title: "Good to know",
+          text: "White or light clothing is best, with shoulders and knees covered; you'll take your shoes off often. On Poya (full-moon) days, thousands of pilgrims come: it's beautiful but very crowded. Mihintale, where Buddhism arrived on the island, is 30 minutes away and best early morning or late afternoon.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Anuradhapura fut la première grande capitale du Sri Lanka, il y a plus de deux mille ans. D'immenses dagobas blancs et de brique dépassent des arbres, et des pèlerins en blanc viennent encore chaque jour vers l'arbre sacré de la Bodhi. C'est étendu, calme et profondément spirituel : moins un site de ruines qu'une ville sainte bien vivante.",
+      facts: {
+        time: "Une journée entière",
+        when: "Tôt le matin ou en fin d'après-midi ; le milieu de journée est chaud et sans ombre",
+        access: "2 h de Sigiriya, 45 minutes de Wilpattu, 4 h de Jaffna",
+      },
+      sections: [
+        {
+          title: "Comment la visiter",
+          text: "Les sites sont à plusieurs kilomètres les uns des autres : à vélo, en tuk-tuk ou avec votre chauffeur. Ne manquez pas le Sri Maha Bodhi, né d'une bouture de l'arbre sous lequel le Bouddha a atteint l'Éveil, le Ruwanwelisaya tout blanc et l'immense Jetavanaramaya en brique. Isurumuniya, un petit temple dans la roche, est très beau en fin de journée.",
+        },
+        {
+          title: "Bon à savoir",
+          text: "Mieux vaut des vêtements blancs ou clairs, épaules et genoux couverts ; vous retirerez souvent vos chaussures. Les jours de Poya (pleine lune), des milliers de pèlerins viennent : c'est très beau, mais bondé. Mihintale, où le bouddhisme est arrivé sur l'île, est à 30 minutes, idéal tôt le matin ou en fin d'après-midi.",
+        },
+      ],
+    },
+  },
+
+  jaffna: {
+    en: {
+      intro:
+        "Jaffna feels like another country. Colourful Hindu temples, palmyra palms, bicycles everywhere and the best crab curry on the island. The north was closed to travellers for years, so it's still wonderfully authentic. People are curious and welcoming: give it time.",
+      facts: {
+        time: "2 nights at least, 3 if you want an island",
+        when: "Temple ceremonies are in the morning and evening",
+        access: "4 h from Anuradhapura or Trincomalee",
+      },
+      sections: [
+        {
+          title: "In town",
+          text: "Nallur Kandaswamy Kovil is the heart of Jaffna: go for a puja, and note that men take their shirts off to enter. Walk the old Dutch fort, see the rebuilt public library, and eat: crab curry, kool (a seafood soup) and palmyra sweets. Jaffna is at its liveliest during the Nallur festival, usually in July–August.",
+        },
+        {
+          title: "The islands",
+          text: "Causeways lead to the islands, and small ferries go further. Nainativu has a Hindu temple and a Buddhist shrine side by side. Delft is wilder, with coral stone walls and wild ponies. Boats are few and depend on the weather: one island per day is plenty.",
+        },
+        {
+          title: "Further north",
+          text: "Point Pedro, the northern tip of the island, the Keerimalai springs and Casuarina beach make an easy half-day loop with your driver.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Jaffna, c'est presque un autre pays. Temples hindous colorés, palmiers palmyre, vélos partout et le meilleur curry de crabe de l'île. Le Nord a longtemps été fermé aux voyageurs, il est donc resté merveilleusement authentique. Les gens sont curieux et accueillants : prenez votre temps.",
+      facts: {
+        time: "2 nuits minimum, 3 si vous voulez une île",
+        when: "Les cérémonies au temple ont lieu le matin et le soir",
+        access: "4 h depuis Anuradhapura ou Trincomalee",
+      },
+      sections: [
+        {
+          title: "En ville",
+          text: "Le Nallur Kandaswamy Kovil est le cœur de Jaffna : allez-y pour une puja, et sachez que les hommes retirent leur chemise pour entrer. Promenez-vous dans le vieux fort hollandais, voyez la bibliothèque reconstruite, et mangez : curry de crabe, kool (une soupe de fruits de mer) et douceurs au palmyre. Jaffna est la plus animée pendant le festival de Nallur, en général en juillet–août.",
+        },
+        {
+          title: "Les îles",
+          text: "Des chaussées mènent aux îles, et de petits ferries vont plus loin. À Nainativu, un temple hindou et un sanctuaire bouddhiste se font face. Delft est plus sauvage, avec ses murets de corail et ses poneys en liberté. Les bateaux sont rares et dépendent de la météo : une île par jour, c'est déjà bien.",
+        },
+        {
+          title: "Plus au nord",
+          text: "Point Pedro, la pointe nord de l'île, les sources de Keerimalai et la plage de Casuarina font une jolie boucle d'une demi-journée avec votre chauffeur.",
+        },
+      ],
+    },
+  },
+
+  trincomalee: {
+    en: {
+      intro:
+        "Trincomalee has one of the deepest natural harbours in the world, a temple perched on a cliff and long, quiet beaches just north of town. When the south coast gets the monsoon, the sea here turns calm and turquoise. It's the place for snorkelling and lazy days.",
+      facts: {
+        time: "2 to 3 nights",
+        when: "May to September; from November to January it can be rainy with rough sea",
+        access: "2.5 h from Sigiriya, 4 h from Jaffna",
+      },
+      sections: [
+        {
+          title: "Beaches and Pigeon Island",
+          text: "Most people stay at Uppuveli or Nilaveli, a little north of town. From Nilaveli, boats go to Pigeon Island, a small marine park where you snorkel with reef fish, turtles and often small blacktip reef sharks. Go early, before the crowds.",
+        },
+        {
+          title: "In town",
+          text: "Koneswaram temple sits on Swami Rock, high above the sea: go for the view and the evening atmosphere. On the way you pass through Fort Frederick, where spotted deer wander between the buildings.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Trincomalee possède l'un des ports naturels les plus profonds du monde, un temple perché sur une falaise et de longues plages tranquilles juste au nord de la ville. Quand la mousson touche la côte sud, la mer devient ici calme et turquoise. C'est l'endroit pour le snorkeling et les journées paresseuses.",
+      facts: {
+        time: "2 à 3 nuits",
+        when: "De mai à septembre ; de novembre à janvier, pluie et mer agitée sont possibles",
+        access: "2 h 30 de Sigiriya, 4 h de Jaffna",
+      },
+      sections: [
+        {
+          title: "Les plages et Pigeon Island",
+          text: "On loge en général à Uppuveli ou Nilaveli, un peu au nord de la ville. De Nilaveli, des bateaux partent pour Pigeon Island, un petit parc marin où l'on nage avec des poissons de récif, des tortues et souvent de petits requins à pointe noire. Allez-y tôt, avant la foule.",
+        },
+        {
+          title: "En ville",
+          text: "Le temple de Koneswaram est posé sur le Swami Rock, au-dessus de la mer : venez pour la vue et l'ambiance du soir. En chemin, vous traversez Fort Frederick, où des cerfs tachetés se promènent entre les bâtiments.",
+        },
+      ],
+    },
+  },
+
+  arugambay: {
+    en: {
+      intro:
+        "Arugam Bay is a surf village on the east coast: one main road, sandy cafés, fishing boats and a famous right-hand point break. In season it's buzzing with surfers from all over the world; out of season it goes very quiet. It's far from everything, and that's part of its charm.",
+      facts: {
+        time: "3 nights or more",
+        when: "Surf season is roughly May to September",
+        access: "3 h from Ella, longer from the south coast",
+      },
+      sections: [
+        {
+          title: "Surf for every level",
+          text: "Main Point is for experienced surfers. Beginners go to the softer spots south of the bay, like Whiskey Point, Peanut Farm or Elephant Rock, often with a tuk-tuk and a board on the roof. Plenty of schools offer lessons.",
+        },
+        {
+          title: "Beyond the waves",
+          text: "A lagoon safari near Pottuvil for crocodiles, birds and sometimes elephants. Kumana National Park further south, quiet and wonderful for birds. And Muhudu Maha Viharaya, an old temple right on the beach.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Arugam Bay, c'est un village de surf sur la côte est : une rue principale, des cafés les pieds dans le sable, des barques de pêcheurs et une vague droite célèbre. En saison, ça vibre avec des surfeurs du monde entier ; hors saison, tout devient très calme. C'est loin de tout, et ça fait partie de son charme.",
+      facts: {
+        time: "3 nuits ou plus",
+        when: "La saison de surf va environ de mai à septembre",
+        access: "3 h depuis Ella, plus depuis la côte sud",
+      },
+      sections: [
+        {
+          title: "Du surf pour tous les niveaux",
+          text: "Main Point est pour les surfeurs confirmés. Les débutants vont sur les spots plus doux au sud de la baie, comme Whiskey Point, Peanut Farm ou Elephant Rock, souvent en tuk-tuk avec la planche sur le toit. Beaucoup d'écoles proposent des cours.",
+        },
+        {
+          title: "Au-delà des vagues",
+          text: "Un safari sur la lagune près de Pottuvil pour les crocodiles, les oiseaux et parfois des éléphants. Le parc national de Kumana, plus au sud, calme et magnifique pour les oiseaux. Et Muhudu Maha Viharaya, un vieux temple posé sur la plage.",
+        },
+      ],
+    },
+  },
+
+  "horton-plains": {
+    en: {
+      intro:
+        "A high, windswept plateau of grassland and cloud forest, more than 2,000 metres up, that suddenly ends at World's End: a cliff with a sheer drop of several hundred metres. On a clear morning you can see all the way to the south coast. A few hours later, it's often just white cloud.",
+      facts: {
+        time: "About 3 hours for the loop walk",
+        when: "Be at the gate when it opens, around 6 am",
+        access: "1 to 1.5 h from Nuwara Eliya, about 1 h from Haputale",
+      },
+      sections: [
+        {
+          title: "The walk",
+          text: "A loop of about 9 km, mostly flat, past World's End, Mini World's End and Baker's Falls. Walk it clockwise to reach World's End before the clouds. Sambar deer graze near the entrance in the early morning.",
+        },
+        {
+          title: "Good to know",
+          text: "It's cold at dawn: bring a warm layer and a rain jacket. Plastic bags and wrappers are checked at the entrance. It's an early start, so don't plan another sunrise activity the same morning.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Un haut plateau balayé par le vent, fait de prairies et de forêt de nuages, à plus de 2 000 mètres, qui s'arrête net à World's End : une falaise de plusieurs centaines de mètres de vide. Par un matin clair, on voit jusqu'à la côte sud. Quelques heures plus tard, ce n'est souvent plus qu'un nuage blanc.",
+      facts: {
+        time: "Environ 3 heures pour la boucle à pied",
+        when: "Soyez à l'entrée à l'ouverture, vers 6 h",
+        access: "1 h à 1 h 30 de Nuwara Eliya, environ 1 h de Haputale",
+      },
+      sections: [
+        {
+          title: "La balade",
+          text: "Une boucle d'environ 9 km, presque plate, qui passe par World's End, Mini World's End et les chutes de Baker. Faites-la dans le sens des aiguilles d'une montre pour arriver à World's End avant les nuages. Tôt le matin, des cerfs sambar broutent près de l'entrée.",
+        },
+        {
+          title: "Bon à savoir",
+          text: "Il fait froid à l'aube : prévoyez une couche chaude et un coupe-vent. Les sacs et emballages en plastique sont contrôlés à l'entrée. Le réveil est très matinal : ne prévoyez pas un autre lever de soleil le même jour.",
+        },
+      ],
+    },
+  },
+
+  haputale: {
+    en: {
+      intro:
+        "Haputale clings to the edge of a ridge, with tea estates falling away on both sides. It's quieter than Ella and Nuwara Eliya, and the views are just as big. On a clear morning, you can see all the way down to the plains and the south coast.",
+      facts: {
+        time: "1 night",
+        when: "Sunrise, before the mist rolls in",
+        access: "1 to 1.5 h from Ella, about 1 h from Horton Plains",
+      },
+      sections: [
+        {
+          title: "Lipton's Seat",
+          text: "The viewpoint where Thomas Lipton is said to have admired his tea empire. Go up at sunrise, by tuk-tuk or on foot through the estates, and visit Dambatenne tea factory on the way down. Workers walk up the same road to start their day: it's a beautiful moment.",
+        },
+        {
+          title: "Good to know",
+          text: "Adisham Bungalow, an English country house turned monastery, only opens on certain days. Lipton's Seat and Horton Plains both need an early start, so do them on different mornings.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Haputale s'accroche au bord d'une crête, avec des plantations de thé qui dévalent de chaque côté. C'est plus calme qu'Ella et Nuwara Eliya, et les vues sont tout aussi grandes. Par un matin clair, on voit jusqu'aux plaines et à la côte sud.",
+      facts: {
+        time: "1 nuit",
+        when: "Au lever du soleil, avant que la brume ne monte",
+        access: "1 h à 1 h 30 d'Ella, environ 1 h de Horton Plains",
+      },
+      sections: [
+        {
+          title: "Lipton's Seat",
+          text: "Le point de vue d'où Thomas Lipton aurait admiré son empire du thé. Montez-y au lever du soleil, en tuk-tuk ou à pied à travers les plantations, et visitez la fabrique de Dambatenne en redescendant. Les cueilleuses montent par la même route pour commencer leur journée : c'est un très beau moment.",
+        },
+        {
+          title: "Bon à savoir",
+          text: "Adisham Bungalow, un manoir anglais devenu monastère, n'ouvre que certains jours. Lipton's Seat et Horton Plains demandent tous deux un réveil matinal : faites-les sur des matins différents.",
+        },
+      ],
+    },
+  },
+
+  unawatuna: {
+    en: {
+      intro:
+        "A sheltered bay of soft sand, 15 minutes from Galle, with calm water that's great for a swim. It's lively, with restaurants right on the beach, but a short walk or tuk-tuk ride takes you to quieter corners in the jungle.",
+      facts: {
+        time: "2 to 3 nights",
+        when: "December to April, when the sea is calmest",
+        access: "15 minutes from Galle, about 2.5 h from the airport",
+      },
+      sections: [
+        {
+          title: "Around the bay",
+          text: "Jungle Beach, a small cove below Rumassala hill, and the white Japanese Peace Pagoda above it with a view over Galle. Dalawella beach next door, with its famous rope swing. Snorkelling is easy straight off the beach when the sea is calm.",
+        },
+        {
+          title: "Good to know",
+          text: "Unawatuna makes a great base for Galle Fort in the late afternoon. Outside the dry season, the sea can be rough and the beach narrower.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Une baie abritée de sable fin, à 15 minutes de Galle, avec une eau calme parfaite pour se baigner. C'est animé, avec des restaurants les pieds dans le sable, mais une courte marche ou un tuk-tuk vous emmène vers des coins plus tranquilles dans la jungle.",
+      facts: {
+        time: "2 à 3 nuits",
+        when: "De décembre à avril, quand la mer est la plus calme",
+        access: "15 minutes de Galle, environ 2 h 30 de l'aéroport",
+      },
+      sections: [
+        {
+          title: "Autour de la baie",
+          text: "Jungle Beach, une petite crique au pied de la colline de Rumassala, et la pagode japonaise de la Paix, toute blanche, juste au-dessus avec vue sur Galle. La plage de Dalawella, à côté, avec sa célèbre balançoire. Le snorkeling se fait directement depuis la plage quand la mer est calme.",
+        },
+        {
+          title: "Bon à savoir",
+          text: "Unawatuna est une base idéale pour le fort de Galle en fin d'après-midi. Hors saison sèche, la mer peut être agitée et la plage plus étroite.",
+        },
+      ],
+    },
+  },
+
+  weligama: {
+    en: {
+      intro:
+        "Weligama is a wide, gentle bay where half the island seems to learn to surf. Soft waves, sandy bottom, boards for rent every few metres. It's more of a real town than a resort, with fishing boats at one end and surf camps at the other.",
+      facts: {
+        time: "2 to 3 nights",
+        when: "November to April for the best beginner waves",
+        access: "15 minutes from Mirissa, about 3 h from the airport",
+      },
+      sections: [
+        {
+          title: "Surfing",
+          text: "Perfect for a first lesson: the waves are soft and break slowly over sand. Book a lesson with a school rather than just renting a board on day one. Mornings are usually the calmest.",
+        },
+        {
+          title: "Along the coast",
+          text: "Stilt fishermen perch on their poles along the coast towards Ahangama and Koggala. In the middle of the bay, the tiny Taprobane Island holds a single villa. Mirissa and its whales are 15 minutes away.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Weligama, c'est une grande baie tranquille où la moitié de l'île semble apprendre à surfer. Vagues douces, fond sableux, planches à louer tous les dix mètres. C'est plus une vraie ville qu'une station balnéaire, avec les barques de pêcheurs d'un côté et les surf camps de l'autre.",
+      facts: {
+        time: "2 à 3 nuits",
+        when: "De novembre à avril pour les meilleures vagues de débutant",
+        access: "15 minutes de Mirissa, environ 3 h de l'aéroport",
+      },
+      sections: [
+        {
+          title: "Le surf",
+          text: "Parfait pour un premier cours : les vagues sont douces et déroulent lentement sur le sable. Prenez un cours avec une école plutôt que de simplement louer une planche le premier jour. Le matin est en général le plus calme.",
+        },
+        {
+          title: "Le long de la côte",
+          text: "Les pêcheurs sur échasses sont perchés sur leurs pieux le long de la côte, vers Ahangama et Koggala. Au milieu de la baie, la minuscule île de Taprobane abrite une seule villa. Mirissa et ses baleines sont à 15 minutes.",
+        },
+      ],
+    },
+  },
+
+  tangalle: {
+    en: {
+      intro:
+        "Tangalle is the south coast before everyone arrived: long empty beaches, small coves, palm trees and very few crowds. It's the place to slow down at the end of a trip, with a good book and a hammock.",
+      facts: {
+        time: "2 to 3 nights",
+        when: "December to April",
+        access: "About 1 h east of Mirissa, 2.5 h from Yala",
+      },
+      sections: [
+        {
+          title: "Swimming safely",
+          text: "Some beaches here have strong currents and steep shores. Goyambokka and Silent Beach are calmer coves. Ask your hotel where it's safe, and swim where the locals swim.",
+        },
+        {
+          title: "Around Tangalle",
+          text: "At night, the Rekawa turtle project lets you watch turtles come ashore to lay their eggs, quietly and without flash. Mulkirigala rock temple, a smaller cousin of Dambulla, and the Hummanaya blowhole are each about 30 minutes away.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Tangalle, c'est la côte sud d'avant la foule : de longues plages vides, de petites criques, des cocotiers et très peu de monde. C'est l'endroit pour ralentir en fin de voyage, avec un bon livre et un hamac.",
+      facts: {
+        time: "2 à 3 nuits",
+        when: "De décembre à avril",
+        access: "Environ 1 h à l'est de Mirissa, 2 h 30 de Yala",
+      },
+      sections: [
+        {
+          title: "Se baigner en sécurité",
+          text: "Certaines plages ont de forts courants et des fonds qui plongent vite. Goyambokka et Silent Beach sont des criques plus calmes. Demandez à votre hôtel où l'on peut se baigner, et faites comme les locaux.",
+        },
+        {
+          title: "Autour de Tangalle",
+          text: "La nuit, le projet de Rekawa permet d'observer les tortues qui viennent pondre sur la plage, en silence et sans flash. Le temple-rocher de Mulkirigala, un petit cousin de Dambulla, et le geyser marin de Hummanaya sont chacun à 30 minutes environ.",
+        },
+      ],
+    },
+  },
+
+  negombo: {
+    en: {
+      intro:
+        "Negombo is the town by the airport, and the perfect place to land gently or spend your last night. A long beach, a lagoon full of fishing boats and so many churches that it's nicknamed Little Rome. Nobody comes for a week, but it's a much nicer first night than Colombo.",
+      facts: {
+        time: "1 night, at the start or the end of the trip",
+        when: "The fish market and lagoon are best early in the morning",
+        access: "About 20 minutes from the airport",
+      },
+      sections: [
+        {
+          title: "What to do",
+          text: "Walk through the fish market at dawn, when the boats come in and fish dries on the sand. Take a boat on the lagoon or along the old Dutch canal. In the evening, watch the sunset from the beach with fresh seafood.",
+        },
+        {
+          title: "Why stay here",
+          text: "Arriving late or flying early? Negombo saves you the Colombo traffic and lets your first real day start fresh. Your driver can pick you up straight from the hotel the next morning.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Negombo, c'est la ville de l'aéroport, et l'endroit parfait pour atterrir en douceur ou passer votre dernière nuit. Une longue plage, une lagune pleine de barques de pêcheurs et tellement d'églises qu'on la surnomme la Petite Rome. On n'y reste pas une semaine, mais c'est une première nuit bien plus agréable qu'à Colombo.",
+      facts: {
+        time: "1 nuit, au début ou à la fin du voyage",
+        when: "Le marché aux poissons et la lagune se font tôt le matin",
+        access: "Environ 20 minutes de l'aéroport",
+      },
+      sections: [
+        {
+          title: "Que faire",
+          text: "Promenez-vous au marché aux poissons à l'aube, quand les bateaux rentrent et que le poisson sèche sur le sable. Faites un tour en bateau sur la lagune ou le long du vieux canal hollandais. Le soir, regardez le coucher du soleil sur la plage avec des fruits de mer frais.",
+        },
+        {
+          title: "Pourquoi y dormir",
+          text: "Arrivée tardive ou vol très tôt ? Negombo vous évite les bouchons de Colombo et permet de commencer votre premier vrai jour en forme. Votre chauffeur vient vous chercher directement à l'hôtel le lendemain matin.",
+        },
+      ],
+    },
+  },
+
+  colombo: {
+    en: {
+      intro:
+        "Colombo is a busy, noisy, fascinating capital where colonial buildings, Buddhist temples, markets and new towers sit side by side. Most travellers only pass through, and half a day is enough to get a real taste of it, as long as you avoid the rush hours.",
+      facts: {
+        time: "Half a day, or one night",
+        when: "Avoid roughly 7–9 am and 4–7 pm; Galle Face at sunset",
+        access: "About 1 h from the airport, 2 h from Galle",
+      },
+      sections: [
+        {
+          title: "Our favourite half-day",
+          text: "Gangaramaya temple, wonderfully cluttered, and Seema Malaka floating on Beira Lake. The colours and noise of Pettah market. The old Dutch Hospital for a drink. Then Galle Face Green at sunset, with families, kites and street food by the sea.",
+        },
+        {
+          title: "Good to know",
+          text: "Traffic decides everything here: a 5 km trip can take 45 minutes at rush hour. Let your driver plan the order of the visits.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Colombo est une capitale animée, bruyante et fascinante, où bâtiments coloniaux, temples bouddhistes, marchés et nouvelles tours se côtoient. La plupart des voyageurs ne font qu'y passer, et une demi-journée suffit pour en avoir un vrai aperçu, à condition d'éviter les heures de pointe.",
+      facts: {
+        time: "Une demi-journée, ou une nuit",
+        when: "Évitez environ 7 h–9 h et 16 h–19 h ; Galle Face au coucher du soleil",
+        access: "Environ 1 h de l'aéroport, 2 h de Galle",
+      },
+      sections: [
+        {
+          title: "Notre demi-journée préférée",
+          text: "Le temple de Gangaramaya, joyeusement encombré, et Seema Malaka qui flotte sur le lac Beira. Les couleurs et le bruit du marché de Pettah. Le vieil hôpital hollandais pour boire un verre. Puis Galle Face Green au coucher du soleil, avec les familles, les cerfs-volants et la street food face à la mer.",
+        },
+        {
+          title: "Bon à savoir",
+          text: "Ici, la circulation décide de tout : 5 km peuvent prendre 45 minutes à l'heure de pointe. Laissez votre chauffeur organiser l'ordre des visites.",
+        },
+      ],
+    },
+  },
+
+  kalpitiya: {
+    en: {
+      intro:
+        "Kalpitiya is a long, sandy peninsula on the north-west coast, between a lagoon and the ocean. It's windy, wild and still very local. People come for two things: dolphins in winter and kite-surfing when the wind blows.",
+      facts: {
+        time: "2 nights",
+        when: "Dolphin boats leave early, roughly November to April",
+        access: "About 3 h north of the airport",
+      },
+      sections: [
+        {
+          title: "Dolphins and kites",
+          text: "In season, boats go out at dawn to find large pods of spinner dolphins, sometimes hundreds together. Kite-surfing is best roughly May to October and again December to March, on the flat water of the lagoon. Schools offer lessons for beginners.",
+        },
+        {
+          title: "Good to know",
+          text: "There are few cash machines on the peninsula: withdraw cash before you arrive. It pairs well with Wilpattu, which is not far.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Kalpitiya est une longue presqu'île de sable sur la côte nord-ouest, entre une lagune et l'océan. C'est venté, sauvage et encore très local. On y vient pour deux choses : les dauphins en hiver et le kitesurf quand le vent souffle.",
+      facts: {
+        time: "2 nuits",
+        when: "Les bateaux pour les dauphins partent tôt, environ de novembre à avril",
+        access: "Environ 3 h au nord de l'aéroport",
+      },
+      sections: [
+        {
+          title: "Dauphins et kitesurf",
+          text: "En saison, les bateaux partent à l'aube à la recherche de grands groupes de dauphins à long bec, parfois des centaines ensemble. Le kitesurf se pratique surtout de mai à octobre environ, puis de décembre à mars, sur l'eau plate de la lagune. Des écoles proposent des cours pour débutants.",
+        },
+        {
+          title: "Bon à savoir",
+          text: "Il y a peu de distributeurs sur la presqu'île : retirez du liquide avant d'arriver. Kalpitiya se combine bien avec Wilpattu, qui n'est pas loin.",
+        },
+      ],
+    },
+  },
+
+  passikudah: {
+    en: {
+      intro:
+        "Passikudah is a wide, shallow bay on the east coast where you can walk out a long way with the water at your waist. Calm, clear and warm, it's ideal for families and for anyone who just wants to float. It's quieter and more resort-like than Trincomalee.",
+      facts: {
+        time: "2 to 3 nights",
+        when: "May to September",
+        access: "About 2 h from Polonnaruwa",
+      },
+      sections: [
+        {
+          title: "What to do",
+          text: "Swim, snorkel and do very little. Next door, Kalkudah beach is longer and almost empty. Batticaloa, under an hour away, has a lagoon, an old Dutch fort and a very local feel.",
+        },
+        {
+          title: "Good to know",
+          text: "It's a good beach stop after the Cultural Triangle in summer, when the south coast is rainy. From November to January, the east coast gets its monsoon.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Passikudah, c'est une grande baie peu profonde sur la côte est, où l'on peut marcher très loin avec de l'eau à la taille. Calme, claire et chaude, elle est idéale pour les familles et pour tous ceux qui veulent simplement flotter. C'est plus calme et plus « hôtel » que Trincomalee.",
+      facts: {
+        time: "2 à 3 nuits",
+        when: "De mai à septembre",
+        access: "Environ 2 h de Polonnaruwa",
+      },
+      sections: [
+        {
+          title: "Que faire",
+          text: "Se baigner, faire du snorkeling et ne pas faire grand-chose. Juste à côté, la plage de Kalkudah est plus longue et presque déserte. Batticaloa, à moins d'une heure, a une lagune, un vieux fort hollandais et une ambiance très locale.",
+        },
+        {
+          title: "Bon à savoir",
+          text: "C'est une bonne étape plage après le Triangle culturel en été, quand la côte sud est pluvieuse. De novembre à janvier, c'est la mousson sur la côte est.",
+        },
+      ],
+    },
+  },
+
+  hikkaduwa: {
+    en: {
+      intro:
+        "Hikkaduwa is the lively one: surf, reef, beach bars and sea turtles grazing in the shallows. It's busier and more backpacker than its neighbours, and its sunsets are among the best on the coast.",
+      facts: {
+        time: "1 to 2 nights",
+        when: "December to April",
+        access: "About 30 minutes from Galle, 2.5 h from the airport",
+      },
+      sections: [
+        {
+          title: "Turtles and reef",
+          text: "Green turtles often feed close to the beach. Watch them from a respectful distance, and don't feed them, even if others do. The coral reef in front of the town is easy to snorkel when the sea is calm.",
+        },
+        {
+          title: "A moment of memory",
+          text: "Just north of town, Peraliya has a memorial and a small museum for the 2004 tsunami, which hit this coast very hard. A short, moving stop that many travellers are glad they made.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Hikkaduwa, c'est la plage animée : surf, récif, bars de plage et tortues qui broutent dans l'eau peu profonde. Plus fréquentée et plus routarde que ses voisines, elle offre aussi certains des plus beaux couchers de soleil de la côte.",
+      facts: {
+        time: "1 à 2 nuits",
+        when: "De décembre à avril",
+        access: "Environ 30 minutes de Galle, 2 h 30 de l'aéroport",
+      },
+      sections: [
+        {
+          title: "Tortues et récif",
+          text: "Des tortues vertes viennent souvent se nourrir tout près de la plage. Observez-les à distance, et ne les nourrissez pas, même si d'autres le font. Le récif devant la ville se fait facilement en snorkeling quand la mer est calme.",
+        },
+        {
+          title: "Un moment de mémoire",
+          text: "Juste au nord de la ville, Peraliya abrite un mémorial et un petit musée du tsunami de 2004, qui a durement frappé cette côte. Un arrêt court et émouvant, que beaucoup de voyageurs sont contents d'avoir fait.",
+        },
+      ],
+    },
+  },
+
+  bentota: {
+    en: {
+      intro:
+        "Bentota is where a river meets the sea, with a wide golden beach, quiet hotels and calm water. It's an easy, relaxing place, close enough to the airport to be the perfect last stop of a trip.",
+      facts: {
+        time: "1 to 2 nights",
+        when: "December to April",
+        access: "About 1.5 h from Colombo, about 2 h from the airport",
+      },
+      sections: [
+        {
+          title: "River and water sports",
+          text: "Take a boat up the Bentota river through the mangroves, with monitor lizards, kingfishers and small islands. On the river mouth, the calm water is good for jet ski, kayak or paddle.",
+        },
+        {
+          title: "For garden lovers",
+          text: "Two famous gardens are close by: Lunuganga, the country estate of architect Geoffrey Bawa, and Brief Garden, created by his brother Bevis. Both are peaceful and full of surprises.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Bentota, c'est là où une rivière rejoint la mer, avec une grande plage dorée, des hôtels tranquilles et une eau calme. Un endroit facile et reposant, assez proche de l'aéroport pour être la dernière étape idéale d'un voyage.",
+      facts: {
+        time: "1 à 2 nuits",
+        when: "De décembre à avril",
+        access: "Environ 1 h 30 de Colombo, 2 h de l'aéroport",
+      },
+      sections: [
+        {
+          title: "Rivière et sports nautiques",
+          text: "Remontez la rivière de Bentota en bateau à travers la mangrove, avec varans, martins-pêcheurs et petites îles. À l'embouchure, l'eau calme se prête au jet-ski, au kayak ou au paddle.",
+        },
+        {
+          title: "Pour les amoureux des jardins",
+          text: "Deux jardins célèbres sont tout près : Lunuganga, la maison de campagne de l'architecte Geoffrey Bawa, et Brief Garden, créé par son frère Bevis. Deux lieux paisibles et pleins de surprises.",
+        },
+      ],
+    },
+  },
+
+  habarana: {
+    en: {
+      intro:
+        "Habarana is a small crossroads town in the middle of the Cultural Triangle. There isn't much to see in town, but it's a very practical base: Sigiriya, Polonnaruwa, Dambulla and the elephant parks are all close.",
+      facts: {
+        time: "2 to 3 nights as a base",
+        when: "Elephant safaris in the late afternoon",
+        access: "About 30 minutes from Sigiriya, 1 h from Polonnaruwa",
+      },
+      sections: [
+        {
+          title: "Village life",
+          text: "A village tour is the classic here: a ride in a bullock cart, a crossing of the lake in a small boat, and lunch cooked in a family's home. Touristy, yes, but warm and fun, especially with children.",
+        },
+        {
+          title: "Safaris",
+          text: "Minneriya, Kaudulla and Hurulu Eco Park are all nearby. Which one is best depends on where the herds are that week: the jeep drivers know.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Habarana est un petit bourg-carrefour au milieu du Triangle culturel. Il n'y a pas grand-chose à voir en ville, mais c'est une base très pratique : Sigiriya, Polonnaruwa, Dambulla et les parcs à éléphants sont tous proches.",
+      facts: {
+        time: "2 à 3 nuits comme base",
+        when: "Safaris éléphants en fin d'après-midi",
+        access: "Environ 30 minutes de Sigiriya, 1 h de Polonnaruwa",
+      },
+      sections: [
+        {
+          title: "La vie au village",
+          text: "Le grand classique ici, c'est le village tour : une balade en char à bœufs, une traversée du lac en petite barque, et un déjeuner cuisiné chez une famille. Touristique, oui, mais chaleureux et amusant, surtout avec des enfants.",
+        },
+        {
+          title: "Les safaris",
+          text: "Minneriya, Kaudulla et l'Eco Park de Hurulu sont tous tout près. Le meilleur dépend de l'endroit où sont les troupeaux cette semaine-là : les chauffeurs de jeep le savent.",
+        },
+      ],
+    },
+  },
+
+  kitulgala: {
+    en: {
+      intro:
+        "Kitulgala is a green river valley on the road from Colombo to the hill country, surrounded by rainforest. It's Sri Lanka's white-water rafting spot, and the place where the film The Bridge on the River Kwai was shot.",
+      facts: {
+        time: "A morning, or one night",
+        when: "Rafting runs in the morning",
+        access: "About 2.5 h from Colombo, 1.5 to 2 h from Kandy",
+      },
+      sections: [
+        {
+          title: "Rafting and more",
+          text: "The rafting on the Kelani river is fun rather than extreme, fine for beginners with a guide. Canyoning, waterfall jumps and jungle walks are also on offer. Bring clothes that can get wet and a dry change for the car.",
+        },
+        {
+          title: "Good to know",
+          text: "It fits nicely between Colombo and Nuwara Eliya or Adam's Peak, and breaks up a long drive.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Kitulgala est une vallée verdoyante sur la route entre Colombo et les collines, entourée de forêt tropicale. C'est le spot de rafting du Sri Lanka, et l'endroit où a été tourné le film Le Pont de la rivière Kwaï.",
+      facts: {
+        time: "Une matinée, ou une nuit",
+        when: "Le rafting se fait le matin",
+        access: "Environ 2 h 30 de Colombo, 1 h 30 à 2 h de Kandy",
+      },
+      sections: [
+        {
+          title: "Rafting et plus",
+          text: "Le rafting sur la rivière Kelani est plus ludique qu'extrême, accessible aux débutants avec un guide. Canyoning, sauts dans les cascades et balades en forêt sont aussi proposés. Prenez des vêtements qui peuvent être mouillés et de quoi vous changer pour la voiture.",
+        },
+        {
+          title: "Bon à savoir",
+          text: "Kitulgala s'insère bien entre Colombo et Nuwara Eliya ou l'Adam's Peak, et coupe agréablement un long trajet.",
+        },
+      ],
+    },
+  },
+
+  knuckles: {
+    en: {
+      intro:
+        "The Knuckles range is wild mountain country north-east of Kandy: cloud forest, rivers, waterfalls and remote villages reached by narrow roads. It's for walkers who want real nature, far from the tourist trail.",
+      facts: {
+        time: "A full day, or 1 to 2 nights in a village",
+        when: "Start early; the dry months are easiest for hiking",
+        access: "2 to 3 h from Kandy depending on the trailhead",
+      },
+      sections: [
+        {
+          title: "Hiking",
+          text: "Trails range from easy walks to Pitawala Pathana and Mini World's End to long hikes across the range. A local guide is needed, and some trails require a permit. Your driver can drop you at one end and collect you at the other.",
+        },
+        {
+          title: "Good to know",
+          text: "After rain, leeches are everywhere: long socks and a little salt help. It's a full day on its own, so don't add other big visits.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "La chaîne des Knuckles, c'est un pays de montagnes sauvages au nord-est de Kandy : forêt de nuages, rivières, cascades et villages reculés au bout de petites routes. Pour les marcheurs qui veulent de la vraie nature, loin des circuits touristiques.",
+      facts: {
+        time: "Une journée entière, ou 1 à 2 nuits dans un village",
+        when: "Partez tôt ; les mois secs sont les plus faciles pour marcher",
+        access: "2 à 3 h de Kandy selon le point de départ",
+      },
+      sections: [
+        {
+          title: "La randonnée",
+          text: "Les sentiers vont des balades faciles vers Pitawala Pathana et Mini World's End aux longues randonnées à travers le massif. Un guide local est nécessaire, et certains sentiers demandent un permis. Votre chauffeur peut vous déposer à un bout et vous récupérer à l'autre.",
+        },
+        {
+          title: "Bon à savoir",
+          text: "Après la pluie, les sangsues sont partout : de longues chaussettes et un peu de sel aident. C'est une journée complète à elle seule : n'ajoutez pas d'autres grosses visites.",
+        },
+      ],
+    },
+  },
+
+  "adams-peak": {
+    en: {
+      intro:
+        "Adam's Peak, or Sri Pada, is a sacred mountain for Buddhists, Hindus, Muslims and Christians alike, each with their own story about the footprint at the top. Pilgrims climb through the night to reach the summit for sunrise. It's hard, cold and unforgettable.",
+      facts: {
+        time: "3 to 4 h up, overnight, then a rest afternoon",
+        when: "The pilgrim season runs from December to May",
+        access: "From the village of Dalhousie, about 1 h from Hatton",
+      },
+      sections: [
+        {
+          title: "The climb",
+          text: "Around 5,500 steps, lit all the way in season, with tea stalls to rest at. Most people start between 2 and 3 am to be at the top before dawn. At sunrise, the peak casts a perfect triangle of shadow over the clouds.",
+        },
+        {
+          title: "Good to know",
+          text: "It's cold at the top: bring a warm jacket, a hat and a change of shirt. Weekends and Poya days are very crowded. Out of season the lights and stalls are off, and it's best climbed only with a guide.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "L'Adam's Peak, ou Sri Pada, est une montagne sacrée pour les bouddhistes, les hindous, les musulmans et les chrétiens, chacun avec sa propre histoire sur l'empreinte du sommet. Les pèlerins montent de nuit pour arriver en haut au lever du soleil. C'est dur, froid et inoubliable.",
+      facts: {
+        time: "3 à 4 h de montée, de nuit, puis un après-midi de repos",
+        when: "La saison des pèlerins va de décembre à mai",
+        access: "Depuis le village de Dalhousie, à environ 1 h de Hatton",
+      },
+      sections: [
+        {
+          title: "La montée",
+          text: "Environ 5 500 marches, éclairées tout du long en saison, avec des échoppes de thé pour se reposer. La plupart des gens partent entre 2 h et 3 h du matin pour être au sommet avant l'aube. Au lever du soleil, le pic projette un triangle d'ombre parfait sur les nuages.",
+        },
+        {
+          title: "Bon à savoir",
+          text: "Il fait froid au sommet : prenez une veste chaude, un bonnet et un t-shirt de rechange. Les week-ends et les jours de Poya, il y a énormément de monde. Hors saison, les lumières et les échoppes sont éteintes : mieux vaut monter avec un guide.",
+        },
+      ],
+    },
+  },
+
+  bandarawela: {
+    en: {
+      intro:
+        "Bandarawela is a small, busy hill town with one of the best climates on the island: mild days, cool nights and often less rain than the higher towns. Few tourists stop here, which is exactly why some love it as a calm base near Ella.",
+      facts: {
+        time: "1 night",
+        when: "Any time of day: it's a place to slow down",
+        access: "About 30 to 40 minutes from Ella",
+      },
+      sections: [
+        {
+          title: "Around Bandarawela",
+          text: "Dowa rock temple, with a large Buddha carved into the rock beside a stream, is a short stop on the road to Ella. Tea estates and walks are all around, and the market is very local.",
+        },
+        {
+          title: "Why stay here",
+          text: "When Ella is full or too busy, Bandarawela gives you the same hills with far fewer people, and Ella is close enough for the day.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Bandarawela est une petite ville des collines, animée, avec l'un des meilleurs climats de l'île : journées douces, nuits fraîches, et souvent moins de pluie que dans les villes plus hautes. Peu de touristes s'y arrêtent, et c'est justement pour ça que certains l'adorent comme base tranquille près d'Ella.",
+      facts: {
+        time: "1 nuit",
+        when: "À tout moment : c'est un endroit pour ralentir",
+        access: "Environ 30 à 40 minutes d'Ella",
+      },
+      sections: [
+        {
+          title: "Autour de Bandarawela",
+          text: "Le temple-rocher de Dowa, avec un grand Bouddha taillé dans la roche au bord d'un ruisseau, est un court arrêt sur la route d'Ella. Plantations de thé et balades tout autour, et un marché très local.",
+        },
+        {
+          title: "Pourquoi y dormir",
+          text: "Quand Ella est complète ou trop animée, Bandarawela offre les mêmes collines avec beaucoup moins de monde, et Ella est assez proche pour la journée.",
+        },
+      ],
+    },
+  },
+
+  pinnawala: {
+    en: {
+      intro:
+        "Pinnawala is the elephant orphanage on the road between Colombo and Kandy, famous for its herd bathing in the river. We'll be honest: many travellers now feel uncomfortable there, as some elephants are chained and it feels more like a show than a sanctuary.",
+      facts: {
+        time: "About 1 to 2 hours",
+        when: "Bath times at the river are set by the orphanage",
+        access: "On the Colombo–Kandy road",
+      },
+      sections: [
+        {
+          title: "What we suggest instead",
+          text: "To see elephants in a way that feels right, go on a jeep safari in Udawalawe, Minneriya or Kaudulla, where they live free. At Udawalawe, the Elephant Transit Home cares for orphaned babies and releases them into the wild: you watch the feeding from a distance.",
+        },
+        {
+          title: "If you still want to go",
+          text: "Your driver can stop on the way to Kandy. Watch from the viewing areas and skip any paid contact, rides or photos with the elephants.",
+        },
+      ],
+    },
+    fr: {
+      intro:
+        "Pinnawala, c'est l'orphelinat d'éléphants sur la route entre Colombo et Kandy, célèbre pour son troupeau qui se baigne dans la rivière. Soyons honnêtes : beaucoup de voyageurs s'y sentent mal à l'aise aujourd'hui, car certains éléphants sont enchaînés et cela ressemble plus à un spectacle qu'à un refuge.",
+      facts: {
+        time: "Environ 1 à 2 heures",
+        when: "Les horaires du bain à la rivière sont fixés par l'orphelinat",
+        access: "Sur la route Colombo – Kandy",
+      },
+      sections: [
+        {
+          title: "Ce que nous conseillons plutôt",
+          text: "Pour voir des éléphants d'une façon qui fait du bien, faites un safari en jeep à Udawalawe, Minneriya ou Kaudulla, où ils vivent en liberté. À Udawalawe, l'Elephant Transit Home recueille des éléphanteaux orphelins et les relâche dans la nature : on assiste au repas à distance.",
+        },
+        {
+          title: "Si vous tenez à y aller",
+          text: "Votre chauffeur peut s'y arrêter sur la route de Kandy. Restez dans les zones d'observation et évitez tout contact payant, balade ou photo avec les éléphants.",
+        },
+      ],
+    },
+  },
 };
