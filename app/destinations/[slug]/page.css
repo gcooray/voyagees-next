@@ -37,6 +37,17 @@
   margin-top: 20px;
 }
 
+/* attribution for Creative Commons hero photos */
+.hero-credit {
+  margin: 6px 4px 0;
+  text-align: right;
+  font-size: 0.72rem;
+  color: var(--sage);
+}
+.hero-credit a {
+  color: inherit;
+}
+
 .hero-image-fallback {
   display: flex;
   align-items: center;

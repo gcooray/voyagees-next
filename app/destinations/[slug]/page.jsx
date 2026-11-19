@@ -78,6 +78,20 @@ export default async function DestinationPage({ params }) {
           </div>
         )}
 
+        {destination.heroCredit && (
+          <p className="hero-credit">
+            Photo:{" "}
+            <a href={destination.heroCredit.source} target="_blank" rel="noopener noreferrer">
+              {destination.heroCredit.artist}
+            </a>{" "}
+            (
+            <a href={destination.heroCredit.licenseUrl} target="_blank" rel="noopener noreferrer">
+              {destination.heroCredit.license}
+            </a>
+            ) via Wikimedia Commons
+          </p>
+        )}
+
         <h1>{destination.h1}</h1>
         <p className="tagline">{destination.description}</p>
       </header>
