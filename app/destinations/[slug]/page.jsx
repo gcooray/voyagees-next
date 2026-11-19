@@ -7,6 +7,7 @@ import { withSeo } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema, faqSchema } from "@/lib/structuredData";
 import RelatedLinks from "@/components/RelatedLinks";
+import DriverNotes, { getDriverNotes } from "@/components/DriverNotes";
 
 // Optional SEO (Next.js App Router way)
 const BRAND_SUFFIX = /\s*\|\s*voyagees\s*$/i;
@@ -84,8 +85,10 @@ export default async function DestinationPage({ params }) {
       {/* Overview */}
       <section className="overview">
         <h2>Why Visit {destination.name}</h2>
-        <p>{destination.overview}</p>
+        <p>{getDriverNotes(destination.slug, "en")?.intro || destination.overview}</p>
       </section>
+
+      <DriverNotes slug={destination.slug} locale="en" />
 
       {/* Things To Do */}
       <section className="tours">
@@ -108,25 +111,6 @@ export default async function DestinationPage({ params }) {
             </span>
           ))}
         </p>
-      </section>
-
-      {/* Pricing */}
-      <section className="pricing">
-        <h2>Pricing & Inclusions</h2>
-
-        <p>
-          Private tours to {destination.name} start from{" "}
-          <strong>$65 USD</strong> per person.
-        </p>
-
-        <ul>
-          <li>✅ Private driver-guide</li>
-          <li>✅ Air-conditioned vehicle</li>
-          <li>✅ Road taxes and parking fees</li>
-          <li>✅ Flexible itinerary</li>
-        </ul>
-
-        <p>Entry fees to attractions are not included.</p>
       </section>
 
       {/* Entrance Fees */}

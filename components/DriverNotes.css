@@ -1,0 +1,55 @@
+/* "From our drivers" block on the destination pages (components/DriverNotes.jsx) */
+
+.driver-notes h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.25;
+  margin: 0 0 0.5rem;
+}
+
+.dn-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin: 0 0 1.25rem;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.dn-facts div {
+  background: var(--paper-dim);
+  padding: 1rem 1.1rem;
+}
+.dn-facts dt {
+  font-size: 0.8rem;
+  color: var(--clay);
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.dn-facts dd {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.dn-sections {
+  display: grid;
+  gap: 1rem;
+}
+.dn-section {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 12px 12px 0;
+  padding: 1.1rem 1.3rem;
+}
+.dn-section p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+@media (max-width: 700px) {
+  .dn-facts { grid-template-columns: 1fr; }
+}

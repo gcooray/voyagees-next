@@ -7,6 +7,7 @@ import { withSeo } from "@/lib/seo";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema, faqSchema } from "@/lib/structuredData";
 import RelatedLinks from "@/components/RelatedLinks";
+import DriverNotes, { getDriverNotes } from "@/components/DriverNotes";
 
 const BRAND_SUFFIX = /\s*\|\s*voyagees\s*$/i;
 function shortTitle(metaTitle, fallback) {
@@ -79,8 +80,10 @@ export default async function DestinationPageFr({ params }) {
       {/* Overview */}
       <section className="overview">
         <h2>Pourquoi Visiter {destination.name}</h2>
-        <p>{destination.overview}</p>
+        <p>{getDriverNotes(destination.slug, "fr")?.intro || destination.overview}</p>
       </section>
+
+      <DriverNotes slug={destination.slug} locale="fr" />
 
       {/* Things To Do */}
       <section className="tours">
@@ -103,25 +106,6 @@ export default async function DestinationPageFr({ params }) {
             </span>
           ))}
         </p>
-      </section>
-
-      {/* Pricing */}
-      <section className="pricing">
-        <h2>Tarifs et Prestations Incluses</h2>
-
-        <p>
-          Les circuits privés à {destination.name} commencent à partir de{" "}
-          <strong>65 $ US</strong> par personne.
-        </p>
-
-        <ul>
-          <li>✅ Chauffeur-guide privé</li>
-          <li>✅ Véhicule climatisé</li>
-          <li>✅ Taxes routières et frais de stationnement</li>
-          <li>✅ Itinéraire flexible</li>
-        </ul>
-
-        <p>Les frais d&apos;entrée aux sites ne sont pas inclus.</p>
       </section>
 
       {/* Entrance Fees */}
