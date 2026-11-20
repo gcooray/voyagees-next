@@ -1,0 +1,224 @@
+/* Driver dashboard (/driver/dashboard), in the site's palette */
+
+.dd-page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+  font-family: var(--body);
+  color: var(--ink);
+}
+.dd-page * { box-sizing: border-box; }
+.dd-narrow { max-width: 560px; }
+.dd-page h1 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.8rem, 4vw, 2.3rem);
+  line-height: 1.15;
+  margin: 0 0 0.75rem;
+}
+.dd-eyebrow {
+  font-family: var(--display);
+  font-style: italic;
+  color: var(--clay);
+  margin: 0 0 0.35rem;
+}
+.dd-lead { line-height: 1.65; color: var(--sage); margin: 0 0 1.5rem; }
+.dd-muted { display: block; color: var(--sage); font-size: 0.85rem; line-height: 1.5; }
+.dd-muted a { color: var(--teal); }
+
+.dd-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+.dd-account { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+
+.dd-status {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  border-left: 4px solid var(--sage);
+  background: var(--paper-dim);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+.dd-status-pending { border-left-color: var(--gold); }
+.dd-status-approved { border-left-color: #4f8a5b; }
+.dd-status-needs_changes { border-left-color: var(--clay); }
+.dd-note { margin: 0.4rem 0 0; font-size: 0.92rem; }
+
+.dd-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  padding: 1.25rem 1.35rem 1.4rem;
+  margin: 0 0 1.25rem;
+  min-width: 0;
+}
+.dd-card legend {
+  font-family: var(--display);
+  font-size: 1.2rem;
+  padding: 0 0.4rem;
+}
+.dd-card > .dd-muted { margin: 0 0 1rem; }
+
+.dd-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.1rem;
+}
+.dd-field { display: grid; gap: 0.35rem; font-size: 0.88rem; }
+.dd-field > span, .dd-label { font-weight: 600; font-size: 0.88rem; }
+.dd-wide { grid-column: 1 / -1; }
+.dd-field input,
+.dd-field select,
+.dd-field textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+}
+.dd-field textarea { resize: vertical; line-height: 1.5; }
+
+.dd-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.dd-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+}
+.dd-chip input { position: absolute; opacity: 0; pointer-events: none; }
+.dd-chip-on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+.dd-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  align-self: center;
+}
+.dd-check input { margin-top: 0.25rem; width: 18px; height: 18px; flex-shrink: 0; }
+
+.dd-photos { display: grid; gap: 1.5rem; }
+.dd-photo-row { display: flex; align-items: center; gap: 1rem; margin-top: 0.6rem; }
+.dd-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--paper-dim);
+  display: inline-block;
+}
+.dd-avatar-empty { border: 1px dashed var(--line); }
+.dd-car-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.6rem;
+}
+.dd-car {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--paper-dim);
+}
+.dd-car img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.dd-car button {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(22, 36, 29, 0.75);
+  color: #fff;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.dd-car-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--sage);
+  color: var(--teal);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.dd-upload { position: relative; cursor: pointer; }
+.dd-upload input,
+.dd-car-add input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dd-docs { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+.dd-docs li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.dd-docs strong { font-size: 0.95rem; }
+
+.dd-submit { display: grid; gap: 1rem; }
+.dd-actions { display: flex; justify-content: flex-end; gap: 0.75rem; flex-wrap: wrap; }
+
+.dd-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.4rem;
+  border: 1px solid var(--clay);
+  border-radius: 999px;
+  background: var(--clay);
+  color: var(--paper);
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.dd-btn:hover { background: var(--gold-dark); border-color: var(--gold-dark); }
+.dd-btn:disabled { opacity: 0.6; cursor: wait; }
+.dd-btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.dd-btn-ghost:hover { background: var(--paper-dim); border-color: var(--sage); }
+
+.dd-ok,
+.dd-error {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.dd-ok { background: rgba(79, 138, 91, 0.12); color: #2f6b3c; }
+.dd-error { background: rgba(193, 91, 61, 0.1); color: var(--clay); }
+
+@media (max-width: 640px) {
+  .dd-grid { grid-template-columns: 1fr; }
+  .dd-docs li { flex-direction: column; align-items: flex-start; }
+  .dd-actions .dd-btn { flex: 1; }
+}

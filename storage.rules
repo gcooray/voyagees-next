@@ -1,0 +1,44 @@
+rules_version = '2';
+
+// Deployed by pasting into Firebase console → Storage → Rules.
+// Kept here so changes are versioned with the code that depends on them
+// (lib/driverApplications.js).
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == "contact@voyagees.com"
+        && request.auth.token.email_verified == true;
+    }
+    function isOwner(uid) {
+      return request.auth != null
+        && request.auth.uid == uid
+        && request.auth.token.email_verified == true;
+    }
+
+    // Driver and vehicle photos, shown on the site once the profile is approved.
+    match /driver-media/{uid}/{file} {
+      allow read: if true;
+      allow create, update: if isOwner(uid)
+        && request.resource.size < 8 * 1024 * 1024
+        && request.resource.contentType.matches("image/.*");
+      allow delete: if isOwner(uid) || isAdmin();
+    }
+
+    // Licences and insurance: only the driver and the admin can see them.
+    match /driver-documents/{uid}/{file} {
+      allow read: if isOwner(uid) || isAdmin();
+      allow create, update: if isOwner(uid)
+        && request.resource.size < 10 * 1024 * 1024
+        && (request.resource.contentType.matches("image/.*")
+            || request.resource.contentType == "application/pdf");
+      allow delete: if isOwner(uid) || isAdmin();
+    }
+
+    // Everything else is closed.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

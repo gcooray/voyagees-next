@@ -231,3 +231,39 @@
   .adm-grid { grid-template-columns: 1fr; }
   .adm-modal { padding: 1.2rem 1rem; }
 }
+
+/* Driver applications (components/admin/DriverApplications.jsx) */
+.adm-apps { margin-bottom: 1.5rem; }
+.adm-apps-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.adm-apps-list { list-style: none; margin: 0.5rem 0 0; padding: 0; display: grid; gap: 0.5rem; }
+.adm-apps-list li {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.adm-badge-pending { background: rgba(226, 166, 59, 0.18); color: var(--gold-dark); }
+.adm-badge-needs_changes { background: rgba(193, 91, 61, 0.12); color: var(--clay); }
+.adm-badge-draft { background: rgba(116, 129, 118, 0.15); color: var(--sage); }
+.adm-badge-approved { background: rgba(43, 110, 113, 0.12); color: var(--teal); }
+.adm-app-about { line-height: 1.6; margin: 0 0 1rem; }
+.adm-app-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem 1.25rem; margin: 0 0 1rem; }
+.adm-app-details dt { font-size: 0.78rem; color: var(--sage); }
+.adm-app-details dd { margin: 0; font-size: 0.92rem; }
+.adm-app-sub { font-family: var(--display); font-weight: 500; font-size: 1.1rem; margin: 1rem 0 0.25rem; }
+.adm-app-docs { list-style: none; margin: 0.5rem 0 1rem; padding: 0; display: grid; gap: 0.4rem; }
+.adm-app-docs li { display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-size: 0.92rem; }
+
+@media (max-width: 700px) {
+  .adm-apps-list li { grid-template-columns: 1fr auto; }
+  .adm-app-details { grid-template-columns: 1fr; }
+}

@@ -40,6 +40,36 @@ service cloud.firestore {
       allow read, write: if isAdmin();
     }
 
+    // Drivers' own profiles from /driver/dashboard (lib/driverApplications.js).
+    // Private to the driver and the admin. A driver can only create or edit
+    // their own (document id = their uid), can only set the review status to
+    // "draft" or "pending", and can never touch the fields the admin sets
+    // when reviewing. Only the admin publishes to /drivers.
+    match /driverProfiles/{uid} {
+      function isOwner() {
+        return request.auth != null
+          && request.auth.uid == uid
+          && request.auth.token.email_verified == true;
+      }
+      function adminOnlyUntouched() {
+        return !request.resource.data.diff(resource == null ? {} : resource.data).affectedKeys()
+          .hasAny(["reviewNote", "published", "approvedAt", "reviewedAt"]);
+      }
+      function statusAllowed() {
+        return !request.resource.data.diff(resource == null ? {} : resource.data).affectedKeys().hasAny(["reviewStatus"])
+          || request.resource.data.reviewStatus in ["draft", "pending"];
+      }
+
+      allow read: if isOwner() || isAdmin();
+      allow create: if isOwner()
+        && request.resource.data.ownerUid == uid
+        && request.resource.data.reviewStatus in ["draft", "pending"]
+        && adminOnlyUntouched();
+      allow update: if isAdmin()
+        || (isOwner() && request.resource.data.ownerUid == uid && statusAllowed() && adminOnlyUntouched());
+      allow delete: if isAdmin();
+    }
+
     // Commission setting: public read
     match /platformSettings/{settingId} {
       allow read: if true;

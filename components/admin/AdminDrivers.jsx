@@ -16,6 +16,7 @@ import { ADMIN_EMAIL } from "@/lib/driversStore";
 import { drivers as staticDrivers } from "@/data/drivers";
 import EmailSignIn from "@/components/rides/EmailSignIn";
 import WhatsAppInput from "@/components/WhatsAppInput";
+import DriverApplications from "@/components/admin/DriverApplications";
 import "./AdminDrivers.css";
 
 // Admin-only driver management (/admin/drivers). Public profile fields live
@@ -191,6 +192,8 @@ function DriversManager({ user }) {
       {error && <p className="adm-error">{error}</p>}
 
       {!imported && !error && <ImportPanel onDone={load} />}
+
+      <DriverApplications onPublished={load} />
 
       {drivers.length > 0 && (
         <>

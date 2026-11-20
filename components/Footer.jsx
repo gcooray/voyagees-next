@@ -12,6 +12,7 @@ const STRINGS = {
     about: "About Us",
     contact: "Contact",
     terms: "Terms of Use",
+    drivers: "Drive with us",
     madeIn: "Made in Sri Lanka",
     follow: "Follow us",
   },
@@ -20,6 +21,7 @@ const STRINGS = {
     about: "À propos",
     contact: "Contact",
     terms: "Conditions d'Utilisation",
+    drivers: "Devenir chauffeur",
     madeIn: "Fait au Sri Lanka",
     follow: "Suivez-nous",
   },
@@ -73,6 +75,8 @@ export default function Footer() {
           <Link href={`${prefix}/blog`}>Blog</Link>
           <Link href={`${prefix}/contact`}>{t.contact}</Link>
           <Link href={`${prefix}/terms`}>{t.terms}</Link>
+          {/* driver sign-up is English only */}
+          <Link href="/become-a-driver">{t.drivers}</Link>
         </div>
 
         <div className="footer-social">
