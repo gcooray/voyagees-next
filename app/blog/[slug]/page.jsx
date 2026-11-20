@@ -51,6 +51,7 @@ export default async function BlogPost({ params }) {
             image: post.shareImage,
             date: post.date,
             locale: "en",
+            author: post.author,
           })}
         />
         <JsonLd
@@ -68,7 +69,7 @@ export default async function BlogPost({ params }) {
 
           <h1>{post.title}</h1>
           <p className="blog-meta blog-article-meta">
-            {formatPostDate(post.date, "en")} · {post.readingMinutes} min read · The Voyagees team
+            {formatPostDate(post.date, "en")} · {post.readingMinutes} min read · {post.author || "The Voyagees team"}
           </p>
 
           {post.image && (

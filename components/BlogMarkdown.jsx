@@ -5,7 +5,8 @@ import Link from "next/link";
 //
 //   ## Heading / ### Subheading
 //   - bullet list         1. numbered list
-//   > tip box (consecutive "> " lines form one box)
+//   > tip box (consecutive "> " lines form one box; "> - item" lines
+//     inside it become a bullet list)
 //   ![alt text](/images/…)  — an image on its own line (alt is also the caption)
 //   **bold**, *italic*, [link text](/fr/plan-trip or https://…)
 //
@@ -137,12 +138,28 @@ export default function BlogMarkdown({ markdown }) {
             {block.alt && <figcaption>{block.alt}</figcaption>}
           </figure>
         );
-      case "tip":
+      case "tip": {
+        const lines = block.lines.filter(Boolean);
+        const items = lines.filter((l) => /^[-*]\s+/.test(l)).map((l) => l.replace(/^[-*]\s+/, ""));
+        const text = lines.filter((l) => !/^[-*]\s+/.test(l)).join(" ");
+        if (items.length === 0) {
+          return (
+            <aside key={key} className="blog-tip">
+              {renderInline(text, key)}
+            </aside>
+          );
+        }
         return (
           <aside key={key} className="blog-tip">
-            {renderInline(block.lines.filter(Boolean).join(" "), key)}
+            {text && <p>{renderInline(text, key)}</p>}
+            <ul>
+              {items.map((item, j) => (
+                <li key={`${key}-${j}`}>{renderInline(item, `${key}-${j}`)}</li>
+              ))}
+            </ul>
           </aside>
         );
+      }
       default:
         return <p key={key}>{renderInline(block.lines.join(" "), key)}</p>;
     }
