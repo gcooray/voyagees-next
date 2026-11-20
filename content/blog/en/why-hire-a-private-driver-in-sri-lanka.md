@@ -59,7 +59,7 @@ There is no single day rate across the island, because several factors move the 
 
 Pricing usually depends on:
 
-- **Distance and route.** A full day looping around Kandy costs less than a long transfer from the south coast up to Sigiriya. More kilometers mean more fuel and more hours behind the wheel.
+- **Total distance.** On a multi-day tour, the rate is usually set per day, with a kilometer allowance for the whole trip: a quiet day costs the same as a long drive. What matters is the total: kilometers beyond the allowance are charged extra. For a single day or a transfer, on the other hand, distance changes the price directly.
 - **Vehicle size.** A sedan for a couple is cheaper to run than a van for a family of six or a small bus for a group.
 - **Season.** Rates climb during the December to March peak and around major holidays, when demand for trusted drivers outstrips supply.
 - **Language skills.** English-speaking drivers are common. French-speaking drivers are fewer, so a bilingual driver may carry a modest premium and should be booked early.

@@ -59,7 +59,7 @@ Il n'existe pas un tarif unique sur toute l'île : plusieurs éléments font bou
 
 Le prix dépend en général de :
 
-- **La distance et l'itinéraire.** Une journée autour de Kandy coûte moins cher qu'un long transfert de la côte sud jusqu'à Sigiriya. Plus de kilomètres, c'est plus de carburant et plus d'heures au volant.
+- **La distance totale.** Pour un circuit de plusieurs jours, le tarif est en général fixé par jour, avec un kilométrage inclus pour tout le voyage : une journée tranquille coûte autant qu'une longue étape. Ce qui compte, c'est le total : au-delà du kilométrage prévu, les kilomètres supplémentaires sont facturés. Pour une simple journée ou un transfert, en revanche, la distance fait directement varier le prix.
 - **La taille du véhicule.** Une berline pour un couple coûte moins cher qu'un van pour une famille de six ou qu'un petit bus pour un groupe.
 - **La saison.** Les tarifs montent pendant la haute saison, de décembre à mars, et autour des grandes fêtes, quand les bons chauffeurs sont très demandés.
 - **La langue.** Les chauffeurs anglophones sont nombreux. Les chauffeurs francophones sont plus rares : un chauffeur bilingue peut coûter un peu plus cher et se réserve tôt.
