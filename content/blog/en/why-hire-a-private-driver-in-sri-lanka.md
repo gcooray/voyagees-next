@@ -4,8 +4,8 @@ metaTitle: Why Hire a Private Driver in Sri Lanka?
 description: What a private driver in Sri Lanka includes, how it compares with self-drive, buses and taxis, what affects the price, and how to vet a licensed, insured driver.
 date: 2026-11-20
 author: Gayan Cooray
-image: /images/hero/nuwaraeliya.webp
-imageAlt: A quiet road through the tea estates near Nuwara Eliya, Sri Lanka
+image: /images/customers/1.jpg
+imageAlt: Travellers with their Voyagees drivers at a viewpoint in the Sri Lankan hills
 ---
 
 > **Key takeaways**
