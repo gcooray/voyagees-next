@@ -120,6 +120,7 @@ export const exploreGuide = {
       ["The north", WEATHER.north],
     ],
     weatherLegend: { g: "Good", m: "Mixed", r: "Rainy" },
+    weatherMore: { href: "/blog/best-time-to-visit-sri-lanka", label: "The full month-by-month guide" },
 
     trapsEyebrow: "We see it every week",
     trapsTitle: "Mistakes that ruin a day",

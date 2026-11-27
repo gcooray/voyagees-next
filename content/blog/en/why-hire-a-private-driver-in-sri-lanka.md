@@ -61,7 +61,7 @@ Pricing usually depends on:
 
 - **Total distance.** On a multi-day tour, the rate is usually set per day, with a kilometer allowance for the whole trip: a quiet day costs the same as a long drive. What matters is the total: kilometers beyond the allowance are charged extra. For a single day or a transfer, on the other hand, distance changes the price directly.
 - **Vehicle size.** A sedan for a couple is cheaper to run than a van for a family of six or a small bus for a group.
-- **Season.** Rates climb during the December to March peak and around major holidays, when demand for trusted drivers outstrips supply.
+- **Season.** Rates climb during the December to March peak and around major holidays, when demand for trusted drivers outstrips supply (see [the best time to visit Sri Lanka](/blog/best-time-to-visit-sri-lanka)).
 - **Language skills.** English-speaking drivers are common. French-speaking drivers are fewer, so a bilingual driver may carry a modest premium and should be booked early.
 - **Trip length.** Multi-day tours often work out better per day than a string of one-off hires, and some rates fold in the driver's meals and accommodation.
 
