@@ -61,7 +61,7 @@ Le prix dépend en général de :
 
 - **La distance totale.** Pour un circuit de plusieurs jours, le tarif est en général fixé par jour, avec un kilométrage inclus pour tout le voyage : une journée tranquille coûte autant qu'une longue étape. Ce qui compte, c'est le total : au-delà du kilométrage prévu, les kilomètres supplémentaires sont facturés. Pour une simple journée ou un transfert, en revanche, la distance fait directement varier le prix.
 - **La taille du véhicule.** Une berline pour un couple coûte moins cher qu'un van pour une famille de six ou qu'un petit bus pour un groupe.
-- **La saison.** Les tarifs montent pendant la haute saison, de décembre à mars, et autour des grandes fêtes, quand les bons chauffeurs sont très demandés.
+- **La saison.** Les tarifs montent pendant la haute saison, de décembre à mars, et autour des grandes fêtes, quand les bons chauffeurs sont très demandés (voir [quand partir au Sri Lanka](/fr/blog/quand-partir-au-sri-lanka)).
 - **La langue.** Les chauffeurs anglophones sont nombreux. Les chauffeurs francophones sont plus rares : un chauffeur bilingue peut coûter un peu plus cher et se réserve tôt.
 - **La durée du voyage.** Un circuit de plusieurs jours revient souvent moins cher par jour qu'une série de journées isolées, et certains tarifs incluent les repas et l'hébergement du chauffeur.
 

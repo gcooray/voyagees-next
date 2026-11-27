@@ -28,7 +28,7 @@ export async function generateMetadata({ params }) {
       translated: false,
       image: post.shareImage,
       imageAlt: post.imageAlt,
-      article: { publishedTime: post.date },
+      article: { publishedTime: post.date, modifiedTime: post.updated || undefined },
     }
   );
 }
@@ -50,6 +50,7 @@ export default async function BlogPost({ params }) {
             path,
             image: post.shareImage,
             date: post.date,
+            updated: post.updated,
             locale: "en",
             author: post.author,
           })}
@@ -69,7 +70,7 @@ export default async function BlogPost({ params }) {
 
           <h1>{post.title}</h1>
           <p className="blog-meta blog-article-meta">
-            {formatPostDate(post.date, "en")} · {post.readingMinutes} min read · {post.author || "The Voyagees team"}
+            {post.updated ? `Updated ${formatPostDate(post.updated, "en")}` : formatPostDate(post.date, "en")} · {post.readingMinutes} min read · {post.author || "The Voyagees team"}
           </p>
 
           {post.image && (

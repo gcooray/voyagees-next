@@ -216,6 +216,44 @@
   margin-top: 0.35rem;
 }
 
+.blog-table {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.blog-table table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+.blog-table th,
+.blog-table td {
+  padding: 0.7rem 0.9rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+.blog-table thead th {
+  background: var(--paper-dim);
+  font-weight: 600;
+}
+.blog-table tbody th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+@media (max-width: 560px) {
+  .blog-table table { min-width: 0; font-size: 0.85rem; }
+  .blog-table th, .blog-table td { padding: 0.55rem 0.6rem; }
+  .blog-table tbody th { white-space: normal; }
+}
+.blog-table tbody tr:last-child th,
+.blog-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
 .blog-cta {
   margin: 3rem 0 0;
   padding: 1.75rem;

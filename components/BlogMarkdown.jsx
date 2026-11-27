@@ -8,6 +8,7 @@ import Link from "next/link";
 //   > tip box (consecutive "> " lines form one box; "> - item" lines
 //     inside it become a bullet list)
 //   ![alt text](/images/…)  — an image on its own line (alt is also the caption)
+//   | a | b |  — a table: first row is the header, the |---| row is skipped
 //   **bold**, *italic*, [link text](/fr/plan-trip or https://…)
 //
 // Blank lines separate paragraphs.
@@ -82,6 +83,16 @@ function toBlocks(markdown) {
       continue;
     }
 
+    if (line.startsWith("|") && line.endsWith("|")) {
+      if (current?.type !== "table") {
+        flush();
+        current = { type: "table", rows: [] };
+      }
+      const cells = line.slice(1, -1).split("|").map((c) => c.trim());
+      if (!cells.every((c) => /^:?-+:?$/.test(c))) current.rows.push(cells);
+      continue;
+    }
+
     const bullet = line.match(/^[-*]\s+(.*)$/);
     const numbered = line.match(/^\d+[.)]\s+(.*)$/);
     const quote = line.match(/^>\s?(.*)$/);
@@ -128,6 +139,35 @@ export default function BlogMarkdown({ markdown }) {
               <li key={`${key}-${j}`}>{renderInline(item, `${key}-${j}`)}</li>
             ))}
           </List>
+        );
+      }
+      case "table": {
+        const [head, ...rows] = block.rows;
+        return (
+          <div key={key} className="blog-table">
+            <table>
+              <thead>
+                <tr>
+                  {head.map((cell, j) => (
+                    <th key={j} scope="col">{renderInline(cell, `${key}-h${j}`)}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row, r) => (
+                  <tr key={r}>
+                    {row.map((cell, j) =>
+                      j === 0 ? (
+                        <th key={j} scope="row">{renderInline(cell, `${key}-${r}-${j}`)}</th>
+                      ) : (
+                        <td key={j}>{renderInline(cell, `${key}-${r}-${j}`)}</td>
+                      )
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         );
       }
       case "img":

@@ -184,6 +184,9 @@
   color: var(--sage);
 }
 .eg-legend li { display: flex; align-items: center; gap: 0.45rem; }
+.eg-more { margin: 1.25rem 0 0; font-weight: 600; }
+.eg-more a { color: var(--teal); text-decoration: none; border-bottom: 1px solid currentColor; }
+.eg-more a:hover { color: var(--ink); }
 .eg-dot {
   width: 14px;
   height: 14px;

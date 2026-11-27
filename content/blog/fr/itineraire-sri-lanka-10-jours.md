@@ -11,7 +11,7 @@ Dix jours, c'est la durée que choisissent beaucoup de voyageurs pour un premier
 
 Sur la carte, le pays a l'air petit. Mais les routes sont lentes, souvent sinueuses, et on roule en moyenne à 30 ou 40 km/h. C'est la première chose qu'on explique aux voyageurs, et c'est elle qui guide l'itinéraire ci-dessous.
 
-> **Ce parcours est pensé pour la période de décembre à avril**, la bonne saison pour la côte sud et les montagnes. Si vous partez entre mai et septembre, la côte est (Trincomalee, Arugam Bay) est souvent un meilleur choix pour la partie plage.
+> **Ce parcours est pensé pour la période de décembre à avril**, la bonne saison pour la côte sud et les montagnes. Si vous partez entre mai et septembre, la côte est (Trincomalee, Arugam Bay) est souvent un meilleur choix pour la partie plage. Voir [quand partir au Sri Lanka, mois par mois](/fr/blog/quand-partir-au-sri-lanka).
 
 ## L'itinéraire en un coup d'œil
 

@@ -267,6 +267,7 @@ export const exploreGuide = {
       ["Le Nord", WEATHER.north],
     ],
     weatherLegend: { g: "Beau", m: "Variable", r: "Pluvieux" },
+    weatherMore: { href: "/fr/blog/quand-partir-au-sri-lanka", label: "Le guide complet, mois par mois" },
 
     trapsEyebrow: "On le voit chaque semaine",
     trapsTitle: "Les erreurs qui gâchent une journée",

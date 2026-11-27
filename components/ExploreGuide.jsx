@@ -93,6 +93,11 @@ export default function ExploreGuide({ locale = "en" }) {
               </li>
             ))}
           </ul>
+          {g.weatherMore && (
+            <p className="eg-more">
+              <Link href={g.weatherMore.href}>{g.weatherMore.label} →</Link>
+            </p>
+          )}
         </div>
       </section>
 
